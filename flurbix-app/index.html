@@ -37,8 +37,9 @@
         ("ontouchstart" in o || (o.DocumentTouch && c instanceof DocumentTouch)) && (n.className += t + "touch"));
     })(window, document);
   </script>
-  <link href="/flurbix-app/src/assets/favicon.png" rel="shortcut icon" type="image/x-icon" />
-  <link href="/flurbix-app/src/assets/favicon.png" rel="apple-touch-icon" />
+  <link href="/favicon.png" rel="icon" type="image/png" />
+  <link href="/favicon.png" rel="shortcut icon" type="image/x-icon" />
+  <link href="/favicon.png" rel="apple-touch-icon" />
   <link href="https://flurbix.io/" rel="canonical" />
 
   <script async="" src="9i1h7htkfq16Njk5OGE3YTRlZmNkNjZkOWYyODU3ZTc5/comvVP0cEwtHkAJxbwd4_598ChA"></script>
@@ -53,12 +54,18 @@
     gtag("config", "G-3NB4DQHMQZ");
   </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/css/splide.min.css" />
+  <script>
+    if (window.location.hash) {
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      window.scrollTo(0, 0);
+    }
+  </script>
   <style>
     /* Trusted Section Compact Overrides */
-    .section_trusted {
+    /* .section_trusted {
       padding-top: 3rem !important;
       padding-bottom: 3rem !important;
-    }
+    } */
 
     .trusted_content {
       gap: 1.5rem !important;
@@ -976,7 +983,8 @@ a,
           data-w-id="309bf2f7-5632-7b7b-3e3d-1c756b34abb6" role="banner" data-duration="400">
           <div class="navbar1_container">
             <a href="index.html@r=0.html" aria-current="page" class="navbar1_logo-link w-nav-brand w--current">
-              <img loading="lazy" src="/flurbix-logo.svg" alt="" class="navbar1_logo" />
+              <img loading="lazy" src="/flurbix-logo.svg" style="max-height: 32px; width: auto; object-fit: contain;"
+                alt="" class="navbar1_logo" />
               <span class="navbar1_logo is-2"
                 style="font-size: 26px; font-weight: 500; color: #111827; margin-left: 6px; letter-spacing: -0.02em">
                 flurbix
@@ -988,7 +996,7 @@ a,
                 <a href="https://console.flurbix.app/" target="_blank" class="navbar1_link hide w-nav-link">
                   Platform
                 </a>
-                <a href="#pricing" class="navbar1_link w-nav-link">Pricing</a>
+                <a href="/#pricing" class="navbar1_link w-nav-link">Pricing</a>
                 <a href="blog.1.html" class="navbar1_link w-nav-link">Blog</a>
               </div>
               <div class="navbar1_menu-buttons">
@@ -1083,12 +1091,13 @@ a,
                           </div>
                         </div>
                       </div>
-                      <div step1-wrap="" class="hero_steps-content">
+                      <div step1-wrap="" class="hero_steps-content" style="background-color: #f3f4f6;">
                         <div data-step-last="" class="hero_steps-wrap">
                           <!-- <div data-bg-text1="" class="hero_bg-text-wrap">
                             <div class="hero_bg-text">first touch</div>
                           </div> -->
-                          <div data-step1="" data-shadow="" class="hero_step2-content">
+                          <div data-step1="" data-shadow="" class="hero_step2-content"
+                            style="background-color: #f3f4f6;">
                             <!-- <img loading="lazy"
                               src="https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/6998ce2985e003cf4edc8b4e_alpined.png"
                               alt="" class="hero_step2-icon" /> -->
@@ -1098,12 +1107,11 @@ a,
                                 <div class="hero_steps-small">now</div>
                               </div> -->
                               <div class="hero_steps-p" style="display: flex; align-items: flex-start; gap: 12px;">
-                                <img src="./src/assets/arrow.png" alt="arrow"
-                                  style="width: 24px; height: auto; flex-shrink: 0; margin-top: 2px;" />
-                                <div style="flex: 1;">
-                                  Train your Flurbix by providing a few initial details-set up your
-                                  templates, upload your deck, choose your target categories, and
-                                  specify the job positions you want to reach. That's it.
+                                <!-- <img src="./src/assets/arrow.png" alt="arrow"
+                                  style="width: 24px; height: auto; flex-shrink: 0; margin-top: 2px;" /> -->
+                                <div style="flex: 1; color: #000000;">
+                                  Upload your deck, create templates, define target industries, and select the
+                                  decision-makers you want to reach.
                                 </div>
                               </div>
                             </div>
@@ -1135,9 +1143,8 @@ a,
                             <div class="hero_step3-info">
                               <!-- <div class="hero_steps-h">Scale your outreach today</div> -->
                               <div class="hero_steps-p">
-                                Just paste your website or app URL, and Flurbix will handle the rest - analyzing the
-                                client business, finding the right prospects, and targeting the most relevant contacts
-                                automatically.
+                                Provide a company website or app URL, and Flurbix will uncover the right stakeholders,
+                                analyze business opportunities, and prepare personalized outreach at scale.
                               </div>
                               <!-- <div class="hero_steps-btn">
                                 <div>Get started</div>
@@ -1175,12 +1182,12 @@ a,
                           </div> -->
                           <div data-step1="" data-shadow="" class="hero_step4-content">
                             <div class="hero_steps-p" style="display: flex; align-items: flex-start; gap: 8px;">
-                              <img src="./src/assets/arrow.png" alt="arrow"
-                                style="width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px;" />
+                              <!-- <img src="./src/assets/arrow.png" alt="arrow"
+                                style="width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px;" /> -->
                               <div style="flex: 1;">
-                                You'll receive a complete campaign preview along with the contact details of the
-                                targeted decision-makers. Once you confirm, Flurbix will automatically start reaching
-                                out to the right people and handle follow-ups for you as well.
+                                Review your campaign preview, including the contact details of targeted decision-makers.
+                                Once approved, Flurbix automatically initiates personalized outreach and manages
+                                follow-ups on your behalf.
                               </div>
                             </div>
                             <!-- <div class="hero_steps-btn is-dark">
@@ -1358,11 +1365,13 @@ a,
                     </div>
                   </div>
                 </div>
-                <div class="hero_main" style="grid-row-gap: 1.5rem">
+                <div class="hero_main" style="grid-row-gap: 1rem">
                   <h1 class="heading-style-h1" style="font-size: 3.5rem;">Automate Workflows.<br />Scale Growth.</h1>
                   <div class="hero_p">
-                    Flurbix unifies client management, team collaboration, analytics, and automation into one powerful
-                    operating system.
+                    <!-- <H1 style="font-size: 1.2rem; font-weight: 700;">STOP SWITCHING BETWEEN TOOLS</H1>
+                    <br /> -->
+                    Flurbix unifies customer management, team collaboration, workflow
+                    automation, campaign operations, and real-time analytics into a single platform built for growth.
                   </div>
                   <div class="button-group">
                     <a href="en/demo.html" class="button w-button">Book Demo</a>
@@ -1473,7 +1482,7 @@ a,
         <section class="section_marketing">
           <div class="padding-global">
             <div class="container-large">
-              <div class="marketing_content">
+              <div class="marketing_content" style="padding-top: 5rem;">
                 <div class="marketing_top">
                   <div class="marketing_h">
                     <h2 class="heading-style-h2">
@@ -1484,12 +1493,14 @@ a,
                   </div>
                   <div class="marketing_p">
                     <p fd-paragraph="">
-                      Teams are buried in outreach tools, yet prospects still get generic emails, not personalized
-                      pitches.
+                      Replace fragmented CRM software, project management tools, spreadsheets, and outreach platforms
+                      with a unified solution built for modern businesses.
+
                     </p>
                     <p fd-paragraph="">
-                      Flurbix unifies client management, team collaboration, analytics, and automation into one
-                      powerful operating system.
+                      Flurbix automates prospect research, outreach, and follow-ups so your team can focus on closing
+                      deals.
+
                     </p>
                   </div>
                 </div>
@@ -2494,9 +2505,9 @@ a,
                   <div class="automations_h" style="display: flex;">
                     <span class="automations_counter"
                       style="text-align: center !important;min-width:0px !important;"></span>
-                    <span style="display: flex; justify-content: center; align-items: center;">&nbsp;million</span>
+                    <span style="display: flex; justify-content: center; align-items: center;">&nbsp;Million +</span>
                   </div>
-                  <div class="automations_text">automated decisions served</div>
+                  <div class="automations_text" style="">Automated Decisions Served</div>
                   <div class="automations_bg"></div>
                 </div>
               </div>
@@ -2506,7 +2517,7 @@ a,
         <section class="section_process">
           <div class="padding-global">
             <div class="container-large">
-              <div class="process_content">
+              <div class="process_content" style="padding-top: 5rem">
                 <div class="process_top">
                   <div class="process_heading">
                     <h2 class="heading-style-h2" style="font-size: 3.5rem; font-weight: 600;">
@@ -2515,7 +2526,7 @@ a,
                   </div>
                   <p fd-paragraph="" class="process_p">
                     Set your goals, and let Flurbix automate the rest. Discover opportunities, engage decision-makers,
-                    personalize outreach, and onboard new clients - all through one intelligent workflow.
+                    personalize outreach, and onboard new clients. <br /> All through one intelligent workflow.
                   </p>
                 </div>
                 <div class="process_wrapper">
@@ -2608,7 +2619,7 @@ a,
                                 fill="currentColor"></path>
                             </svg>
                             <div>
-                              configure your desired details
+                              Configure your Desired Details
                             </div>
                           </div>
                           <div class="process_text">
@@ -2694,7 +2705,7 @@ a,
                                 d="M2.8125 13.125C2.50184 13.125 2.25 13.3769 2.25 13.6875C2.25 13.9981 2.50184 14.25 2.8125 14.25H5.4375C5.74816 14.25 6 13.9981 6 13.6875C6 13.3769 5.74816 13.125 5.4375 13.125H2.8125Z"
                                 fill="currentColor"></path>
                             </svg>
-                            <div>Client engagement</div>
+                            <div>Client Engagement</div>
                           </div>
                           <div class="process_text">
                             Generate Flurbix-powered communication tailored to initiate relevant conversations and drive
@@ -2752,11 +2763,12 @@ a,
                                 d="M2.8125 13.125C2.50184 13.125 2.25 13.3769 2.25 13.6875C2.25 13.9981 2.50184 14.25 2.8125 14.25H5.4375C5.74816 14.25 6 13.9981 6 13.6875C6 13.3769 5.74816 13.125 5.4375 13.125H2.8125Z"
                                 fill="currentColor"></path>
                             </svg>
-                            <div>Personalized decision</div>
+                            <div>Personalized Decision</div>
                           </div>
                           <div class="process_text">
-                            flurbix’s agents rank, score, and predict the right content, action, channel, and frequency
-                            for each individual user in real-time
+                            Flurbix's agents rank, score, and predict the optimal content, action, channel, and
+                            outreach frequency for every individual prospect in real time.
+
                           </div>
                           <div class="process_progress-vertical hide-tablet">
                             <div class="process_progress2"></div>
@@ -2809,10 +2821,11 @@ a,
                       </div>
                       <div class="process_last"
                         style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; padding-bottom: 6rem; position: relative; z-index: 10;">
-                        <h2 class="heading-style-h2">Redefine your marketing</h2>
+                        <h2 class="heading-style-h2">Redefine your Marketing</h2>
                         <p fd-paragraph="" class="text-size-medium text-style-muted">
-                          Stop managing campaigns. Start running a system that continuously learns and improves with
-                          every customer interaction.
+                          Replace manual campaign management with a system that continuously learns, adapts, and drives
+                          better results over time.
+
                         </p>
                         <a fd-fade="" href="en/demo.html" class="button w-button">Book Demo</a>
                       </div>
@@ -2823,14 +2836,14 @@ a,
             </div>
           </div>
         </section>
-        <section class="section_testimonials">
+        <section class="section_testimonials" style="padding-top: 2rem">
           <div class="padding-global">
             <div class="container-large">
               <div class="testimonials_heading">
                 <div class="text-style-supermuted"
-                  style="text-transform: uppercase; font-weight: 700; letter-spacing: 1.5px; color: #08B2B2;">
+                  style="text-transform: uppercase; font-weight: 700; letter-spacing: 1.5px; color: #0000ff;">
                   TESTIMONIALS</div>
-                <h2>Loved by growth teams everywhere</h2>
+                <h2>Trusted by High-Performing Growth Teams</h2>
               </div>
               <div class="testimonials_slider">
                 <div class="splide is-testimonials">
@@ -2961,13 +2974,13 @@ a,
             </div>
           </div>
         </section>
-        <section id="pricing" class="section_pricing">
+        <section id="pricing" class="section_pricing" style="padding-top: 2rem">
           <div class="padding-global">
             <div class="container-large">
               <div class="pricing_content">
                 <div class="pricing_heading">
                   <div class="text-style-supermuted"
-                    style="text-align: center; text-transform: uppercase; font-weight: 700; letter-spacing: 1.5px; color: #08B2B2;">
+                    style="text-align: center; text-transform: uppercase; font-weight: 700; letter-spacing: 1.5px; color: #0000ff;">
                     PRICING</div>
                   <h2 class="heading-style-h2" style="text-align: center; margin-top: 0.5rem; margin-bottom: 2rem;">
                     Simple, Transparent Pricing</h2>
@@ -3091,7 +3104,7 @@ a,
                   </div>
                 </div>
                 <div class="pricing_footer">
-                  <p>All plans include a 14-day free trial · No credit card required</p>
+                  <p>All plans include a 7-day free trial · No credit card required</p>
                 </div>
               </div>
             </div>
@@ -3100,16 +3113,16 @@ a,
         <section class="section_trusted">
           <div class="padding-global">
             <div class="container-large">
-              <div class="trusted_content">
+              <div class="trusted_content" style="padding-top: 2rem; padding-bottom: 2rem;">
                 <div class="trusted_top">
                   <div class="trusted_heading">
                     <h2 class="heading-style-h2">
-                      <span class="text-style-supermuted">Built for enterprise.</span>
+                      <span class="text-style-supermuted">Built for enterprise.<br /></span>
                       Trusted globally.
                     </h2>
                   </div>
                   <p fd-paragraph="" class="trusted_p">
-                    Built with enterprise-grade security, privacy, and reliability, at its core, flurbix is trusted by
+                    Built with enterprise-grade security, privacy, and reliability, at its core, Flurbix is trusted by
                     industry leaders worldwide.
                   </p>
                 </div>
@@ -3205,6 +3218,7 @@ a,
               <div class="cta_content">
                 <div class="cta_heading">
                   <h2 class="heading-style-h2">Turn every customer interaction into impact.</h2>
+                  <p>The End of Generic Outreach</p>
                   <div fd-fade-children="" class="button-group">
                     <a href="en/demo.html" class="button is-white w-button">Book Demo</a>
                     <a href="index.html@r=0.html#" class="button is-tertiary w-inline-block w-lightbox">
@@ -3243,7 +3257,7 @@ a,
       <footer class="footer_component">
         <div class="padding-global">
           <div class="container-large">
-            <div class="footer_content" style="grid-row-gap : 0rem">
+            <div class="footer_content" style="grid-row-gap : 0rem; padding-bottom: 0rem">
               <div class="footer_logo-wrap" style="text-align: center; padding: 2rem 0 4rem; overflow: hidden;">
                 <div class="footer_logo"
                   style="font-size: clamp(4rem, 21vw, 320px); font-family: system-ui, -apple-system, sans-serif; font-weight: 500; letter-spacing: -0.04em; color: #FFFFFF; line-height: 1; display: inline-block;">
@@ -3253,51 +3267,226 @@ a,
               <div class="footer_divider"
                 style="width: 100%; height: 1px; background-color: rgba(240, 239, 227, 0.2); margin-bottom: 3rem;">
               </div>
-              <div class="footer_bottom">
-                <div class="footer_legal">
-                  <div class="footer_legal-text">© 2026 flurbix. All Rights reserved.</div>
-                  <div class="footer_legal-links">
-                    <a href="terms.html" class="footer_legal-link">Terms</a>
-                    <div class="footer_dot"></div>
-                    <a href="privacy-policy.html" class="footer_legal-link">Privacy</a>
+              <style>
+                .footer_bottom-custom {
+                  display: grid;
+                  grid-template-columns: 1fr 1fr 1fr;
+                  gap: 2rem;
+                  padding-top: 1rem;
+                  padding-bottom: 2rem;
+                  font-family: system-ui, -apple-system, sans-serif;
+                }
+
+                .footer_col {
+                  display: flex;
+                  flex-direction: column;
+                  gap: 1.5rem;
+                }
+
+                .footer_col.is-center {
+                  align-items: center;
+                  text-align: center;
+                }
+
+                .footer_col.is-right {
+                  align-items: flex-end;
+                  text-align: right;
+                }
+
+                .footer_legal-text-new {
+                  color: rgba(255, 255, 255, 0.6);
+                  font-size: 0.875rem;
+                  line-height: 1.6;
+                  font-weight: 400;
+                }
+
+                .footer_address-box {
+                  display: flex;
+                  flex-direction: column;
+                  gap: 1rem;
+                }
+
+                .footer_address-row {
+                  display: flex;
+                  align-items: flex-start;
+                  gap: 0.75rem;
+                  color: rgba(255, 255, 255, 0.6);
+                  font-size: 0.875rem;
+                  line-height: 1.5;
+                  text-align: left;
+                }
+
+                .footer_address-icon {
+                  width: 18px;
+                  height: 18px;
+                  color: #0055FF;
+                  /* Flurbix blue accent */
+                  flex-shrink: 0;
+                  margin-top: 2px;
+                }
+
+                .footer_links-new {
+                  display: flex;
+                  flex-direction: column;
+                  gap: 1rem;
+                }
+
+                .footer_link-new {
+                  color: rgba(255, 255, 255, 0.6);
+                  text-decoration: none;
+                  font-size: 0.875rem;
+                  transition: all 0.3s ease;
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                }
+
+                .footer_link-new:hover {
+                  color: #ffffff;
+                  transform: translateX(-4px);
+                }
+
+                .footer_socials {
+                  display: flex;
+                  gap: 1rem;
+                  margin-top: 0.5rem;
+                }
+
+                .footer_social-link {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 36px;
+                  height: 36px;
+                  border-radius: 8px;
+                  background-color: rgba(255, 255, 255, 0.03);
+                  color: rgba(255, 255, 255, 0.6);
+                  border: 1px solid rgba(255, 255, 255, 0.08);
+                  transition: all 0.3s ease;
+                }
+
+                .footer_social-link:hover {
+                  background-color: #0055FF;
+                  color: #ffffff;
+                  border-color: #0055FF;
+                  transform: translateY(-2px);
+                }
+
+                @media (max-width: 991px) {
+                  .footer_bottom-custom {
+                    grid-template-columns: 1fr;
+                    gap: 3rem;
+                  }
+
+                  .footer_col.is-center,
+                  .footer_col.is-right {
+                    align-items: flex-start;
+                    text-align: left;
+                  }
+
+                  .footer_link-new:hover {
+                    transform: translateX(4px);
+                  }
+                }
+              </style>
+
+              <div class="footer_bottom-custom">
+                <!-- Left Side -->
+                <div class="footer_col is-left">
+                  <div class="footer_legal-text-new" style="display: none;">
+                  </div>
+                  <div class="footer_legal-text-new" style="max-width: 250px;">
+                    Building digital experiences that empower businesses worldwide.
+                  </div>
+                  <div class="footer_socials">
+                    <a href="#" class="footer_social-link" aria-label="LinkedIn">
+                      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                          d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                      </svg>
+                    </a>
+                    <a href="#" class="footer_social-link" aria-label="Twitter">
+                      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                          d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                      </svg>
+                    </a>
+                    <a href="#" class="footer_social-link" aria-label="GitHub">
+                      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                          d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                      </svg>
+                    </a>
                   </div>
                 </div>
-                <div class="footer_right">
-                  <div class="footer_column">
-                    <div class="footer_h">company</div>
-                    <a href="about-us.html" class="footer_link hide w-inline-block">
-                      <div class="footer_circ"></div>
-                      <div class="footer_text">About</div>
-                    </a>
-                    <a href="https://www.linkedin.com/company/flurbix-io/" target="_blank"
-                      class="footer_link w-inline-block">
-                      <div class="footer_circ"></div>
-                      <div class="footer_text">Linkedin</div>
-                    </a>
+
+                <!-- Center -->
+                <div class="footer_col is-center">
+                  <div class="footer_address-box">
+                    <div class="footer_address-row">
+                      <svg class="footer_address-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                      </svg>
+                      <span>123 Innovation Drive<br>San Francisco, CA 94107<br>United States</span>
+                    </div>
+                    <div class="footer_address-row">
+                      <svg class="footer_address-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                        </path>
+                      </svg>
+                      <a href="mailto:info@flurbix.io"
+                        style="color: inherit; text-decoration: none; transition: color 0.2s;"
+                        onmouseover="this.style.color='#0055FF'"
+                        onmouseout="this.style.color='inherit'">info@flurbix.io</a>
+                    </div>
+                    <div class="footer_address-row">
+                      <svg class="footer_address-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+                        </path>
+                      </svg>
+                      <span>+1 (415) 123-4567</span>
+                    </div>
                   </div>
-                  <div class="footer_column">
-                    <div class="footer_h">product</div>
-                    <a href="https://console.flurbix.app/" target="_blank" class="footer_link hide w-inline-block">
-                      <div class="footer_circ"></div>
-                      <div class="footer_text">Platform</div>
+                </div>
+
+                <!-- Right Side -->
+                <div class="footer_col is-right">
+                  <div class="footer_links-new">
+                    <a href="terms.html" class="footer_link-new">
+                      <span>Terms & Conditions</span>
+                      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        style="opacity: 0.5;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                      </svg>
                     </a>
-                    <a href="https://docs.flurbix.io/" target="_blank" class="footer_link w-inline-block">
-                      <div class="footer_circ"></div>
-                      <div class="footer_text">Documentation</div>
+                    <a href="privacy-policy.html" class="footer_link-new">
+                      <span>Privacy Policy</span>
+                      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        style="opacity: 0.5;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                      </svg>
                     </a>
-                  </div>
-                  <div class="footer_column">
-                    <div class="footer_h">resources</div>
-                    <a href="blog.1.html" class="footer_link w-inline-block">
-                      <div class="footer_circ"></div>
-                      <div class="footer_text">Blog</div>
-                    </a>
-                    <a href="mailto:info@flurbix.io" class="footer_link w-inline-block">
-                      <div class="footer_circ"></div>
-                      <div class="footer_text">info@flurbix.io</div>
+                    <a href="contact.html" class="footer_link-new">
+                      <span>Contact Support</span>
+                      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        style="opacity: 0.5;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                      </svg>
                     </a>
                   </div>
                 </div>
+              </div>
+              <div class="footer_copyright"
+                style="text-align: center; padding: 2rem 0; width: 100%; font-family: system-ui, -apple-system, sans-serif; font-size: 0.875rem; color: rgba(255, 255, 255, 0.6); border-top: 1px solid rgba(240, 239, 227, 0.2); margin-top: 2rem;">
+                © 2026 Flurbix. All rights reserved.
               </div>
             </div>
           </div>

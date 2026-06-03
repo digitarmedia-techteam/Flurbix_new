@@ -518,6 +518,34 @@ document.addEventListener("DOMContentLoaded", (event) => {
         smooth: 1.2,
         effects: true,
     });
+
+    function scrollToPricing() {
+        const pricingSection = document.querySelector("#pricing");
+        if (pricingSection) {
+            // Adjust offset for navbar if needed (approx 80px)
+            const targetOffset = smoother.offset(pricingSection, "top top");
+            gsap.to(smoother, {
+                scrollTop: targetOffset,
+                duration: 0.6,
+                ease: "power3.inOut"
+            });
+        }
+    }
+
+    if (window.location.hash === "#pricing") {
+        setTimeout(scrollToPricing, 200);
+    }
+
+    document.querySelectorAll('a[href="/#pricing"], a[href="#pricing"], a[href="index.html#pricing"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            if (window.location.pathname === '/' || window.location.pathname.endsWith('index.html')) {
+                e.preventDefault();
+                e.stopPropagation();
+                history.pushState(null, null, '#pricing');
+                scrollToPricing();
+            }
+        });
+    });
     if (!isMobile) {
         const isPotrait = window.innerWidth <= 478;
         const stepLastEls = gsap.utils.toArray("[data-step-last]");
@@ -1934,7 +1962,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         .to(
             counterObj,
             {
-                val: 5,
+                val: 100,
                 duration: 0.5,
                 ease: "none",
                 onUpdate: () => {

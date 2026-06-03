@@ -174,22 +174,25 @@ const canvas = document.getElementById("gridCanvas");
         resize();
         draw();
       }
-
-      gsap
+if (document.querySelector(".footer_logo-text")) {
+    const footerLogoSplit = new SplitText(".footer_logo-text", { type: "chars" });
+    gsap
         .timeline({
-          scrollTrigger: {
-            trigger: ".footer_logo",
-            start: "center bottom",
-            toggleActions: "play none none reverse",
-          },
+            scrollTrigger: {
+                trigger: ".footer_logo-wrap",
+                start: "top 90%",
+                toggleActions: "play none none reverse",
+            },
         })
-        .from(".footer_logo path", {
-          yPercent: -120,
-          opacity: 0,
-          duration: 1.5,
-          stagger: 0.2,
-          ease: "power4.out",
+        .from(footerLogoSplit.chars, {
+            yPercent: -120,
+            opacity: 0,
+            duration: 1.5,
+            stagger: 0.2,
+            ease: "power4.out",
         });
+}
+
 
       const footerLinks = gsap.utils.toArray(".footer_link");
 
@@ -830,4 +833,5 @@ document.addEventListener("DOMContentLoaded", function () {
           },
         }).mount({ AutoScroll: window.splide.Extensions.AutoScroll });
       });
+
 
