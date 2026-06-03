@@ -1901,7 +1901,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         .to(
             counterObj,
             {
-                val: 5,
+                val: 0,
                 duration: 0.5,
                 ease: "none",
                 onUpdate: () => {

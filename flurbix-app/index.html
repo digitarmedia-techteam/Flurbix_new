@@ -37,10 +37,8 @@
         ("ontouchstart" in o || (o.DocumentTouch && c instanceof DocumentTouch)) && (n.className += t + "touch"));
     })(window, document);
   </script>
-  <link href="https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/6998a86fed32a27c30a21c91_favicon.png"
-    rel="shortcut icon" type="image/x-icon" />
-  <link href="https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/6998a871e2b14d201e77a4e1_webclip.png"
-    rel="apple-touch-icon" />
+  <link href="/flurbix-app/src/assets/favicon.png" rel="shortcut icon" type="image/x-icon" />
+  <link href="/flurbix-app/src/assets/favicon.png" rel="apple-touch-icon" />
   <link href="https://flurbix.io/" rel="canonical" />
 
   <script async="" src="9i1h7htkfq16Njk5OGE3YTRlZmNkNjZkOWYyODU3ZTc5/comvVP0cEwtHkAJxbwd4_598ChA"></script>
@@ -666,7 +664,6 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 16px rgba(11, 79, 255, 0.15);
       filter: brightness(1.05);
-      color: inherit;
     }
 
     /* Global Card Hover */
@@ -1058,16 +1055,16 @@ a,
                   </div>
                   <div class="hero_step1-list">
                     <div class="hero_step1">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 12 12" fill="none"
+                      <!-- <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 12 12" fill="none"
                         class="hero_step1-person">
                         <path
                           d="M7.80078 6.17773C9.10527 6.83667 10 8.18868 10 9.75V10.5H2V9.75C2 8.18875 2.89481 6.83668 4.19922 6.17773C4.70832 6.53748 5.32925 6.75 6 6.75C6.67065 6.75 7.29173 6.53733 7.80078 6.17773ZM6 1.25C7.3117 1.25 8.375 2.31333 8.375 3.625C8.375 4.93668 7.3117 6 6 6C4.68832 6 3.625 4.93668 3.625 3.625C3.625 2.31333 4.68832 1.25 6 1.25Z"
                           fill="currentColor"></path>
-                      </svg>
+                      </svg> -->
                       <div class="hero_step1-text" style="font-size: 1.2em; font-weight: bold; white-space: nowrap;">
-                        From Zero to Scale
+                        Scale Smarter in
                         <br />
-                        in Just Three Steps
+                        Three Simple Steps
                       </div>
                     </div>
                   </div>
@@ -1361,10 +1358,10 @@ a,
                     </div>
                   </div>
                 </div>
-                <div class="hero_main">
-                  <h1 class="heading-style-h1">Automate Workflows.<br />Scale Growth.</h1>
+                <div class="hero_main" style="grid-row-gap: 1.5rem">
+                  <h1 class="heading-style-h1" style="font-size: 3.5rem;">Automate Workflows.<br />Scale Growth.</h1>
                   <div class="hero_p">
-                    Flurbix unifies Client Management, team collaboration, analytics, and automation into one powerful
+                    Flurbix unifies client management, team collaboration, analytics, and automation into one powerful
                     operating system.
                   </div>
                   <div class="button-group">
@@ -2494,9 +2491,10 @@ a,
                   </div>
                 </div>
                 <div class="automations_info">
-                  <div class="automations_h">
-                    <span class="automations_counter">5</span>
-                    million
+                  <div class="automations_h" style="display: flex;">
+                    <span class="automations_counter"
+                      style="text-align: center !important;min-width:0px !important;"></span>
+                    <span style="display: flex; justify-content: center; align-items: center;">&nbsp;million</span>
                   </div>
                   <div class="automations_text">automated decisions served</div>
                   <div class="automations_bg"></div>
@@ -2524,7 +2522,7 @@ a,
                   <div class="process_wrap">
                     <div class="process_step1">
                       <div data-shadow="" class="process_start">
-                        <div>“Start personalized outreach to your target clients”</div>
+                        <div>Start personalized outreach to your target clients</div>
                       </div>
                       <div class="process_progress-horizontal">
                         <div class="process_progress"></div>
@@ -2810,7 +2808,7 @@ a,
                         </div>
                       </div>
                       <div class="process_last"
-                        style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%;">
+                        style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; padding-bottom: 6rem; position: relative; z-index: 10;">
                         <h2 class="heading-style-h2">Redefine your marketing</h2>
                         <p fd-paragraph="" class="text-size-medium text-style-muted">
                           Stop managing campaigns. Start running a system that continuously learns and improves with
@@ -3245,7 +3243,7 @@ a,
       <footer class="footer_component">
         <div class="padding-global">
           <div class="container-large">
-            <div class="footer_content">
+            <div class="footer_content" style="grid-row-gap : 0rem">
               <div class="footer_logo-wrap" style="text-align: center; padding: 2rem 0 4rem; overflow: hidden;">
                 <div class="footer_logo"
                   style="font-size: clamp(4rem, 21vw, 320px); font-family: system-ui, -apple-system, sans-serif; font-weight: 500; letter-spacing: -0.04em; color: #FFFFFF; line-height: 1; display: inline-block;">

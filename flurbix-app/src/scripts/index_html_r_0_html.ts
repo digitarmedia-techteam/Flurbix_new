@@ -1293,6 +1293,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const CROSS =
         "https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/69aaed691c6710fc0f9739a0_close-icon.svg";
 
+    const GLOBE = "data:image/svg+xml;utf8,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M0%2012C0%205.37258%205.37258%200%2012%200C18.6274%200%2024%205.37258%2024%2012C24%2018.6274%2018.6274%2024%2012%2024C5.37258%2024%200%2018.6274%200%2012Z%22%20fill%3D%22%23232323%22%2F%3E%3Cg%20stroke%3D%22%23F0EFE3%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%227%22%2F%3E%3Cline%20x1%3D%225%22%20y1%3D%2212%22%20x2%3D%2219%22%20y2%3D%2212%22%2F%3E%3Cpath%20d%3D%22M12%205a10%2010%200%200%201%203%207%2010%2010%200%200%201-3%207%2010%2010%200%200%201-3-7%2010%2010%200%200%201%203-7z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E";
+    const TOWER = "data:image/svg+xml;utf8,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M0%2012C0%205.37258%205.37258%200%2012%200C18.6274%200%2024%205.37258%2024%2012C24%2018.6274%2018.6274%2024%2012%2024C5.37258%2024%200%2018.6274%200%2012Z%22%20fill%3D%22%23232323%22%2F%3E%3Cg%20stroke%3D%22%23F0EFE3%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M7%2019h10%22%2F%3E%3Cpath%20d%3D%22M12%205v14%22%2F%3E%3Cpath%20d%3D%22M9%2019l3-14%203%2014%22%2F%3E%3Cpath%20d%3D%22M15%2011a4%204%200%200%200-6%200%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E";
+    const WIFI = "data:image/svg+xml;utf8,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M0%2012C0%205.37258%205.37258%200%2012%200C18.6274%200%2024%205.37258%2024%2012C24%2018.6274%2018.6274%2024%2012%2024C5.37258%2024%200%2018.6274%200%2012Z%22%20fill%3D%22%23232323%22%2F%3E%3Cg%20stroke%3D%22%23F0EFE3%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M6%2010.5a9%209%200%200%201%2012%200%22%2F%3E%3Cpath%20d%3D%22M8.5%2013.5a5%205%200%200%201%207%200%22%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2216.5%22%20r%3D%221%22%20fill%3D%22%23F0EFE3%22%20stroke%3D%22none%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E";
+    const NETWORK = "data:image/svg+xml;utf8,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M0%2012C0%205.37258%205.37258%200%2012%200C18.6274%200%2024%205.37258%2024%2012C24%2018.6274%2018.6274%2024%2012%2024C5.37258%2024%200%2018.6274%200%2012Z%22%20fill%3D%22%23232323%22%2F%3E%3Cg%20stroke%3D%22%23F0EFE3%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%2214%22%20y%3D%2214%22%20width%3D%225%22%20height%3D%225%22%20rx%3D%221%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%2214%22%20width%3D%225%22%20height%3D%225%22%20rx%3D%221%22%2F%3E%3Crect%20x%3D%229.5%22%20y%3D%225%22%20width%3D%225%22%20height%3D%225%22%20rx%3D%221%22%2F%3E%3Cpath%20d%3D%22M7.5%2014v-2a1%201%200%200%201%201-1h7a1%201%200%200%201%201%201v2%22%2F%3E%3Cpath%20d%3D%22M12%2011V10%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E";
+    const DATABASE = "data:image/svg+xml;utf8,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M0%2012C0%205.37258%205.37258%200%2012%200C18.6274%200%2024%205.37258%2024%2012C24%2018.6274%2018.6274%2024%2012%2024C5.37258%2024%200%2018.6274%200%2012Z%22%20fill%3D%22%23232323%22%2F%3E%3Cg%20stroke%3D%22%23F0EFE3%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cellipse%20cx%3D%2212%22%20cy%3D%226%22%20rx%3D%226%22%20ry%3D%223%22%2F%3E%3Cpath%20d%3D%22M6%206v12c0%201.65%202.68%203%206%203s6-1.35%206-3V6%22%2F%3E%3Cpath%20d%3D%22M6%2012c0%201.65%202.68%203%206%203s6-1.35%206-3%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E";
+
     function createGridNetwork({ canvasId, rows = 20, baseDotRatio = 0.27, sequences = [] }) {
         const canvas = document.getElementById(canvasId);
         const ctx = canvas.getContext("2d");
@@ -1525,13 +1531,37 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 ],
             },
             {
+                icon: GLOBE,
+                points: [
+                    { coord: isMobile ? "J8" : "AF6", color: "white" },
+                    { coord: isMobile ? "H7" : "AD5", color: "white" },
+                    { coord: isMobile ? "G8" : "Y5", icon: WIFI },
+                ],
+            },
+            {
                 icon: PHONE,
                 points: [
                     { coord: isMobile ? "J1" : "AE1", color: "white" },
                     { coord: isMobile ? "H6" : "AB5", color: "white" },
                     { coord: isMobile ? "I8" : "AB8", color: "white" },
                     { coord: isMobile ? "F9" : "W9", color: "white" },
-                    { coord: isMobile ? "I2" : "AB2", icon: "https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/699f5b7e366b78446268cb7d_checkmark.svg" },
+                    { coord: isMobile ? "I2" : "AB2", icon: NETWORK },
+                ],
+            },
+            {
+                icon: TOWER,
+                points: [
+                    { coord: isMobile ? "B8" : "D8", color: "white" },
+                    { coord: isMobile ? "D9" : "H8", color: "white" },
+                    { coord: isMobile ? "E8" : "L8", icon: WIFI },
+                ],
+            },
+            {
+                icon: DATABASE,
+                points: [
+                    { coord: isMobile ? "D1" : "K1", color: "white" },
+                    { coord: isMobile ? "E2" : "L3", color: "white" },
+                    { coord: isMobile ? "E3" : "O3", icon: "https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/699f5b7e366b78446268cb7d_checkmark.svg" },
                 ],
             },
             {
@@ -1548,7 +1578,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 icon: EMAIL,
                 points: [
                     { coord: isMobile ? "G2" : "S2", color: "white" },
-                    { coord: isMobile ? "I4" : "T8", icon: "https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/699f5b7e366b78446268cb7d_checkmark.svg" },
+                    { coord: isMobile ? "I4" : "T8", icon: NETWORK },
                 ],
             },
             {
