@@ -1328,222 +1328,821 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const DATABASE = "data:image/svg+xml;utf8,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M0%2012C0%205.37258%205.37258%200%2012%200C18.6274%200%2024%205.37258%2024%2012C24%2018.6274%2018.6274%2024%2012%2024C5.37258%2024%200%2018.6274%200%2012Z%22%20fill%3D%22%23232323%22%2F%3E%3Cg%20stroke%3D%22%23F0EFE3%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cellipse%20cx%3D%2212%22%20cy%3D%226%22%20rx%3D%226%22%20ry%3D%223%22%2F%3E%3Cpath%20d%3D%22M6%206v12c0%201.65%202.68%203%206%203s6-1.35%206-3V6%22%2F%3E%3Cpath%20d%3D%22M6%2012c0%201.65%202.68%203%206%203s6-1.35%206-3%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E";
 
     function createGridNetwork({ canvasId, rows = 20, baseDotRatio = 0.27, sequences = [] }) {
-        const canvas = document.getElementById(canvasId);
+        const canvas = document.getElementById(canvasId) as HTMLCanvasElement;
+        if (!canvas) return;
         const ctx = canvas.getContext("2d");
-        const dpr = window.devicePixelRatio || 1;
+        if (!ctx) return;
+        let dpr = window.devicePixelRatio || 1;
 
-        const imageCache = {};
-        sequences.forEach((seq) => {
-            if (seq.icon && !imageCache[seq.icon]) {
-                const img = new Image();
-                img.src = seq.icon;
-                imageCache[seq.icon] = img;
-            }
-
-            seq.points.forEach((p) => {
-                if (p.icon && !imageCache[p.icon]) {
-                    const img = new Image();
-                    img.src = p.icon;
-                    imageCache[p.icon] = img;
-                }
-            });
-        });
-
-        const letterToIndex = (str) => str.split("").reduce((acc, char) => acc * 26 + char.charCodeAt(0) - 64, 0) - 1;
-
-        const getMaxCol = () => {
-            let max = 0;
-
-            sequences.forEach((seq) => {
-                seq.points.forEach((p) => {
-                    if (!p || !p.coord) return;
-
-                    const match = p.coord.match(/^([A-Z]+)(\d+)$/);
-                    if (!match) return;
-
-                    const col = letterToIndex(match[1]);
-                    if (col > max) max = col;
-                });
-            });
-
-            return max + 1;
-        };
-
-        const state = {
-            bgDots: [],
-            sequences: sequences.map((seq) => ({
-                iconScale: 0,
-                segments: seq.points.slice(1).map(() => ({ progress: 0 })),
-                dots: seq.points.slice(1).map(() => ({ scale: 0 })),
-            })),
-        };
-
-        function buildGridState() {
-            const containerWidth = canvas.offsetWidth;
-            const cols = getMaxCol();
-            const gap = containerWidth / cols;
-
-            const dots = [];
-            for (let r = 0; r < rows; r++) {
-                for (let c = 0; c < cols; c++) {
-                    dots.push({
-                        row: r,
-                        col: c,
-                        scale: 0,
-                    });
-                }
-            }
-            return dots;
+        // Apply black background style to parent and canvas as requested
+        canvas.style.backgroundColor = "#000000";
+        if (canvas.parentElement) {
+            canvas.parentElement.style.backgroundColor = "#000000";
         }
 
-        function draw() {
-            const containerWidth = canvas.offsetWidth;
-            const cols = getMaxCol();
-            const gap = containerWidth / cols;
-            const dotSize = gap * baseDotRatio;
-            const height = rows * gap;
+        const isMobile = window.innerWidth <= 991;
 
-            canvas.width = containerWidth * dpr;
+        // Grid cells config
+        const cellCols = isMobile ? 3 : 5;
+        const cellRows = isMobile ? 2 : 3;
+
+        // Icons info
+        const standardIconTypes = ["phone", "email", "globe", "apple", "network", "laptop", "android"];
+        const brandIconTypes = ["zomato", "uber", "zepto"];
+
+        const totalCells = cellCols * cellRows;
+        const cellIndices = Array.from({ length: totalCells }, (_, i) => i);
+        
+        // Helper to shuffle
+        function shuffleArray(arr: number[]) {
+            const result = [...arr];
+            for (let i = result.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [result[i], result[j]] = [result[j], result[i]];
+            }
+            return result;
+        }
+
+        const shuffledCells = shuffleArray(cellIndices);
+        const standardCount = isMobile ? 3 : 7;
+
+        // Setup standard icons
+        interface Icon {
+            id: string;
+            type: string;
+            col: number;
+            row: number;
+            xOffsetPercent: number;
+            yOffsetPercent: number;
+            x: number;
+            y: number;
+            size: number;
+            selected: boolean;
+            breathSpeed: number;
+            breathPhase: number;
+            glowIntensity: number;
+            index: number;
+            hasRelocated: boolean;
+        }
+
+        const standardIcons: Icon[] = [];
+        for (let i = 0; i < standardCount; i++) {
+            const cellIdx = shuffledCells[i];
+            const col = cellIdx % cellCols;
+            const row = Math.floor(cellIdx / cellCols);
+            const xOffsetPercent = 0.18 + Math.random() * 0.64;
+            const yOffsetPercent = 0.18 + Math.random() * 0.64;
+
+            // Mark standard icons as selected (3 on desktop, 1 on mobile)
+            const selected = i < (isMobile ? 1 : 3);
+
+            standardIcons.push({
+                id: `std_${i}`,
+                type: standardIconTypes[i % standardIconTypes.length],
+                col,
+                row,
+                xOffsetPercent,
+                yOffsetPercent,
+                x: 0,
+                y: 0,
+                size: 25,
+                selected,
+                breathSpeed: 0.001 + Math.random() * 0.001,
+                breathPhase: Math.random() * Math.PI * 2,
+                glowIntensity: 0,
+                index: i,
+                hasRelocated: false
+            });
+        }
+
+        // Setup brand icons
+        const brandIcons: Icon[] = [];
+        for (let i = 0; i < 3; i++) {
+            const cellIdx = shuffledCells[standardCount + i];
+            const col = cellIdx % cellCols;
+            const row = Math.floor(cellIdx / cellCols);
+            const xOffsetPercent = 0.18 + Math.random() * 0.64;
+            const yOffsetPercent = 0.18 + Math.random() * 0.64;
+
+            brandIcons.push({
+                id: `brand_${i}`,
+                type: brandIconTypes[i],
+                col,
+                row,
+                xOffsetPercent,
+                yOffsetPercent,
+                x: 0,
+                y: 0,
+                size: 34,
+                selected: false,
+                breathSpeed: 0,
+                breathPhase: 0,
+                glowIntensity: 0,
+                index: i,
+                hasRelocated: false
+            });
+        }
+
+        // Fading lines and active comets
+        interface Comet {
+            source: Icon;
+            target: Icon;
+            x1: number;
+            y1: number;
+            x2: number;
+            y2: number;
+            xc: number;
+            yc: number;
+            t: number;
+            speed: number;
+            history: { x: number; y: number }[];
+        }
+
+        interface FadingLine {
+            x1: number;
+            y1: number;
+            x2: number;
+            y2: number;
+            xc: number;
+            yc: number;
+            alpha: number;
+        }
+
+        const comets: Comet[] = [];
+        const fadingLines: FadingLine[] = [];
+
+        // Interactive mouse tracking
+        let mouseX = -1000;
+        let mouseY = -1000;
+
+        canvas.addEventListener("mousemove", (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = e.clientX - rect.left;
+            mouseY = e.clientY - rect.top;
+        });
+
+        canvas.addEventListener("mouseleave", () => {
+            mouseX = -1000;
+            mouseY = -1000;
+        });
+
+        // Click interaction to spawn custom comets
+        canvas.addEventListener("click", (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mx = e.clientX - rect.left;
+            const my = e.clientY - rect.top;
+
+            const currentBrandIndex = Math.floor(lastTimeVal / 3200) % 3;
+            const activeBrand = brandIcons[currentBrandIndex];
+            const activeTime = lastTimeVal % 3200;
+            const brandAlpha = activeTime < 800 ? activeTime / 800 : (activeTime < 2400 ? 1.0 : 1.0 - (activeTime - 2400) / 800);
+
+            const clickableIcons = [...standardIcons];
+            if (brandAlpha > 0.15) {
+                clickableIcons.push(activeBrand);
+            }
+
+            let clicked: Icon | null = null;
+            let minDist = 30;
+            clickableIcons.forEach(icon => {
+                const d = Math.hypot(icon.x - mx, icon.y - my);
+                if (d < minDist) {
+                    minDist = d;
+                    clicked = icon;
+                }
+            });
+
+            if (clicked) {
+                const possibleTargets = clickableIcons.filter(icon => icon.id !== clicked!.id);
+                if (possibleTargets.length > 0) {
+                    const target = possibleTargets[Math.floor(Math.random() * possibleTargets.length)];
+                    const dx = target.x - clicked!.x;
+                    const dy = target.y - clicked!.y;
+                    const dist = Math.hypot(dx, dy);
+
+                    const xc = (clicked!.x + target.x) / 2 + (Math.random() - 0.5) * dist * 0.4;
+                    const yc = (clicked!.y + target.y) / 2 + (Math.random() - 0.5) * dist * 0.4;
+
+                    comets.push({
+                        source: clicked!,
+                        target,
+                        x1: clicked!.x,
+                        y1: clicked!.y,
+                        x2: target.x,
+                        y2: target.y,
+                        xc,
+                        yc,
+                        t: 0,
+                        speed: 0.01 + Math.random() * 0.008,
+                        history: []
+                    });
+                    clicked!.glowIntensity = 1.5;
+                }
+            }
+        });
+
+        // Sizing & Resize handling
+        let width = 0;
+        let height = 0;
+
+        function resizeCanvas() {
+            const parent = canvas.parentElement;
+            if (!parent) return;
+            width = parent.clientWidth;
+            height = parent.clientHeight || (isMobile ? 280 : 380);
+            dpr = window.devicePixelRatio || 1;
+
+            canvas.width = width * dpr;
             canvas.height = height * dpr;
-            canvas.style.width = containerWidth + "px";
+            canvas.style.width = width + "px";
             canvas.style.height = height + "px";
 
+            const cellWidth = width / cellCols;
+            const cellHeight = height / cellRows;
+
+            standardIcons.forEach(icon => {
+                icon.x = icon.col * cellWidth + cellWidth * icon.xOffsetPercent;
+                icon.y = icon.row * cellHeight + cellHeight * icon.yOffsetPercent;
+            });
+
+            brandIcons.forEach(icon => {
+                icon.x = icon.col * cellWidth + cellWidth * icon.xOffsetPercent;
+                icon.y = icon.row * cellHeight + cellHeight * icon.yOffsetPercent;
+            });
+
+            comets.forEach(comet => {
+                comet.x1 = comet.source.x;
+                comet.y1 = comet.source.y;
+                comet.x2 = comet.target.x;
+                comet.y2 = comet.target.y;
+                const dx = comet.x2 - comet.x1;
+                const dy = comet.y2 - comet.y1;
+                const dist = Math.hypot(dx, dy);
+                comet.xc = (comet.x1 + comet.x2) / 2 + (Math.random() - 0.5) * dist * 0.45;
+                comet.yc = (comet.y1 + comet.y2) / 2 + (Math.random() - 0.5) * dist * 0.45;
+            });
+        }
+
+        // Custom Vector Path helpers
+        function drawRoundedRect(c: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
+            c.beginPath();
+            c.moveTo(x + r, y);
+            c.lineTo(x + w - r, y);
+            c.quadraticCurveTo(x + w, y, x + w, y + r);
+            c.lineTo(x + w, y + h - r);
+            c.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            c.lineTo(x + r, y + h);
+            c.quadraticCurveTo(x, y + h, x, y + h - r);
+            c.lineTo(x, y + r);
+            c.quadraticCurveTo(x, y, x + r, y);
+            c.closePath();
+        }
+
+        function drawIconVector(c: CanvasRenderingContext2D, type: string, x: number, y: number, size: number, alpha: number) {
+            c.save();
+            c.globalAlpha = alpha;
+
+            if (type === "phone") {
+                c.strokeStyle = "#ffffff";
+                c.lineWidth = 1.8;
+                const w = size * 0.55;
+                const h = size * 0.9;
+                drawRoundedRect(c, x - w / 2, y - h / 2, w, h, 3);
+                c.stroke();
+
+                c.beginPath();
+                c.moveTo(x - w / 4, y - h / 2 + 2);
+                c.lineTo(x + w / 4, y - h / 2 + 2);
+                c.lineWidth = 1.2;
+                c.stroke();
+
+                c.beginPath();
+                c.arc(x, y + h / 2 - 4, 1.2, 0, Math.PI * 2);
+                c.fillStyle = "#ffffff";
+                c.fill();
+            } else if (type === "email") {
+                c.strokeStyle = "#ffffff";
+                c.lineWidth = 1.8;
+                const w = size * 0.8;
+                const h = size * 0.55;
+                c.strokeRect(x - w / 2, y - h / 2, w, h);
+
+                c.beginPath();
+                c.moveTo(x - w / 2, y - h / 2);
+                c.lineTo(x, y + h / 6);
+                c.lineTo(x + w / 2, y - h / 2);
+                c.stroke();
+            } else if (type === "globe") {
+                c.strokeStyle = "#ffffff";
+                c.lineWidth = 1.8;
+                const r = size * 0.45;
+                c.beginPath();
+                c.arc(x, y, r, 0, Math.PI * 2);
+                c.stroke();
+
+                c.beginPath();
+                c.moveTo(x - r, y);
+                c.lineTo(x + r, y);
+                c.stroke();
+
+                c.beginPath();
+                c.moveTo(x, y - r);
+                c.lineTo(x, y + r);
+                c.stroke();
+
+                c.beginPath();
+                c.ellipse(x, y, r * 0.5, r, 0, 0, Math.PI * 2);
+                c.stroke();
+            } else if (type === "apple") {
+                c.save();
+                c.translate(x, y);
+                const scale = size / 150;
+                c.scale(scale, scale);
+                c.translate(-95, -92);
+                c.fillStyle = "#ffffff";
+                const p = new Path2D("M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.37.13-9.13-1.9-14.27-6.08-3.48-2.82-7.37-7.49-11.69-14-4.85-7.07-8.89-15.91-12.13-26.54-3.24-10.62-4.88-20.91-4.88-30.85 0-14.88 3.73-26.83 11.19-35.88 7.46-9.05 16.59-13.62 27.38-13.74 5.03 0 10.26 1.37 15.7 4.13 5.44 2.76 9.4 4.13 11.9 4.13 2.12 0 5.67-.99 10.66-2.96 5-1.97 9.87-2.9 14.63-2.8 15.14 1.12 26.27 6.94 33.4 17.48-13.06 7.91-19.46 18.44-19.18 31.57.28 10.27 4.12 18.77 11.53 25.5 7.4 6.72 16.14 10.37 26.22 10.94-2.12 6.4-4.7 12.11-7.74 17.15zm-23.77-90.7c0 8.09-2.96 15.63-8.87 21.64-5.92 6-12.98 9.25-21.2 9.75.12-7.85 3.12-15.35 9.02-22.5 5.9-7.16 13.19-11.02 21.87-11.6 0 1.05-.18 2.05-.82 2.71z");
+                c.fill(p);
+                c.restore();
+            } else if (type === "network") {
+                c.fillStyle = "#ffffff";
+                c.strokeStyle = "#ffffff";
+                c.lineWidth = 1.5;
+                const r = size * 0.35;
+                const n1 = { x: x, y: y - r * 0.8 };
+                const n2 = { x: x - r * 0.8, y: y + r * 0.8 };
+                const n3 = { x: x + r * 0.8, y: y + r * 0.8 };
+
+                c.beginPath();
+                c.moveTo(n1.x, n1.y);
+                c.lineTo(n2.x, n2.y);
+                c.moveTo(n1.x, n1.y);
+                c.lineTo(n3.x, n3.y);
+                c.stroke();
+
+                const nr = size * 0.16;
+                c.beginPath(); c.arc(n1.x, n1.y, nr, 0, Math.PI * 2); c.fill();
+                c.beginPath(); c.arc(n2.x, n2.y, nr, 0, Math.PI * 2); c.fill();
+                c.beginPath(); c.arc(n3.x, n3.y, nr, 0, Math.PI * 2); c.fill();
+            } else if (type === "laptop") {
+                c.strokeStyle = "#ffffff";
+                c.lineWidth = 1.8;
+                const sw = size * 0.7;
+                const sh = size * 0.45;
+                drawRoundedRect(c, x - sw / 2, y - sh / 2 - 2, sw, sh, 2);
+                c.stroke();
+
+                c.beginPath();
+                c.moveTo(x - sw / 2 - 3, y + sh / 2);
+                c.lineTo(x + sw / 2 + 3, y + sh / 2);
+                c.lineTo(x + sw / 2, y + sh / 2 + 4);
+                c.lineTo(x - sw / 2, y + sh / 2 + 4);
+                c.closePath();
+                c.fillStyle = "#ffffff";
+                c.fill();
+                c.stroke();
+            } else if (type === "android") {
+                c.fillStyle = "#22c55e";
+                const r = size * 0.35;
+                c.beginPath();
+                c.arc(x, y - 1, r, Math.PI, 0);
+                c.fill();
+
+                c.strokeStyle = "#22c55e";
+                c.lineWidth = 1.5;
+                c.beginPath();
+                c.moveTo(x - r * 0.5, y - 1 - r * 0.7);
+                c.lineTo(x - r * 0.8, y - 1 - r * 1.2);
+                c.moveTo(x + r * 0.5, y - 1 - r * 0.7);
+                c.lineTo(x + r * 0.8, y - 1 - r * 1.2);
+                c.stroke();
+
+                c.fillStyle = "#ffffff";
+                c.beginPath();
+                c.arc(x - r * 0.4, y - r * 0.5, r * 0.12, 0, Math.PI * 2);
+                c.arc(x + r * 0.4, y - r * 0.5, r * 0.12, 0, Math.PI * 2);
+                c.fill();
+
+                c.fillStyle = "#22c55e";
+                drawRoundedRect(c, x - r, y + 2, r * 2, r * 0.7, 2);
+                c.fill();
+            } else if (type === "zomato") {
+                c.fillStyle = `rgba(226, 55, 68, 0.95)`;
+                drawRoundedRect(c, x - 17, y - 17, 34, 34, 4);
+                c.fill();
+
+                c.fillStyle = "#ffffff";
+                c.font = "italic bold 8px sans-serif";
+                c.textAlign = "center";
+                c.textBaseline = "middle";
+                c.fillText("zomato", x, y);
+            } else if (type === "uber") {
+                c.fillStyle = `rgba(0, 0, 0, 0.95)`;
+                c.strokeStyle = "rgba(255, 255, 255, 0.4)";
+                c.lineWidth = 1;
+                drawRoundedRect(c, x - 17, y - 17, 34, 34, 4);
+                c.fill();
+                c.stroke();
+
+                c.fillStyle = "#ffffff";
+                c.font = "bold 9px sans-serif";
+                c.textAlign = "center";
+                c.textBaseline = "middle";
+                c.fillText("Uber", x, y);
+            } else if (type === "zepto") {
+                c.fillStyle = `rgba(62, 10, 114, 0.95)`;
+                drawRoundedRect(c, x - 17, y - 17, 34, 34, 4);
+                c.fill();
+
+                const gradText = c.createLinearGradient(x - 14, 0, x + 14, 0);
+                gradText.addColorStop(0, "#FFD700");
+                gradText.addColorStop(0.5, "#FF69B4");
+                gradText.addColorStop(1, "#DA70D6");
+                c.fillStyle = gradText;
+                c.font = "bold 9px sans-serif";
+                c.textAlign = "center";
+                c.textBaseline = "middle";
+                c.fillText("zepto", x, y);
+            }
+
+            c.restore();
+        }
+
+        // Draw radial glows behind icons
+        function drawGlowBehind(c: CanvasRenderingContext2D, icon: Icon, alphaMult = 1.0) {
+            if (icon.glowIntensity <= 0) return;
+
+            let color = "255, 255, 255";
+            if (icon.type === "zomato") {
+                color = "226, 55, 68";
+            } else if (icon.type === "zepto") {
+                color = "147, 51, 234";
+            } else if (icon.selected) {
+                color = "34, 197, 94";
+            }
+
+            const size = icon.size;
+            const grad = c.createRadialGradient(icon.x, icon.y, 0, icon.x, icon.y, size * 1.8);
+            const alpha = Math.min(1.0, icon.glowIntensity) * 0.45 * alphaMult;
+            
+            grad.addColorStop(0, `rgba(${color}, ${alpha})`);
+            grad.addColorStop(0.5, `rgba(${color}, ${alpha * 0.3})`);
+            grad.addColorStop(1, `rgba(${color}, 0)`);
+
+            c.save();
+            c.fillStyle = grad;
+            c.beginPath();
+            c.arc(icon.x, icon.y, size * 1.8, 0, Math.PI * 2);
+            c.fill();
+            c.restore();
+        }
+
+        // Selected Icon Badges
+        function drawCheckmarkBadge(c: CanvasRenderingContext2D, icon: Icon, time: number, opacity: number = 1.0) {
+            if (!icon.selected) return;
+
+            const badgeSize = icon.size * 0.38;
+            const bx = icon.x + icon.size * 0.45;
+            const by = icon.y - icon.size * 0.45;
+
+            // Pulse
+            const pulse = 1.0 + 0.15 * Math.sin(time * 0.005 + icon.index);
+            const r = badgeSize * pulse;
+
+            // Pulsing green backing
+            const grad = c.createRadialGradient(bx, by, 0, bx, by, r * 1.5);
+            grad.addColorStop(0, `rgba(34, 197, 94, ${0.9 * opacity})`);
+            grad.addColorStop(0.5, `rgba(34, 197, 94, ${0.4 * opacity})`);
+            grad.addColorStop(1, "rgba(34, 197, 94, 0)");
+
+            c.save();
+            c.fillStyle = grad;
+            c.beginPath();
+            c.arc(bx, by, r * 1.5, 0, Math.PI * 2);
+            c.fill();
+
+            // Solid background
+            c.fillStyle = `rgba(0, 0, 0, ${0.85 * opacity})`;
+            c.beginPath();
+            c.arc(bx, by, r, 0, Math.PI * 2);
+            c.fill();
+
+            // Green tick lines
+            c.strokeStyle = `rgba(34, 197, 94, ${opacity})`;
+            c.lineWidth = 1.8 * (r / 5);
+            c.lineCap = "round";
+            c.lineJoin = "round";
+            c.beginPath();
+            c.moveTo(bx - r * 0.4, by);
+            c.lineTo(bx - r * 0.1, by + r * 0.3);
+            c.lineTo(bx + r * 0.4, by - r * 0.3);
+            c.stroke();
+            c.restore();
+        }
+
+        // Initialize positions
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
+
+        let lastTimeVal = 0;
+        let lastCometSpawn = 0;
+        let lastBrandIndex = -1;
+
+        function isIconInUse(icon: Icon) {
+            return comets.some(comet => comet.source.id === icon.id || comet.target.id === icon.id);
+        }
+
+        function relocateIcon(icon: Icon) {
+            if (isIconInUse(icon)) return false;
+            
+            const occupied = new Set<number>();
+            standardIcons.forEach(other => {
+                if (other.id !== icon.id) {
+                    occupied.add(other.row * cellCols + other.col);
+                }
+            });
+            brandIcons.forEach(other => {
+                if (other.id !== icon.id) {
+                    occupied.add(other.row * cellCols + other.col);
+                }
+            });
+
+            const unoccupied = [];
+            for (let i = 0; i < totalCells; i++) {
+                if (!occupied.has(i)) {
+                    unoccupied.push(i);
+                }
+            }
+
+            if (unoccupied.length > 0) {
+                const cellIdx = unoccupied[Math.floor(Math.random() * unoccupied.length)];
+                icon.col = cellIdx % cellCols;
+                icon.row = Math.floor(cellIdx / cellCols);
+                icon.xOffsetPercent = 0.18 + Math.random() * 0.64;
+                icon.yOffsetPercent = 0.18 + Math.random() * 0.64;
+                
+                const cellWidth = width / cellCols;
+                const cellHeight = height / cellRows;
+                icon.x = icon.col * cellWidth + cellWidth * icon.xOffsetPercent;
+                icon.y = icon.row * cellHeight + cellHeight * icon.yOffsetPercent;
+                return true;
+            }
+            return false;
+        }
+
+        // Main Animation Loop
+        function loop(time: number) {
+            if (!lastTimeVal) lastTimeVal = time;
+            const dt = time - lastTimeVal;
+            lastTimeVal = time;
+
+            // Clear screen
             ctx.setTransform(1, 0, 0, 1, 0, 0);
             ctx.scale(dpr, dpr);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#000000";
+            ctx.fillRect(0, 0, width, height);
 
-            const parseCoord = (coord) => {
-                const match = coord.match(/^([A-Z]+)(\d+)$/);
-                const col = letterToIndex(match[1]);
-                const row = parseInt(match[2], 10) - 1;
-                return {
-                    x: col * gap + gap / 2,
-                    y: row * gap + gap / 2,
-                };
-            };
+            // 1. Draw Dot Grid
+            const dotSpacing = 48;
+            const dotRadius = 1.5;
+            const offsetX = (width % dotSpacing) / 2;
+            const offsetY = (height % dotSpacing) / 2;
+            ctx.fillStyle = "rgba(255, 255, 255, 0.12)";
+            for (let x = offsetX; x < width; x += dotSpacing) {
+                for (let y = offsetY; y < height; y += dotSpacing) {
+                    ctx.beginPath();
+                    ctx.arc(x, y, dotRadius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
 
-            const drawDot = (x, y, color, scale = 1) => {
+            // 2. Sequential brand blinking
+            const brandCycleTime = 3200;
+            const elapsedCycle = time % brandCycleTime;
+            const currentBrandIndex = Math.floor(time / brandCycleTime) % 3;
+
+            if (lastBrandIndex !== currentBrandIndex) {
+                const activeBrand = brandIcons[currentBrandIndex];
+                relocateIcon(activeBrand);
+                lastBrandIndex = currentBrandIndex;
+            }
+
+            let brandAlpha = 0;
+            if (elapsedCycle < 800) {
+                brandAlpha = elapsedCycle / 800;
+            } else if (elapsedCycle < 2400) {
+                brandAlpha = 1.0;
+            } else {
+                brandAlpha = 1.0 - (elapsedCycle - 2400) / 800;
+            }
+
+            // Interactive Hover effects
+            const activeBrand = brandIcons[currentBrandIndex];
+            const clickableIcons = [...standardIcons];
+            if (brandAlpha > 0.15) {
+                clickableIcons.push(activeBrand);
+            }
+
+            clickableIcons.forEach(icon => {
+                const d = Math.hypot(icon.x - mouseX, icon.y - mouseY);
+                if (d < 45) {
+                    icon.glowIntensity = Math.max(icon.glowIntensity, (1.0 - d / 45) * 1.2);
+                }
+            });
+
+            // Decay glows
+            standardIcons.forEach(icon => {
+                if (icon.glowIntensity > 0) {
+                    icon.glowIntensity -= dt * 0.0009;
+                    if (icon.glowIntensity < 0) icon.glowIntensity = 0;
+                }
+            });
+            brandIcons.forEach(icon => {
+                if (icon.glowIntensity > 0) {
+                    icon.glowIntensity -= dt * 0.0009;
+                    if (icon.glowIntensity < 0) icon.glowIntensity = 0;
+                }
+            });
+
+            // 3. Draw Glows (drawn behind icon vectors)
+            standardIcons.forEach(icon => {
+                let opacity = 0.45 + 0.5 * Math.sin(time * icon.breathSpeed + icon.breathPhase);
+                if (opacity < 0) opacity = 0;
+                drawGlowBehind(ctx, icon, opacity);
+            });
+            drawGlowBehind(ctx, activeBrand, brandAlpha);
+
+            // 4. Draw Fading Connecting Lines
+            fadingLines.forEach((line, index) => {
+                line.alpha -= dt / 1600;
+                if (line.alpha <= 0) {
+                    fadingLines.splice(index, 1);
+                    return;
+                }
+
+                ctx.save();
+                ctx.lineCap = "round";
+
+                // Pass 1: Outer Glow
                 ctx.beginPath();
-                ctx.arc(x, y, (dotSize / 2) * scale, 0, Math.PI * 2);
-                ctx.fillStyle = color;
-                ctx.fill();
-            };
-
-            const drawLine = (p1, p2, progress = 1) => {
-                const x = p1.x + (p2.x - p1.x) * progress;
-                const y = p1.y + (p2.y - p1.y) * progress;
-                ctx.beginPath();
-                ctx.moveTo(p1.x, p1.y);
-                ctx.lineTo(x, y);
-                ctx.lineWidth = 2;
-                ctx.strokeStyle = "rgba(255,255,255,0.1)";
+                ctx.moveTo(line.x1, line.y1);
+                ctx.quadraticCurveTo(line.xc, line.yc, line.x2, line.y2);
+                ctx.lineWidth = 7;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.08 * line.alpha})`;
                 ctx.stroke();
-            };
 
-            state.bgDots.forEach((dot) => {
-                drawDot(dot.col * gap + gap / 2, dot.row * gap + gap / 2, "rgba(255,255,255,0.1)", dot.scale);
+                // Pass 2: Mid Glow
+                ctx.lineWidth = 3.5;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.2 * line.alpha})`;
+                ctx.stroke();
+
+                // Pass 3: Core
+                ctx.lineWidth = 1.2;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.85 * line.alpha})`;
+                ctx.stroke();
+
+                ctx.restore();
             });
 
-            sequences.forEach((seq, index) => {
-                const seqState = state.sequences[index];
-                const points = seq.points;
+            // 5. Draw Icon Vectors
+            standardIcons.forEach(icon => {
+                let opacity = 0.45 + 0.5 * Math.sin(time * icon.breathSpeed + icon.breathPhase);
+                if (opacity < 0) opacity = 0;
 
-                if (seq.icon && imageCache[seq.icon]?.complete) {
-                    const start = parseCoord(points[0].coord);
-                    const size = gap * 0.9 * seqState.iconScale;
-                    ctx.drawImage(imageCache[seq.icon], start.x - size / 2, start.y - size / 2, size, size);
-                }
-
-                for (let i = 1; i < points.length; i++) {
-                    const prev = parseCoord(points[i - 1].coord);
-                    const current = parseCoord(points[i].coord);
-
-                    drawLine(prev, current, seqState.segments[i - 1].progress);
-
-                    if (points[i].icon && imageCache[points[i].icon]?.complete) {
-                        const size = gap * 0.9 * seqState.dots[i - 1].scale;
-
-                        ctx.drawImage(imageCache[points[i].icon], current.x - size / 2, current.y - size / 2, size, size);
-                    } else if (points[i].color) {
-                        drawDot(current.x, current.y, points[i].color, seqState.dots[i - 1].scale);
+                // Relocate standard icons when faded out completely
+                if (opacity <= 0.05) {
+                    if (!icon.hasRelocated) {
+                        const success = relocateIcon(icon);
+                        if (success) {
+                            icon.hasRelocated = true;
+                        }
                     }
+                } else if (opacity > 0.15) {
+                    icon.hasRelocated = false;
                 }
+
+                drawIconVector(ctx, icon.type, icon.x, icon.y, icon.size, opacity);
+            });
+            drawIconVector(ctx, activeBrand.type, activeBrand.x, activeBrand.y, activeBrand.size, brandAlpha);
+
+            // 6. Draw Checkmark Badges
+            standardIcons.forEach(icon => {
+                let opacity = 0.45 + 0.5 * Math.sin(time * icon.breathSpeed + icon.breathPhase);
+                if (opacity < 0) opacity = 0;
+                drawCheckmarkBadge(ctx, icon, time, opacity);
+            });
+
+            // 7. Spawn comets periodically
+            if (time - lastCometSpawn > 700) {
+                spawnComet(time);
+                lastCometSpawn = time;
+            }
+
+            // 8. Update & Draw Comets
+            comets.forEach((comet, index) => {
+                comet.t += comet.speed * (dt / 16);
+                if (comet.t >= 1) {
+                    comet.source.glowIntensity = 1.5;
+                    comet.target.glowIntensity = 1.5;
+
+                    fadingLines.push({
+                        x1: comet.x1,
+                        y1: comet.y1,
+                        x2: comet.x2,
+                        y2: comet.y2,
+                        xc: comet.xc,
+                        yc: comet.yc,
+                        alpha: 1.0
+                    });
+
+                    comets.splice(index, 1);
+                    return;
+                }
+
+                const t = comet.t;
+                const xt = (1 - t) * (1 - t) * comet.x1 + 2 * (1 - t) * t * comet.xc + t * t * comet.x2;
+                const yt = (1 - t) * (1 - t) * comet.y1 + 2 * (1 - t) * t * comet.yc + t * t * comet.y2;
+
+                comet.history.push({ x: xt, y: yt });
+                if (comet.history.length > 18) {
+                    comet.history.shift();
+                }
+
+                ctx.save();
+                for (let i = 0; i < comet.history.length; i++) {
+                    const alpha = (i / comet.history.length) * 0.55;
+                    const r = 0.5 + (i / comet.history.length) * 2.0;
+                    ctx.beginPath();
+                    ctx.arc(comet.history[i].x, comet.history[i].y, r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+                    ctx.fill();
+                }
+
+                // Luminous Comet Head
+                ctx.beginPath();
+                ctx.arc(xt, yt, 8.5, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(255, 255, 255, 0.12)";
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(xt, yt, 5.0, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(255, 255, 255, 0.35)";
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(xt, yt, 2.6, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(255, 255, 255, 1.0)";
+                ctx.fill();
+                ctx.restore();
+            });
+
+            requestAnimationFrame(loop);
+        }
+
+        function spawnComet(time: number) {
+            const currentBrandIndex = Math.floor(time / 3200) % 3;
+            const activeBrand = brandIcons[currentBrandIndex];
+            const activeTime = time % 3200;
+            const brandAlpha = activeTime < 800 ? activeTime / 800 : (activeTime < 2400 ? 1 : 1 - (activeTime - 2400) / 800);
+
+            const visibleIcons = [...standardIcons];
+            if (brandAlpha > 0.15) {
+                visibleIcons.push(activeBrand);
+            }
+
+            if (visibleIcons.length < 2) return;
+
+            const srcIdx = Math.floor(Math.random() * visibleIcons.length);
+            let tgtIdx = Math.floor(Math.random() * visibleIcons.length);
+            while (tgtIdx === srcIdx) {
+                tgtIdx = Math.floor(Math.random() * visibleIcons.length);
+            }
+
+            const source = visibleIcons[srcIdx];
+            const target = visibleIcons[tgtIdx];
+
+            const dx = target.x - source.x;
+            const dy = target.y - source.y;
+            const dist = Math.hypot(dx, dy);
+
+            const xc = (source.x + target.x) / 2 + (Math.random() - 0.5) * dist * 0.45;
+            const yc = (source.y + target.y) / 2 + (Math.random() - 0.5) * dist * 0.45;
+
+            comets.push({
+                source,
+                target,
+                x1: source.x,
+                y1: source.y,
+                x2: target.x,
+                y2: target.y,
+                xc,
+                yc,
+                t: 0,
+                speed: 0.016 + Math.random() * 0.014,
+                history: []
             });
         }
 
-        state.bgDots = buildGridState();
-
-        const master = gsap.timeline({
-            scrollTrigger: {
-                trigger: canvas,
-                start: "top 80%",
-                toggleActions: "play none none none",
-            },
-        });
-
-        if (isMobile) {
-            state.bgDots.forEach((dot) => (dot.scale = 1));
-            draw();
-        } else {
-            master.to(state.bgDots, {
-                scale: 1,
-                duration: 0.6,
-                stagger: {
-                    amount: 0.6,
-                    from: "start",
-                    grid: "[1, 0]",
-                },
-                ease: "power2.out",
-                onUpdate: draw,
-            });
-        }
-
-        state.sequences.forEach((seqState, index) => {
-            const seqTl = gsap.timeline({ onUpdate: draw });
-
-            seqTl.to(seqState, {
-                iconScale: 1,
-                duration: 0.5,
-                ease: "back.out(1.7)",
-            });
-
-            seqState.segments.forEach((segment, i) => {
-                seqTl.to(
-                    segment,
-                    {
-                        progress: 1,
-                        duration: 0.3,
-                        ease: "power2.out",
-                    },
-                    "-=0.1",
-                );
-
-                seqTl.to(
-                    seqState.dots[i],
-                    {
-                        scale: 1,
-                        duration: 0.35,
-                        ease: "back.out(1.7)",
-                    },
-                    "<0.15",
-                );
-            });
-
-            master.add(seqTl, index === 0 ? "<0.2" : "<0.2");
-        });
-
-        let resizeTimeout;
-        if (!isMobile) {
-            window.addEventListener("resize", () => {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(() => {
-                    state.bgDots = buildGridState();
-                    draw();
-                }, 100);
-            });
-        }
-
-        draw();
+        requestAnimationFrame(loop);
     }
 
     createGridNetwork({
