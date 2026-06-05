@@ -1883,7 +1883,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         .timeline({
             scrollTrigger: {
                 trigger: ".section_automations",
-                start: "center center",
+                start: "top top",
                 end: "+=60%",
                 pin: true,
                 scrub: 1,
@@ -1943,7 +1943,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: section,
-                start: "bottom bottom",
+                start: "top 85%",
                 toggleActions: "play none none none",
             },
         });
@@ -2100,7 +2100,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         .timeline({
             scrollTrigger: {
                 trigger: ".process_step1",
-                start: "top 50%",
+                start: "top 80%",
                 end: "bottom 50%",
                 scrub: 1,
             },
@@ -2164,7 +2164,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: wrap,
-                    start: "top 45%",
+                    start: "top 75%",
                     end: "bottom 50%",
                     scrub: 1,
                 },
@@ -2195,7 +2195,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: wrap,
-                    start: "top 30%",
+                    start: "top 75%",
                     end: "bottom 70%",
                     scrub: 1,
                 },
@@ -2217,7 +2217,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: line.parentElement,
-                    start: "top 50%",
+                    start: "top 80%",
                     end: "bottom 60%",
                     scrub: 1,
                 },
