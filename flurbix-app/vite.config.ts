@@ -44,6 +44,9 @@ const skipGtmDataFile: Plugin = {
 };
 
 export default defineConfig({
+  server: {
+    allowedHosts: ["schilling-smoked-twitch.ngrok-free.dev"]
+  },
   plugins: [skipGtmDataFile],
   build: {
     rollupOptions: {

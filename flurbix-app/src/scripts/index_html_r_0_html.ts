@@ -540,7 +540,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
     document.querySelectorAll('a[href="/#pricing"], a[href="#pricing"], a[href="index.html#pricing"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', function (e) {
             if (window.location.pathname === '/' || window.location.pathname.endsWith('index.html')) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -1355,7 +1355,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         const totalCells = cellCols * cellRows;
         const cellIndices = Array.from({ length: totalCells }, (_, i) => i);
-        
+
         // Helper to shuffle
         function shuffleArray(arr: number[]) {
             const result = [...arr];
@@ -1786,7 +1786,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const size = icon.size;
             const grad = c.createRadialGradient(icon.x, icon.y, 0, icon.x, icon.y, size * 1.8);
             const alpha = Math.min(1.0, icon.glowIntensity) * 0.45 * alphaMult;
-            
+
             grad.addColorStop(0, `rgba(${color}, ${alpha})`);
             grad.addColorStop(0.5, `rgba(${color}, ${alpha * 0.3})`);
             grad.addColorStop(1, `rgba(${color}, 0)`);
@@ -1856,7 +1856,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         function relocateIcon(icon: Icon) {
             if (isIconInUse(icon)) return false;
-            
+
             const occupied = new Set<number>();
             standardIcons.forEach(other => {
                 if (other.id !== icon.id) {
@@ -1882,7 +1882,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 icon.row = Math.floor(cellIdx / cellCols);
                 icon.xOffsetPercent = 0.18 + Math.random() * 0.64;
                 icon.yOffsetPercent = 0.18 + Math.random() * 0.64;
-                
+
                 const cellWidth = width / cellCols;
                 const cellHeight = height / cellRows;
                 icon.x = icon.col * cellWidth + cellWidth * icon.xOffsetPercent;
@@ -2564,7 +2564,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         .to(
             counterObj,
             {
-                val: 100,
+                val: 5,
                 duration: 0.5,
                 ease: "none",
                 onUpdate: () => {

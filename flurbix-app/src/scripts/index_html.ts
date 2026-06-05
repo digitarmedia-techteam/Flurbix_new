@@ -2550,13 +2550,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
             },
         })
         .from(".automations_h", {
-            scale: 2,
-            yPercent: 50,
-            xPercent: -30,
+            scale: 1.1,
+            yPercent: 30,
             duration: 0.5,
             opacity: 0,
-            filter: "blur(20px)",
-            ease: "none",
+            ease: "power2.out",
+            force3D: true,
         })
         .to(
             counterObj,
@@ -2575,12 +2574,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
             automationsText.chars,
             {
                 opacity: 0,
-                filter: "blur(2px)",
-                duration: 0.5,
+                y: 10,
+                duration: 0.4,
                 stagger: {
                     from: "center",
                     each: 0.01,
                 },
+                force3D: true,
             },
             "<50%",
         )
@@ -2595,45 +2595,31 @@ document.addEventListener("DOMContentLoaded", (event) => {
             "-=0.5",
         );
 
-    gsap.utils.toArray("[automations-bottom]").forEach((section) => {
-        const name = section.querySelector(".automations_name");
-        const spacer = section.querySelector(".automations_spacer");
-        const tag = section.querySelector(".automations_tag");
-
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: section,
-                start: "top 85%",
-                toggleActions: "play none none none",
+    const automationItems = gsap.utils.toArray("[automations-bottom]");
+    if (automationItems.length > 0) {
+        gsap.fromTo(
+            automationItems,
+            {
+                y: 40,
+                opacity: 0,
+                scale: 0.96
             },
-        });
-
-        tl.from(spacer, {
-            scaleX: 0,
-            duration: 1.5,
-            ease: "power4.out",
-        })
-            .from(
-                name,
-                {
-                    xPercent: 100,
-                    opacity: 0,
-                    duration: 1.5,
-                    ease: "back.out(0.5)",
+            {
+                scrollTrigger: {
+                    trigger: ".automations_list",
+                    start: "top 85%",
+                    toggleActions: "play none none none",
                 },
-                "<",
-            )
-            .from(
-                tag,
-                {
-                    xPercent: -100,
-                    opacity: 0,
-                    duration: 1.5,
-                    ease: "back.out(0.5)",
-                },
-                "<",
-            );
-    });
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                duration: 0.7,
+                stagger: 0.08,
+                ease: "power2.out",
+                force3D: true
+            }
+        );
+    }
 
     gsap.utils.toArray(".heading-style-h2, [fd-h2]").forEach((el) => {
         if (el.hasAttribute("prevent")) return;
