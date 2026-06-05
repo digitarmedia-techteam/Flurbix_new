@@ -486,188 +486,745 @@ a,
           <div class="about_bg"></div>
           <div class="about_pattern"></div>
         </section>
-        <section class="section_about-market">
+        <section class="section_about-market premium-market-section">
+          <style>
+            .premium-market-section {
+              position: relative;
+              background-color: #030712;
+              /* Dark, deep background */
+              color: #f9fafb;
+              padding-top: 8rem;
+              padding-bottom: 8rem;
+              overflow: hidden;
+            }
+
+            /* Animated Premium Background */
+            .market-bg-mesh {
+              position: absolute;
+              top: -20%;
+              left: 0%;
+              width: 150%;
+              height: 150%;
+              background: radial-gradient(circle at 30% 50%, rgba(11, 79, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(255, 100, 50, 0.05) 0%, transparent 40%);
+              z-index: 0;
+              pointer-events: none;
+              animation: marketBreathe 15s infinite alternate ease-in-out;
+            }
+
+            .market-bg-grid {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-image:
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+              background-size: 50px 50px;
+              mask-image: radial-gradient(ellipse at center, black 0%, transparent 80%);
+              -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 80%);
+              z-index: 0;
+              pointer-events: none;
+            }
+
+            @keyframes marketBreathe {
+              0% {
+                opacity: 0.6;
+                transform: scale(0.95);
+              }
+
+              100% {
+                opacity: 1;
+                transform: scale(1.05);
+              }
+            }
+
+            /* Layout */
+            .market-content-grid {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 4rem;
+              align-items: center;
+              position: relative;
+              z-index: 10;
+            }
+
+            @media (max-width: 991px) {
+              .market-content-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+              }
+            }
+
+            /* Typography */
+            .market-heading-h2 {
+              font-size: 3.5rem;
+              line-height: 1.1;
+              font-weight: 700;
+              letter-spacing: -0.03em;
+              margin-bottom: 2rem;
+              color: #ffffff;
+            }
+
+            .market-heading-highlight {
+              background: linear-gradient(90deg, #60a5fa, #a78bfa);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+            }
+
+            .market-text-block {
+              display: flex;
+              flex-direction: column;
+              gap: 1.5rem;
+            }
+
+            .market-p {
+              font-size: 1.125rem;
+              line-height: 1.7;
+              color: #9ca3af;
+            }
+
+            /* Visual Frame */
+            .market-visual-container {
+              position: relative;
+              perspective: 1000px;
+              width: 100%;
+            }
+
+            .market-image-frame {
+              position: relative;
+              border-radius: 24px;
+              overflow: hidden;
+              background: rgba(255, 255, 255, 0.03);
+              padding: 8px;
+              border: 1px solid rgba(255, 255, 255, 0.1);
+              box-shadow:
+                0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+              backdrop-filter: blur(20px);
+              -webkit-backdrop-filter: blur(20px);
+              transform: rotateY(-5deg) rotateX(2deg);
+              transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+            }
+
+            .market-image-frame:hover {
+              transform: rotateY(0deg) rotateX(0deg);
+              box-shadow:
+                0 35px 60px -15px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                0 0 40px rgba(11, 79, 255, 0.2);
+            }
+
+            .market-img {
+              width: 100%;
+              border-radius: 16px;
+              display: block;
+              filter: contrast(1.05) saturate(1.1);
+            }
+
+            /* Ambient Glow behind image */
+            .market-visual-glow {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              width: 80%;
+              height: 80%;
+              background: rgba(11, 79, 255, 0.4);
+              filter: blur(100px);
+              border-radius: 50%;
+              z-index: -1;
+              pointer-events: none;
+            }
+          </style>
+
+          <div class="market-bg-mesh"></div>
+          <div class="market-bg-grid"></div>
+
           <div class="padding-global">
             <div class="container-large">
-              <div class="about-market_content">
-                <div class="about-market_left">
-                  <div class="about-market_heading">
-                    <h2 class="heading-style-h2">
-                      <span class="text-style-supermuted">The Growth Engine</span>
-                      <br />
-                      Behind Modern Businesses
-                    </h2>
-                  </div>
-                  <div class="about-market_text">
-                    <div fd-paragraph="">
+              <div class="market-content-grid">
+                <div class="market-left gs-market-left">
+                  <h2 class="market-heading-h2">
+                    <span class="market-heading-highlight">The Growth Engine</span>
+                    <br />
+                    Behind Modern Businesses
+                  </h2>
+
+                  <div class="market-text-block">
+                    <div class="market-p gs-market-p">
                       At Flurbix, we believe growth shouldn't rely on fragmented tools, manual prospecting, or generic
                       outreach. Modern businesses need an intelligent system that identifies opportunities, engages the
                       right prospects, and drives growth at scale.
                     </div>
-
-                    <div fd-paragraph="">
+                    <div class="market-p gs-market-p">
                       Flurbix combines AI-powered prospecting, personalized outreach, workflow automation, and real-time
                       insights into a single growth operating system. Our platform helps teams discover qualified
                       prospects, connect with decision-makers, automate follow-ups, and optimize every interaction.
                     </div>
-
-                    <div fd-paragraph="">
+                    <div class="market-p gs-market-p">
                       By continuously analyzing target companies, audience behavior, and buying signals, Flurbix
                       recommends the best actions, messaging, channels, and outreach strategies to maximize results.
                     </div>
-
-                    <div fd-paragraph="">
+                    <div class="market-p gs-market-p">
                       Whether you're a startup, a scaling business, or an enterprise team, Flurbix helps you generate
                       more opportunities, build stronger relationships, and accelerate growth through intelligent
                       automation.
                     </div>
-
-                    <div fd-paragraph="">
+                    <div class="market-p gs-market-p">
                       More than a platform, Flurbix is the intelligence layer that transforms prospects into customers
                       and customer interactions into sustainable business growth.
                     </div>
                   </div>
                 </div>
-                <div class="about-market_visual">
-                  <div class="about-market_img-wrap">
+
+                <div class="market-visual-container gs-market-right">
+                  <div class="market-visual-glow"></div>
+                  <div class="market-image-frame">
                     <img
                       src="https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/69c46fc4fed7d6cfbc35c0b7_100%20Billion%20Decisions%20Medium.png"
                       loading="lazy" sizes="(max-width: 640px) 100vw, 640px" srcset="
                           https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/69c46fc4fed7d6cfbc35c0b7_100%20Billion%20Decisions%20Medium-p-500.png 500w,
                           https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/69c46fc4fed7d6cfbc35c0b7_100%20Billion%20Decisions%20Medium.png       640w
-                        " alt="" class="about-market_img" />
+                        " alt="Flurbix Team" class="market-img" />
                   </div>
-                  <div class="about-market_bg"></div>
                 </div>
               </div>
             </div>
           </div>
+
+          <script>
+            document.addEventListener("DOMContentLoaded", () => {
+              if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+                gsap.registerPlugin(ScrollTrigger);
+
+                // Reveal heading
+                gsap.from(".gs-market-left .market-heading-h2", {
+                  scrollTrigger: {
+                    trigger: ".premium-market-section",
+                    start: "top 75%",
+                  },
+                  y: 40, opacity: 0, duration: 1, ease: "power3.out"
+                });
+
+                // Stagger reveal paragraphs
+                gsap.from(".gs-market-p", {
+                  scrollTrigger: {
+                    trigger: ".premium-market-section",
+                    start: "top 70%",
+                  },
+                  y: 30, opacity: 0, duration: 0.8, stagger: 0.1, ease: "power2.out"
+                });
+
+                // Reveal image frame with scale and 3D rotation recovery
+                gsap.from(".gs-market-right", {
+                  scrollTrigger: {
+                    trigger: ".premium-market-section",
+                    start: "top 65%",
+                  },
+                  x: 60, scale: 0.9, opacity: 0, rotationY: 10, duration: 1.2, ease: "expo.out"
+                });
+              }
+            });
+          </script>
         </section>
         <section class="section_values">
-          <div class="padding-global">
+          <style>
+            /* Base section styles */
+            .section_values {
+              position: relative;
+              background-color: transparent;
+              overflow: visible;
+            }
+
+            /* Animated Premium Background */
+            .values-bg-mesh {
+              position: absolute;
+              top: -10%;
+              left: -10%;
+              width: 120%;
+              height: 120%;
+              background: radial-gradient(circle at 50% 50%, rgba(11, 79, 255, 0.05) 0%, transparent 60%);
+              z-index: 0;
+              pointer-events: none;
+              animation: breathe 10s infinite alternate ease-in-out;
+            }
+
+            .values-bg-grid {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-image:
+                linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+              background-size: 60px 60px;
+              mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+              -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+              z-index: 0;
+              pointer-events: none;
+            }
+
+            .values-bg-blob {
+              position: absolute;
+              border-radius: 50%;
+              filter: blur(120px);
+              z-index: 0;
+              pointer-events: none;
+              opacity: 0.5;
+              animation: floatBlob 20s infinite alternate ease-in-out;
+            }
+
+            .values-blob-1 {
+              width: 800px;
+              height: 800px;
+              background: rgba(11, 79, 255, 0.15);
+              top: -20%;
+              left: -10%;
+            }
+
+            .values-blob-2 {
+              width: 600px;
+              height: 600px;
+              background: rgba(255, 100, 50, 0.08);
+              bottom: -10%;
+              right: -5%;
+              animation-delay: -5s;
+            }
+
+            @keyframes breathe {
+              0% {
+                opacity: 0.6;
+                transform: scale(0.95);
+              }
+
+              100% {
+                opacity: 1;
+                transform: scale(1.05);
+              }
+            }
+
+            @keyframes floatBlob {
+              0% {
+                transform: translate(0, 0) scale(1);
+              }
+
+              100% {
+                transform: translate(10%, 10%) scale(1.1);
+              }
+            }
+
+            /* Symmetrical Bento Grid (2-3-2) */
+            .values-bento-grid {
+              display: grid;
+              grid-template-columns: repeat(6, 1fr);
+              grid-gap: 2.5rem;
+              margin-top: 4rem;
+              position: relative;
+              z-index: 10;
+            }
+
+            /* Premium Glassmorphic Cards */
+            .value-bento-card {
+              background: rgba(255, 255, 255, 0.7);
+              border-radius: 32px;
+              padding: 3rem 2.5rem;
+              display: flex;
+              flex-direction: column;
+              gap: 2rem;
+              backdrop-filter: blur(40px);
+              -webkit-backdrop-filter: blur(40px);
+              transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+              cursor: default;
+              position: relative;
+              overflow: visible;
+              box-shadow:
+                0 4px 6px -1px rgba(0, 0, 0, 0.02),
+                0 10px 15px -3px rgba(0, 0, 0, 0.04),
+                0 25px 50px -12px rgba(0, 0, 0, 0.04);
+              height: 100%;
+              border: 1px solid rgba(255, 255, 255, 0.9);
+            }
+
+            /* Subtle 1px Gradient Border using Pseudo Element */
+            .value-bento-card::after {
+              content: '';
+              position: absolute;
+              inset: 0;
+              border-radius: 32px;
+              padding: 1px;
+              background: linear-gradient(135deg, rgba(11, 79, 255, 0.2) 0%, rgba(255, 255, 255, 0) 50%, rgba(255, 100, 50, 0.1) 100%);
+              -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+              -webkit-mask-composite: xor;
+              mask-composite: exclude;
+              opacity: 0;
+              transition: opacity 0.4s ease;
+              pointer-events: none;
+            }
+
+            .value-bento-card:hover {
+              transform: translateY(-12px);
+              background: rgba(255, 255, 255, 0.95);
+              box-shadow:
+                0 20px 40px rgba(11, 79, 255, 0.08),
+                0 0 0 1px rgba(11, 79, 255, 0.05);
+            }
+
+            .value-bento-card:hover::after {
+              opacity: 1;
+            }
+
+            /* Symmetrical grid logic */
+            .value-bento-card:nth-child(1),
+            .value-bento-card:nth-child(2) {
+              grid-column: span 3;
+            }
+
+            .value-bento-card:nth-child(3),
+            .value-bento-card:nth-child(4),
+            .value-bento-card:nth-child(5) {
+              grid-column: span 2;
+            }
+
+            .value-bento-card:nth-child(6),
+            .value-bento-card:nth-child(7) {
+              grid-column: span 3;
+            }
+
+            /* Icon Container Redesign */
+            .value-icon-wrapper {
+              width: 56px;
+              height: 56px;
+              border-radius: 18px;
+              background: #ffffff;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: #0b4fff;
+              position: relative;
+              z-index: 1;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+              transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+
+            /* Animated Gradient Glow Behind Icon */
+            .value-icon-wrapper::before {
+              content: '';
+              position: absolute;
+              inset: -4px;
+              border-radius: 22px;
+              background: conic-gradient(from 0deg, rgba(11, 79, 255, 0.1), rgba(11, 79, 255, 0.6), rgba(255, 100, 50, 0.3), rgba(11, 79, 255, 0.1));
+              z-index: -1;
+              opacity: 0.3;
+              transition: opacity 0.4s ease;
+              animation: spinIconGlow 4s linear infinite;
+              filter: blur(8px);
+            }
+
+            @keyframes spinIconGlow {
+              100% {
+                transform: rotate(360deg);
+              }
+            }
+
+            .value-bento-card:hover .value-icon-wrapper {
+              transform: scale(1.15);
+            }
+
+            .value-bento-card:hover .value-icon-wrapper::before {
+              opacity: 1;
+              filter: blur(12px);
+            }
+
+            .value-bento-card svg {
+              width: 28px;
+              height: 28px;
+              transition: transform 0.4s ease;
+            }
+
+            .value-bento-card:hover svg {
+              transform: rotate(5deg) scale(1.05);
+            }
+
+            /* Content Styling */
+            .value-bento-content {
+              display: flex;
+              flex-direction: column;
+              gap: 1rem;
+              z-index: 2;
+              flex-grow: 1;
+            }
+
+            .value-bento-h {
+              font-size: 1.65rem;
+              font-weight: 700;
+              color: #0a0a0a;
+              line-height: 1.2;
+              letter-spacing: -0.02em;
+            }
+
+            .value-bento-p {
+              font-size: 1.1rem;
+              line-height: 1.65;
+              color: #555555;
+            }
+
+            /* Animated Heading Underline */
+            .heading-animated-highlight {
+              position: relative;
+              display: inline-block;
+              z-index: 1;
+            }
+
+            .heading-animated-highlight::after {
+              content: '';
+              position: absolute;
+              left: 0;
+              bottom: 2px;
+              height: 8px;
+              width: 100%;
+              background: linear-gradient(90deg, rgba(11, 79, 255, 0.2), rgba(255, 100, 50, 0.2));
+              z-index: -1;
+              border-radius: 4px;
+              transform-origin: left;
+              transform: scaleX(0);
+              transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .heading-animated-highlight.is-visible::after {
+              transform: scaleX(1);
+            }
+
+            @media (max-width: 991px) {
+              .values-bento-grid {
+                grid-template-columns: 1fr 1fr;
+              }
+
+              .value-bento-card {
+                grid-column: span 1 !important;
+              }
+
+              .value-bento-card:nth-child(7) {
+                grid-column: span 2 !important;
+              }
+            }
+
+            @media (max-width: 767px) {
+              .values-bento-grid {
+                grid-template-columns: 1fr;
+              }
+
+              .value-bento-card {
+                grid-column: span 1 !important;
+              }
+
+              .value-bento-card {
+                padding: 2rem 1.5rem;
+              }
+            }
+          </style>
+
+          <div class="values-bg-mesh"></div>
+          <div class="values-bg-grid"></div>
+          <div class="values-bg-blob values-blob-1"></div>
+          <div class="values-bg-blob values-blob-2"></div>
+
+          <div class="padding-global" style="position: relative; z-index: 10;">
             <div class="container-large">
               <div class="values_content">
                 <div class="values_tag-wrap">
                   <div fd-tag="" class="values_tag">our values</div>
-                  <div class="values_lines3 w-embed">
-                    <svg width="100%" height="100%" viewBox="0 0 1098 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M1098 1.0001L0 1" stroke="#E2E1D3" stroke-width="2" />
-                      <path id="values-l1" d="M1098 1.0001L0 1" stroke="#0B4FFF" stroke-width="2" />
-                    </svg>
-                  </div>
                 </div>
-                <div class="values_wrap">
-                  <div class="values_data">
-                    <div class="values_heading">
-                      <h2 class="heading-style-h2">What drives us</h2>
+                <!-- Overriding existing absolute positioning classes -->
+                <div class="values_wrap" style="position: relative !important; width: 100%; display: block !important;">
+                  <div class="values_data"
+                    style="position: relative !important; width: 100%; max-width: none; display: block !important; height: auto !important;">
+                    <div class="values_heading" style="text-align: left; margin-bottom: 4rem;">
+                      <h2 class="heading-style-h2 gs-heading-reveal" style="font-size: 4rem; letter-spacing: -0.03em;">
+                        <span class="heading-animated-highlight">What Drives Flurbix</span>
+                      </h2>
                     </div>
-                    <div class="values_cards">
-                      <div class="values_line-wrap">
-                        <div class="values_line"></div>
-                      </div>
-                      <div class="values_card">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 48 48" fill="none"
-                          class="values_icon">
-                          <path
-                            d="M38.002 10.002L45.1211 24.002L38.002 38.002L24.002 45.1221L10.002 38.002L2.88281 24.002L10.002 10.002L24.002 2.88281L38.002 10.002Z"
-                            fill="currentColor"></path>
-                          <path
-                            d="M24.9407 16.1472L26.7664 21.2323L31.8522 23.0588L34.4714 24L31.8522 24.9412L26.7664 26.7677L24.9407 31.8528L23.9988 34.4726L23.0583 31.8528L21.2311 26.7677L16.1467 24.9412L13.5261 24L16.1467 23.0588L21.2311 21.2323L23.0583 16.1472L23.9988 13.5274L24.9407 16.1472Z"
-                            stroke="#F0EFE3" stroke-width="2"></path>
-                        </svg>
-                        <div class="values_h">Customer Obsession</div>
-                        <div class="values_p">
-                          flurbix&#x27;s success is measured by our customers&#x27; success. Every decision we make —
-                          in the product, in support, in strategy — starts with the question: does this make our
-                          customers more effective?
+
+                    <div class="values-bento-grid">
+                      <!-- Card 1 -->
+                      <div class="value-bento-card gs-value-card">
+                        <div class="value-icon-wrapper">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 48 48" fill="none">
+                            <path
+                              d="M38.002 10.002L45.1211 24.002L38.002 38.002L24.002 45.1221L10.002 38.002L2.88281 24.002L10.002 10.002L24.002 2.88281L38.002 10.002Z"
+                              fill="currentColor"></path>
+                            <path
+                              d="M24.9407 16.1472L26.7664 21.2323L31.8522 23.0588L34.4714 24L31.8522 24.9412L26.7664 26.7677L24.9407 31.8528L23.9988 34.4726L23.0583 31.8528L21.2311 26.7677L16.1467 24.9412L13.5261 24L16.1467 23.0588L21.2311 21.2323L23.0583 16.1472L23.9988 13.5274L24.9407 16.1472Z"
+                              stroke="#0b4fff" stroke-width="2"></path>
+                          </svg>
+                        </div>
+                        <div class="value-bento-content">
+                          <div class="value-bento-h">Time is the Most Valuable Asset</div>
+                          <div class="value-bento-p">
+                            No one starts their day excited to send hundreds of emails or manually track follow-ups.
+
+                            We help teams reclaim valuable hours so they can focus on conversations, strategy, and
+                            growth.
+
+                          </div>
                         </div>
                       </div>
-                      <div class="values_line-wrap">
-                        <div class="values_line"></div>
-                      </div>
-                      <div class="values_card is-left">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 48 48" fill="none"
-                          class="values_icon">
-                          <path d="M24 42L4 20H44L24 42ZM34.8467 6L44 18H4L13.1533 6H34.8467Z" fill="currentColor">
-                          </path>
-                        </svg>
-                        <div class="values_h">Quality</div>
-                        <div class="values_p">
-                          We hold ourselves to the highest standard in every aspect of our work. When your system
-                          processes billions of decisions, there is no room for “good enough.”
+
+                      <!-- Card 2 -->
+                      <div class="value-bento-card gs-value-card">
+                        <div class="value-icon-wrapper">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 48 48" fill="none">
+                            <path d="M24 42L4 20H44L24 42ZM34.8467 6L44 18H4L13.1533 6H34.8467Z" fill="currentColor">
+                            </path>
+                          </svg>
+                        </div>
+                        <div class="value-bento-content">
+                          <div class="value-bento-h">Empower People, Not Processes</div>
+                          <div class="value-bento-p">
+                            Technology should support human potential, not replace it.
+                            By automating repetitive work, Flurbix allows employees to focus on the work that requires
+                            creativity, judgment, and human connection.
+                          </div>
                         </div>
                       </div>
-                      <div class="values_line-wrap">
-                        <div class="values_line"></div>
-                      </div>
-                      <div class="values_card is-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 48 48" fill="none"
-                          class="values_icon">
-                          <path
-                            d="M24 4C35.0456 4 44 12.9543 44 24C44 35.0456 35.0456 44 24 44C12.9543 44 4 35.0456 4 24C4 12.9543 12.9543 4 24 4ZM24 11C16.8203 11 11 16.8203 11 24C11 31.1798 16.8203 37 24 37C31.1798 37 37 31.1798 37 24C37 16.8203 31.1798 11 24 11ZM24 13C30.0752 13 35 17.9249 35 24C35 30.0752 30.0752 35 24 35C17.9249 35 13 30.0752 13 24C13 17.9249 17.9249 13 24 13ZM24 21C22.3432 21 21 22.3432 21 24C21 25.6568 22.3432 27 24 27C25.6568 27 27 25.6568 27 24C27 22.3432 25.6568 21 24 21Z"
-                            fill="currentColor"></path>
-                        </svg>
-                        <div class="values_h">Ownership</div>
-                        <div class="values_p">
-                          The best companies are built by teams who take initiative and go beyond their job
-                          description. We hire people who treat every problem as their problem.
+
+                      <!-- Card 3 -->
+                      <div class="value-bento-card gs-value-card">
+                        <div class="value-icon-wrapper">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 48 48" fill="none">
+                            <path
+                              d="M24 4C35.0456 4 44 12.9543 44 24C44 35.0456 35.0456 44 24 44C12.9543 44 4 35.0456 4 24C4 12.9543 12.9543 4 24 4ZM24 11C16.8203 11 11 16.8203 11 24C11 31.1798 16.8203 37 24 37C31.1798 37 37 31.1798 37 24C37 16.8203 31.1798 11 24 11ZM24 13C30.0752 13 35 17.9249 35 24C35 30.0752 30.0752 35 24 35C17.9249 35 13 30.0752 13 24C13 17.9249 17.9249 13 24 13ZM24 21C22.3432 21 21 22.3432 21 24C21 25.6568 22.3432 27 24 27C25.6568 27 27 25.6568 27 24C27 22.3432 25.6568 21 24 21Z"
+                              fill="currentColor"></path>
+                          </svg>
+                        </div>
+                        <div class="value-bento-content">
+                          <div class="value-bento-h">Work Smarter, Scale Faster</div>
+                          <div class="value-bento-p">
+                            Growth shouldn't require more manual effort.
+                            We help organizations reach more people, build more relationships, and create more
+                            opportunities without increasing workload.
+                          </div>
                         </div>
                       </div>
-                      <div class="values_line-wrap">
-                        <div class="values_line"></div>
-                      </div>
-                      <div class="values_card is-left is-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 48 48" fill="none"
-                          class="values_icon">
-                          <path
-                            d="M42 6.0752V38.0752H30.3916L23.9922 43.377L17.667 38.0752H6V6.07422L42 6.0752ZM22 24.8604L18.3994 21.2607L16.9854 22.6748L22 27.6885L31.8135 17.875L30.3994 16.4609L22 24.8604Z"
-                            fill="currentColor"></path>
-                        </svg>
-                        <div class="values_h">Transparency</div>
-                        <div class="values_p">
-                          Trust is built on clear, honest communication — with our customers, our partners, and each
-                          other. We surface what&#x27;s working, what isn&#x27;t, and why.
+
+                      <!-- Card 4 -->
+                      <div class="value-bento-card gs-value-card">
+                        <div class="value-icon-wrapper">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 48 48" fill="none">
+                            <path
+                              d="M42 6.0752V38.0752H30.3916L23.9922 43.377L17.667 38.0752H6V6.07422L42 6.0752ZM22 24.8604L18.3994 21.2607L16.9854 22.6748L22 27.6885L31.8135 17.875L30.3994 16.4609L22 24.8604Z"
+                              fill="currentColor"></path>
+                          </svg>
+                        </div>
+                        <div class="value-bento-content">
+                          <div class="value-bento-h">Consistency Creates Success</div>
+                          <div class="value-bento-p">
+                            Great opportunities are often lost because of missed follow-ups, forgotten conversations,
+                            or inconsistent communication.
+                            Flurbix ensures every interaction happens at the right time, every time.
+                          </div>
                         </div>
                       </div>
-                      <div class="values_line-wrap">
-                        <div class="values_line"></div>
-                      </div>
-                      <div class="values_card is-5">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 48 48" fill="none"
-                          class="values_icon">
-                          <path
-                            d="M41.3203 34C37.8621 39.9779 31.3988 44 23.9961 44C16.5933 44 10.1299 39.978 6.67188 34H41.3203ZM24 4C35.0456 4 44 12.9543 44 24C44 26.8444 43.4063 29.5502 42.3359 32H25.79L33.376 19.6729L31.6729 18.624L23.4414 32H5.66406C4.59369 29.5502 4 26.8444 4 24C4 12.9543 12.9543 4 24 4Z"
-                            fill="currentColor"></path>
-                        </svg>
-                        <div class="values_h">Velocity</div>
-                        <div class="values_p">
-                          Rapid execution and sharp decision-making are how we maintain a competitive edge. We move
-                          fast, learn faster, and compound what works.
+
+                      <!-- Card 5 -->
+                      <div class="value-bento-card gs-value-card">
+                        <div class="value-icon-wrapper">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 48 48" fill="none">
+                            <path
+                              d="M41.3203 34C37.8621 39.9779 31.3988 44 23.9961 44C16.5933 44 10.1299 39.978 6.67188 34H41.3203ZM24 4C35.0456 4 44 12.9543 44 24C44 26.8444 43.4063 29.5502 42.3359 32H25.79L33.376 19.6729L31.6729 18.624L23.4414 32H5.66406C4.59369 29.5502 4 26.8444 4 24C4 12.9543 12.9543 4 24 4Z"
+                              fill="currentColor"></path>
+                          </svg>
+                        </div>
+                        <div class="value-bento-content">
+                          <div class="value-bento-h">Simplicity Wins</div>
+                          <div class="value-bento-p">
+                            Workplace tools should reduce complexity, not add to it.
+                            We design intuitive solutions that make powerful automation accessible to every team and
+                            every department.
+                          </div>
                         </div>
                       </div>
+
+                      <!-- Card 6 -->
+                      <div class="value-bento-card gs-value-card">
+                        <div class="value-icon-wrapper">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 48 48" fill="none">
+                            <path d="M28 4L8 26H24L20 44L40 22H24L28 4Z" fill="currentColor"></path>
+                          </svg>
+                        </div>
+                        <div class="value-bento-content">
+                          <div class="value-bento-h">Trust Through Transparency</div>
+                          <div class="value-bento-p">
+                            People perform better when they have visibility and clarity
+                            We provide reliable data, actionable insights, and complete transparency across every
+                            workflow and interaction.
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Card 7 -->
+                      <div class="value-bento-card gs-value-card">
+                        <div class="value-icon-wrapper">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 48 48" fill="none">
+                            <path d="M6 42H42V38H6V42ZM6 32H14V16H6V32ZM18 32H26V8H18V32ZM30 32H38V22H30V32Z"
+                              fill="currentColor"></path>
+                          </svg>
+                        </div>
+                        <div class="value-bento-content">
+                          <div class="value-bento-h">Growth for Everyone</div>
+                          <div class="value-bento-p">
+                            When employees become more productive, businesses grow.
+                            When businesses grow, people create more opportunities, stronger careers, and greater
+                            impact.
+                            We build Flurbix to help both organizations and individuals reach their full potential.
+
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
-                  </div>
-                  <div class="values_lines w-embed">
-                    <svg width="100%" height="100%" viewBox="0 0 1098 1331" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M0 1H1073C1086.25 1 1097 11.7452 1097 25V206C1097 219.255 1086.25 230 1073 230H163.5C150.245 230 139.5 240.745 139.5 254V426C139.5 439.255 150.245 450 163.5 450H1073C1086.25 450 1097 460.745 1097 474V646C1097 659.255 1086.25 670 1073 670H163.5C150.245 670 139.5 680.745 139.5 694V866C139.5 879.255 150.245 890 163.5 890H1073C1086.25 890 1097 900.745 1097 914V1086C1097 1099.25 1086.25 1110 1073 1110H609C595.745 1110 585 1120.75 585 1134V1306C585 1319.25 595.745 1330 609 1330H786.5"
-                        stroke="#E2E1D3" stroke-width="2" />
-                      <path id="values-l2"
-                        d="M0 1H1073C1086.25 1 1097 11.7452 1097 25V206C1097 219.255 1086.25 230 1073 230H163.5C150.245 230 139.5 240.745 139.5 254V426C139.5 439.255 150.245 450 163.5 450H1073C1086.25 450 1097 460.745 1097 474V646C1097 659.255 1086.25 670 1073 670H163.5C150.245 670 139.5 680.745 139.5 694V866C139.5 879.255 150.245 890 163.5 890H1073C1086.25 890 1097 900.745 1097 914V1086C1097 1099.25 1086.25 1110 1073 1110H609C595.745 1110 585 1120.75 585 1134V1306C585 1319.25 595.745 1330 609 1330H786.5"
-                        stroke="#0B4FFF" stroke-width="2" />
-                    </svg>
-                  </div>
-                  <div class="values_lines2 w-embed">
-                    <svg width="100%" height="100%" viewBox="0 0 1098 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M1098 1.0001L0 1" stroke="#E2E1D3" stroke-width="2" />
-                      <path id="values-l3" d="M1098 1.0001L0 1" stroke="#0B4FFF" stroke-width="2" />
-                    </svg>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <script>
+            document.addEventListener("DOMContentLoaded", () => {
+              if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+                gsap.registerPlugin(ScrollTrigger);
+
+                // Reveal Heading
+                gsap.from(".gs-heading-reveal", {
+                  scrollTrigger: {
+                    trigger: ".values_heading",
+                    start: "top 85%",
+                    onEnter: () => document.querySelector(".heading-animated-highlight")?.classList.add("is-visible")
+                  },
+                  y: 30, opacity: 0, duration: 1, ease: "power3.out"
+                });
+
+                // Premium Card Stagger Reveal
+                const cards = document.querySelectorAll(".gs-value-card");
+                if (cards.length > 0) {
+                  gsap.from(cards, {
+                    scrollTrigger: {
+                      trigger: ".values-bento-grid",
+                      start: "top 80%",
+                    },
+                    y: 60,
+                    scale: 0.95,
+                    opacity: 0,
+                    duration: 1.2,
+                    stagger: 0.1,
+                    ease: "expo.out"
+                  });
+                }
+              }
+            });
+          </script>
         </section>
         <section class="section_team">
           <div class="padding-global">
