@@ -131,7 +131,9 @@ export function initNetworkCanvas() {
         const jitterPadX = cellW * 0.18;
         const jitterPadY = cellH * 0.18;
 
-        // Place brands (all in the center cell)
+        // Place brands (all in the center cell sharing the same jitter so they align perfectly during switch transition)
+        const brandJitterX = (Math.random() * 2 - 1) * jitterPadX;
+        const brandJitterY = (Math.random() * 2 - 1) * jitterPadY;
         brandIcons.forEach(icon => {
             cells.push({
                 c: brandCell.c,
@@ -139,8 +141,8 @@ export function initNetworkCanvas() {
                 x: brandCell.c * cellW + cellW / 2,
                 y: brandCell.r * cellH + cellH / 2,
                 iconType: icon,
-                jitterX: (Math.random() * 2 - 1) * jitterPadX,
-                jitterY: (Math.random() * 2 - 1) * jitterPadY,
+                jitterX: brandJitterX,
+                jitterY: brandJitterY,
                 isBrand: true,
                 opacity: 0,
                 glowIntensity: 0,
@@ -429,10 +431,10 @@ export function initNetworkCanvas() {
             c.opacity += (targetOpacity - c.opacity) * 0.05;
         });
 
-        // Draw connections
+        // Draw connections (faded out more and faster)
         for (let i = connections.length - 1; i >= 0; i--) {
             const conn = connections[i];
-            conn.alpha -= 0.005; 
+            conn.alpha -= 0.015; 
             if (conn.alpha <= 0) {
                 connections.splice(i, 1);
                 continue;
@@ -445,27 +447,27 @@ export function initNetworkCanvas() {
 
             ctx.save();
             ctx.lineCap = 'round';
-            // pass 1
+            // pass 1 (reduced opacity multiplier from 0.04 to 0.01)
             ctx.beginPath();
             ctx.moveTo(sx, sy);
             ctx.quadraticCurveTo(conn.cpX, conn.cpY, tx, ty);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${0.04 * conn.alpha})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.01 * conn.alpha})`;
             ctx.lineWidth = 7;
             ctx.stroke();
             
-            // pass 2
+            // pass 2 (reduced opacity multiplier from 0.1 to 0.03)
             ctx.beginPath();
             ctx.moveTo(sx, sy);
             ctx.quadraticCurveTo(conn.cpX, conn.cpY, tx, ty);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * conn.alpha})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.03 * conn.alpha})`;
             ctx.lineWidth = 3.5;
             ctx.stroke();
             
-            // pass 3
+            // pass 3 (reduced opacity multiplier from 0.4 to 0.12)
             ctx.beginPath();
             ctx.moveTo(sx, sy);
             ctx.quadraticCurveTo(conn.cpX, conn.cpY, tx, ty);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${0.4 * conn.alpha})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.12 * conn.alpha})`;
             ctx.lineWidth = 1.2;
             ctx.stroke();
             ctx.restore();
