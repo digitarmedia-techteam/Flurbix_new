@@ -1987,17 +1987,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 ctx.moveTo(line.x1, line.y1);
                 ctx.quadraticCurveTo(line.xc, line.yc, line.x2, line.y2);
                 ctx.lineWidth = 7;
-                ctx.strokeStyle = `rgba(255, 255, 255, ${0.08 * line.alpha})`;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.04 * line.alpha})`;
                 ctx.stroke();
 
                 // Pass 2: Mid Glow
                 ctx.lineWidth = 3.5;
-                ctx.strokeStyle = `rgba(255, 255, 255, ${0.2 * line.alpha})`;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * line.alpha})`;
                 ctx.stroke();
 
                 // Pass 3: Core
                 ctx.lineWidth = 1.2;
-                ctx.strokeStyle = `rgba(255, 255, 255, ${0.85 * line.alpha})`;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.4 * line.alpha})`;
                 ctx.stroke();
 
                 ctx.restore();
