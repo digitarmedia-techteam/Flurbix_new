@@ -1386,6 +1386,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             glowIntensity: number;
             index: number;
             hasRelocated: boolean;
+            opacity?: number;
         }
 
         const standardIcons: Icon[] = [];
@@ -1442,7 +1443,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 breathPhase: 0,
                 glowIntensity: 0,
                 index: i,
-                hasRelocated: false
+                hasRelocated: false,
+                opacity: 0
             });
         }
 
@@ -1462,6 +1464,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
 
         interface FadingLine {
+            source: Icon;
+            target: Icon;
             x1: number;
             y1: number;
             x2: number;
@@ -1851,7 +1855,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         let lastBrandIndex = -1;
 
         function isIconInUse(icon: Icon) {
-            return comets.some(comet => comet.source.id === icon.id || comet.target.id === icon.id);
+            const inComet = comets.some(comet => comet.source.id === icon.id || comet.target.id === icon.id);
+            const inLine = fadingLines.some(line => line.source.id === icon.id || line.target.id === icon.id);
+            return inComet || inLine;
         }
 
         function relocateIcon(icon: Icon) {
@@ -1974,9 +1980,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
             });
             drawGlowBehind(ctx, activeBrand, brandAlpha);
 
-            // 4. Draw Fading Connecting Lines
+            // 4. Draw Fading Connecting Lines (faded out more and faster)
             fadingLines.forEach((line, index) => {
-                line.alpha -= dt / 1600;
+                line.alpha -= dt / 700;
                 if (line.alpha <= 0) {
                     fadingLines.splice(index, 1);
                     return;
@@ -1985,22 +1991,22 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 ctx.save();
                 ctx.lineCap = "round";
 
-                // Pass 1: Outer Glow
+                // Pass 1: Outer Glow (reduced opacity multiplier from 0.08 to 0.02)
                 ctx.beginPath();
                 ctx.moveTo(line.x1, line.y1);
                 ctx.quadraticCurveTo(line.xc, line.yc, line.x2, line.y2);
                 ctx.lineWidth = 7;
-                ctx.strokeStyle = `rgba(255, 255, 255, ${0.08 * line.alpha})`;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.02 * line.alpha})`;
                 ctx.stroke();
 
-                // Pass 2: Mid Glow
+                // Pass 2: Mid Glow (reduced opacity multiplier from 0.2 to 0.06)
                 ctx.lineWidth = 3.5;
-                ctx.strokeStyle = `rgba(255, 255, 255, ${0.2 * line.alpha})`;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.06 * line.alpha})`;
                 ctx.stroke();
 
-                // Pass 3: Core
+                // Pass 3: Core (reduced opacity multiplier from 0.85 to 0.25)
                 ctx.lineWidth = 1.2;
-                ctx.strokeStyle = `rgba(255, 255, 255, ${0.85 * line.alpha})`;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.25 * line.alpha})`;
                 ctx.stroke();
 
                 ctx.restore();
@@ -2025,7 +2031,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 drawIconVector(ctx, icon.type, icon.x, icon.y, icon.size, opacity);
             });
-            drawIconVector(ctx, activeBrand.type, activeBrand.x, activeBrand.y, activeBrand.size, brandAlpha);
+            
+            // Draw all brand icons based on their transition opacity to support seamless fade-out during switch
+            brandIcons.forEach((icon, i) => {
+                const targetOpacity = (i === currentBrandIndex) ? brandAlpha : 0;
+                if (icon.opacity === undefined) icon.opacity = 0;
+                icon.opacity += (targetOpacity - icon.opacity) * 0.1;
+                if (icon.opacity > 0.01) {
+                    drawIconVector(ctx, icon.type, icon.x, icon.y, icon.size, icon.opacity);
+                }
+            });
 
             // 6. Draw Checkmark Badges
             standardIcons.forEach(icon => {
@@ -2048,6 +2063,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     comet.target.glowIntensity = 1.5;
 
                     fadingLines.push({
+                        source: comet.source,
+                        target: comet.target,
                         x1: comet.x1,
                         y1: comet.y1,
                         x2: comet.x2,
