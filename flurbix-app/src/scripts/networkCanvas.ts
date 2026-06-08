@@ -43,8 +43,18 @@ export function initNetworkCanvas() {
 
     let cells: GridCell[] = [];
     let currentBrandIndex = 0;
-    let lastBrandSwitchTime = 0;
-    const BRAND_SWITCH_INTERVAL = 4000;
+
+    enum JourneyState {
+        INIT,
+        BRAND_TO_TOWER,
+        TOWER_TO_GLOBE,
+        GLOBE_TO_ENDPOINTS,
+        COOLDOWN
+    }
+
+    let journeyState = JourneyState.INIT;
+    let stateTime = 0;
+    let lastTime = 0;
 
     interface Comet {
         source: GridCell;
@@ -56,7 +66,6 @@ export function initNetworkCanvas() {
         trail: {x: number, y: number, alpha: number}[];
     }
     let comets: Comet[] = [];
-    let lastCometSpawn = 0;
 
     interface Connection {
         source: GridCell;
@@ -77,7 +86,7 @@ export function initNetworkCanvas() {
         // update grid size
         if (width < 768) {
             cols = 3;
-            rows = 2;
+            rows = 3; // Ensure 9 cells for the 7 required icons
         } else {
             cols = 5;
             rows = 3;
@@ -107,26 +116,43 @@ export function initNetworkCanvas() {
         // Shuffle
         availableCells.sort(() => Math.random() - 0.5);
 
-        allIconTypes.forEach((icon, i) => {
-            if (i >= availableCells.length) return; // if mobile, some might not fit, but 6 cells < 10 icons. 
-            // We'll just take the first 6 icons if mobile, making sure brands are included
+        const requiredIcons: IconType[] = ['network', 'globe', 'email', 'laptop', 'android', 'apple'];
+        
+        const centerCol = Math.floor(cols/2);
+        const centerRow = Math.floor(rows/2);
+        
+        // Find a center-ish cell for brand
+        let brandCellIndex = availableCells.findIndex(cell => cell.c === centerCol && cell.r === centerRow);
+        if(brandCellIndex === -1) brandCellIndex = 0;
+        const brandCell = availableCells.splice(brandCellIndex, 1)[0];
+
+        const othersToPlace = requiredIcons.slice(0, availableCells.length); 
+
+        const jitterPadX = cellW * 0.18;
+        const jitterPadY = cellH * 0.18;
+
+        // Place brands (all in the center cell)
+        brandIcons.forEach(icon => {
+            cells.push({
+                c: brandCell.c,
+                r: brandCell.r,
+                x: brandCell.c * cellW + cellW / 2,
+                y: brandCell.r * cellH + cellH / 2,
+                iconType: icon,
+                jitterX: (Math.random() * 2 - 1) * jitterPadX,
+                jitterY: (Math.random() * 2 - 1) * jitterPadY,
+                isBrand: true,
+                opacity: 0,
+                glowIntensity: 0,
+                glowColor: 'rgba(255,255,255,0)',
+                showBadge: false,
+                badgeOpacity: 0
+            });
         });
 
-        // Ensure brands are always there
-        let selectedIcons = [...allIconTypes];
-        if (availableCells.length < selectedIcons.length) {
-            // prioritize brands
-            selectedIcons = selectedIcons.filter(ic => brandIcons.includes(ic));
-            const others = allIconTypes.filter(ic => !brandIcons.includes(ic));
-            others.sort(() => Math.random() - 0.5);
-            selectedIcons.push(...others.slice(0, availableCells.length - selectedIcons.length));
-        }
-
-        selectedIcons.forEach((icon, i) => {
+        // Place standard endpoints
+        othersToPlace.forEach((icon, i) => {
             const loc = availableCells[i];
-            const jitterPadX = cellW * 0.18;
-            const jitterPadY = cellH * 0.18;
-            
             cells.push({
                 c: loc.c,
                 r: loc.r,
@@ -135,8 +161,8 @@ export function initNetworkCanvas() {
                 iconType: icon,
                 jitterX: (Math.random() * 2 - 1) * jitterPadX,
                 jitterY: (Math.random() * 2 - 1) * jitterPadY,
-                isBrand: brandIcons.includes(icon),
-                opacity: brandIcons.includes(icon) ? 0 : 1, // brands are 0 initially
+                isBrand: false,
+                opacity: 0.4, // base opacity
                 glowIntensity: 0,
                 glowColor: 'rgba(255,255,255,0)',
                 showBadge: false,
@@ -150,6 +176,12 @@ export function initNetworkCanvas() {
             brands[0].opacity = 1;
             currentBrandIndex = 0;
         }
+
+        // Reset state
+        journeyState = JourneyState.INIT;
+        stateTime = 0;
+        comets = [];
+        connections = [];
     }
 
     function drawDotGrid() {
@@ -238,7 +270,6 @@ export function initNetworkCanvas() {
         } else if (cell.iconType === 'zepto') {
             ctx.fillStyle = 'rgba(62, 10, 114, 0.95)';
             ctx.fill();
-            // simple gradient text
             const grad = ctx.createLinearGradient(-w/2, 0, w/2, 0);
             grad.addColorStop(0, '#fff');
             grad.addColorStop(1, '#d8b4fe');
@@ -254,10 +285,9 @@ export function initNetworkCanvas() {
 
     function drawBadge(cx: number, cy: number, size: number, opacity: number) {
         ctx.save();
-        ctx.translate(cx + size/1.5, cy - size/1.5); // top right
+        ctx.translate(cx + size/1.5, cy - size/1.5); 
         ctx.globalAlpha = opacity;
         
-        // glowing backing
         const grad = ctx.createRadialGradient(0,0, 0, 0,0, 12);
         grad.addColorStop(0, 'rgba(34, 197, 94, 0.8)');
         grad.addColorStop(1, 'rgba(34, 197, 94, 0)');
@@ -266,13 +296,11 @@ export function initNetworkCanvas() {
         ctx.arc(0,0, 12, 0, Math.PI*2);
         ctx.fill();
 
-        // green circle
         ctx.fillStyle = 'rgba(34, 197, 94, 1)';
         ctx.beginPath();
         ctx.arc(0,0, 7, 0, Math.PI*2);
         ctx.fill();
 
-        // tick
         ctx.strokeStyle = '#fff';
         ctx.lineWidth = 1.5;
         ctx.lineCap = 'round';
@@ -291,11 +319,7 @@ export function initNetworkCanvas() {
         ctx.save();
         ctx.translate(cx, cy);
         
-        // Parse color logic. e.g. 'rgba(255,255,255, ' -> add alpha
-        // Wait, the prompt says glow color matching brand type
         const grad = ctx.createRadialGradient(0,0,0, 0,0, radius);
-        
-        // Replace last part of rgba string with intensity
         const baseColor = color.substring(0, color.lastIndexOf(','));
         grad.addColorStop(0, `${baseColor}, ${intensity * 0.4})`);
         grad.addColorStop(0.5, `${baseColor}, ${intensity * 0.1})`);
@@ -309,21 +333,7 @@ export function initNetworkCanvas() {
         ctx.restore();
     }
 
-    function spawnComet() {
-        const activeBrands = cells.filter(c => c.isBrand && c.opacity > 0.5);
-        const standards = cells.filter(c => !c.isBrand);
-        
-        if (activeBrands.length === 0 || standards.length === 0) return;
-        
-        let source, target;
-        if (Math.random() > 0.5) {
-            source = activeBrands[0];
-            target = standards[Math.floor(Math.random() * standards.length)];
-        } else {
-            source = standards[Math.floor(Math.random() * standards.length)];
-            target = activeBrands[0];
-        }
-
+    function fireComet(source: GridCell, target: GridCell) {
         const cpX = (source.x + target.x) / 2 + (Math.random() - 0.5) * 150;
         const cpY = (source.y + target.y) / 2 + (Math.random() - 0.5) * 150;
 
@@ -331,14 +341,14 @@ export function initNetworkCanvas() {
             source,
             target,
             progress: 0,
-            speed: 0.01 + Math.random() * 0.01, // travel speed
+            speed: 0.015 + Math.random() * 0.005,
             cpX,
             cpY,
             trail: []
         });
     }
 
-    function getBrandColor(type: IconType): string {
+    function getBrandColor(type: IconType | null): string {
         if (type === 'zomato') return 'rgba(226, 55, 68, 1)';
         if (type === 'zepto') return 'rgba(147, 51, 234, 1)';
         if (type === 'uber') return 'rgba(255, 255, 255, 1)';
@@ -353,39 +363,76 @@ export function initNetworkCanvas() {
     }
 
     function animate(time: number) {
+        if (!lastTime) lastTime = time;
+        const dt = time - lastTime;
+        lastTime = time;
+
         ctx.fillStyle = '#000000';
         ctx.fillRect(0, 0, width, height);
 
         drawDotGrid();
 
-        // Manage brands sequence
-        if (time - lastBrandSwitchTime > BRAND_SWITCH_INTERVAL) {
-            lastBrandSwitchTime = time;
-            const brands = cells.filter(c => c.isBrand);
-            if (brands.length > 0) {
+        stateTime += dt;
+
+        const brands = cells.filter(c => c.isBrand);
+        const activeBrand = brands[currentBrandIndex];
+        const tower = cells.find(c => c.iconType === 'network');
+        const globe = cells.find(c => c.iconType === 'globe');
+        const endpoints = cells.filter(c => ['email', 'laptop', 'android', 'apple'].includes(c.iconType!));
+
+        // State Machine Logic
+        if (journeyState === JourneyState.INIT) {
+            // Pulse the brand
+            if (activeBrand) {
+                activeBrand.glowIntensity = Math.max(activeBrand.glowIntensity, 0.6 + 0.4 * Math.sin(time * 0.005));
+                activeBrand.glowColor = getBrandColor(activeBrand.iconType);
+            }
+            if (stateTime > 1500 && activeBrand && tower) {
+                fireComet(activeBrand, tower);
+                journeyState = JourneyState.BRAND_TO_TOWER;
+                stateTime = 0;
+            }
+        } else if (journeyState === JourneyState.BRAND_TO_TOWER) {
+            if (comets.length === 0 && stateTime > 200) {
+                if (tower && globe) fireComet(tower, globe);
+                journeyState = JourneyState.TOWER_TO_GLOBE;
+                stateTime = 0;
+            }
+        } else if (journeyState === JourneyState.TOWER_TO_GLOBE) {
+            if (comets.length === 0 && stateTime > 200) {
+                if (globe) {
+                    endpoints.forEach(ep => fireComet(globe, ep));
+                }
+                journeyState = JourneyState.GLOBE_TO_ENDPOINTS;
+                stateTime = 0;
+            }
+        } else if (journeyState === JourneyState.GLOBE_TO_ENDPOINTS) {
+            if (comets.length === 0 && stateTime > 200) {
+                journeyState = JourneyState.COOLDOWN;
+                stateTime = 0;
+            }
+        } else if (journeyState === JourneyState.COOLDOWN) {
+            if (stateTime > 3500) {
                 currentBrandIndex = (currentBrandIndex + 1) % brands.length;
+                journeyState = JourneyState.INIT;
+                stateTime = 0;
+                cells.forEach(c => {
+                    c.showBadge = false;
+                    c.badgeOpacity = 0;
+                });
             }
         }
 
         // Update brand opacities
-        const brands = cells.filter(c => c.isBrand);
         brands.forEach((c, i) => {
             const targetOpacity = (i === currentBrandIndex) ? 1 : 0;
             c.opacity += (targetOpacity - c.opacity) * 0.05;
         });
 
-        // Comets spawn logic
-        if (time - lastCometSpawn > 800) {
-            if (Math.random() > 0.3) {
-                spawnComet();
-            }
-            lastCometSpawn = time;
-        }
-
         // Draw connections
         for (let i = connections.length - 1; i >= 0; i--) {
             const conn = connections[i];
-            conn.alpha -= 0.01; // fade out over ~1.6s at 60fps
+            conn.alpha -= 0.005; 
             if (conn.alpha <= 0) {
                 connections.splice(i, 1);
                 continue;
@@ -402,7 +449,7 @@ export function initNetworkCanvas() {
             ctx.beginPath();
             ctx.moveTo(sx, sy);
             ctx.quadraticCurveTo(conn.cpX, conn.cpY, tx, ty);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${0.08 * conn.alpha})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.04 * conn.alpha})`;
             ctx.lineWidth = 7;
             ctx.stroke();
             
@@ -410,7 +457,7 @@ export function initNetworkCanvas() {
             ctx.beginPath();
             ctx.moveTo(sx, sy);
             ctx.quadraticCurveTo(conn.cpX, conn.cpY, tx, ty);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${0.2 * conn.alpha})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * conn.alpha})`;
             ctx.lineWidth = 3.5;
             ctx.stroke();
             
@@ -418,7 +465,7 @@ export function initNetworkCanvas() {
             ctx.beginPath();
             ctx.moveTo(sx, sy);
             ctx.quadraticCurveTo(conn.cpX, conn.cpY, tx, ty);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${0.85 * conn.alpha})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.4 * conn.alpha})`;
             ctx.lineWidth = 1.2;
             ctx.stroke();
             ctx.restore();
@@ -473,12 +520,14 @@ export function initNetworkCanvas() {
             if (c.progress >= 1) {
                 // Impact!
                 c.source.glowIntensity = 1.5;
-                c.source.glowColor = getBrandColor(c.source.iconType as IconType);
+                c.source.glowColor = getBrandColor(c.source.iconType);
                 c.target.glowIntensity = 1.5;
-                c.target.glowColor = getBrandColor(c.target.iconType as IconType);
+                c.target.glowColor = getBrandColor(activeBrand?.iconType || null);
 
-                c.target.showBadge = true;
-                c.target.badgeOpacity = 1;
+                if (journeyState === JourneyState.GLOBE_TO_ENDPOINTS) {
+                    c.target.showBadge = true;
+                    c.target.badgeOpacity = 1;
+                }
 
                 connections.push({
                     source: c.source,
@@ -492,30 +541,19 @@ export function initNetworkCanvas() {
             }
         }
 
-
         // Draw icons
         cells.forEach(cell => {
             const cx = cell.x + cell.jitterX;
             const cy = cell.y + cell.jitterY;
             const isStandard = !cell.isBrand;
 
-            // Breathing for standard icons
             if (isStandard) {
                 const wave = (Math.sin(time * 0.002 + cell.x * 0.01) + 1) / 2; // 0 to 1
                 cell.opacity = 0.4 + wave * 0.6; // 0.4 to 1.0
             }
 
-            // Update glow decay
             if (cell.glowIntensity > 0) {
                 cell.glowIntensity -= 0.02;
-            }
-
-            // Update badge decay
-            if (cell.showBadge) {
-                cell.badgeOpacity -= 0.005; // stays for a while then fades
-                if (cell.badgeOpacity <= 0) {
-                    cell.showBadge = false;
-                }
             }
 
             if (cell.opacity <= 0.01) return;
