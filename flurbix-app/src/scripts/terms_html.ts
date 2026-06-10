@@ -523,6 +523,40 @@ document.addEventListener("DOMContentLoaded", (event) => {
           effects: true,
         });
 
+        // Pin Table of Contents on Desktop viewports
+        let mm = gsap.matchMedia();
+        mm.add("(min-width: 992px)", () => {
+          ScrollTrigger.create({
+            trigger: ".legal_left",
+            pin: true,
+            start: "top 80px", // Align with target offset when scroll happens
+            endTrigger: ".legal_content",
+            end: "bottom bottom",
+            pinSpacing: false,
+          });
+        });
+
+        // Table of Contents smooth scrolling with ScrollSmoother
+        const tocWrap = document.querySelector(".legal_toc");
+        if (tocWrap) {
+          tocWrap.addEventListener("click", (e: any) => {
+            const link = e.target.closest("a");
+            if (!link) return;
+            const href = link.getAttribute("href");
+            if (href && href.includes("#")) {
+              const targetId = href.split("#").pop();
+              if (targetId) {
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  smoother.scrollTo(targetElement, true, "top 80px");
+                }
+              }
+            }
+          }, true);
+        }
+
         document.querySelector(".navbar1_menu-button").addEventListener("click", (e) => {
           document.body.style.overflow = e.currentTarget.classList.contains("w--open") ? "auto" : "hidden";
         });

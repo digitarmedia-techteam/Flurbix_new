@@ -82,14 +82,36 @@
         height: 70px;
       }
     }
+
     @media (max-width: 991px) {
       .hero_tag-text {
         font-size: clamp(8.5px, 2.2vw, 10.5px) !important;
       }
     }
-    html, body, .smooth-wrapper, .page-wrapper {
+
+    html,
+    body,
+    .smooth-wrapper,
+    .page-wrapper {
       max-width: 100%;
       overflow-x: hidden;
+    }
+
+    .fs-toc_link {
+      cursor: pointer !important;
+    }
+
+    @media (min-width: 992px) {
+      .legal_left {
+        position: relative !important;
+        height: auto !important;
+        max-height: calc(100vh - 120px) !important;
+        overflow-y: auto !important;
+        scrollbar-width: none; /* Hide scrollbar for cleaner look */
+      }
+      .legal_left::-webkit-scrollbar {
+        display: none; /* Hide scrollbar for Safari/Chrome */
+      }
     }
   </style>
 </head>
@@ -383,9 +405,8 @@ a,
           data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium"
           data-w-id="309bf2f7-5632-7b7b-3e3d-1c756b34abb6" role="banner" data-duration="400">
           <div class="navbar1_container">
-            <a href="index.html@r=0.html" class="navbar1_logo-link w-nav-brand">
-              <img loading="lazy" src="/src/assets/favicon.png"
-                style="max-height: 32px; width: auto; object-fit: contain;" alt="" class="navbar1_logo" />
+            <a href="index.html" class="navbar1_logo-link w-nav-brand">
+              <img loading="lazy" src="/flurbix-logo.svg" style="max-height: 32px; width: auto; object-fit: contain;" alt="" class="navbar1_logo" />
               <span class="navbar1_logo is-2"
                 style="font-size: 26px; font-weight: 500; color: #111827; margin-left: 6px; letter-spacing: -0.02em">
                 flurbix
@@ -397,7 +418,7 @@ a,
                 <a href="https://console.flurbix.app/" target="_blank" class="navbar1_link hide w-nav-link">
                   Platform
                 </a>
-                <a href="https://docs.flurbix.io/" target="_blank" class="navbar1_link w-nav-link">Documentation</a>
+                <a href="pricing.html" class="navbar1_link w-nav-link">Pricing</a>
                 <a href="blog.1.html" class="navbar1_link w-nav-link">Blog</a>
               </div>
               <div class="navbar1_menu-buttons">
@@ -433,29 +454,48 @@ a,
                   </div>
                 </div>
                 <div class="legal_rich-wrapper">
-                  <div class="legal_tag">last updated: May 20, 2024</div>
+                  <div class="legal_tag">last updated: June 08, 2026</div>
                   <div fs-toc-offsettop="&#x27;4rem&#x27;" fs-toc-element="contents" fs-toc-hideurlhash="true"
                     class="legal_rich w-richtext">
                     <h2>1. Acceptance of Terms</h2>
-                    <p>By accessing or using the Service in any manner, including visiting or browsing the Flurbix website, you affirm that you are of legal age to enter into this Agreement and, if acting on behalf of a legal entity, that you have full authority to bind that entity to these Terms. If you do not agree with any provision of these Terms, you must immediately cease using the Service.</p>
-                    <p>Your continued use of the Service following any modification to these Terms constitutes acceptance of the revised Terms. Flurbix reserves the right to update these Terms from time to time in accordance with Section 20.</p>
+                    <p>By accessing or using the Service in any manner, including visiting or browsing the Flurbix
+                      website, you affirm that you are of legal age to enter into this Agreement and, if acting on
+                      behalf of a legal entity, that you have full authority to bind that entity to these Terms. If you
+                      do not agree with any provision of these Terms, you must immediately cease using the Service.</p>
+                    <p>Your continued use of the Service following any modification to these Terms constitutes
+                      acceptance of the revised Terms. Flurbix reserves the right to update these Terms from time to
+                      time in accordance with Section 20.</p>
 
                     <h2>2. Definitions</h2>
                     <p>For the purposes of these Terms, the following definitions apply:</p>
                     <ul>
-                      <li><strong>"Service"</strong> means the Flurbix cloud-based automation platform, including all software, APIs, SDKs, web applications, mobile applications, documentation, updates, and support materials made available by Flurbix.</li>
-                      <li><strong>"Account"</strong> means the unique account created for you to access and use the Service.</li>
-                      <li><strong>"User Data"</strong> means any data, files, content, or information submitted, uploaded, or processed through the Service by or on behalf of the Customer.</li>
-                      <li><strong>"Subscription"</strong> means the recurring fee-based plan governing your access to the Service.</li>
-                      <li><strong>"Automation Workflow"</strong> means any automated process, trigger-action sequence, or integration pipeline created by the User through the platform.</li>
-                      <li><strong>"Personal Data"</strong> has the meaning ascribed under applicable data protection laws, including the EU GDPR (Article 4(1)), and includes any information relating to an identified or identifiable natural person.</li>
-                      <li><strong>"Processing"</strong> means any operation performed on Personal Data, as defined under applicable data protection law.</li>
-                      <li><strong>"Controller"</strong> and <strong>"Processor"</strong> have the meanings ascribed under GDPR and equivalent legislation in other jurisdictions.</li>
-                      <li><strong>"Intellectual Property Rights"</strong> means all patents, copyrights, trademarks, trade secrets, database rights, and any other proprietary rights recognised in any jurisdiction.</li>
+                      <li><strong>"Service"</strong> means the Flurbix cloud-based automation platform, including all
+                        software, APIs, SDKs, web applications, mobile applications, documentation, updates, and support
+                        materials made available by Flurbix.</li>
+                      <li><strong>"Account"</strong> means the unique account created for you to access and use the
+                        Service.</li>
+                      <li><strong>"User Data"</strong> means any data, files, content, or information submitted,
+                        uploaded, or processed through the Service by or on behalf of the Customer.</li>
+                      <li><strong>"Subscription"</strong> means the recurring fee-based plan governing your access to
+                        the Service.</li>
+                      <li><strong>"Automation Workflow"</strong> means any automated process, trigger-action sequence,
+                        or integration pipeline created by the User through the platform.</li>
+                      <li><strong>"Personal Data"</strong> has the meaning ascribed under applicable data protection
+                        laws, including the EU GDPR (Article 4(1)), and includes any information relating to an
+                        identified or identifiable natural person.</li>
+                      <li><strong>"Processing"</strong> means any operation performed on Personal Data, as defined under
+                        applicable data protection law.</li>
+                      <li><strong>"Controller"</strong> and <strong>"Processor"</strong> have the meanings ascribed
+                        under GDPR and equivalent legislation in other jurisdictions.</li>
+                      <li><strong>"Intellectual Property Rights"</strong> means all patents, copyrights, trademarks,
+                        trade secrets, database rights, and any other proprietary rights recognised in any jurisdiction.
+                      </li>
                     </ul>
 
                     <h2>3. Description of Service</h2>
-                    <p>Flurbix provides a cloud-based automation SaaS platform enabling individuals and businesses to design, deploy, monitor, and manage automated workflows across applications, APIs, databases, and cloud infrastructure. Core capabilities include but are not limited to:</p>
+                    <p>Flurbix provides a cloud-based automation SaaS platform enabling individuals and businesses to
+                      design, deploy, monitor, and manage automated workflows across applications, APIs, databases, and
+                      cloud infrastructure. Core capabilities include but are not limited to:</p>
                     <ul>
                       <li>No-code and low-code workflow automation builders</li>
                       <li>API integration and data synchronisation across third-party platforms</li>
@@ -464,53 +504,102 @@ a,
                       <li>Role-based access controls and team collaboration tools</li>
                       <li>Enterprise-grade security, SSO, and compliance tooling</li>
                     </ul>
-                    <p>Flurbix reserves the right, at its sole discretion, to modify, enhance, limit, suspend, or discontinue any portion of the Service at any time. Where material changes affect paid Subscribers, Flurbix will endeavour to provide at least thirty (30) days' prior written notice.</p>
+                    <p>Flurbix reserves the right, at its sole discretion, to modify, enhance, limit, suspend, or
+                      discontinue any portion of the Service at any time. Where material changes affect paid
+                      Subscribers, Flurbix will endeavour to provide at least thirty (30) days' prior written notice.
+                    </p>
 
                     <h2>4. Account Registration & Security</h2>
                     <h3>4.1 Registration Requirements</h3>
-                    <p>To access the Service, you must register for an Account by providing accurate, current, and complete information. You agree to keep this information up to date throughout the term of this Agreement. Flurbix reserves the right to reject or revoke any Account at its discretion.</p>
+                    <p>To access the Service, you must register for an Account by providing accurate, current, and
+                      complete information. You agree to keep this information up to date throughout the term of this
+                      Agreement. Flurbix reserves the right to reject or revoke any Account at its discretion.</p>
                     <h3>4.2 Account Credentials</h3>
-                    <p>You are solely responsible for maintaining the confidentiality of your login credentials, including your username, password, and any multi-factor authentication codes. You must not share credentials with any unauthorised third party. You agree to notify Flurbix immediately at <a href="mailto:info@flurbix.io">info@flurbix.io</a> if you suspect any unauthorised access to or use of your Account.</p>
+                    <p>You are solely responsible for maintaining the confidentiality of your login credentials,
+                      including your username, password, and any multi-factor authentication codes. You must not share
+                      credentials with any unauthorised third party. You agree to notify Flurbix immediately at <a
+                        href="mailto:info@flurbix.io">info@flurbix.io</a> if you suspect any unauthorised access to or
+                      use of your Account.</p>
                     <h3>4.3 Organisational Accounts</h3>
-                    <p>If you register an Account on behalf of a company or other legal entity, you represent and warrant that you are authorised to bind that entity to these Terms. In such cases, "you" refers to both the individual user and the entity. The entity shall be responsible for all activities conducted under its Account, including those of its authorised users.</p>
+                    <p>If you register an Account on behalf of a company or other legal entity, you represent and
+                      warrant that you are authorised to bind that entity to these Terms. In such cases, "you" refers to
+                      both the individual user and the entity. The entity shall be responsible for all activities
+                      conducted under its Account, including those of its authorised users.</p>
                     <h3>4.4 Age Restriction</h3>
-                    <p>The Service is not directed to individuals under the age of eighteen (18). By creating an Account, you represent that you are at least 18 years of age or the age of majority in your jurisdiction, whichever is greater.</p>
+                    <p>The Service is not directed to individuals under the age of eighteen (18). By creating an
+                      Account, you represent that you are at least 18 years of age or the age of majority in your
+                      jurisdiction, whichever is greater.</p>
 
                     <h2>5. Acceptable Use Policy</h2>
-                    <p>You agree to use the Service only for lawful purposes and in a manner consistent with these Terms and all applicable laws. Without limiting the generality of the foregoing, you must not:</p>
+                    <p>You agree to use the Service only for lawful purposes and in a manner consistent with these Terms
+                      and all applicable laws. Without limiting the generality of the foregoing, you must not:</p>
                     <ul>
-                      <li>Violate any applicable local, national, or international law, regulation, or legally binding obligation, including export control laws and sanctions regimes.</li>
-                      <li>Infringe or misappropriate the Intellectual Property Rights, privacy rights, or other proprietary rights of any third party.</li>
-                      <li>Transmit, upload, or distribute viruses, ransomware, malware, spyware, or any other harmful or malicious code.</li>
-                      <li>Attempt to gain unauthorised access to the Service, its underlying infrastructure, or any other user's Account or data.</li>
-                      <li>Use the Service to send unsolicited bulk communications (spam), engage in phishing, or conduct social engineering attacks.</li>
-                      <li>Conduct denial-of-service (DoS) or distributed denial-of-service (DDoS) attacks against the Service or any connected systems.</li>
-                      <li>Scrape, crawl, or extract data from the Service through automated means without Flurbix's prior written consent.</li>
-                      <li>Use the Service to process, store, or transmit information classified as prohibited under applicable law, including child sexual abuse material (CSAM) or content facilitating human trafficking.</li>
-                      <li>Reverse engineer, decompile, or disassemble any component of the Service except as expressly permitted by applicable law.</li>
-                      <li>Resell, sublicense, or otherwise commercialise access to the Service without Flurbix's express written authorisation.</li>
+                      <li>Violate any applicable local, national, or international law, regulation, or legally binding
+                        obligation, including export control laws and sanctions regimes.</li>
+                      <li>Infringe or misappropriate the Intellectual Property Rights, privacy rights, or other
+                        proprietary rights of any third party.</li>
+                      <li>Transmit, upload, or distribute viruses, ransomware, malware, spyware, or any other harmful or
+                        malicious code.</li>
+                      <li>Attempt to gain unauthorised access to the Service, its underlying infrastructure, or any
+                        other user's Account or data.</li>
+                      <li>Use the Service to send unsolicited bulk communications (spam), engage in phishing, or conduct
+                        social engineering attacks.</li>
+                      <li>Conduct denial-of-service (DoS) or distributed denial-of-service (DDoS) attacks against the
+                        Service or any connected systems.</li>
+                      <li>Scrape, crawl, or extract data from the Service through automated means without Flurbix's
+                        prior written consent.</li>
+                      <li>Use the Service to process, store, or transmit information classified as prohibited under
+                        applicable law, including child sexual abuse material (CSAM) or content facilitating human
+                        trafficking.</li>
+                      <li>Reverse engineer, decompile, or disassemble any component of the Service except as expressly
+                        permitted by applicable law.</li>
+                      <li>Resell, sublicense, or otherwise commercialise access to the Service without Flurbix's express
+                        written authorisation.</li>
                     </ul>
-                    <p>Flurbix reserves the right to investigate suspected violations of this Acceptable Use Policy and to take any action it deems appropriate, including suspension or termination of your Account and/or referral to law enforcement authorities.</p>
+                    <p>Flurbix reserves the right to investigate suspected violations of this Acceptable Use Policy and
+                      to take any action it deems appropriate, including suspension or termination of your Account
+                      and/or referral to law enforcement authorities.</p>
 
                     <h2>6. Subscription Plans, Fees & Payment</h2>
                     <h3>6.1 Subscription Plans</h3>
-                    <p>Flurbix offers various Subscription tiers (Free, Starter, Professional, Enterprise) with differing feature sets, usage limits, and pricing. Current plan details are published at <a href="https://flurbix.io/pricing" target="_blank">Flurbix.io/pricing</a> and may be updated from time to time.</p>
+                    <p>Flurbix offers various Subscription tiers (Free, Starter, Professional, Enterprise) with
+                      differing feature sets, usage limits, and pricing. Current plan details are published at <a
+                        href="https://flurbix.io/pricing" target="_blank">Flurbix.io/pricing</a> and may be updated from
+                      time to time.</p>
                     <h3>6.2 Fees & Billing</h3>
-                    <p>Fees are billed in advance on a monthly or annual basis, as selected at checkout. All amounts are stated in USD unless otherwise specified. You authorise Flurbix (or its payment processor) to charge your designated payment method on the applicable billing cycle. Flurbix uses industry-standard PCI-DSS compliant payment processors and does not store full card details.</p>
+                    <p>Fees are billed in advance on a monthly or annual basis, as selected at checkout. All amounts are
+                      stated in USD unless otherwise specified. You authorise Flurbix (or its payment processor) to
+                      charge your designated payment method on the applicable billing cycle. Flurbix uses
+                      industry-standard PCI-DSS compliant payment processors and does not store full card details.</p>
                     <h3>6.3 Taxes</h3>
-                    <p>All fees are exclusive of applicable taxes, levies, or duties (including VAT, GST, sales tax, or withholding tax). You are responsible for paying all such taxes, except for taxes assessed on Flurbix's net income. Where Flurbix is legally required to collect taxes, the applicable amount will be added to your invoice.</p>
+                    <p>All fees are exclusive of applicable taxes, levies, or duties (including VAT, GST, sales tax, or
+                      withholding tax). You are responsible for paying all such taxes, except for taxes assessed on
+                      Flurbix's net income. Where Flurbix is legally required to collect taxes, the applicable amount
+                      will be added to your invoice.</p>
                     <h3>6.4 Price Changes</h3>
-                    <p>Flurbix reserves the right to modify pricing for any Subscription at any time. For existing paid Subscribers, price changes will take effect at the start of the next billing cycle following at least thirty (30) days' written notice. Your continued use of the Service after a price change constitutes acceptance of the new pricing.</p>
+                    <p>Flurbix reserves the right to modify pricing for any Subscription at any time. For existing paid
+                      Subscribers, price changes will take effect at the start of the next billing cycle following at
+                      least thirty (30) days' written notice. Your continued use of the Service after a price change
+                      constitutes acceptance of the new pricing.</p>
                     <h3>6.5 Refunds</h3>
-                    <p>Except as required by applicable law (including statutory cooling-off rights under EU Consumer Rights Directive 2011/83/EU or equivalent local legislation), all fees are non-refundable. Flurbix may, at its sole discretion, offer pro-rated refunds or service credits in exceptional circumstances.</p>
+                    <p>Except as required by applicable law (including statutory cooling-off rights under EU Consumer
+                      Rights Directive 2011/83/EU or equivalent local legislation), all fees are non-refundable. Flurbix
+                      may, at its sole discretion, offer pro-rated refunds or service credits in exceptional
+                      circumstances.</p>
                     <h3>6.6 Late Payments</h3>
-                    <p>Unpaid invoices are subject to interest at the lesser of 1.5% per month or the maximum rate permitted by applicable law. Flurbix reserves the right to suspend access to the Service for accounts with overdue balances after providing five (5) days' written notice.</p>
+                    <p>Unpaid invoices are subject to interest at the lesser of 1.5% per month or the maximum rate
+                      permitted by applicable law. Flurbix reserves the right to suspend access to the Service for
+                      accounts with overdue balances after providing five (5) days' written notice.</p>
 
                     <h2>7. Cancellation, Suspension & Termination</h2>
                     <h3>7.1 Cancellation by Customer</h3>
-                    <p>You may cancel your Subscription at any time by following the cancellation process in your Account dashboard or by contacting <a href="mailto:info@flurbix.io">info@flurbix.io</a>. Upon cancellation, you will retain access to the Service until the end of your current paid billing period. No refunds will be issued for unused periods, except where required by law.</p>
+                    <p>You may cancel your Subscription at any time by following the cancellation process in your
+                      Account dashboard or by contacting <a href="mailto:info@flurbix.io">info@flurbix.io</a>. Upon
+                      cancellation, you will retain access to the Service until the end of your current paid billing
+                      period. No refunds will be issued for unused periods, except where required by law.</p>
                     <h3>7.2 Suspension or Termination by Flurbix</h3>
-                    <p>Flurbix reserves the right to suspend or terminate your Account and access to the Service immediately, with or without notice, for any of the following reasons:</p>
+                    <p>Flurbix reserves the right to suspend or terminate your Account and access to the Service
+                      immediately, with or without notice, for any of the following reasons:</p>
                     <ul>
                       <li>Material breach of these Terms, including violations of the Acceptable Use Policy.</li>
                       <li>Non-payment of fees after applicable notice and cure periods.</li>
@@ -519,138 +608,295 @@ a,
                       <li>Unexpected technical or security issues that put the platform or other users at risk.</li>
                     </ul>
                     <h3>7.3 Effect of Termination</h3>
-                    <p>Upon termination for any reason, all licences and rights granted to you under these Terms will immediately cease. Flurbix will retain your User Data for a period of thirty (30) days following termination, during which you may request an export. After this retention period, Flurbix may permanently delete your User Data from its systems, subject to its legal obligations and backup retention policies.</p>
+                    <p>Upon termination for any reason, all licences and rights granted to you under these Terms will
+                      immediately cease. Flurbix will retain your User Data for a period of thirty (30) days following
+                      termination, during which you may request an export. After this retention period, Flurbix may
+                      permanently delete your User Data from its systems, subject to its legal obligations and backup
+                      retention policies.</p>
                     <h3>7.4 Survival</h3>
-                    <p>Sections 8, 9, 13, 14, 15, 16, 17, 18, and 21 of these Terms shall survive any termination or expiration of this Agreement.</p>
+                    <p>Sections 8, 9, 13, 14, 15, 16, 17, 18, and 21 of these Terms shall survive any termination or
+                      expiration of this Agreement.</p>
 
                     <h2>8. Intellectual Property Rights</h2>
                     <h3>8.1 Flurbix's Intellectual Property</h3>
-                    <p>The Service, including all software, algorithms, designs, user interfaces, documentation, branding, trade names, and underlying technology, is and shall remain the exclusive intellectual property of Flurbix Inc. and its licensors. These Terms do not grant you any rights in or to Flurbix's Intellectual Property except for the limited, non-exclusive, non-transferable, revocable licence to access and use the Service solely as expressly set out in these Terms.</p>
+                    <p>The Service, including all software, algorithms, designs, user interfaces, documentation,
+                      branding, trade names, and underlying technology, is and shall remain the exclusive intellectual
+                      property of Flurbix Inc. and its licensors. These Terms do not grant you any rights in or to
+                      Flurbix's Intellectual Property except for the limited, non-exclusive, non-transferable, revocable
+                      licence to access and use the Service solely as expressly set out in these Terms.</p>
                     <h3>8.2 Feedback</h3>
-                    <p>If you voluntarily provide feedback, suggestions, ideas, or recommendations regarding the Service ("Feedback"), Flurbix may use such Feedback without restriction or compensation to you. You hereby assign to Flurbix all right, title, and interest in and to such Feedback.</p>
+                    <p>If you voluntarily provide feedback, suggestions, ideas, or recommendations regarding the Service
+                      ("Feedback"), Flurbix may use such Feedback without restriction or compensation to you. You hereby
+                      assign to Flurbix all right, title, and interest in and to such Feedback.</p>
                     <h3>8.3 Restrictions</h3>
-                    <p>You must not remove, alter, or obscure any proprietary notices (including copyright and trademark notices) on or within the Service. Unauthorised use of Flurbix's trademarks, logos, or brand identifiers is strictly prohibited.</p>
+                    <p>You must not remove, alter, or obscure any proprietary notices (including copyright and trademark
+                      notices) on or within the Service. Unauthorised use of Flurbix's trademarks, logos, or brand
+                      identifiers is strictly prohibited.</p>
 
                     <h2>9. User Data & Content</h2>
                     <h3>9.1 Ownership</h3>
-                    <p>As between Flurbix and you, you retain all rights, title, and interest in and to your User Data. Flurbix does not claim ownership of your User Data.</p>
+                    <p>As between Flurbix and you, you retain all rights, title, and interest in and to your User Data.
+                      Flurbix does not claim ownership of your User Data.</p>
                     <h3>9.2 Licence Grant to Flurbix</h3>
-                    <p>By using the Service, you grant Flurbix a limited, worldwide, non-exclusive, royalty-free licence to access, process, store, transmit, and display your User Data solely as necessary to: (a) provide and maintain the Service; (b) comply with applicable law; and (c) enforce these Terms. This licence terminates upon deletion of your User Data or termination of your Account.</p>
+                    <p>By using the Service, you grant Flurbix a limited, worldwide, non-exclusive, royalty-free licence
+                      to access, process, store, transmit, and display your User Data solely as necessary to: (a)
+                      provide and maintain the Service; (b) comply with applicable law; and (c) enforce these Terms.
+                      This licence terminates upon deletion of your User Data or termination of your Account.</p>
                     <h3>9.3 Customer Representations</h3>
-                    <p>You represent and warrant that: (a) you have all necessary rights, permissions, and consents to submit User Data to the Service; (b) your User Data does not infringe the Intellectual Property Rights or privacy rights of any third party; and (c) your use of the Service complies with all applicable laws and regulations.</p>
+                    <p>You represent and warrant that: (a) you have all necessary rights, permissions, and consents to
+                      submit User Data to the Service; (b) your User Data does not infringe the Intellectual Property
+                      Rights or privacy rights of any third party; and (c) your use of the Service complies with all
+                      applicable laws and regulations.</p>
                     <h3>9.4 Aggregate & Anonymised Data</h3>
-                    <p>Flurbix may collect, analyse, and use aggregate, anonymised, or de-identified data derived from use of the Service for purposes including product improvement, benchmarking, research, and marketing, provided such data does not identify any individual user or Customer. Flurbix retains all rights in such aggregate data.</p>
+                    <p>Flurbix may collect, analyse, and use aggregate, anonymised, or de-identified data derived from
+                      use of the Service for purposes including product improvement, benchmarking, research, and
+                      marketing, provided such data does not identify any individual user or Customer. Flurbix retains
+                      all rights in such aggregate data.</p>
 
                     <h2>10. Data Protection & Privacy (GDPR / CCPA / Global)</h2>
                     <h3>10.1 General Commitment</h3>
-                    <p>Flurbix is committed to protecting Personal Data and complying with applicable data protection laws globally, including but not limited to: the EU General Data Protection Regulation (GDPR) 2016/679; the UK Data Protection Act 2018 and UK GDPR; the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA); Brazil's Lei Geral de Proteção de Dados (LGPD); Canada's Personal Information Protection and Electronic Documents Act (PIPEDA); and Australia's Privacy Act 1988.</p>
+                    <p>Flurbix is committed to protecting Personal Data and complying with applicable data protection
+                      laws globally, including but not limited to: the EU General Data Protection Regulation (GDPR)
+                      2016/679; the UK Data Protection Act 2018 and UK GDPR; the California Consumer Privacy Act (CCPA)
+                      and California Privacy Rights Act (CPRA); Brazil's Lei Geral de Proteção de Dados (LGPD); Canada's
+                      Personal Information Protection and Electronic Documents Act (PIPEDA); and Australia's Privacy Act
+                      1988.</p>
                     <h3>10.2 Roles</h3>
-                    <p>In the context of the Service, Flurbix typically acts as a Data Processor on behalf of the Customer (who acts as the Data Controller) with respect to Personal Data contained in User Data. Flurbix acts as a Data Controller with respect to account and billing data. Where required by applicable law, the parties shall execute a Data Processing Agreement (DPA) incorporating Standard Contractual Clauses (SCCs) for cross-border transfers.</p>
+                    <p>In the context of the Service, Flurbix typically acts as a Data Processor on behalf of the
+                      Customer (who acts as the Data Controller) with respect to Personal Data contained in User Data.
+                      Flurbix acts as a Data Controller with respect to account and billing data. Where required by
+                      applicable law, the parties shall execute a Data Processing Agreement (DPA) incorporating Standard
+                      Contractual Clauses (SCCs) for cross-border transfers.</p>
                     <h3>10.3 Data Subject Rights</h3>
-                    <p>Flurbix will, to the extent technically feasible and in accordance with applicable law, assist Customers in responding to requests from data subjects exercising their rights, including rights of access, rectification, erasure, data portability, restriction of processing, and objection. Requests should be directed to <a href="mailto:info@flurbix.io">info@flurbix.io</a>.</p>
+                    <p>Flurbix will, to the extent technically feasible and in accordance with applicable law, assist
+                      Customers in responding to requests from data subjects exercising their rights, including rights
+                      of access, rectification, erasure, data portability, restriction of processing, and objection.
+                      Requests should be directed to <a href="mailto:info@flurbix.io">info@flurbix.io</a>.</p>
                     <h3>10.4 International Data Transfers</h3>
-                    <p>Flurbix may transfer Personal Data internationally as part of providing the Service. Where Personal Data is transferred outside the European Economic Area (EEA), United Kingdom, or other jurisdictions with transfer restrictions, Flurbix will implement appropriate safeguards, including Standard Contractual Clauses (SCCs) approved by the European Commission, or equivalent mechanisms recognised by the relevant authority.</p>
+                    <p>Flurbix may transfer Personal Data internationally as part of providing the Service. Where
+                      Personal Data is transferred outside the European Economic Area (EEA), United Kingdom, or other
+                      jurisdictions with transfer restrictions, Flurbix will implement appropriate safeguards, including
+                      Standard Contractual Clauses (SCCs) approved by the European Commission, or equivalent mechanisms
+                      recognised by the relevant authority.</p>
                     <h3>10.5 Privacy Policy</h3>
-                    <p>Flurbix’s Privacy Policy, available at <a href="https://flurbix.com/privacy-policy.html">flurbix.com/privacy-policy.html</a>, is incorporated into these Terms by reference and describes in detail how Personal Data is collected, used, stored, and protected.</p>
+                    <p>Flurbix’s Privacy Policy, available at <a
+                        href="https://flurbix.com/privacy-policy.html">flurbix.com/privacy-policy.html</a>, is
+                      incorporated into these Terms by reference and describes in detail how Personal Data is collected,
+                      used, stored, and protected.</p>
                     <h3>10.6 California Residents (CCPA)</h3>
-                    <p>California residents have specific rights under the CCPA/CPRA, including the right to know, delete, correct, and opt out of the sale or sharing of their Personal Information. Flurbix does not sell Personal Information. To exercise your CCPA rights, contact <a href="mailto:info@flurbix.io">info@flurbix.io</a> or submit a request at <a href="https://flurbix.com/privacy-policy.html">flurbix.com/privacy-policy.html</a>.</p>
+                    <p>California residents have specific rights under the CCPA/CPRA, including the right to know,
+                      delete, correct, and opt out of the sale or sharing of their Personal Information. Flurbix does
+                      not sell Personal Information. To exercise your CCPA rights, contact <a
+                        href="mailto:info@flurbix.io">info@flurbix.io</a> or submit a request at <a
+                        href="https://flurbix.com/privacy-policy.html">flurbix.com/privacy-policy.html</a>.</p>
 
                     <h2>11. Third-Party Integrations & Services</h2>
-                    <p>The Service may offer integrations with or access to third-party platforms, applications, APIs, or services ("Third-Party Services"), such as CRM systems, cloud storage providers, communication tools, and payment processors. You acknowledge and agree that:</p>
+                    <p>The Service may offer integrations with or access to third-party platforms, applications, APIs,
+                      or services ("Third-Party Services"), such as CRM systems, cloud storage providers, communication
+                      tools, and payment processors. You acknowledge and agree that:</p>
                     <ul>
-                      <li>Flurbix does not control or endorse any Third-Party Services and is not responsible for their availability, accuracy, security, or content.</li>
-                      <li>Your use of any Third-Party Services is solely at your own risk and subject to the applicable third party's terms of service and privacy policies.</li>
-                      <li>Flurbix may cease to support any Third-Party Service integration at any time without liability.</li>
-                      <li>Flurbix shall not be liable for any loss or damage arising from your use of or reliance on Third-Party Services, including any breach of data by such third parties.</li>
-                      <li>You are responsible for ensuring that any Third-Party Service integration complies with all applicable laws and any contractual obligations you have with such third parties.</li>
+                      <li>Flurbix does not control or endorse any Third-Party Services and is not responsible for their
+                        availability, accuracy, security, or content.</li>
+                      <li>Your use of any Third-Party Services is solely at your own risk and subject to the applicable
+                        third party's terms of service and privacy policies.</li>
+                      <li>Flurbix may cease to support any Third-Party Service integration at any time without
+                        liability.</li>
+                      <li>Flurbix shall not be liable for any loss or damage arising from your use of or reliance on
+                        Third-Party Services, including any breach of data by such third parties.</li>
+                      <li>You are responsible for ensuring that any Third-Party Service integration complies with all
+                        applicable laws and any contractual obligations you have with such third parties.</li>
                     </ul>
 
                     <h2>12. Security & Uptime</h2>
                     <h3>12.1 Security Measures</h3>
-                    <p>Flurbix implements commercially reasonable administrative, physical, and technical safeguards designed to protect User Data against unauthorised access, disclosure, alteration, and destruction. These measures are consistent with industry standards and our SOC 2 Type II certification and ISO 27001 framework. However, no method of electronic transmission or storage is 100% secure, and Flurbix cannot guarantee absolute security.</p>
+                    <p>Flurbix implements commercially reasonable administrative, physical, and technical safeguards
+                      designed to protect User Data against unauthorised access, disclosure, alteration, and
+                      destruction. These measures are consistent with industry standards and our SOC 2 Type II
+                      certification and ISO 27001 framework. However, no method of electronic transmission or storage is
+                      100% secure, and Flurbix cannot guarantee absolute security.</p>
                     <h3>12.2 Service Level Agreement (SLA)</h3>
-                    <p>Flurbix targets a monthly platform uptime of 99.9% for paid Subscription tiers (excluding scheduled maintenance windows). Enterprise plan SLA commitments are set out in the applicable Order Form or Enterprise Agreement. Downtime credits, if applicable, are Flurbix's sole liability for service availability failures.</p>
+                    <p>Flurbix targets a monthly platform uptime of 99.9% for paid Subscription tiers (excluding
+                      scheduled maintenance windows). Enterprise plan SLA commitments are set out in the applicable
+                      Order Form or Enterprise Agreement. Downtime credits, if applicable, are Flurbix's sole liability
+                      for service availability failures.</p>
                     <h3>12.3 Security Incident Notification</h3>
-                    <p>In the event of a confirmed Personal Data breach, Flurbix will notify affected Customers without undue delay and, where required by applicable law (e.g., GDPR Article 33), will provide notifications to the relevant supervisory authority within 72 hours of becoming aware of the breach.</p>
+                    <p>In the event of a confirmed Personal Data breach, Flurbix will notify affected Customers without
+                      undue delay and, where required by applicable law (e.g., GDPR Article 33), will provide
+                      notifications to the relevant supervisory authority within 72 hours of becoming aware of the
+                      breach.</p>
                     <h3>12.4 Customer Security Responsibilities</h3>
-                    <p>You are responsible for maintaining the security of your own systems, networks, and devices used to access the Service, and for ensuring that all authorised users within your organisation comply with these Terms and any applicable security policies communicated by Flurbix.</p>
+                    <p>You are responsible for maintaining the security of your own systems, networks, and devices used
+                      to access the Service, and for ensuring that all authorised users within your organisation comply
+                      with these Terms and any applicable security policies communicated by Flurbix.</p>
 
                     <h2>13. Confidentiality</h2>
-                    <p>Each party agrees to keep confidential all non-public information disclosed by the other party in connection with these Terms that are designated as confidential or that reasonably should be understood to be confidential given the nature of the information and circumstances of disclosure ("Confidential Information"). Confidential Information includes, without limitation, trade secrets, business strategies, technical specifications, pricing, and User Data.</p>
-                    <p>Neither party shall use the other's Confidential Information for any purpose other than performing its obligations or exercising its rights under these Terms, and shall disclose such information only to its employees, contractors, or advisers with a need to know and who are bound by confidentiality obligations no less restrictive than those set out herein.</p>
-                    <p>Obligations of confidentiality do not apply to information that: (a) is or becomes publicly available through no fault of the receiving party; (b) was known to the receiving party prior to disclosure; (c) is independently developed by the receiving party without use of or reference to the Confidential Information; or (d) is required to be disclosed by law or court order, provided that the receiving party gives prompt prior written notice where legally permissible.</p>
+                    <p>Each party agrees to keep confidential all non-public information disclosed by the other party in
+                      connection with these Terms that are designated as confidential or that reasonably should be
+                      understood to be confidential given the nature of the information and circumstances of disclosure
+                      ("Confidential Information"). Confidential Information includes, without limitation, trade
+                      secrets, business strategies, technical specifications, pricing, and User Data.</p>
+                    <p>Neither party shall use the other's Confidential Information for any purpose other than
+                      performing its obligations or exercising its rights under these Terms, and shall disclose such
+                      information only to its employees, contractors, or advisers with a need to know and who are bound
+                      by confidentiality obligations no less restrictive than those set out herein.</p>
+                    <p>Obligations of confidentiality do not apply to information that: (a) is or becomes publicly
+                      available through no fault of the receiving party; (b) was known to the receiving party prior to
+                      disclosure; (c) is independently developed by the receiving party without use of or reference to
+                      the Confidential Information; or (d) is required to be disclosed by law or court order, provided
+                      that the receiving party gives prompt prior written notice where legally permissible.</p>
 
                     <h2>14. Disclaimer of Warranties</h2>
-                    <div class="w-richtext" style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); padding: 20px; border-radius: 8px; margin: 15px 0; color: #d97706; font-weight: 500; font-family: inherit; font-size: 0.9em; text-transform: uppercase; line-height: 1.6;">
+                    <div class="w-richtext"
+                      style="background: rgba(226, 254, 255, 0.835); border: 1px solid rgba(245, 158, 11, 0.2); padding: 20px; border-radius: 8px; margin: 15px 0; color: #000000; font-weight: 500; font-family: inherit; font-size: 0.9em; text-transform: uppercase; line-height: 1.6;">
                       THE SERVICE IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS WITHOUT WARRANTIES OF ANY KIND.
                       <br><br>
-                      TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, FLURBIX AND ITS AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, AGENTS, AND LICENSORS EXPRESSLY DISCLAIM ALL WARRANTIES, WHETHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE, INCLUDING BUT NOT LIMITED TO: (A) IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT; (B) WARRANTIES ARISING FROM COURSE OF DEALING, COURSE OF PERFORMANCE, OR TRADE USAGE; AND (C) ANY WARRANTY THAT THE SERVICE WILL BE UNINTERRUPTED, ERROR-FREE, SECURE, OR FREE FROM VIRUSES OR OTHER HARMFUL COMPONENTS.
+                      TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, FLURBIX AND ITS AFFILIATES, OFFICERS,
+                      DIRECTORS, EMPLOYEES, AGENTS, AND LICENSORS EXPRESSLY DISCLAIM ALL WARRANTIES, WHETHER EXPRESS,
+                      IMPLIED, STATUTORY, OR OTHERWISE, INCLUDING BUT NOT LIMITED TO: (A) IMPLIED WARRANTIES OF
+                      MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT; (B) WARRANTIES
+                      ARISING FROM COURSE OF DEALING, COURSE OF PERFORMANCE, OR TRADE USAGE; AND (C) ANY WARRANTY THAT
+                      THE SERVICE WILL BE UNINTERRUPTED, ERROR-FREE, SECURE, OR FREE FROM VIRUSES OR OTHER HARMFUL
+                      COMPONENTS.
                       <br><br>
-                      NOTHING IN THESE TERMS SHALL EXCLUDE OR LIMIT ANY WARRANTY THAT CANNOT BE EXCLUDED OR LIMITED UNDER APPLICABLE LAW, INCLUDING STATUTORY RIGHTS OF CONSUMERS UNDER EU OR UK CONSUMER LAW.
+                      NOTHING IN THESE TERMS SHALL EXCLUDE OR LIMIT ANY WARRANTY THAT CANNOT BE EXCLUDED OR LIMITED
+                      UNDER APPLICABLE LAW, INCLUDING STATUTORY RIGHTS OF CONSUMERS UNDER EU OR UK CONSUMER LAW.
                     </div>
 
                     <h2>15. Limitation of Liability</h2>
-                    <div class="w-richtext" style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); padding: 20px; border-radius: 8px; margin: 15px 0; color: #d97706; font-weight: 500; font-family: inherit; font-size: 0.9em; text-transform: uppercase; line-height: 1.6;">
-                      TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL FLURBIX, ITS DIRECTORS, EMPLOYEES, PARTNERS, AGENTS, SUPPLIERS, OR AFFILIATES BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, DATA, BUSINESS, GOODWILL, OR OTHER INTANGIBLE LOSSES, ARISING OUT OF OR IN CONNECTION WITH: (A) YOUR ACCESS TO OR USE OF, OR INABILITY TO ACCESS OR USE, THE SERVICE; (B) ANY CONDUCT OR CONTENT OF ANY THIRD PARTY ON THE SERVICE; (C) UNAUTHORISED ACCESS TO OR USE OF YOUR ACCOUNT OR DATA; OR (D) ANY FAILURE OF A THIRD-PARTY INTEGRATION.
+                    <div class="w-richtext"
+                      style="background: rgba(226, 254, 255, 0.835); border: 1px solid rgba(245, 158, 11, 0.2); padding: 20px; border-radius: 8px; margin: 15px 0; color: #000000; font-weight: 500; font-family: inherit; font-size: 0.9em; text-transform: uppercase; line-height: 1.6;">
+                      TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL FLURBIX, ITS DIRECTORS,
+                      EMPLOYEES, PARTNERS, AGENTS, SUPPLIERS, OR AFFILIATES BE LIABLE FOR ANY INDIRECT, INCIDENTAL,
+                      SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF
+                      PROFITS, DATA, BUSINESS, GOODWILL, OR OTHER INTANGIBLE LOSSES, ARISING OUT OF OR IN CONNECTION
+                      WITH: (A) YOUR ACCESS TO OR USE OF, OR INABILITY TO ACCESS OR USE, THE SERVICE; (B) ANY CONDUCT OR
+                      CONTENT OF ANY THIRD PARTY ON THE SERVICE; (C) UNAUTHORISED ACCESS TO OR USE OF YOUR ACCOUNT OR
+                      DATA; OR (D) ANY FAILURE OF A THIRD-PARTY INTEGRATION.
                       <br><br>
-                      IN NO EVENT SHALL FLURBIX'S AGGREGATE LIABILITY TO YOU FOR ALL CLAIMS ARISING OUT OF OR RELATED TO THESE TERMS OR THE SERVICE EXCEED THE GREATER OF: (I) THE TOTAL FEES PAID BY YOU TO FLURBIX IN THE TWELVE (12) MONTHS IMMEDIATELY PRECEDING THE CLAIM; OR (II) ONE HUNDRED US DOLLARS (USD $100).
+                      IN NO EVENT SHALL FLURBIX'S AGGREGATE LIABILITY TO YOU FOR ALL CLAIMS ARISING OUT OF OR RELATED TO
+                      THESE TERMS OR THE SERVICE EXCEED THE GREATER OF: (I) THE TOTAL FEES PAID BY YOU TO FLURBIX IN THE
+                      TWELVE (12) MONTHS IMMEDIATELY PRECEDING THE CLAIM; OR (II) ONE HUNDRED US DOLLARS (USD $100).
                       <br><br>
-                      NOTHING IN THESE TERMS LIMITS OR EXCLUDES FLURBIX'S LIABILITY FOR: (A) DEATH OR PERSONAL INJURY CAUSED BY ITS NEGLIGENCE; (B) FRAUD OR FRAUDULENT MISREPRESENTATION; OR (C) ANY LIABILITY THAT CANNOT BE EXCLUDED UNDER APPLICABLE LAW, INCLUDING CONSUMER PROTECTION LAWS.
+                      NOTHING IN THESE TERMS LIMITS OR EXCLUDES FLURBIX'S LIABILITY FOR: (A) DEATH OR PERSONAL INJURY
+                      CAUSED BY ITS NEGLIGENCE; (B) FRAUD OR FRAUDULENT MISREPRESENTATION; OR (C) ANY LIABILITY THAT
+                      CANNOT BE EXCLUDED UNDER APPLICABLE LAW, INCLUDING CONSUMER PROTECTION LAWS.
                     </div>
 
                     <h2>16. Indemnification</h2>
-                    <p>You agree to defend, indemnify, and hold harmless Flurbix and its affiliates, directors, employees, officers, agents, and licensors from and against any and all third-party claims, liabilities, damages, losses, penalties, and expenses (including reasonable attorneys' fees) arising out of or related to: (a) your use of or access to the Service; (b) your breach of any provision of these Terms; (c) your violation of any applicable law or third-party rights; (d) your User Data; or (e) any wilful misconduct or gross negligence by you or your authorised users.</p>
-                    <p>Flurbix reserves the right, at its own expense, to assume exclusive control of the defence of any matter subject to indemnification by you, in which case you agree to cooperate with Flurbix's defence of such claim.</p>
+                    <p>You agree to defend, indemnify, and hold harmless Flurbix and its affiliates, directors,
+                      employees, officers, agents, and licensors from and against any and all third-party claims,
+                      liabilities, damages, losses, penalties, and expenses (including reasonable attorneys' fees)
+                      arising out of or related to: (a) your use of or access to the Service; (b) your breach of any
+                      provision of these Terms; (c) your violation of any applicable law or third-party rights; (d) your
+                      User Data; or (e) any wilful misconduct or gross negligence by you or your authorised users.</p>
+                    <p>Flurbix reserves the right, at its own expense, to assume exclusive control of the defence of any
+                      matter subject to indemnification by you, in which case you agree to cooperate with Flurbix's
+                      defence of such claim.</p>
 
                     <h2>17. Dispute Resolution & Arbitration</h2>
                     <h3>17.1 Informal Resolution</h3>
-                    <p>Before initiating any formal dispute, you agree to contact Flurbix at <a href="mailto:info@flurbix.io">info@flurbix.io</a> and attempt to resolve the dispute informally for a period of at least thirty (30) days from the date of written notice.</p>
+                    <p>Before initiating any formal dispute, you agree to contact Flurbix at <a
+                        href="mailto:info@flurbix.io">info@flurbix.io</a> and attempt to resolve the dispute informally
+                      for a period of at least thirty (30) days from the date of written notice.</p>
                     <h3>17.2 Binding Arbitration (Applicable to US Users)</h3>
-                    <p>For Users located in the United States, any unresolved dispute arising out of or relating to these Terms or the Service shall be resolved through binding arbitration administered by the American Arbitration Association (AAA) under its Commercial Arbitration Rules. Arbitration shall take place in San Francisco, California. The arbitrator's decision shall be final and binding. Class action waiver: YOU AND FLURBIX AGREE THAT EACH MAY BRING CLAIMS AGAINST THE OTHER ONLY IN YOUR OR ITS INDIVIDUAL CAPACITY, AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS OR REPRESENTATIVE PROCEEDING.</p>
+                    <p>For Users located in the United States, any unresolved dispute arising out of or relating to
+                      these Terms or the Service shall be resolved through binding arbitration administered by the
+                      American Arbitration Association (AAA) under its Commercial Arbitration Rules. Arbitration shall
+                      take place in San Francisco, California. The arbitrator's decision shall be final and binding.
+                      Class action waiver: YOU AND FLURBIX AGREE THAT EACH MAY BRING CLAIMS AGAINST THE OTHER ONLY IN
+                      YOUR OR ITS INDIVIDUAL CAPACITY, AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS OR
+                      REPRESENTATIVE PROCEEDING.</p>
                     <h3>17.3 EU / UK Users</h3>
-                    <p>If you are a consumer located in the European Union or United Kingdom, you retain the right to bring a claim before your local courts, and the AAA arbitration clause in Section 17.2 shall not apply to you. You may also make use of the EU Online Dispute Resolution (ODR) platform at <a href="https://ec.europa.eu/consumers/odr" target="_blank">https://ec.europa.eu/consumers/odr</a>.</p>
+                    <p>If you are a consumer located in the European Union or United Kingdom, you retain the right to
+                      bring a claim before your local courts, and the AAA arbitration clause in Section 17.2 shall not
+                      apply to you. You may also make use of the EU Online Dispute Resolution (ODR) platform at <a
+                        href="https://ec.europa.eu/consumers/odr"
+                        target="_blank">https://ec.europa.eu/consumers/odr</a>.</p>
                     <h3>17.4 Equitable Relief</h3>
-                    <p>Nothing in these Terms shall prevent either party from seeking injunctive or other equitable relief from a court of competent jurisdiction to prevent irreparable harm pending arbitration or in cases involving Intellectual Property Rights violations.</p>
+                    <p>Nothing in these Terms shall prevent either party from seeking injunctive or other equitable
+                      relief from a court of competent jurisdiction to prevent irreparable harm pending arbitration or
+                      in cases involving Intellectual Property Rights violations.</p>
 
                     <h2>18. Governing Law & Jurisdiction</h2>
-                    <p>These Terms and any dispute arising out of or in connection with them shall be governed by and construed in accordance with the laws of the State of Delaware, United States, without regard to its conflict of law principles, except where: (a) you are a consumer in the EU or UK, in which case the mandatory consumer protection laws of your country of residence apply; or (b) applicable local laws require otherwise.</p>
-                    <p>Subject to Section 17, you submit to the exclusive jurisdiction of the courts located in the State of Delaware, USA, for any proceedings that are not subject to arbitration, provided that EU and UK consumers retain the right to bring proceedings in their local courts.</p>
+                    <p>These Terms and any dispute arising out of or in connection with them shall be governed by and
+                      construed in accordance with the laws of the State of Delaware, United States, without regard to
+                      its conflict of law principles, except where: (a) you are a consumer in the EU or UK, in which
+                      case the mandatory consumer protection laws of your country of residence apply; or (b) applicable
+                      local laws require otherwise.</p>
+                    <p>Subject to Section 17, you submit to the exclusive jurisdiction of the courts located in the
+                      State of Delaware, USA, for any proceedings that are not subject to arbitration, provided that EU
+                      and UK consumers retain the right to bring proceedings in their local courts.</p>
 
                     <h2>19. Export Control & Sanctions Compliance</h2>
-                    <p>The Service is subject to the export control laws and regulations of the United States, the European Union, the United Kingdom, India and other applicable jurisdictions. You agree not to export, re-export, transfer, or use the Service in violation of any applicable export control laws, including those administered by the US Department of Commerce (EAR), the US Department of State (ITAR), and the US Office of Foreign Assets Control (OFAC).</p>
-                    <p>By using the Service, you represent and warrant that: (a) you are not located in a country subject to a US government embargo or sanctions; (b) you are not listed on any US or international government list of prohibited or restricted parties; and (c) you will not use the Service for any purpose prohibited by applicable export control or sanctions laws, including nuclear, chemical, or biological weapons development.</p>
+                    <p>The Service is subject to the export control laws and regulations of the United States, the
+                      European Union, the United Kingdom, India and other applicable jurisdictions. You agree not to
+                      export, re-export, transfer, or use the Service in violation of any applicable export control
+                      laws, including those administered by the US Department of Commerce (EAR), the US Department of
+                      State (ITAR), and the US Office of Foreign Assets Control (OFAC).</p>
+                    <p>By using the Service, you represent and warrant that: (a) you are not located in a country
+                      subject to a US government embargo or sanctions; (b) you are not listed on any US or international
+                      government list of prohibited or restricted parties; and (c) you will not use the Service for any
+                      purpose prohibited by applicable export control or sanctions laws, including nuclear, chemical, or
+                      biological weapons development.</p>
 
                     <h2>20. Modifications to Terms</h2>
-                    <p>Flurbix reserves the right to modify these Terms at any time. When we make material changes, we will provide at least thirty (30) days' prior written notice via email to the address associated with your Account and by posting a prominent notice on our website. For minor or non-material changes, we may post updated Terms without prior notice.</p>
-                    <p>Your continued use of the Service after the effective date of any modification constitutes your binding acceptance of the revised Terms. If you disagree with the modified Terms, your sole remedy is to stop using the Service and cancel your Subscription in accordance with Section 7.</p>
+                    <p>Flurbix reserves the right to modify these Terms at any time. When we make material changes, we
+                      will provide at least thirty (30) days' prior written notice via email to the address associated
+                      with your Account and by posting a prominent notice on our website. For minor or non-material
+                      changes, we may post updated Terms without prior notice.</p>
+                    <p>Your continued use of the Service after the effective date of any modification constitutes your
+                      binding acceptance of the revised Terms. If you disagree with the modified Terms, your sole remedy
+                      is to stop using the Service and cancel your Subscription in accordance with Section 7.</p>
 
                     <h2>21. General Provisions</h2>
                     <h3>21.1 Entire Agreement</h3>
-                    <p>These Terms, together with the Privacy Policy, any applicable Order Form, and any Data Processing Agreement, constitute the entire agreement between you and Flurbix with respect to the Service and supersede all prior and contemporaneous agreements, representations, or understandings relating to the same subject matter.</p>
+                    <p>These Terms, together with the Privacy Policy, any applicable Order Form, and any Data Processing
+                      Agreement, constitute the entire agreement between you and Flurbix with respect to the Service and
+                      supersede all prior and contemporaneous agreements, representations, or understandings relating to
+                      the same subject matter.</p>
                     <h3>21.2 Severability</h3>
-                    <p>If any provision of these Terms is found to be invalid, illegal, or unenforceable by a court of competent jurisdiction, the remaining provisions shall continue in full force and effect, and the offending provision shall be modified to the minimum extent necessary to make it enforceable.</p>
+                    <p>If any provision of these Terms is found to be invalid, illegal, or unenforceable by a court of
+                      competent jurisdiction, the remaining provisions shall continue in full force and effect, and the
+                      offending provision shall be modified to the minimum extent necessary to make it enforceable.</p>
                     <h3>21.3 Waiver</h3>
-                    <p>No failure or delay by Flurbix in exercising any right, power, or privilege under these Terms shall operate as a waiver thereof. No single or partial exercise of any right, power, or privilege shall preclude any other or further exercise thereof.</p>
+                    <p>No failure or delay by Flurbix in exercising any right, power, or privilege under these Terms
+                      shall operate as a waiver thereof. No single or partial exercise of any right, power, or privilege
+                      shall preclude any other or further exercise thereof.</p>
                     <h3>21.4 Assignment</h3>
-                    <p>You may not assign or transfer any rights or obligations under these Terms without the prior written consent of Flurbix. Flurbix may freely assign these Terms in connection with a merger, acquisition, sale of assets, or by operation of law. These Terms shall be binding upon and inure to the benefit of the parties and their respective successors and permitted assigns.</p>
+                    <p>You may not assign or transfer any rights or obligations under these Terms without the prior
+                      written consent of Flurbix. Flurbix may freely assign these Terms in connection with a merger,
+                      acquisition, sale of assets, or by operation of law. These Terms shall be binding upon and inure
+                      to the benefit of the parties and their respective successors and permitted assigns.</p>
                     <h3>21.5 Force Majeure</h3>
-                    <p>Flurbix shall not be liable for any failure or delay in performance under these Terms resulting from causes beyond its reasonable control, including but not limited to acts of God, natural disasters, pandemic, war, terrorism, civil unrest, government action, power failures, internet outages, or acts of third parties.</p>
+                    <p>Flurbix shall not be liable for any failure or delay in performance under these Terms resulting
+                      from causes beyond its reasonable control, including but not limited to acts of God, natural
+                      disasters, pandemic, war, terrorism, civil unrest, government action, power failures, internet
+                      outages, or acts of third parties.</p>
                     <h3>21.6 Relationship of the Parties</h3>
-                    <p>The parties are independent contractors. Nothing in these Terms creates a partnership, joint venture, agency, franchise, or employment relationship between the parties.</p>
+                    <p>The parties are independent contractors. Nothing in these Terms creates a partnership, joint
+                      venture, agency, franchise, or employment relationship between the parties.</p>
                     <h3>21.7 Language</h3>
-                    <p>These Terms are drafted in the English language. In the event of any inconsistency between the English version and any translation, the English version shall prevail, except where prohibited by applicable law.</p>
+                    <p>These Terms are drafted in the English language. In the event of any inconsistency between the
+                      English version and any translation, the English version shall prevail, except where prohibited by
+                      applicable law.</p>
                     <h3>21.8 Notices</h3>
-                    <p>All legal notices to Flurbix must be sent in writing to <a href="mailto:info@flurbix.io">info@flurbix.io</a> or by post to the address in Section 22. Notices to you may be sent to the email address associated with your Account, which shall be deemed effective upon sending.</p>
+                    <p>All legal notices to Flurbix must be sent in writing to <a
+                        href="mailto:info@flurbix.io">info@flurbix.io</a> or by post to the address in Section 22.
+                      Notices to you may be sent to the email address associated with your Account, which shall be
+                      deemed effective upon sending.</p>
 
                     <h2>22. Contact & Legal Notices</h2>
-                    <p>If you have any questions, concerns, or requests regarding these Terms, please contact Flurbix at:</p>
-                    <div style="background: rgba(248, 250, 252, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 8px; margin-top: 15px; font-family: inherit; line-height: 1.6;">
+                    <p>If you have any questions, concerns, or requests regarding these Terms, please contact Flurbix
+                      at:</p>
+                    <div
+                      style="background: rgba(248, 250, 252, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 8px; margin-top: 15px; font-family: inherit; line-height: 1.6;">
                       <strong>Legal Department</strong><br>
                       Flurbix Inc.<br>
                       <strong>Email:</strong> <a href="mailto:info@flurbix.io">info@flurbix.io</a><br>
                       <strong>Privacy:</strong> <a href="mailto:info@flurbix.io">info@flurbix.io</a><br>
                       <strong>Security:</strong> <a href="mailto:info@flurbix.io">info@flurbix.io</a><br>
-                      <strong>Postal Address:</strong> Flurbix Inc., G - 48, 2nd Floor, Sector - 44, Noida, Pincode - 201301, Uttar Pradesh, India<br>
+                      <strong>Postal Address:</strong> Flurbix Inc., G - 48, 2nd Floor, Sector - 44, Noida, Pincode -
+                      201301, Uttar Pradesh, India<br>
                       <strong>Website:</strong> <a href="https://flurbix.com/">https://flurbix.com/</a>
                     </div>
 
@@ -797,13 +1043,13 @@ a,
                   }
 
                   .footer_address-row {
-                    justify-content: center !important;
-                    text-align: center !important;
-                    align-items: center !important;
+                    justify-content: flex-start !important;
+                    text-align: left !important;
+                    align-items: flex-start !important;
                   }
 
                   .footer_address-icon {
-                    margin-top: 0 !important;
+                    margin-top: 2px !important;
                   }
 
                   .footer_link-new {
@@ -900,7 +1146,7 @@ a,
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                       </svg>
                     </a>
-                    <a href="contact.html" class="footer_link-new">
+                    <a href="support.html" class="footer_link-new">
                       <span>Contact Support</span>
                       <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         style="opacity: 0.5;">

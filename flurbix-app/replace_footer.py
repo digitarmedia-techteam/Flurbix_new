@@ -12,7 +12,7 @@ new_footer = m.group(1)
 # Adjust paths for en/ subdirectory
 new_footer = new_footer.replace('href="terms.html"', 'href="../terms.html"')
 new_footer = new_footer.replace('href="privacy-policy.html"', 'href="../privacy-policy.html"')
-new_footer = new_footer.replace('href="contact.html"', 'href="../contact.html"')
+new_footer = new_footer.replace('href="support.html"', 'href="../support.html"')
 
 with open('e:/web/flurbix/flurbix-app/en/demo.html', 'r', encoding='utf-8') as f:
     demo_content = f.read()
