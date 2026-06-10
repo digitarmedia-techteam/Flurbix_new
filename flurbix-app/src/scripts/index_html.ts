@@ -2176,82 +2176,82 @@ document.addEventListener("DOMContentLoaded", (event) => {
         requestAnimationFrame(loop);
     }
 
-    createGridNetwork({
-        canvasId: "network",
-        rows: 9,
-        sequences: [
-            {
-                icon: PHONE,
-                points: [
-                    { coord: isMobile ? "A6" : "B5", color: "white" },
-                    { coord: isMobile ? "C7" : "D6", color: "white" },
-                    { coord: isMobile ? "D5" : "F5", icon: "https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/699f5b7e366b78446268cb7d_checkmark.svg" },
-                ],
-            },
-            {
-                icon: GLOBE,
-                points: [
-                    { coord: isMobile ? "J8" : "AF6", color: "white" },
-                    { coord: isMobile ? "H7" : "AD5", color: "white" },
-                    { coord: isMobile ? "G8" : "Y5", icon: WIFI },
-                ],
-            },
-            {
-                icon: PHONE,
-                points: [
-                    { coord: isMobile ? "J1" : "AE1", color: "white" },
-                    { coord: isMobile ? "H6" : "AB5", color: "white" },
-                    { coord: isMobile ? "I8" : "AB8", color: "white" },
-                    { coord: isMobile ? "F9" : "W9", color: "white" },
-                    { coord: isMobile ? "I2" : "AB2", icon: TOWER },
-                ],
-            },
-            {
-                icon: TOWER,
-                points: [
-                    { coord: isMobile ? "B8" : "D8", color: "white" },
-                    { coord: isMobile ? "D9" : "H8", color: "white" },
-                    { coord: isMobile ? "E8" : "L8", icon: WIFI },
-                ],
-            },
-            {
-                icon: DATABASE,
-                points: [
-                    { coord: isMobile ? "D1" : "K1", color: "white" },
-                    { coord: isMobile ? "E2" : "L3", color: "white" },
-                    { coord: isMobile ? "E3" : "O3", icon: "https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/699f5b7e366b78446268cb7d_checkmark.svg" },
-                ],
-            },
-            {
-                icon: EMAIL,
-                points: [
-                    { coord: isMobile ? "A2" : "E2", color: "white" },
-                    { coord: isMobile ? "D2" : "I2", color: "white" },
-                    { coord: isMobile ? "F4" : "O7", color: "white" },
-                    { coord: isMobile ? "G3" : "V3", color: "white" },
-                    { coord: isMobile ? "J6" : "Z6", icon: "https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/699f5b7e366b78446268cb7d_checkmark.svg" },
-                ],
-            },
-            {
-                icon: EMAIL,
-                points: [
-                    { coord: isMobile ? "G2" : "S2", color: "white" },
-                    { coord: isMobile ? "I4" : "T8", icon: TOWER },
-                ],
-            },
-            {
-                icon: LAPTOP,
-                points: [
-                    { coord: isMobile ? "C1" : "I1", color: "white" },
-                    { coord: isMobile ? "F7" : "M7", color: "white" },
-                    { coord: isMobile ? "C9" : "K9", color: "white" },
-                    { coord: isMobile ? "B5" : "I7", color: "white" },
-                    isMobile ? { coord: "F2", icon: "https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/699f5b7e366b78446268cb7d_checkmark.svg" } : { coord: "F8", color: "white" },
-                    isMobile ? null : { coord: "M2", icon: "https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/699f5b7e366b78446268cb7d_checkmark.svg" },
-                ].filter(Boolean),
-            },
-        ],
-    });
+    // createGridNetwork({
+    //     canvasId: "network",
+    //     rows: 9,
+    //     sequences: [
+    //         {
+    //             icon: PHONE,
+    //             points: [
+    //                 { coord: isMobile ? "A6" : "B5", color: "white" },
+    //                 { coord: isMobile ? "C7" : "D6", color: "white" },
+    //                 { coord: isMobile ? "D5" : "F5", icon: "https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/699f5b7e366b78446268cb7d_checkmark.svg" },
+    //             ],
+    //         },
+    //         {
+    //             icon: GLOBE,
+    //             points: [
+    //                 { coord: isMobile ? "J8" : "AF6", color: "white" },
+    //                 { coord: isMobile ? "H7" : "AD5", color: "white" },
+    //                 { coord: isMobile ? "G8" : "Y5", icon: WIFI },
+    //             ],
+    //         },
+    //         {
+    //             icon: PHONE,
+    //             points: [
+    //                 { coord: isMobile ? "J1" : "AE1", color: "white" },
+    //                 { coord: isMobile ? "H6" : "AB5", color: "white" },
+    //                 { coord: isMobile ? "I8" : "AB8", color: "white" },
+    //                 { coord: isMobile ? "F9" : "W9", color: "white" },
+    //                 { coord: isMobile ? "I2" : "AB2", icon: TOWER },
+    //             ],
+    //         },
+    //         {
+    //             icon: TOWER,
+    //             points: [
+    //                 { coord: isMobile ? "B8" : "D8", color: "white" },
+    //                 { coord: isMobile ? "D9" : "H8", color: "white" },
+    //                 { coord: isMobile ? "E8" : "L8", icon: WIFI },
+    //             ],
+    //         },
+    //         {
+    //             icon: DATABASE,
+    //             points: [
+    //                 { coord: isMobile ? "D1" : "K1", color: "white" },
+    //                 { coord: isMobile ? "E2" : "L3", color: "white" },
+    //                 { coord: isMobile ? "E3" : "O3", icon: "https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/699f5b7e366b78446268cb7d_checkmark.svg" },
+    //             ],
+    //         },
+    //         {
+    //             icon: EMAIL,
+    //             points: [
+    //                 { coord: isMobile ? "A2" : "E2", color: "white" },
+    //                 { coord: isMobile ? "D2" : "I2", color: "white" },
+    //                 { coord: isMobile ? "F4" : "O7", color: "white" },
+    //                 { coord: isMobile ? "G3" : "V3", color: "white" },
+    //                 { coord: isMobile ? "J6" : "Z6", icon: "https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/699f5b7e366b78446268cb7d_checkmark.svg" },
+    //             ],
+    //         },
+    //         {
+    //             icon: EMAIL,
+    //             points: [
+    //                 { coord: isMobile ? "G2" : "S2", color: "white" },
+    //                 { coord: isMobile ? "I4" : "T8", icon: TOWER },
+    //             ],
+    //         },
+    //         {
+    //             icon: LAPTOP,
+    //             points: [
+    //                 { coord: isMobile ? "C1" : "I1", color: "white" },
+    //                 { coord: isMobile ? "F7" : "M7", color: "white" },
+    //                 { coord: isMobile ? "C9" : "K9", color: "white" },
+    //                 { coord: isMobile ? "B5" : "I7", color: "white" },
+    //                 isMobile ? { coord: "F2", icon: "https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/699f5b7e366b78446268cb7d_checkmark.svg" } : { coord: "F8", color: "white" },
+    //                 isMobile ? null : { coord: "M2", icon: "https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/699f5b7e366b78446268cb7d_checkmark.svg" },
+    //             ].filter(Boolean),
+    //         },
+    //     ],
+    // });
 
     // BLUE
     const PHONE2 =
