@@ -1,28 +1,26 @@
 <!doctype html>
-<!-- Last Published: Wed Apr 29 2026 15:36:37 GMT+0000 (Coordinated Universal Time) -->
-<html data-wf-domain="www.flurbix.io" data-wf-page="69a789c63669db9b3f9554b3" data-wf-site="6998a7a4efcd66d9f2857e79"
+<html data-wf-domain="www.flurbix.io" data-wf-page="69c45fb3e7d2b077e86c8bcd" data-wf-site="6998a7a4efcd66d9f2857e79"
   lang="en">
 
 <head>
   <meta charset="utf-8" />
   <link href="https://cdn.prod.website-files.com" rel="preconnect" crossorigin="anonymous" />
-  <title>Demo Request</title>
-  <link rel="alternate" hreflang="x-default" href="https://flurbix.io/demo" />
-  <link rel="alternate" hreflang="en" href="https://flurbix.io/demo" />
-  <link rel="alternate" hreflang="ja" href="https://flurbix.io/ja/demo" />
+  <title>Pricing | flurbix</title>
+  <link rel="alternate" hreflang="x-default" href="https://flurbix.io/pricing" />
+  <link rel="alternate" hreflang="en" href="https://flurbix.io/pricing" />
   <meta
-    content="flurbix creates unique journeys for every customer with AI agents that analyze behavior, generate creatives, and optimize performance across your lifecycle."
+    content="Simple, transparent pricing for flurbix growth operating system. Choose the plan that fits your growth needs."
     name="description" />
-  <meta content="Demo Request" property="og:title" />
+  <meta content="Pricing | flurbix" property="og:title" />
   <meta
-    content="flurbix creates unique journeys for every customer with AI agents that analyze behavior, generate creatives, and optimize performance across your lifecycle."
+    content="Simple, transparent pricing for flurbix growth operating system. Choose the plan that fits your growth needs."
     property="og:description" />
   <meta content="https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/69a75fe67afadd35444ad2eb_auxia-og.jpg"
     property="og:image" />
-  <meta content="Demo Request" name="twitter:title" />
+  <meta content="Pricing | flurbix" property="twitter:title" />
   <meta
-    content="flurbix creates unique journeys for every customer with AI agents that analyze behavior, generate creatives, and optimize performance across your lifecycle."
-    name="twitter:description" />
+    content="Simple, transparent pricing for flurbix growth operating system. Choose the plan that fits your growth needs."
+    property="twitter:description" />
   <meta property="og:type" content="website" />
   <meta content="summary_large_image" name="twitter:card" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
@@ -40,9 +38,9 @@
   <link href="/favicon.png" rel="icon" type="image/png" />
   <link href="/favicon.png" rel="shortcut icon" type="image/x-icon" />
   <link href="/favicon.png" rel="apple-touch-icon" />
-  <link href="https://flurbix.io/demo" rel="canonical" />
+  <link href="https://flurbix.io/pricing" rel="canonical" />
 
-  <script async="" src="../9i1h7htkfq16Njk5OGE3YTRlZmNkNjZkOWYyODU3ZTc5/comvVP0cEwtHkAJxbwd4_598ChA"></script>
+  <script async="" src="9i1h7htkfq16Njk5OGE3YTRlZmNkNjZkOWYyODU3ZTc5/comvVP0cEwtHkAJxbwd4_598ChA"></script>
   <script type="text/javascript">
     window.dataLayer = window.dataLayer || [];
     function gtag() {
@@ -80,6 +78,296 @@
 
       .hero_step1-list {
         height: 70px;
+      }
+    }
+
+    @media (max-width: 991px) {
+      .hero_tag-text {
+        font-size: clamp(8.5px, 2.2vw, 10.5px) !important;
+      }
+    }
+
+    html,
+    body,
+    .smooth-wrapper,
+    .page-wrapper {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    /* Pricing Section Styles */
+    .section_pricing {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .pricing_heading {
+      margin-bottom: 3rem;
+    }
+
+    .pricing_heading h2 {
+      color: #111827;
+      font-size: 3.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .pricing_toggle-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 4rem;
+    }
+
+    .pricing_toggle-label {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #6b7280;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .pricing_save-badge {
+      background-color: rgba(11, 79, 255, 0.1);
+      color: #0B4FFF;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .pricing_toggle-switch {
+      width: 54px;
+      height: 30px;
+      background-color: #e5e7eb;
+      border: 1px solid #d1d5db;
+      border-radius: 999px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .pricing_toggle-switch.is-annual {
+      background-color: #0B4FFF;
+      border-color: #0B4FFF;
+    }
+
+    .pricing_toggle-knob {
+      width: 24px;
+      height: 24px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    .pricing_toggle-switch.is-annual .pricing_toggle-knob {
+      transform: translateX(24px);
+    }
+
+    .pricing_grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      align-items: stretch;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .pricing_card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .pricing_card:hover {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      transform: translateY(-8px);
+      border-color: #d1d5db;
+    }
+
+    .pricing_card.is-highlighted {
+      background: #ffffff;
+      border: 2px solid #0B4FFF;
+      box-shadow: 0 10px 30px rgba(11, 79, 255, 0.1);
+      transform: scale(1.05);
+      z-index: 10;
+    }
+
+    .pricing_card.is-highlighted:hover {
+      transform: scale(1.05) translateY(-8px);
+      box-shadow: 0 24px 48px rgba(11, 79, 255, 0.15);
+    }
+
+    .pricing_popular-badge {
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #0B4FFF, #08B2B2);
+      color: #ffffff;
+      padding: 0.4rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: 0 4px 12px rgba(11, 79, 255, 0.25);
+    }
+
+    .pricing_card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 0.75rem;
+      transition: color 0.3s;
+    }
+
+    .pricing_card-desc {
+      font-size: 0.95rem;
+      color: #4b5563;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+      min-height: 48px;
+    }
+
+    .pricing_card-price {
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: baseline;
+    }
+
+    .pricing_card-amount {
+      font-size: 4rem;
+      font-weight: 800;
+      color: #111827;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .pricing_card-amount.is-custom {
+      font-size: 3rem;
+    }
+
+    .pricing_card-period {
+      font-size: 1.125rem;
+      color: #6b7280;
+      margin-left: 0.25rem;
+      font-weight: 500;
+    }
+
+    .pricing_feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 3rem 0;
+      flex-grow: 1;
+    }
+
+    .pricing_feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+      color: #374151;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .pricing_check {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: #0B4FFF;
+      flex-shrink: 0;
+    }
+
+    /* Ensure hover doesn't hide text */
+    .pricing_card:hover .pricing_card-title,
+    .pricing_card:hover .pricing_card-amount,
+    .pricing_card:hover .pricing_feature-list li {
+      color: #111827;
+    }
+
+    .pricing_card:hover .pricing_card-desc,
+    .pricing_card:hover .pricing_card-period {
+      color: #4b5563;
+    }
+
+    .pricing_btn {
+      width: 100%;
+      text-align: center;
+      padding: 1rem;
+      border-radius: 12px;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      display: inline-block;
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+
+    .pricing_btn.is-secondary {
+      background-color: #f9fafb;
+      border: 1px solid #e5e7eb;
+      color: #111827;
+    }
+
+    .pricing_btn.is-secondary:hover {
+      background-color: #f3f4f6;
+      border-color: #d1d5db;
+      color: #111827 !important;
+    }
+
+    .pricing_btn.is-primary {
+      background: linear-gradient(135deg, #0B4FFF, #08B2B2);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 4px 14px rgba(11, 79, 255, 0.25);
+    }
+
+    .pricing_btn.is-primary:hover {
+      box-shadow: 0 8px 20px rgba(11, 79, 255, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .pricing_card .pricing_btn {
+      margin-top: auto;
+    }
+
+    .pricing_footer {
+      text-align: center;
+      margin-top: 4rem;
+      font-size: 0.95rem;
+      color: #6b7280;
+      font-weight: 500;
+    }
+
+    @media (max-width: 991px) {
+      .pricing_grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        gap: 3rem;
+      }
+
+      .pricing_card.is-highlighted {
+        transform: scale(1);
+      }
+
+      .pricing_card.is-highlighted:hover {
+        transform: translateY(-4px);
       }
     }
   </style>
@@ -130,26 +418,6 @@
             margin-right: auto !important;
             margin-left: auto !important;
           }
-
-          /* 
-Make the following elements inherit typography styles from the parent and not have hardcoded values. 
-Important: You will not be able to style for example "All Links" in Designer with this CSS applied.
-Uncomment this CSS to use it in the project. Leave this message for future hand-off.
-*/
-          /*
-a,
-.w-input,
-.w-select,
-.w-tab-link,
-.w-nav-link,
-.w-dropdown-btn,
-.w-dropdown-toggle,
-.w-dropdown-link {
-  color: inherit;
-  text-decoration: inherit;
-  font-size: inherit;
-}
-*/
 
           /* Apply "..." after 3 lines of text */
           .text-style-3lines {
@@ -279,8 +547,6 @@ a,
           }
 
           @media (min-width: 992px) {
-            /* 992px and above */
-
             [data-shadow] {
               box-shadow:
                 0 150px 43px 0 rgba(0, 0, 0, 0),
@@ -291,26 +557,6 @@ a,
             }
           }
 
-          /* .process_tag-text {
-  -webkit-mask-image: linear-gradient(
-    to right,
-    rgba(0,0,0,0.1) 0%,
-    rgba(0,0,0,1) 50%,
-    rgba(0,0,0,0.1) 100%
-  );
-  mask-image: linear-gradient(
-    to right,
-    rgba(0,0,0,0.1) 0%,
-    rgba(0,0,0,1) 50%,
-    rgba(0,0,0,0.1) 100%
-  );
-
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-} */
           html.wf-design-mode .splide__list {
             gap: 80px;
           }
@@ -345,54 +591,40 @@ a,
         </style>
       </div>
       <div class="nav_fixed">
-        <!-- <section class="banner10_component">
-            <div class="padding-global">
-              <div class="banner10_content-wrapper">
-                <a href="../blog/100-billion-decisions-and-counting.html" class="banner10_content w-inline-block">
-                  <div>
-                    <strong>flurbix Crosses 5 Million Decisions →</strong>
-                  </div>
-                </a>
-                <a
-                  data-w-id="d71b470f-5cf4-f7bc-5a28-8a07619888a2"
-                  href="demo.html#"
-                  class="banner10_close-button w-inline-block"
-                >
-                  <div class="icon-embed-small w-embed">
-                    <svg width="100%" height="100%" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M22.8354 22.864L22.3639 23.3354C22.1036 23.5957 21.6815 23.5957 21.4211 23.3354L16 17.9142L10.5788 23.3353C10.3185 23.5957 9.89638 23.5957 9.63603 23.3353L9.16462 22.8639C8.90427 22.6036 8.90427 22.1815 9.16462 21.9211L14.5858 16.5L9.16462 11.0788C8.90427 10.8185 8.90427 10.3964 9.16462 10.136L9.63602 9.66463C9.89637 9.40428 10.3185 9.40428 10.5788 9.66463L16 15.0858L21.4211 9.66462C21.6815 9.40427 22.1036 9.40427 22.3639 9.66462L22.8354 10.136C23.0957 10.3964 23.0957 10.8185 22.8354 11.0788L17.4142 16.5L22.8354 21.9211C23.0957 22.1815 23.0957 22.6036 22.8354 22.864Z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </section> -->
-        <div data-animation="default" class="navbar1_component w-nav" data-wf--navbar--variant="base"
-          data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium"
-          data-w-id="309bf2f7-5632-7b7b-3e3d-1c756b34abb6" role="banner" data-duration="400">
+        <div data-animation="default" class="navbar1_component w-variant-0a7dfc45-1934-36e8-12ad-622c0c718755 w-nav"
+          data-wf--navbar--variant="light-logo" data-easing2="ease" fs-scrolldisable-element="smart-nav"
+          data-easing="ease" data-collapse="medium" data-w-id="309bf2f7-5632-7b7b-3e3d-1c756b34abb6" role="banner"
+          data-duration="400">
           <div class="navbar1_container">
-            <a href="../index.html" class="navbar1_logo-link w-nav-brand">
-              <img loading="lazy" src="/flurbix-logo.svg" style="max-height: 32px; width: auto; object-fit: contain;"
-                alt="" class="navbar1_logo" />
-              <span class="navbar1_logo is-2"
-                style="font-size: 26px; font-weight: 500; color: #111827; margin-left: 6px; letter-spacing: -0.02em">
-                flurbix
-              </span>
+            <a href="index.html" class="navbar1_logo-link w-nav-brand">
+              <img loading="lazy" src="/flurbix-logo.svg"
+                style="max-height: 32px; width: auto; object-fit: contain; filter: brightness(0) invert(1);" alt=""
+                class="navbar1_logo" />
             </a>
-            <nav role="navigation" class="navbar1_menu w-nav-menu">
+            <nav role="navigation" class="navbar1_menu w-variant-0a7dfc45-1934-36e8-12ad-622c0c718755 w-nav-menu">
               <div class="navbar1_menu-links">
-                <a href="../about-us.html" class="navbar1_link w-nav-link">About</a>
-                <a href="https://console.flurbix.app/" target="_blank" class="navbar1_link hide w-nav-link">
+                <a href="index.html" class="navbar1_link w-variant-0a7dfc45-1934-36e8-12ad-622c0c718755 w-nav-link">
+                  Home
+                </a>
+                <a href="about-us.html" class="navbar1_link w-variant-0a7dfc45-1934-36e8-12ad-622c0c718755 w-nav-link">
+                  About
+                </a>
+                <a href="https://console.flurbix.app/" target="_blank"
+                  class="navbar1_link w-variant-0a7dfc45-1934-36e8-12ad-622c0c718755 hide w-nav-link">
                   Platform
                 </a>
-                <a href="../pricing.html" class="navbar1_link w-nav-link">Pricing</a>
-                <a href="../blog.1.html" class="navbar1_link w-nav-link">Blog</a>
+                <a href="pricing.html" aria-current="page"
+                  class="navbar1_link w-variant-0a7dfc45-1934-36e8-12ad-622c0c718755 w-nav-link w--current">
+                  Pricing
+                </a>
+                <a href="blog.1.html" class="navbar1_link w-variant-0a7dfc45-1934-36e8-12ad-622c0c718755 w-nav-link">
+                  Blog
+                </a>
               </div>
               <div class="navbar1_menu-buttons">
-                <a href="demo.html" aria-current="page" class="button is-small w-button w--current">Request a demo</a>
+                <a href="en/demo.html" class="button w-variant-0a7dfc45-1934-36e8-12ad-622c0c718755 is-small w-button">
+                  Request a demo
+                </a>
               </div>
             </nav>
             <div class="navbar1_menu-button w-nav-button">
@@ -408,145 +640,143 @@ a,
         </div>
       </div>
       <main class="main-wrapper">
-        <section class="section_demo">
+        <section class="section_pricing" style="padding-top: 10rem;">
           <div class="padding-global">
             <div class="container-large">
-              <div class="demo_content">
-                <div class="demo_info">
-                  <h1 hero-heading="" prevent="" class="heading-style-h2">
-                    See flurbix
-                    <br />
-                    in action
-                  </h1>
-                  <div class="demo_line1 w-embed">
-                    <svg width="100%" height="100%" viewBox="0 0 1440 147" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path id="line-white"
-                        d="M0 1H519C532.255 1 543 11.7452 543 25V121.837C543 135.155 553.844 145.927 567.162 145.836L1110.16 142.161C1123.35 142.072 1134 131.353 1134 118.162V83C1134 69.7452 1144.75 59 1158 59H1604.5"
-                        stroke="#E2E1D3" stroke-width="2" />
-                      <path id="line-blue"
-                        d="M0 1H519C532.255 1 543 11.7452 543 25V121.837C543 135.155 553.844 145.927 567.162 145.836L1110.16 142.161C1123.35 142.072 1134 131.353 1134 118.162V83C1134 69.7452 1144.75 59 1158 59H1604.5"
-                        stroke="#0B4FFF" stroke-width="2" />
-                    </svg>
+              <div class="pricing_content">
+                <div class="pricing_heading">
+                  <div class="text-style-supermuted"
+                    style="text-align: center; text-transform: uppercase; font-weight: 700; letter-spacing: 1.5px; color: #0000ff;">
+                    PRICING</div>
+                  <h2 hero-heading="" class="heading-style-h2"
+                    style="text-align: center; margin-top: 0.5rem; margin-bottom: 2rem; font-size: 3rem;">
+                    Simple, Transparent Pricing</h2>
+                </div>
+                <div class="pricing_toggle-wrap">
+                  <span class="pricing_toggle-label" id="pricing-monthly-label" style="color: #111827;">Monthly</span>
+                  <div class="pricing_toggle-switch" id="pricing-toggle">
+                    <div class="pricing_toggle-knob"></div>
                   </div>
-                  <div class="demo_flurbix">
-                    <div class="demo_tag">with flurbix, you can:</div>
-                    <div class="demo_bullets">
-                      <div class="demo_bullet">
-                        <div class="demo_dot"></div>
-                        <div class="demo_bullet-data">
-                          <h3 class="demo_h">Deliver Outcomes</h3>
-                          <div class="demo_p">
-                            Set your goals, define your boundaries, and let flurbix guide each customer to a
-                            successful outcome.
-                          </div>
-                        </div>
-                      </div>
-                      <div class="demo_bullet">
-                        <div class="demo_dot"></div>
-                        <div class="demo_bullet-data">
-                          <h3 class="demo_h">Automate Personalization</h3>
-                          <div class="demo_p">
-                            Create personalized experiences for every customer interaction, automatically in real
-                            time.
-                          </div>
-                        </div>
-                      </div>
-                      <div class="demo_bullet">
-                        <div class="demo_dot"></div>
-                        <div class="demo_bullet-data">
-                          <h3 class="demo_h">Get Actionable Insights</h3>
-                        </div>
-                      </div>
+                  <span class="pricing_toggle-label" id="pricing-annual-label">Annual <span
+                      class="pricing_save-badge">Save 20%</span></span>
+                </div>
+
+                <div class="pricing_grid">
+                  <!-- Starter Card -->
+                  <div class="pricing_card">
+                    <h3 class="pricing_card-title">Starter</h3>
+                    <p class="pricing_card-desc">Perfect for small teams getting started with campaign ops.</p>
+                    <div class="pricing_card-price">
+                      <span class="pricing_card-amount" data-monthly="$49" data-annual="$39">$49</span><span
+                        class="pricing_card-period">/mo</span>
                     </div>
+                    <ul class="pricing_feature-list">
+                      <li><svg class="pricing_check" viewBox="0 0 24 24">
+                          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" d="M20 6L9 17l-5-5" />
+                        </svg> 3 team members</li>
+                      <li><svg class="pricing_check" viewBox="0 0 24 24">
+                          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" d="M20 6L9 17l-5-5" />
+                        </svg> 50 Client Approaches</li>
+                      <li><svg class="pricing_check" viewBox="0 0 24 24">
+                          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" d="M20 6L9 17l-5-5" />
+                        </svg> 500 Contacts</li>
+                      <li><svg class="pricing_check" viewBox="0 0 24 24">
+                          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" d="M20 6L9 17l-5-5" />
+                        </svg> 3 Followups/Client</li>
+                      <li><svg class="pricing_check" viewBox="0 0 24 24">
+                          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" d="M20 6L9 17l-5-5" />
+                        </svg> Workflow automation</li>
+                      <li><svg class="pricing_check" viewBox="0 0 24 24">
+                          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" d="M20 6L9 17l-5-5" />
+                        </svg> Basic analytics</li>
+                      <li><svg class="pricing_check" viewBox="0 0 24 24">
+                          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" d="M20 6L9 17l-5-5" />
+                        </svg> Email support</li>
+                      <li><svg class="pricing_check" viewBox="0 0 24 24">
+                          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" d="M20 6L9 17l-5-5" />
+                        </svg> 25 AI templates</li>
+                    </ul>
+                    <a href="en/demo.html" class="button is-secondary w-button pricing_btn"
+                      style="display:flex;justify-content:center;">Get Started</a>
                   </div>
-                  <div class="demo_p">
-                    Automatically analyze results with agents that surface recommendations for what to do next.
+
+                  <!-- Growth Card -->
+                  <div class="pricing_card is-highlighted">
+                    <div class="pricing_popular-badge">Most Popular</div>
+                    <h3 class="pricing_card-title">Growth</h3>
+                    <p class="pricing_card-desc">For growing teams running serious campaign operations.</p>
+                    <div class="pricing_card-price">
+                      <span class="pricing_card-amount" data-monthly="$149" data-annual="$119">$149</span><span
+                        class="pricing_card-period">/mo</span>
+                    </div>
+                    <ul class="pricing_feature-list">
+                      <li><svg class="pricing_check" viewBox="0 0 24 24">
+                          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" d="M20 6L9 17l-5-5" />
+                        </svg> 10 team members</li>
+                      <li><svg class="pricing_check" viewBox="0 0 24 24">
+                          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" d="M20 6L9 17l-5-5" />
+                        </svg> 200 Client Approaches</li>
+                      <li><svg class="pricing_check" viewBox="0 0 24 24">
+                          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" d="M20 6L9 17l-5-5" />
+                        </svg> 2200 Contacts</li>
+                      <li><svg class="pricing_check" viewBox="0 0 24 24">
+                          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" d="M20 6L9 17l-5-5" />
+                        </svg> 5 Followups/Client</li>
+                      <li><svg class="pricing_check" viewBox="0 0 24 24">
+                          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" d="M20 6L9 17l-5-5" />
+                        </svg> Workflow automation</li>
+                      <li><svg class="pricing_check" viewBox="0 0 24 24">
+                          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" d="M20 6L9 17l-5-5" />
+                        </svg> Full analytics suite</li>
+                      <li><svg class="pricing_check" viewBox="0 0 24 24">
+                          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" d="M20 6L9 17l-5-5" />
+                        </svg> 100 AI templates</li>
+                      <li><svg class="pricing_check" viewBox="0 0 24 24">
+                          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" d="M20 6L9 17l-5-5" />
+                        </svg> Priority support</li>
+                    </ul>
+                    <a href="en/demo.html" class="button is-secondary w-button pricing_btn"
+                      style="display:flex;justify-content:center;align-items:center;text-align:center;">Get Started</a>
+                  </div>
+
+                  <!-- Enterprise Card -->
+                  <div class="pricing_card">
+                    <h3 class="pricing_card-title">Enterprise</h3>
+                    <p class="pricing_card-desc">Custom solutions for large organizations with complex needs.</p>
+                    <div class="pricing_card-price">
+                      <span class="pricing_card-amount is-custom">Custom</span>
+                    </div>
+                    <ul class="pricing_feature-list">
+                      <li><svg class="pricing_check" viewBox="0 0 24 24">
+                          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" d="M20 6L9 17l-5-5" />
+                        </svg> Contact Sales</li>
+                    </ul>
+                    <a href="en/demo.html" class="button is-secondary w-button pricing_btn is-enterprise"
+                      style="justify-content: center;">Contact
+                      Sales</a>
                   </div>
                 </div>
-                <div class="demo_form-wrap w-form">
-                  <form id="email-form" name="email-form" data-name="Email Form" method="get" class="demo_form"
-                    data-wf-page-id="69a789c63669db9b3f9554b3"
-                    data-wf-element-id="0120cae4-fa0a-37e8-b1d4-09058e98308d">
-                    <div class="form_field-wrapper">
-                      <label for="Email" class="form_label">
-                        Work Email Address
-                        <span class="text-size-tiny">*</span>
-                      </label>
-                      <input class="form_input w-input" maxlength="256" name="Email" data-name="Email" placeholder=""
-                        type="email" id="Email" required="" />
-                    </div>
-                    <div class="form_2-col">
-                      <div class="form_field-wrapper">
-                        <label for="firstname" class="form_label">
-                          first name
-                          <span class="text-size-tiny">*</span>
-                        </label>
-                        <input class="form_input w-input" maxlength="256" name="firstname" data-name="firstname"
-                          placeholder="" type="text" id="firstname" required="" />
-                      </div>
-                      <div class="form_field-wrapper">
-                        <label for="lastname" class="form_label">
-                          last name
-                          <span class="text-size-tiny">*</span>
-                        </label>
-                        <input class="form_input w-input" maxlength="256" name="lastname" data-name="lastname"
-                          placeholder="" type="text" id="lastname" required="" />
-                      </div>
-                    </div>
-                    <div class="form_2-col">
-                      <div class="form_field-wrapper">
-                        <label for="company" class="form_label">
-                          company name
-                          <span class="text-size-tiny">*</span>
-                        </label>
-                        <input class="form_input w-input" maxlength="256" name="company" data-name="company"
-                          placeholder="" type="text" id="company" required="" />
-                      </div>
-                      <div class="form_field-wrapper">
-                        <label for="Phone" class="form_label">phone number</label>
-                        <input class="form_input w-input" maxlength="256" name="Phone" data-name="Phone" placeholder=""
-                          type="tel" id="Phone" />
-                      </div>
-                    </div>
-                    <div class="form_field-wrapper">
-                      <label for="address" class="form_label">
-                        Reason for Interest
-                        <span class="text-size-tiny">*</span>
-                      </label>
-                      <input class="form_input w-input" maxlength="256" name="address" data-name="address"
-                        placeholder="" type="text" id="address" />
-                    </div>
-                    <div class="form_field-wrapper">
-                      <label for="Details" class="form_label">How can we help?</label>
-                      <input class="form_input w-input" maxlength="256" name="Details" data-name="Details"
-                        placeholder="" type="text" id="Details" />
-                    </div>
-                    <input type="submit" data-wait="Please wait..." class="button w-button" value="Submit" />
-                  </form>
-                  <div class="success_message w-form-done">
-                    <div class="demo_success">
-                      <div class="demo_icon w-embed">
-                        <svg width="100%" height="100%" viewBox="0 0 64 64" fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M32 1C49.1208 1 63 14.8792 63 32C63 49.1208 49.1208 63 32 63C14.8792 63 1 49.1208 1 32C1 14.8792 14.8792 1 32 1Z"
-                            stroke="#0B4FFF" stroke-width="2" />
-                          <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M44.6935 19.4088C45.0197 18.9637 45.6454 18.8671 46.0909 19.193C46.5362 19.5191 46.6325 20.1449 46.3068 20.5904L28.7482 44.5904C28.5875 44.8098 28.3438 44.9545 28.0743 44.9908C27.8049 45.027 27.5323 44.9519 27.3194 44.7828L17.878 37.2828C17.4457 36.9393 17.3735 36.31 17.7169 35.8776C18.0604 35.4454 18.6898 35.3731 19.1222 35.7164L27.7482 42.568L44.6935 19.4088Z"
-                            fill="#0B4FFF" />
-                        </svg>
-                      </div>
-                      <div class="demo_success-h">Thank you for submitting your information.</div>
-                      <div>A member of the flurbix team will reach out to you shortly.</div>
-                      <div class="margin-top margin-large">
-                        <a href="../index.html@r=0.html" class="button w-button">Go back to home</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="w-form-fail">
-                    <div>Oops! Something went wrong while submitting the form.</div>
-                  </div>
+                <div class="pricing_footer">
+                  <p style="margin-bottom: 1.5rem;">All plans include a 7-day free trial · No credit card required</p>
+                  <a href="en/demo.html" class="button w-button pricing_btn is-primary"
+                    style="max-width: 280px; margin: 0 auto; display: block;">Start Free Trial</a>
                 </div>
               </div>
             </div>
@@ -711,8 +941,6 @@ a,
               <div class="footer_bottom-custom">
                 <!-- Left Side -->
                 <div class="footer_col is-left">
-                  <div class="footer_legal-text-new" style="display: none;">
-                  </div>
                   <div class="footer_legal-text-new" style="max-width: 250px;">
                     Building digital experiences that empower businesses worldwide.
                   </div>
@@ -749,7 +977,8 @@ a,
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                           d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                       </svg>
-                      <span>123 Innovation Drive<br>San Francisco, CA 94107<br>United States</span>
+                      <span>G - 48, 2nd Floor<br>Sector - 03, Noida<br>Pincode - 201301,<br />Uttar Pradesh,
+                        India</span>
                     </div>
                     <div class="footer_address-row">
                       <svg class="footer_address-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -792,7 +1021,7 @@ a,
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                       </svg>
                     </a>
-                    <a href="../support.html" class="footer_link-new">
+                    <a href="support.html" class="footer_link-new">
                       <span>Contact Support</span>
                       <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         style="opacity: 0.5;">
@@ -810,7 +1039,6 @@ a,
           </div>
         </div>
       </footer>
-
     </div>
   </div>
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=6998a7a4efcd66d9f2857e79"
@@ -822,8 +1050,8 @@ a,
   <script src="https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/js/webflow.schunk.272059baf7976b9f.js"
     type="text/javascript" integrity="sha384-Q8Kw0wgxCwgGXFVKGy4YNjC/vQQIKAtbv72QeLMirESLRRcpZmSAVYE52o4rObAm"
     crossorigin="anonymous"></script>
-  <script src="https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/js/webflow.bd61f32b.83f4cc4bd94f77de.js"
-    type="text/javascript" integrity="sha384-+9k2rb8saWqFUy9JYr933XH8CIly04u7lOlUigr+SMYvlzA6ypiIVcBoebOnWXhA"
+  <script src="https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/js/webflow.efaf6313.1b484d7d826f4c71.js"
+    type="text/javascript" integrity="sha384-Z6n2w2q8VFLT3pewp1Z9QrZRnU15ao7roc671JquafixS2kzf+X5sw4sZQRFU092"
     crossorigin="anonymous"></script>
   <script src="https://cdn.prod.website-files.com/gsap/3.15.0/gsap.min.js" type="text/javascript"></script>
   <script src="https://cdn.prod.website-files.com/gsap/3.15.0/ScrollTrigger.min.js" type="text/javascript"></script>
@@ -838,18 +1066,13 @@ a,
     src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5.3/dist/js/splide-extension-auto-scroll.min.js"></script>
   <script async type="module" src="https://cdn.jsdelivr.net/npm/@finsweet/attributes@2/attributes.js" fs-list></script>
 
-
-
-
-
-
   <script src="https://hubspotv2.use1-marketplace-1p-apps-prod-red.if.webflow.services/static/loader.js"
     type="text/javascript" async="" defer=""></script>
   <script
     src="https://hubspotv2.use1-marketplace-1p-apps-prod-red.if.webflow.services/static/disable-hubspot-chatbot.js"
     type="text/javascript" async="" defer=""></script>
   <script src="https://js.hs-scripts.com/48309372.js" type="text/javascript" async="" defer=""></script>
-  <script type="module" src="/src/scripts/en_demo_html.ts"></script>
+  <script type="module" src="/src/scripts/pricing_html.ts"></script>
 </body>
 
 </html>

@@ -594,28 +594,6 @@ document.addEventListener("DOMContentLoaded", function () {
             "<0.3",
           )
           .from(
-            ".demo_brands .demo_tag",
-            {
-              y: 32,
-              opacity: 0,
-              filter: "blur(5px)",
-              duration: 1,
-              ease: "power4.out",
-            },
-            "<0.3",
-          )
-          .from(
-            ".demo_slider-wrap",
-            {
-              y: 32,
-              opacity: 0,
-              filter: "blur(5px)",
-              duration: 1,
-              ease: "power4.out",
-            },
-            "<0.2",
-          )
-          .from(
             ".nav_fixed",
             {
               yPercent: -100,
@@ -669,20 +647,6 @@ document.addEventListener("DOMContentLoaded", function () {
               0,
             );
         } else {
-          tl.fromTo(
-            ".demo_brands",
-            { y: 32, opacity: 0, filter: "blur(5px)" },
-            {
-              y: 0,
-              opacity: 1,
-              filter: "blur(0px)",
-              duration: 1,
-              stagger: 0.1,
-              ease: "power4.out",
-            },
-            "<0.3",
-          );
-
           gsap.from(".demo_form-wrap", {
             y: 32,
             opacity: 0,
@@ -818,20 +782,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
         const isMobile = window.innerWidth <= 991;
-        new Splide(".splide.is-logos", {
-          type: "loop",
-          gap: isMobile ? "2rem" : "5rem",
-          arrows: false,
-          pagination: false,
-          drag: false,
-          clones: 12,
-          autoWidth: true,
-          autoScroll: {
-            speed: isMobile ? 1 : 0.7,
-            pauseOnHover: false,
-            pauseOnFocus: false,
-          },
-        }).mount({ AutoScroll: window.splide.Extensions.AutoScroll });
+        if (document.querySelector(".splide.is-logos")) {
+          new Splide(".splide.is-logos", {
+            type: "loop",
+            gap: isMobile ? "2rem" : "5rem",
+            arrows: false,
+            pagination: false,
+            drag: false,
+            clones: 12,
+            autoWidth: true,
+            autoScroll: {
+              speed: isMobile ? 1 : 0.7,
+              pauseOnHover: false,
+              pauseOnFocus: false,
+            },
+          }).mount({ AutoScroll: window.splide.Extensions.AutoScroll });
+        }
       });
 
 

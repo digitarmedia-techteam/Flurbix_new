@@ -1664,25 +1664,56 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 c.fill(p);
                 c.restore();
             } else if (type === "network") {
-                c.fillStyle = "#ffffff";
+                c.save();
+                c.translate(x, y);
+                c.scale(size / 24, size / 24);
                 c.strokeStyle = "#ffffff";
                 c.lineWidth = 1.5;
-                const r = size * 0.35;
-                const n1 = { x: x, y: y - r * 0.8 };
-                const n2 = { x: x - r * 0.8, y: y + r * 0.8 };
-                const n3 = { x: x + r * 0.8, y: y + r * 0.8 };
+                c.lineCap = "round";
+                c.lineJoin = "round";
 
                 c.beginPath();
-                c.moveTo(n1.x, n1.y);
-                c.lineTo(n2.x, n2.y);
-                c.moveTo(n1.x, n1.y);
-                c.lineTo(n3.x, n3.y);
-                c.stroke();
+                // Draw top transmitter circle
+                c.arc(0, -2, 1.5, 0, Math.PI * 2);
+                
+                // Tower legs
+                c.moveTo(-4, 10);
+                c.lineTo(0, -2);
+                c.lineTo(4, 10);
+                
+                // Horizontal crossbars
+                c.moveTo(-4, 10); c.lineTo(4, 10);
+                c.moveTo(-2.4, 6); c.lineTo(2.4, 6);
+                c.moveTo(-0.8, 2); c.lineTo(0.8, 2);
+                
+                // X-bracing (Diagonals)
+                c.moveTo(-4, 10); c.lineTo(2.4, 6);
+                c.moveTo(4, 10); c.lineTo(-2.4, 6);
+                c.moveTo(-2.4, 6); c.lineTo(0.8, 2);
+                c.moveTo(2.4, 6); c.lineTo(-0.8, 2);
+                
+                // Left transmission waves
+                const startAngleLeft = 0.7 * Math.PI;
+                const endAngleLeft = 1.3 * Math.PI;
+                c.moveTo(5 * Math.cos(startAngleLeft), -2 + 5 * Math.sin(startAngleLeft));
+                c.arc(0, -2, 5, startAngleLeft, endAngleLeft);
+                c.moveTo(8 * Math.cos(startAngleLeft), -2 + 8 * Math.sin(startAngleLeft));
+                c.arc(0, -2, 8, startAngleLeft, endAngleLeft);
+                c.moveTo(11 * Math.cos(startAngleLeft), -2 + 11 * Math.sin(startAngleLeft));
+                c.arc(0, -2, 11, startAngleLeft, endAngleLeft);
+                
+                // Right transmission waves
+                const startAngleRight = -0.3 * Math.PI;
+                const endAngleRight = 0.3 * Math.PI;
+                c.moveTo(5 * Math.cos(startAngleRight), -2 + 5 * Math.sin(startAngleRight));
+                c.arc(0, -2, 5, startAngleRight, endAngleRight);
+                c.moveTo(8 * Math.cos(startAngleRight), -2 + 8 * Math.sin(startAngleRight));
+                c.arc(0, -2, 8, startAngleRight, endAngleRight);
+                c.moveTo(11 * Math.cos(startAngleRight), -2 + 11 * Math.sin(startAngleRight));
+                c.arc(0, -2, 11, startAngleRight, endAngleRight);
 
-                const nr = size * 0.16;
-                c.beginPath(); c.arc(n1.x, n1.y, nr, 0, Math.PI * 2); c.fill();
-                c.beginPath(); c.arc(n2.x, n2.y, nr, 0, Math.PI * 2); c.fill();
-                c.beginPath(); c.arc(n3.x, n3.y, nr, 0, Math.PI * 2); c.fill();
+                c.stroke();
+                c.restore();
             } else if (type === "laptop") {
                 c.strokeStyle = "#ffffff";
                 c.lineWidth = 1.8;
@@ -2172,7 +2203,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     { coord: isMobile ? "H6" : "AB5", color: "white" },
                     { coord: isMobile ? "I8" : "AB8", color: "white" },
                     { coord: isMobile ? "F9" : "W9", color: "white" },
-                    { coord: isMobile ? "I2" : "AB2", icon: NETWORK },
+                    { coord: isMobile ? "I2" : "AB2", icon: TOWER },
                 ],
             },
             {
@@ -2205,7 +2236,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 icon: EMAIL,
                 points: [
                     { coord: isMobile ? "G2" : "S2", color: "white" },
-                    { coord: isMobile ? "I4" : "T8", icon: NETWORK },
+                    { coord: isMobile ? "I4" : "T8", icon: TOWER },
                 ],
             },
             {

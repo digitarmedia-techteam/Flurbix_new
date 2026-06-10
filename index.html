@@ -77,8 +77,72 @@
       .hero_step1-list {
         height: 70px;
       }
+
+      .hero_mobile {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+      }
+
+      .hero_m-cards {
+        overflow: hidden !important;
+      }
+
+      .hero_m-wrap {
+        max-width: calc(100% - 6.5%) !important;
+      }
+
+      .hero_tag-text {
+        font-size: clamp(8.5px, 2.2vw, 10.5px) !important;
+      }
+    }
+
+    html,
+    body,
+    .smooth-wrapper,
+    .page-wrapper {
+      max-width: 100%;
+      overflow-x: hidden;
     }
   </style>
+    <!-- Mobile Footer Centralization Override -->
+    <style>
+      @media (max-width: 991px) {
+        .footer_content {
+          align-items: center !important;
+          text-align: center !important;
+        }
+        .footer_logo-wrap {
+          justify-content: center !important;
+          display: flex !important;
+        }
+        .footer_bottom {
+          align-items: center !important;
+          text-align: center !important;
+          flex-flow: column !important;
+        }
+        .footer_legal {
+          align-items: center !important;
+          text-align: center !important;
+          flex-flow: column-reverse !important;
+        }
+        .footer_legal-links {
+          justify-content: center !important;
+        }
+        .footer_right {
+          align-items: center !important;
+          text-align: center !important;
+          flex-flow: column !important;
+        }
+        .footer_column {
+          align-items: center !important;
+          text-align: center !important;
+        }
+        .footer_link {
+          justify-content: center !important;
+        }
+      }
+    </style>
 </head>
 
 <body>
@@ -611,7 +675,7 @@ a,
                       </svg>
                       <div class="hero_tag-text-wrap">
                         <div text3="sms" text1="Setup your Flurbix" text2="offer discount" class="hero_tag-text">
-                          Setup your Flurbix
+                          Tell Flurbix What To Do
                         </div>
                       </div>
                     </div>
