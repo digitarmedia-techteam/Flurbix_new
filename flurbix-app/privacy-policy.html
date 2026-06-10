@@ -82,6 +82,37 @@
         height: 70px;
       }
     }
+
+    @media (max-width: 991px) {
+      .hero_tag-text {
+        font-size: clamp(8.5px, 2.2vw, 10.5px) !important;
+      }
+    }
+
+    html,
+    body,
+    .smooth-wrapper,
+    .page-wrapper {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    .fs-toc_link {
+      cursor: pointer !important;
+    }
+
+    @media (min-width: 992px) {
+      .legal_left {
+        position: relative !important;
+        height: auto !important;
+        max-height: calc(100vh - 120px) !important;
+        overflow-y: auto !important;
+        scrollbar-width: none; /* Hide scrollbar for cleaner look */
+      }
+      .legal_left::-webkit-scrollbar {
+        display: none; /* Hide scrollbar for Safari/Chrome */
+      }
+    }
   </style>
 </head>
 
@@ -374,9 +405,8 @@ a,
           data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium"
           data-w-id="309bf2f7-5632-7b7b-3e3d-1c756b34abb6" role="banner" data-duration="400">
           <div class="navbar1_container">
-            <a href="index.html@r=0.html" class="navbar1_logo-link w-nav-brand">
-              <img loading="lazy" src="/src/assets/favicon.png"
-                style="max-height: 32px; width: auto; object-fit: contain;" alt="" class="navbar1_logo" />
+            <a href="index.html" class="navbar1_logo-link w-nav-brand">
+              <img loading="lazy" src="/flurbix-logo.svg" style="max-height: 32px; width: auto; object-fit: contain;" alt="" class="navbar1_logo" />
               <span class="navbar1_logo is-2"
                 style="font-size: 26px; font-weight: 500; color: #111827; margin-left: 6px; letter-spacing: -0.02em">
                 flurbix
@@ -388,7 +418,7 @@ a,
                 <a href="https://console.flurbix.app/" target="_blank" class="navbar1_link hide w-nav-link">
                   Platform
                 </a>
-                <a href="https://docs.flurbix.io/" target="_blank" class="navbar1_link w-nav-link">Documentation</a>
+                <a href="pricing.html" class="navbar1_link w-nav-link">Pricing</a>
                 <a href="blog.1.html" class="navbar1_link w-nav-link">Blog</a>
               </div>
               <div class="navbar1_menu-buttons">
@@ -424,297 +454,375 @@ a,
                   </div>
                 </div>
                 <div class="legal_rich-wrapper">
-                  <div class="legal_tag">last updated: jul 10, 2025</div>
+                  <div class="legal_tag">last updated: June 08, 2026</div>
                   <div fs-toc-offsettop="&#x27;4rem&#x27;" fs-toc-element="contents" fs-toc-hideurlhash="true"
                     class="legal_rich w-richtext">
-                    <p>
-                      flurbix Inc. (&quot;flurbix Inc.&quot; or &quot;we&quot; or &quot;us&quot; or &quot;our&quot;)
-                      respects the privacy of everyone (&quot;Sites&#x27; visitor&quot; &quot;user&quot; or
-                      &quot;you&quot;) that uses our website at www.flurbix.io, as well as other device or online
-                      applications related or connected thereto (collectively, the &quot;Sites&quot;). The following
-                      flurbix Inc. Privacy Notice (&quot;Privacy Notice&quot;) is designed to inform you, as a user of
-                      the Sites, about the types of personal information that flurbix Inc. may gather about or collect
-                      from you in connection with your use of the Sites. It also is intended to explain the conditions
-                      under which flurbix Inc. uses and discloses that personal information, and your rights in
-                      relation to that personal information.
-                    </p>
-                    <p>
-                      Company Information
-                      <br />
-                      flurbix Inc.
-                      <br />
-                      555 Hamilton Avenue
-                      <br />
-                      Palo Alto, CA 94301
-                      <br />
-                      Email:
-                      <a target="_blank" href="mailto:support@flurbix.io">support@flurbix.io</a>
-                    </p>
-                    <h2>How we collect and use your personal information</h2>
-                    <p>
-                      flurbix Inc. gathers personal information from users of the Sites. When you browse our Sites,
-                      subscribe to our services or contact us through various social or web forms you are voluntarily
-                      sharing personal information with us. This personal information also includes various data that
-                      we collect automatically. This may be the user’s Internet Protocol (IP) address, operating
-                      system, browser type and the locations of the Sites the user views right before arriving at,
-                      while navigating and immediately after leaving the Sites. It may also include various technical
-                      aspects of users’ computer or browser and users’ browsing habits that are collected through
-                      cookies. Please read our
-                      <a href="https://flurbixwebsite.vercel.app/en/cookie-policy">Cookie Policy</a>
-                      for more information. flurbix Inc. may analyze various mentioned personal information gathered
-                      from or about users to help flurbix Inc. better understand how the Sites are used and how to
-                      make them better. By identifying patterns and trends in usage, flurbix Inc. is able to better
-                      design the Sites to improve users’ experiences, both in terms of content and ease of use. From
-                      time to time, flurbix Inc. may also release the anonymized information gathered from the users
-                      in the aggregate, such as by publishing a report on trends in the usage of the Sites.
-                    </p>
-                    <p>
-                      When we believe disclosure is appropriate, we may disclose your information to help investigate,
-                      prevent or take other action regarding illegal activity, suspected fraud or other wrongdoing; to
-                      protect and defend the rights, property or safety of flurbix Inc., our users, our employees or
-                      others; to comply with applicable law or cooperate with law enforcement; to enforce our Terms of
-                      Use or other agreements or policies, in response to a subpoena or similar investigative demand,
-                      a court order or a request for cooperation from a law enforcement or other government agency; to
-                      establish or exercise our legal rights; to defend against legal claims; or as otherwise required
-                      by law. In such cases, we may raise or waive any legal objection or right available to us. We
-                      will notify you if permitted before undertaking such disclosures.
-                    </p>
-                    <p>
-                      flurbix Inc. reserves the right to transfer all information in its possession to a successor
-                      organization in the event of a merger, acquisition, bankruptcy or other sale of all or a portion
-                      of flurbix Inc.’s assets. Other than to the extent ordered by a bankruptcy or other court, the
-                      use and disclosure of all transferred information will be subject to this Privacy Notice, or to
-                      a new privacy notice if you are given notice of that new privacy notice and are given an
-                      opportunity to affirmatively opt-out of it.
-                    </p>
-                    <h2>Do we share your personal information?</h2>
-                    <h3>General Provisions</h3>
-                    <p>
-                      flurbix Inc. contractually prohibits its contractors, affiliates, vendors and suppliers from
-                      disclosing any personal information received from flurbix Inc., other than in accordance with
-                      this Privacy Notice. These third parties may include advertisers, providers of games, utilities,
-                      widgets and a variety of other third-party applications accessible through the Sites. flurbix
-                      Inc. neither owns nor controls the third-party websites and applications accessible through the
-                      Sites. Thus, this Privacy Notice does not apply to personal information provided to or gathered
-                      by the third parties that operate them. Before visiting a third party, or using a third-party
-                      application, whether by means of a link on the Sites, directly through the Sites or otherwise,
-                      and before providing any personal information to any such third party, users should inform
-                      themselves of the privacy policies and practices (if any) of the third party responsible for
-                      those Sites or applications, and should take those steps necessary to, in those users’
-                      discretion, protect their privacy.
-                    </p>
-                    <h3>Analytics</h3>
-                    <p>
-                      We may use third-party vendors, including Google, who use first-party cookies (such as the
-                      Google Analytics cookie) and third-party cookies (such as the DoubleClick cookie) together to
-                      inform, optimize and serve ads based on your past activity on the Sites, including Google
-                      Analytics for Display Advertising. The personal information collected may be used to, among
-                      other things, analyze and track data, determine the popularity of certain content and better
-                      understand online activity. If you do not want any personal information to be collected and used
-                      by Google Analytics, you can install an opt-out in your web browser (
-                      <a target="_blank" href="https://tools.google.com/dlpage/gaoptout/">
-                        https://tools.google.com/dlpage/gaoptout/
+                    <!-- Premium Encrypted Callout -->
+                    <div
+                      style="background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.2); padding: 20px; border-radius: 8px; margin: 20px 0;">
+                      <h3
+                        style="color: #0d6f81; font-size: 1.1rem; margin-top: 0; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-family: inherit; font-weight: 600;">
+                        <span>🔒</span> YOUR DATA IS ENCRYPTED - WE DO NOT HAVE ACCESS TO YOUR DATA
+                      </h3>
+                      <p style="color: #0c91a893; font-size: 0.9rem; line-height: 1.6; margin: 0 0 15px 0;">
+                        All data is protected with end-to-end AES-256 encryption at rest and TLS 1.3 in transit. We have
+                        zero-knowledge access to your personal information - meaning we are technically and structurally
+                        unable to read, view, or use your private data. Your data belongs solely to you.
+                      </p>
+                      <div
+                        style="display: flex; flex-wrap: wrap; gap: 10px 15px; font-size: 0.75rem; color: #0c8094; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
+                        <span>AES-256 at rest</span>
+                        <span>•</span>s
+                        <span>TLS 1.3 in transit</span>
+                        <span>•</span>
+                        <span>Zero-knowledge architecture</span>
+                        <span>•</span>
+                        <span>No internal data access</span>
+                      </div>
+                    </div>
+
+                    <h2>1. Information We Collect</h2>
+                    <p>We collect information you voluntarily provide when you create an account, use our services, or
+                      contact our support team. This includes personal identifiers such as your name and email address,
+                      billing information, and any content or data you upload to the platform.</p>
+                    <p>We also automatically collect limited technical data necessary to operate and improve our
+                      services, including:</p>
+                    <ul>
+                      <li>Device type, operating system, and browser version</li>
+                      <li>IP address and general geographic region (country/city level only)</li>
+                      <li>Pages visited, features used, and session duration</li>
+                      <li>Error logs and performance diagnostics</li>
+                    </ul>
+                    <p>We collect only what is strictly necessary. We do not collect sensitive categories of personal
+                      data (health, biometric, or financial account data) unless you explicitly provide it and consent
+                      to its use.</p>
+
+                    <h2>2. How We Use Your Information</h2>
+                    <p>We use your information only for the purposes for which it was collected, including:</p>
+                    <ul>
+                      <li>Providing, maintaining, and improving our services</li>
+                      <li>Processing payments and managing subscriptions</li>
+                      <li>Sending security alerts, system notifications, and policy updates</li>
+                      <li>Responding to support requests and resolving disputes</li>
+                      <li>Complying with legal obligations</li>
+                    </ul>
+                    <p>We never use your personal data to train machine learning models without explicit opt-in consent.
+                      Aggregate, anonymized analytics may be used to improve product performance, but this data is
+                      structurally dissociated from any individual identity.</p>
+
+                    <h2>3. Data Security & Encryption</h2>
+                    <div
+                      style="background: rgb(196, 230, 235); border: 1px solid rgba(191, 236, 244, 0.894); padding: 20px; border-radius: 8px; margin: 20px 0; color: #0e6872; font-size: 0.95rem; line-height: 1.5;">
+                      <strong>CORE GUARANTEE:</strong> Your data is encrypted at all times, and we do not have access to
+                      your data. This is not a legal formality - it is a core architectural guarantee. We have
+                      implemented a zero-knowledge encryption model ensuring your private data cannot be read, accessed,
+                      or used by our team or any third party under any circumstance.
+                    </div>
+                    <p>Our technical security measures include:</p>
+                    <ul>
+                      <li><strong>AES-256 Encryption:</strong> AES-256 encryption for all data stored at rest</li>
+                      <li><strong>TLS 1.3 In Transit:</strong> TLS 1.3 for all data transmitted in transit</li>
+                      <li><strong>SOC 2 Type II:</strong> Annual independent SOC 2 Type II audits by third-party
+                        assessors</li>
+                      <li><strong>RBAC:</strong> Role-based access controls (RBAC) limiting internal data access to the
+                        minimum necessary</li>
+                      <li><strong>24/7 Monitoring:</strong> Intrusion detection systems and 24/7 security monitoring
+                      </li>
+                      <li><strong>Pen Testing:</strong> Regular penetration testing and vulnerability assessments</li>
+                      <li><strong>MFA:</strong> Multi-factor authentication enforced for all internal accounts</li>
+                    </ul>
+                    <p>In the event of a data breach, we will notify you and applicable regulatory authorities within 72
+                      hours where GDPR applies, and no later than the timeframes required by applicable local law.</p>
+
+                    <h2>4. Information Sharing & Disclosure</h2>
+                    <p>We do not sell your personal data. We do not sell, rent, or trade your personal information to
+                      third parties for marketing or commercial purposes ever.</p>
+                    <p>We may share information in limited circumstances:</p>
+                    <ul>
+                      <li><strong>Service Providers:</strong> Strictly vetted vendors bound by data processing
+                        agreements to use your data only as instructed</li>
+                      <li><strong>Legal Compliance:</strong> When required by law, court order, or governmental
+                        authority, to the minimum extent necessary</li>
+                      <li><strong>Business Transactions:</strong> In the event of a merger or acquisition, with prior
+                        notice and continued protection under this policy</li>
+                      <li><strong>Safety:</strong> To protect the rights, safety, or property of users or the public
+                        where legally permissible</li>
+                    </ul>
+
+                    <h2>5. Data Retention</h2>
+                    <p>We retain your personal data only for as long as is necessary to fulfill the purposes for which
+                      it was collected, or as required by applicable law. When your account is closed, we will delete or
+                      anonymize your personal data within 30 days, except where retention is required by law (e.g., tax
+                      records, fraud prevention).</p>
+                    <p>Data stored in backup archives is isolated from active processing and will be purged within 90
+                      days of account deletion. Upon your written request, we can confirm the deletion of your data.</p>
+
+                    <h2>6. Your Privacy Rights</h2>
+                    <p>Depending on your jurisdiction, you have specific rights regarding your personal information. We
+                      honor all of the following rights globally, regardless of whether local law mandates them:</p>
+                    <table
+                      style="width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px;">
+                      <thead>
+                        <tr
+                          style="border-bottom: 2px solid rgba(255, 255, 255, 0.1); text-align: left; background: rgba(255, 255, 255, 0.02);">
+                          <th
+                            style="padding: 12px; font-weight: 600; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                            Right</th>
+                          <th style="padding: 12px; font-weight: 600;">Description</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                          <td
+                            style="padding: 12px; font-weight: 500; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                            Access</td>
+                          <td style="padding: 12px; color: rgba(5, 5, 5, 0.7);">Request a copy of all personal
+                            data we hold about you</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                          <td
+                            style="padding: 12px; font-weight: 500; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                            Rectification</td>
+                          <td style="padding: 12px; color: rgba(0, 0, 0, 0.7);">Correct inaccurate or incomplete
+                            personal information</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                          <td
+                            style="padding: 12px; font-weight: 500; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                            Erasure (Right to be Forgotten)</td>
+                          <td style="padding: 12px; color: rgba(0, 0, 0, 0.7);">Request permanent deletion of your
+                            personal data</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                          <td
+                            style="padding: 12px; font-weight: 500; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                            Restrict Processing</td>
+                          <td style="padding: 12px; color: rgba(0, 0, 0, 0.7);">Limit how and why we use your data
+                          </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                          <td
+                            style="padding: 12px; font-weight: 500; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                            Data Portability</td>
+                          <td style="padding: 12px; color: rgba(0, 0, 0, 0.7);">Export your data in a
+                            machine-readable format</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                          <td
+                            style="padding: 12px; font-weight: 500; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                            Object</td>
+                          <td style="padding: 12px; color: rgba(0, 0, 0, 0.7);">Opt out of specific uses of your
+                            data</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                          <td
+                            style="padding: 12px; font-weight: 500; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                            Withdraw Consent</td>
+                          <td style="padding: 12px; color: rgba(0, 0, 0, 0.7);">Revoke consent to data processing
+                            at any time</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                          <td
+                            style="padding: 12px; font-weight: 500; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                            Non-Discrimination</td>
+                          <td style="padding: 12px; color: rgba(0, 0, 0, 0.7);">Receive full service regardless of
+                            rights exercised</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p>To exercise any right, contact us at <a href="mailto:info@flurbix.io">info@flurbix.io</a>. We
+                      will respond within 30 days (or 45 days where an extended period applies under local law).</p>
+
+                    <h2>7. Geo-Specific Privacy Standards</h2>
+                    <p>We comply with privacy laws across all jurisdictions where our users reside. The table below
+                      outlines the applicable legal frameworks, regulatory bodies, and specific rights applicable to
+                      users in each region.</p>
+                    <table
+                      style="width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px;">
+                      <thead>
+                        <tr
+                          style="border-bottom: 2px solid rgba(255, 255, 255, 0.1); text-align: left; background: rgba(255, 255, 255, 0.02);">
+                          <th
+                            style="padding: 12px; font-weight: 600; width: 30%; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                            Region</th>
+                          <th style="padding: 12px; font-weight: 600; width: 70%;">Applicable Standards & Rights</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                          <td
+                            style="padding: 12px; font-weight: 500; vertical-align: top; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                            European Union</td>
+                          <td style="padding: 12px; color: rgba(0, 0, 0, 0.7); vertical-align: top; line-height: 1.6;">
+                            <strong>GDPR</strong><br>
+                            • Lawful basis for all processing<br>
+                            • 72-hour breach notification<br>
+                            • Right to erasure & portability<br>
+                            • SCCs for international transfers<br>
+                            • Appointed EU Representative
+                          </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                          <td
+                            style="padding: 12px; font-weight: 500; vertical-align: top; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                            United States</td>
+                          <td style="padding: 12px; color: rgba(0, 0, 0, 0.7); vertical-align: top; line-height: 1.6;">
+                            <strong>CCPA / CPRA / State Laws</strong><br>
+                            • No sale of personal data<br>
+                            • Opt-out of data sharing<br>
+                            • California CPRA rights<br>
+                            • Virginia CDPA compliance<br>
+                            • CO, TX, CT state law compliance
+                          </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                          <td
+                            style="padding: 12px; font-weight: 500; vertical-align: top; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                            United Kingdom</td>
+                          <td style="padding: 12px; color: rgba(0, 0, 0, 0.7); vertical-align: top; line-height: 1.6;">
+                            <strong>UK GDPR / DPA 2018</strong><br>
+                            • UK GDPR-aligned processing<br>
+                            • ICO-registered entity<br>
+                            • UK adequacy transfer rules<br>
+                            • Right to erasure honored<br>
+                            • Appointed UK Representative
+                          </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                          <td
+                            style="padding: 12px; font-weight: 500; vertical-align: top; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                            Brazil</td>
+                          <td style="padding: 12px; color: rgba(0, 0, 0, 0.7); vertical-align: top; line-height: 1.6;">
+                            <strong>LGPD</strong><br>
+                            • 10 lawful bases for processing<br>
+                            • ANPD breach notification<br>
+                            • Data subject request handling<br>
+                            • DPO (Encarregado) appointed<br>
+                            • RIPD impact report maintained
+                          </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                          <td
+                            style="padding: 12px; font-weight: 500; vertical-align: top; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                            Canada</td>
+                          <td style="padding: 12px; color: rgba(0, 0, 0, 0.7); vertical-align: top; line-height: 1.6;">
+                            <strong>PIPEDA / Law 25 (QC)</strong><br>
+                            • Meaningful consent required<br>
+                            • OPC breach reporting<br>
+                            • Quebec Law 25 compliance<br>
+                            • Data inventory & classification<br>
+                            • Retention schedule maintained
+                          </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                          <td
+                            style="padding: 12px; font-weight: 500; vertical-align: top; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                            India</td>
+                          <td style="padding: 12px; color: rgba(0, 0, 0, 0.7); vertical-align: top; line-height: 1.6;">
+                            <strong>DPDP Act 2023</strong><br>
+                            • Consent notice requirements<br>
+                            • Data Principal rights honored<br>
+                            • Data Fiduciary obligations met<br>
+                            • Cross-border transfer compliance<br>
+                            • Grievance officer designated
+                          </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                          <td
+                            style="padding: 12px; font-weight: 500; vertical-align: top; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                            Australia</td>
+                          <td style="padding: 12px; color: rgba(0, 0, 0, 0.7); vertical-align: top; line-height: 1.6;">
+                            <strong>Privacy Act / APPs</strong><br>
+                            • 13 Australian Privacy Principles<br>
+                            • OAIC breach notification<br>
+                            • Overseas disclosure notice<br>
+                            • Access & correction rights<br>
+                            • Direct marketing opt-out
+                          </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                          <td
+                            style="padding: 12px; font-weight: 500; vertical-align: top; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                            Rest of World</td>
+                          <td style="padding: 12px; color: rgba(0, 0, 0, 0.7); vertical-align: top; line-height: 1.6;">
+                            <strong>Global Baseline (GDPR-equivalent)</strong><br>
+                            • GDPR-equivalent protections apply<br>
+                            • Consent-first data collection<br>
+                            • Data minimization enforced<br>
+                            • Deletion rights honored globally<br>
+                            • Contact DPO for local guidance
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <h2>8. International Data Transfers</h2>
+                    <p>Our primary infrastructure is hosted in the United States. When your data is transferred across
+                      borders, we implement appropriate safeguards including Standard Contractual Clauses (SCCs)
+                      approved by the European Commission, binding corporate rules, adequacy decisions, and other
+                      legally valid transfer mechanisms required by applicable law.</p>
+                    <p>We maintain a comprehensive Data Transfer Impact Assessment (DTIA) for all cross-border data
+                      flows. You may request a copy of the relevant SCCs or transfer mechanisms applicable to your
+                      jurisdiction by contacting our DPO.</p>
+
+                    <h2>9. Third-Party Integrations</h2>
+                    <p>When you connect third-party services via OAuth or API, we request only the minimum permissions
+                      necessary to deliver the functionality you have requested. You may revoke any third-party
+                      integration at any time from your account settings.</p>
+                    <p>All third-party processors are subject to Data Processing Agreements (DPAs) requiring them to
+                      process your data only under our documented instructions, maintain appropriate security measures,
+                      and delete your data upon termination.</p>
+
+                    <h2>10. Cookie Policy</h2>
+                    <p>We use cookies and similar technologies to operate our services. Cookies are categorized as
+                      follows:</p>
+                    <ul>
+                      <li><strong>Strictly Necessary:</strong> Required for authentication, security, and core
+                        functionality - cannot be disabled</li>
+                      <li><strong>Analytics & Performance:</strong> Help us understand usage patterns; anonymized and
+                        aggregated only</li>
+                      <li><strong>Functional:</strong> Remember your preferences such as language and region</li>
+                    </ul>
+                    <p>We do not use advertising or third-party tracking cookies. Where required by law (e.g., EU
+                      ePrivacy Directive), we obtain your prior consent before placing non-essential cookies.</p>
+
+                    <h2>11. Automated Decision-Making</h2>
+                    <p>We do not use your personal data for fully automated decisions that produce legal or similarly
+                      significant effects on you. Where automated tools are used within our platform, they operate on
+                      logic defined by you and always remain subject to human review.</p>
+                    <p>EU and UK users have the explicit right under GDPR Article 22 to request human review of any
+                      automated decision. To exercise this right, please contact our DPO.</p>
+
+                    <h2>12. Children's Privacy</h2>
+                    <p>Our services are intended for users aged 18 and above. We do not knowingly collect personal data
+                      from anyone under the age of 18 (or the applicable age of digital consent in your jurisdiction, up
+                      to 16 in some EU member states). If we become aware that a minor's data has been collected, we
+                      will immediately delete it and deactivate the associated account.</p>
+
+                    <h2>13. Do Not Track Signals</h2>
+                    <p>Some browsers transmit Do Not Track (DNT) signals. Because no universal standard for DNT has been
+                      established, our platform does not currently alter its data practices in response to DNT signals.
+                      You can achieve equivalent control through our Cookie Preferences panel and the privacy rights
+                      request form.</p>
+
+                    <h2>14. Changes to This Policy</h2>
+                    <p>We may update this Privacy Policy periodically to reflect changes in our practices, technology,
+                      legal requirements, or for other operational reasons. When we make material changes, we will
+                      notify you via email and in-app notification at least 30 days before the changes take effect.</p>
+                    <p>Continued use of our services after the effective date of any change constitutes acceptance of
+                      the revised policy. If you do not agree to a material change, you may close your account and
+                      request data deletion before the effective date.</p>
+
+                    <h2>15. Contact & Data Protection Officer</h2>
+                    <p>For any questions, requests, or concerns about this Privacy Policy or your personal data, please
+                      contact us:</p>
+                    <div
+                      style="background: rgba(248, 250, 252, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 8px; margin-top: 15px; font-family: inherit; line-height: 1.6;">
+                      <strong>Data Protection Officer:</strong> <a href="mailto:info@flurbix.io">info@flurbix.io</a><br>
+                      <strong>Postal Address:</strong> Flurbix Inc., G - 48, 2nd Floor, Sector - 44,
+                      Noida, Pincode - 201301, Uttar Pradesh, India<br>
                       </a>
-                      ) and/or opt out from Google Analytics for Display Advertising or the Google Display Network by
-                      using Google’s Ads Settings (
-                      <a href="https://tools.google.com/dlpage/gaoptout/">https://www.google.com/settings/ads</a>
-                      .
-                    </p>
-                    <h3>Social Media</h3>
-                    <p>
-                      We may use hyperlinks on the Sites which will redirect you to a social network if you click on
-                      the respective link. However, when you click on a social plug-in, such as Facebook’s
-                      &quot;Like&quot; button or Twitter’s “tweet” button that particular social network’s plugin will
-                      be activated and your browser will directly connect to that provider’s servers. If you do not
-                      use these buttons none of your data will be sent to the respective social network’s plugin
-                      providers. To illustrate this further, imagine the scenario where you click on Facebook’s
-                      &quot;Like&quot; button on the Sites. Facebook will receive your IP address, the browser version
-                      and screen resolution, and the operating system of the device you have used to access the Sites.
-                      Settings regarding privacy protection can be found on the websites of these social networks and
-                      are not within our control.
-                    </p>
-                    <h3>Third-Party Service Providers</h3>
-                    <p>
-                      We may share your personal information, which may include your name and contact information
-                      (including email address) with our authorized service providers that perform certain services on
-                      our behalf. These services may include fulfilling orders, providing customer service and
-                      marketing assistance, performing business and sales analysis, supporting the Sites’
-                      functionality and supporting contests, sweepstakes, surveys and other features offered through
-                      the Sites. We may also share your name, contact personal information and credit card personal
-                      information with our authorized service providers who process credit card payments. These
-                      service providers may have access to personal information needed to perform their functions but
-                      are not permitted to share or use such personal information for any other purpose. You can
-                      contact us to receive our current list of providers.
-                    </p>
-                    <p>
-                      If you have opted in to receiving marketing communication from us then flurbix Inc. may provide
-                      your personal information to third parties, with your consent, so that those third parties may
-                      directly contact you about additional products and services. To cease having your personal
-                      information used for marketing communication purposes, you can email us at
-                      <a href="mailto:support@flurbix.io">support@flurbix.io</a>
-                      .
-                    </p>
-                    <h2>Security</h2>
-                    <p>
-                      We take the security of your personal information seriously and use reasonable electronic,
-                      personnel and physical measures to protect it from loss, theft, alteration or misuse. However,
-                      please be advised that even the best security measures cannot fully eliminate all risks. We
-                      cannot guarantee that only authorized persons will view your personal information. We are not
-                      responsible for third-party circumvention of any privacy settings or security measures.
-                    </p>
-                    <p>
-                      We are dedicated to protecting all personal information on the Sites as is necessary. However,
-                      you are responsible for maintaining the confidentiality of your personal information by keeping
-                      your password and computer/mobile device access confidential. If you have an account with
-                      flurbix Inc. and believe someone has gained unauthorized access to it or your account please
-                      change your password as soon as possible. If you lose control of your account, you should notify
-                      us immediately.
-                    </p>
-                    <h2>Privacy rights - EU users</h2>
-                    <p>
-                      If you reside in the European Union (EU), United Kingdom (UK), Switzerland, Norway,
-                      Lichtenstein, or Iceland, you have certain data protection rights under your local laws. These
-                      rights may include:
-                    </p>
-                    <ul role="list">
-                      <li>The right to request access and obtain a copy of your personal information</li>
-                      <li>The right to request edits or erasure of your personal information</li>
-                      <li>The right to limit the processing of your personal information</li>
-                      <li>Data portability right (if applicable)</li>
-                      <li>The right to object to the processing of your personal information</li>
-                    </ul>
-                    <p>
-                      If flurbix Inc. relies on your consent to process your personal information, you have the right
-                      to withdraw your consent at any time. However, please note that this will not alter the validity
-                      of the processing before its withdrawal.
-                    </p>
-                    <p>
-                      If you wish to exercise any of the mentioned rights please contact us by email at
-                      support@flurbix.io, or by referring to the contact details at the bottom of this Privacy Notice.
-                      flurbix Inc. has 30 days to respond to your request.
-                    </p>
-                    <p>
-                      If you are not satisfied with flurbix Inc.&#x27;s handling of your privacy concerns please note
-                      that you have the right to complain to your local data protection supervisory authority:
-                    </p>
-                    <ul role="list">
-                      <li>
-                        List of EU supervisory authorities:
-                        <a target="_blank"
-                          href="http://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm">
-                          http://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm
-                        </a>
-                      </li>
-                      <li>
-                        Switzerland supervisory authority:
-                        <a href="https://www.edoeb.admin.ch/edoeb/en/home.html">
-                          https://www.edoeb.admin.ch/edoeb/en/home.html
-                        </a>
-                      </li>
-                    </ul>
-                    <p>
-                      If you have any questions or comments about your privacy rights, you may email us at
-                      <a target="_blank" href="mailto:support@flurbix.io">support@flurbix.io</a>
-                      , or contact flurbix Inc.&#x27;s Article 27 representatives using the information listed below:
-                    </p>
-                    <ul role="list">
-                      <li>
-                        EU representative: Fieldfisher Tech Rechtsanwaltsgesellschaft mbH, Amerigo-Vespucci-Platz 1
-                        20457 Hamburg, Germany,
-                        <a href="mailto:flurbixArt27Representative@fieldfisher-tech.com">
-                          flurbixArt27Representative@fieldfisher-tech.com
-                        </a>
-                      </li>
-                    </ul>
-                    <ul role="list">
-                      <li>
-                        UK representative: Condor ALS ALP, Riverbank House, 2 Swan Lane, London EC4R 3TT United
-                        Kingdom,
-                        <a href="mailto:A27Representative@condor-als.com">flurbixA27Representative@condor-als.com</a>
-                      </li>
-                    </ul>
-                    <h2>Privacy rights - California users</h2>
-                    <p>
-                      <strong>
-                        Do Not Sell My Personal Information Notice - California Consumer Privacy Act (CCPA)
-                      </strong>
-                    </p>
-                    <p>
-                      flurbix Inc. has not disclosed or sold any personal information to third parties for a business
-                      or commercial purpose in the preceding twelve (12) months. flurbix Inc. will not sell personal
-                      information in the future belonging to Sites&#x27; visitors, users and other consumers.
-                    </p>
-                    <p><strong>If you are under 18 years of age</strong></p>
-                    <p>
-                      If you have registered an account with flurbix Inc., you have the right to request the removal
-                      of unwanted personal information that you publicly post on our Sites. To request the removal of
-                      such information, please contact us using the contact information provided below. Make sure to
-                      include your account&#x27;s email address and a statement that you reside in California.
-                    </p>
-                    <p><strong>&quot;Shine the Light Law&quot;</strong></p>
-                    <p>
-                      California Civil Code Section 1798.83, also known as the &quot;Shine The Light&quot; law,
-                      permits our users who are California residents to request and obtain from us, once a year and
-                      free of charge, personal information about the personal information (if any) we disclosed to
-                      third parties for direct marketing purposes in the preceding calendar year. If applicable, this
-                      personal information would include a list of the categories of the personal information that was
-                      shared and the names and addresses of all third parties with which we shared personal
-                      information in the immediately preceding calendar year. If you are a California resident and
-                      would like to make such a request, please submit your request in writing to the address listed
-                      below.
-                    </p>
-                    <h2>Children</h2>
-                    <p>
-                      The Children&#x27;s Online Privacy Protection Act (&quot;COPPA&quot;) protects the online
-                      privacy of children under 13 years of age. We do not knowingly collect or maintain personal
-                      information from anyone under the age of 13, unless or except as permitted by law. Any person
-                      who provides personal information through the Sites represents to us that he or she is 13 years
-                      of age or older. If we learn that personal information has been collected from a user under 13
-                      years of age on or through the Sites, then we will take the appropriate steps to cause this
-                      personal information to be deleted. If you are the parent or legal guardian of a child under 13
-                      who has become a member of the Sites or has otherwise transferred personal information to the
-                      Sites, please contact flurbix Inc. using our contact personal information below to have that
-                      child&#x27;s account terminated and personal information deleted.
-                    </p>
-                    <h2>Do-not-track notice</h2>
-                    <p>
-                      Most web browsers and some mobile operating systems include a Do-Not-Track (&quot;DNT&quot;)
-                      feature or setting you can activate to signal your privacy preference not to have data about
-                      your online browsing activities monitored and collected. Because there is not yet a common
-                      understanding of how to interpret the DNT signal, the Sites currently do not respond to DNT
-                      browser signals or mechanisms.
-                    </p>
-                    <h2>Governing law</h2>
-                    <p>
-                      Disputes over privacy issues contained in this Privacy Notice will be governed by the law of the
-                      State of Delaware. You also agree to abide by any limitation on damages contained in our Terms
-                      of Use, or other agreement that we have with you.
-                    </p>
-                    <h2>Privacy notice changes</h2>
-                    <p>
-                      flurbix Inc. may, in its sole discretion, change this Privacy Notice from time to time. Any and
-                      all changes to flurbix Inc.’s Privacy Notice will be reflected on this page and the date of the
-                      new version will be stated at the top of this Privacy Notice. Unless stated otherwise, our
-                      current Privacy Notice applies to all personal information that we have about you and your
-                      account. Users should regularly check this page for any changes to this Privacy Notice. flurbix
-                      Inc. will always post new versions of the Privacy Notice on the Sites. However, flurbix Inc.
-                      may, as determined in its discretion, decide to notify users of changes made to this Privacy
-                      Notice via email or otherwise. Accordingly, it is important that users always maintain and
-                      update their contact personal information.
-                    </p>
-                    <h2>Contact</h2>
-                    <p>If you have any questions regarding our Privacy Notice, please contact us at:</p>
-                    <p>
-                      flurbix Inc.
-                      <br />
-                      555 Hamilton Avenue
-                      <br />
-                      Palo Alto, CA 94301
-                      <br />
-                      Email:
-                      <a target="_blank" href="mailto:support@flurbix.io">support@flurbix.io</a>
-                    </p>
-                    <p>‍</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -781,7 +889,7 @@ a,
                   color: rgba(255, 255, 255, 0.6);
                   font-size: 0.875rem;
                   line-height: 1.5;
-                  text-align: left;
+                  text-align: center;
                 }
 
                 .footer_address-icon {
@@ -846,14 +954,33 @@ a,
                     gap: 3rem;
                   }
 
+                  .footer_col {
+                    align-items: center !important;
+                    text-align: center !important;
+                  }
+
                   .footer_col.is-center,
                   .footer_col.is-right {
-                    align-items: flex-start;
-                    text-align: left;
+                    align-items: center !important;
+                    text-align: center !important;
+                  }
+
+                  .footer_address-row {
+                    justify-content: flex-start !important;
+                    text-align: left !important;
+                    align-items: flex-start !important;
+                  }
+
+                  .footer_address-icon {
+                    margin-top: 2px !important;
+                  }
+
+                  .footer_link-new {
+                    justify-content: center !important;
                   }
 
                   .footer_link-new:hover {
-                    transform: translateX(4px);
+                    transform: none !important;
                   }
                 }
               </style>
@@ -899,7 +1026,7 @@ a,
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                           d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                       </svg>
-                      <span>123 Innovation Drive<br>San Francisco, CA 94107<br>United States</span>
+                      <span>G - 48, 2nd Floor<br>Sector - 3, Noida<br>Pincode - 201301,<br />Uttar Pradesh, India</span>
                     </div>
                     <div class="footer_address-row">
                       <svg class="footer_address-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -942,7 +1069,7 @@ a,
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                       </svg>
                     </a>
-                    <a href="contact.html" class="footer_link-new">
+                    <a href="support.html" class="footer_link-new">
                       <span>Contact Support</span>
                       <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         style="opacity: 0.5;">

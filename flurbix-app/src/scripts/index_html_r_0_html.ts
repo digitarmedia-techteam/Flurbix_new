@@ -1386,6 +1386,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             glowIntensity: number;
             index: number;
             hasRelocated: boolean;
+            opacity?: number;
         }
 
         const standardIcons: Icon[] = [];
@@ -1442,7 +1443,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 breathPhase: 0,
                 glowIntensity: 0,
                 index: i,
-                hasRelocated: false
+                hasRelocated: false,
+                opacity: 0
             });
         }
 
@@ -1462,6 +1464,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
 
         interface FadingLine {
+            source: Icon;
+            target: Icon;
             x1: number;
             y1: number;
             x2: number;
@@ -1667,25 +1671,56 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 c.fill(p);
                 c.restore();
             } else if (type === "network") {
-                c.fillStyle = "#ffffff";
+                c.save();
+                c.translate(x, y);
+                c.scale(size / 24, size / 24);
                 c.strokeStyle = "#ffffff";
                 c.lineWidth = 1.5;
-                const r = size * 0.35;
-                const n1 = { x: x, y: y - r * 0.8 };
-                const n2 = { x: x - r * 0.8, y: y + r * 0.8 };
-                const n3 = { x: x + r * 0.8, y: y + r * 0.8 };
+                c.lineCap = "round";
+                c.lineJoin = "round";
 
                 c.beginPath();
-                c.moveTo(n1.x, n1.y);
-                c.lineTo(n2.x, n2.y);
-                c.moveTo(n1.x, n1.y);
-                c.lineTo(n3.x, n3.y);
-                c.stroke();
+                // Draw top transmitter circle
+                c.arc(0, -2, 1.5, 0, Math.PI * 2);
+                
+                // Tower legs
+                c.moveTo(-4, 10);
+                c.lineTo(0, -2);
+                c.lineTo(4, 10);
+                
+                // Horizontal crossbars
+                c.moveTo(-4, 10); c.lineTo(4, 10);
+                c.moveTo(-2.4, 6); c.lineTo(2.4, 6);
+                c.moveTo(-0.8, 2); c.lineTo(0.8, 2);
+                
+                // X-bracing (Diagonals)
+                c.moveTo(-4, 10); c.lineTo(2.4, 6);
+                c.moveTo(4, 10); c.lineTo(-2.4, 6);
+                c.moveTo(-2.4, 6); c.lineTo(0.8, 2);
+                c.moveTo(2.4, 6); c.lineTo(-0.8, 2);
+                
+                // Left transmission waves
+                const startAngleLeft = 0.7 * Math.PI;
+                const endAngleLeft = 1.3 * Math.PI;
+                c.moveTo(5 * Math.cos(startAngleLeft), -2 + 5 * Math.sin(startAngleLeft));
+                c.arc(0, -2, 5, startAngleLeft, endAngleLeft);
+                c.moveTo(8 * Math.cos(startAngleLeft), -2 + 8 * Math.sin(startAngleLeft));
+                c.arc(0, -2, 8, startAngleLeft, endAngleLeft);
+                c.moveTo(11 * Math.cos(startAngleLeft), -2 + 11 * Math.sin(startAngleLeft));
+                c.arc(0, -2, 11, startAngleLeft, endAngleLeft);
+                
+                // Right transmission waves
+                const startAngleRight = -0.3 * Math.PI;
+                const endAngleRight = 0.3 * Math.PI;
+                c.moveTo(5 * Math.cos(startAngleRight), -2 + 5 * Math.sin(startAngleRight));
+                c.arc(0, -2, 5, startAngleRight, endAngleRight);
+                c.moveTo(8 * Math.cos(startAngleRight), -2 + 8 * Math.sin(startAngleRight));
+                c.arc(0, -2, 8, startAngleRight, endAngleRight);
+                c.moveTo(11 * Math.cos(startAngleRight), -2 + 11 * Math.sin(startAngleRight));
+                c.arc(0, -2, 11, startAngleRight, endAngleRight);
 
-                const nr = size * 0.16;
-                c.beginPath(); c.arc(n1.x, n1.y, nr, 0, Math.PI * 2); c.fill();
-                c.beginPath(); c.arc(n2.x, n2.y, nr, 0, Math.PI * 2); c.fill();
-                c.beginPath(); c.arc(n3.x, n3.y, nr, 0, Math.PI * 2); c.fill();
+                c.stroke();
+                c.restore();
             } else if (type === "laptop") {
                 c.strokeStyle = "#ffffff";
                 c.lineWidth = 1.8;
@@ -1851,7 +1886,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         let lastBrandIndex = -1;
 
         function isIconInUse(icon: Icon) {
-            return comets.some(comet => comet.source.id === icon.id || comet.target.id === icon.id);
+            const inComet = comets.some(comet => comet.source.id === icon.id || comet.target.id === icon.id);
+            const inLine = fadingLines.some(line => line.source.id === icon.id || line.target.id === icon.id);
+            return inComet || inLine;
         }
 
         function relocateIcon(icon: Icon) {
@@ -1974,9 +2011,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
             });
             drawGlowBehind(ctx, activeBrand, brandAlpha);
 
-            // 4. Draw Fading Connecting Lines
+            // 4. Draw Fading Connecting Lines (faded out more and faster)
             fadingLines.forEach((line, index) => {
-                line.alpha -= dt / 1600;
+                line.alpha -= dt / 700;
                 if (line.alpha <= 0) {
                     fadingLines.splice(index, 1);
                     return;
@@ -1985,22 +2022,22 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 ctx.save();
                 ctx.lineCap = "round";
 
-                // Pass 1: Outer Glow
+                // Pass 1: Outer Glow (reduced opacity multiplier from 0.08 to 0.02)
                 ctx.beginPath();
                 ctx.moveTo(line.x1, line.y1);
                 ctx.quadraticCurveTo(line.xc, line.yc, line.x2, line.y2);
                 ctx.lineWidth = 7;
-                ctx.strokeStyle = `rgba(255, 255, 255, ${0.08 * line.alpha})`;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.02 * line.alpha})`;
                 ctx.stroke();
 
-                // Pass 2: Mid Glow
+                // Pass 2: Mid Glow (reduced opacity multiplier from 0.2 to 0.06)
                 ctx.lineWidth = 3.5;
-                ctx.strokeStyle = `rgba(255, 255, 255, ${0.2 * line.alpha})`;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.06 * line.alpha})`;
                 ctx.stroke();
 
-                // Pass 3: Core
+                // Pass 3: Core (reduced opacity multiplier from 0.85 to 0.25)
                 ctx.lineWidth = 1.2;
-                ctx.strokeStyle = `rgba(255, 255, 255, ${0.85 * line.alpha})`;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.25 * line.alpha})`;
                 ctx.stroke();
 
                 ctx.restore();
@@ -2025,7 +2062,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 drawIconVector(ctx, icon.type, icon.x, icon.y, icon.size, opacity);
             });
-            drawIconVector(ctx, activeBrand.type, activeBrand.x, activeBrand.y, activeBrand.size, brandAlpha);
+            
+            // Draw all brand icons based on their transition opacity to support seamless fade-out during switch
+            brandIcons.forEach((icon, i) => {
+                const targetOpacity = (i === currentBrandIndex) ? brandAlpha : 0;
+                if (icon.opacity === undefined) icon.opacity = 0;
+                icon.opacity += (targetOpacity - icon.opacity) * 0.1;
+                if (icon.opacity > 0.01) {
+                    drawIconVector(ctx, icon.type, icon.x, icon.y, icon.size, icon.opacity);
+                }
+            });
 
             // 6. Draw Checkmark Badges
             standardIcons.forEach(icon => {
@@ -2048,6 +2094,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     comet.target.glowIntensity = 1.5;
 
                     fadingLines.push({
+                        source: comet.source,
+                        target: comet.target,
                         x1: comet.x1,
                         y1: comet.y1,
                         x2: comet.x2,
@@ -2175,7 +2223,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     { coord: isMobile ? "H6" : "AB5", color: "white" },
                     { coord: isMobile ? "I8" : "AB8", color: "white" },
                     { coord: isMobile ? "F9" : "W9", color: "white" },
-                    { coord: isMobile ? "I2" : "AB2", icon: NETWORK },
+                    { coord: isMobile ? "I2" : "AB2", icon: TOWER },
                 ],
             },
             {
@@ -2208,7 +2256,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 icon: EMAIL,
                 points: [
                     { coord: isMobile ? "G2" : "S2", color: "white" },
-                    { coord: isMobile ? "I4" : "T8", icon: NETWORK },
+                    { coord: isMobile ? "I4" : "T8", icon: TOWER },
                 ],
             },
             {

@@ -131,7 +131,9 @@ export function initNetworkCanvas() {
         const jitterPadX = cellW * 0.18;
         const jitterPadY = cellH * 0.18;
 
-        // Place brands (all in the center cell)
+        // Place brands (all in the center cell sharing the same jitter so they align perfectly during switch transition)
+        const brandJitterX = (Math.random() * 2 - 1) * jitterPadX;
+        const brandJitterY = (Math.random() * 2 - 1) * jitterPadY;
         brandIcons.forEach(icon => {
             cells.push({
                 c: brandCell.c,
@@ -139,8 +141,8 @@ export function initNetworkCanvas() {
                 x: brandCell.c * cellW + cellW / 2,
                 y: brandCell.r * cellH + cellH / 2,
                 iconType: icon,
-                jitterX: (Math.random() * 2 - 1) * jitterPadX,
-                jitterY: (Math.random() * 2 - 1) * jitterPadY,
+                jitterX: brandJitterX,
+                jitterY: brandJitterY,
                 isBrand: true,
                 opacity: 0,
                 glowIntensity: 0,
@@ -220,11 +222,44 @@ export function initNetworkCanvas() {
             const apple = new Path2D("M-1,-5 C-3,-5 -5,-4 -6,-2 C-9,3 -7,9 -4,10 C-2,10.5 -1,9.5 0,9.5 C1,9.5 2,10.5 4,10 C7,9 9,3 9,3 C9,3 6,2 6,-1 C6,-4 9,-5 9,-5 C7,-7 4,-7 2,-6 C1,-5.5 0,-5.5 -1,-5 Z M1,-6 C1,-8 3,-10 5,-10 C5,-8 3,-6 1,-6 Z");
             ctx.stroke(apple);
         } else if (iconType === 'network') {
-            ctx.arc(0, -5, 3, 0, Math.PI*2);
-            ctx.moveTo(-6, 5); ctx.arc(-6, 5, 3, 0, Math.PI*2);
-            ctx.moveTo(6, 5); ctx.arc(6, 5, 3, 0, Math.PI*2);
-            ctx.moveTo(0,-2); ctx.lineTo(-4,3);
-            ctx.moveTo(0,-2); ctx.lineTo(4,3);
+            // Draw top transmitter circle
+            ctx.arc(0, -2, 1.5, 0, Math.PI * 2);
+            
+            // Tower legs
+            ctx.moveTo(-4, 10);
+            ctx.lineTo(0, -2);
+            ctx.lineTo(4, 10);
+            
+            // Horizontal crossbars
+            ctx.moveTo(-4, 10); ctx.lineTo(4, 10);
+            ctx.moveTo(-2.4, 6); ctx.lineTo(2.4, 6);
+            ctx.moveTo(-0.8, 2); ctx.lineTo(0.8, 2);
+            
+            // X-bracing (Diagonals)
+            ctx.moveTo(-4, 10); ctx.lineTo(2.4, 6);
+            ctx.moveTo(4, 10); ctx.lineTo(-2.4, 6);
+            ctx.moveTo(-2.4, 6); ctx.lineTo(0.8, 2);
+            ctx.moveTo(2.4, 6); ctx.lineTo(-0.8, 2);
+            
+            // Left transmission waves
+            const startAngleLeft = 0.7 * Math.PI;
+            const endAngleLeft = 1.3 * Math.PI;
+            ctx.moveTo(5 * Math.cos(startAngleLeft), -2 + 5 * Math.sin(startAngleLeft));
+            ctx.arc(0, -2, 5, startAngleLeft, endAngleLeft);
+            ctx.moveTo(8 * Math.cos(startAngleLeft), -2 + 8 * Math.sin(startAngleLeft));
+            ctx.arc(0, -2, 8, startAngleLeft, endAngleLeft);
+            ctx.moveTo(11 * Math.cos(startAngleLeft), -2 + 11 * Math.sin(startAngleLeft));
+            ctx.arc(0, -2, 11, startAngleLeft, endAngleLeft);
+            
+            // Right transmission waves
+            const startAngleRight = -0.3 * Math.PI;
+            const endAngleRight = 0.3 * Math.PI;
+            ctx.moveTo(5 * Math.cos(startAngleRight), -2 + 5 * Math.sin(startAngleRight));
+            ctx.arc(0, -2, 5, startAngleRight, endAngleRight);
+            ctx.moveTo(8 * Math.cos(startAngleRight), -2 + 8 * Math.sin(startAngleRight));
+            ctx.arc(0, -2, 8, startAngleRight, endAngleRight);
+            ctx.moveTo(11 * Math.cos(startAngleRight), -2 + 11 * Math.sin(startAngleRight));
+            ctx.arc(0, -2, 11, startAngleRight, endAngleRight);
         } else if (iconType === 'laptop') {
             ctx.rect(-10, -7, 20, 12);
             ctx.moveTo(-13, 5); ctx.lineTo(13, 5);
@@ -429,10 +464,10 @@ export function initNetworkCanvas() {
             c.opacity += (targetOpacity - c.opacity) * 0.05;
         });
 
-        // Draw connections
+        // Draw connections (faded out more and faster)
         for (let i = connections.length - 1; i >= 0; i--) {
             const conn = connections[i];
-            conn.alpha -= 0.005; 
+            conn.alpha -= 0.015; 
             if (conn.alpha <= 0) {
                 connections.splice(i, 1);
                 continue;
@@ -445,27 +480,27 @@ export function initNetworkCanvas() {
 
             ctx.save();
             ctx.lineCap = 'round';
-            // pass 1
+            // pass 1 (reduced opacity multiplier from 0.04 to 0.01)
             ctx.beginPath();
             ctx.moveTo(sx, sy);
             ctx.quadraticCurveTo(conn.cpX, conn.cpY, tx, ty);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${0.04 * conn.alpha})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.01 * conn.alpha})`;
             ctx.lineWidth = 7;
             ctx.stroke();
             
-            // pass 2
+            // pass 2 (reduced opacity multiplier from 0.1 to 0.03)
             ctx.beginPath();
             ctx.moveTo(sx, sy);
             ctx.quadraticCurveTo(conn.cpX, conn.cpY, tx, ty);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * conn.alpha})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.03 * conn.alpha})`;
             ctx.lineWidth = 3.5;
             ctx.stroke();
             
-            // pass 3
+            // pass 3 (reduced opacity multiplier from 0.4 to 0.12)
             ctx.beginPath();
             ctx.moveTo(sx, sy);
             ctx.quadraticCurveTo(conn.cpX, conn.cpY, tx, ty);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${0.4 * conn.alpha})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.12 * conn.alpha})`;
             ctx.lineWidth = 1.2;
             ctx.stroke();
             ctx.restore();
