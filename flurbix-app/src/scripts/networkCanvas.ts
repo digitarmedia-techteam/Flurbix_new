@@ -222,11 +222,44 @@ export function initNetworkCanvas() {
             const apple = new Path2D("M-1,-5 C-3,-5 -5,-4 -6,-2 C-9,3 -7,9 -4,10 C-2,10.5 -1,9.5 0,9.5 C1,9.5 2,10.5 4,10 C7,9 9,3 9,3 C9,3 6,2 6,-1 C6,-4 9,-5 9,-5 C7,-7 4,-7 2,-6 C1,-5.5 0,-5.5 -1,-5 Z M1,-6 C1,-8 3,-10 5,-10 C5,-8 3,-6 1,-6 Z");
             ctx.stroke(apple);
         } else if (iconType === 'network') {
-            ctx.arc(0, -5, 3, 0, Math.PI*2);
-            ctx.moveTo(-6, 5); ctx.arc(-6, 5, 3, 0, Math.PI*2);
-            ctx.moveTo(6, 5); ctx.arc(6, 5, 3, 0, Math.PI*2);
-            ctx.moveTo(0,-2); ctx.lineTo(-4,3);
-            ctx.moveTo(0,-2); ctx.lineTo(4,3);
+            // Draw top transmitter circle
+            ctx.arc(0, -2, 1.5, 0, Math.PI * 2);
+            
+            // Tower legs
+            ctx.moveTo(-4, 10);
+            ctx.lineTo(0, -2);
+            ctx.lineTo(4, 10);
+            
+            // Horizontal crossbars
+            ctx.moveTo(-4, 10); ctx.lineTo(4, 10);
+            ctx.moveTo(-2.4, 6); ctx.lineTo(2.4, 6);
+            ctx.moveTo(-0.8, 2); ctx.lineTo(0.8, 2);
+            
+            // X-bracing (Diagonals)
+            ctx.moveTo(-4, 10); ctx.lineTo(2.4, 6);
+            ctx.moveTo(4, 10); ctx.lineTo(-2.4, 6);
+            ctx.moveTo(-2.4, 6); ctx.lineTo(0.8, 2);
+            ctx.moveTo(2.4, 6); ctx.lineTo(-0.8, 2);
+            
+            // Left transmission waves
+            const startAngleLeft = 0.7 * Math.PI;
+            const endAngleLeft = 1.3 * Math.PI;
+            ctx.moveTo(5 * Math.cos(startAngleLeft), -2 + 5 * Math.sin(startAngleLeft));
+            ctx.arc(0, -2, 5, startAngleLeft, endAngleLeft);
+            ctx.moveTo(8 * Math.cos(startAngleLeft), -2 + 8 * Math.sin(startAngleLeft));
+            ctx.arc(0, -2, 8, startAngleLeft, endAngleLeft);
+            ctx.moveTo(11 * Math.cos(startAngleLeft), -2 + 11 * Math.sin(startAngleLeft));
+            ctx.arc(0, -2, 11, startAngleLeft, endAngleLeft);
+            
+            // Right transmission waves
+            const startAngleRight = -0.3 * Math.PI;
+            const endAngleRight = 0.3 * Math.PI;
+            ctx.moveTo(5 * Math.cos(startAngleRight), -2 + 5 * Math.sin(startAngleRight));
+            ctx.arc(0, -2, 5, startAngleRight, endAngleRight);
+            ctx.moveTo(8 * Math.cos(startAngleRight), -2 + 8 * Math.sin(startAngleRight));
+            ctx.arc(0, -2, 8, startAngleRight, endAngleRight);
+            ctx.moveTo(11 * Math.cos(startAngleRight), -2 + 11 * Math.sin(startAngleRight));
+            ctx.arc(0, -2, 11, startAngleRight, endAngleRight);
         } else if (iconType === 'laptop') {
             ctx.rect(-10, -7, 20, 12);
             ctx.moveTo(-13, 5); ctx.lineTo(13, 5);
