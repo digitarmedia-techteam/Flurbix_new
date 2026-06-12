@@ -289,12 +289,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             });
             const h1 = new SplitText(".heading-style-h1", {
-              types: "lines",
+              type: "lines",
               mask: "lines",
               linesClass: "h1-lines",
             });
             const p1 = new SplitText(".hero_p", {
-              types: "lines",
+              type: "lines",
               mask: "lines",
             });
 
@@ -526,12 +526,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         gsap.set(".page-wrapper", { opacity: 1 });
         const h1 = new SplitText(".heading-style-h4", {
-          types: "words",
+          type: "words",
           mask: "words",
           wordsClass: "h1",
         });
         const p1 = new SplitText("[hero-p]", {
-          types: "lines",
+          type: "lines",
           mask: "lines",
         });
         gsap.set(".h1-mask", { paddingBottom: 10, marginBottom: -10 });
@@ -611,7 +611,7 @@ document.addEventListener("DOMContentLoaded", function () {
         gsap.utils.toArray(".heading-style-h2, [fd-h2]").forEach((el) => {
           if (el.hasAttribute("prevent")) return;
           const split = new SplitText(el, {
-            types: "words",
+            type: "words",
             mask: "words",
             wordsClass: "h2",
           });
@@ -632,7 +632,7 @@ document.addEventListener("DOMContentLoaded", function () {
         gsap.utils.toArray("[fd-paragraph]").forEach((el) => {
           if (el.closest(".legal_rich")) return;
 
-          const split = new SplitText(el, { types: "lines", mask: "lines" });
+          const split = new SplitText(el, { type: "lines", mask: "lines" });
 
           gsap.from(split.lines, {
             yPercent: 100,

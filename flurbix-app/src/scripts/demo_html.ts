@@ -292,12 +292,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             });
             const h1 = new SplitText(".heading-style-h1", {
-              types: "lines",
+              type: "lines",
               mask: "lines",
               linesClass: "h1-lines",
             });
             const p1 = new SplitText(".hero_p", {
-              types: "lines",
+              type: "lines",
               mask: "lines",
             });
 
@@ -529,13 +529,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         gsap.set(".page-wrapper", { opacity: 1 });
         const h1 = new SplitText("[hero-heading]", {
-          types: "words",
+          type: "words",
           mask: "words",
           wordsClass: "h1",
           autoSplit: true,
         });
         const p1 = new SplitText(".hero_p", {
-          types: "lines",
+          type: "lines",
           mask: "lines",
           autoSplit: true,
         });
@@ -733,7 +733,7 @@ document.addEventListener("DOMContentLoaded", function () {
         gsap.utils.toArray(".heading-style-h2, [fd-h2]").forEach((el) => {
           if (el.hasAttribute("prevent")) return;
           const split = new SplitText(el, {
-            types: "words",
+            type: "words",
             mask: "words",
             wordsClass: "h2",
             autoSplit: true,
@@ -756,7 +756,7 @@ document.addEventListener("DOMContentLoaded", function () {
           if (el.closest(".legal_rich")) return;
 
           const split = new SplitText(el, {
-            types: "lines",
+            type: "lines",
             mask: "lines",
             autoSplit: true,
           });

@@ -51,9 +51,9 @@
                       <div class="footer_circ"></div>
                       <div class="footer_text">Blog</div>
                     </a>
-                    <a href="mailto:info@flurbix.io" class="footer_link w-inline-block">
+                    <a href="mailto:info@flurbix.com" class="footer_link w-inline-block">
                       <div class="footer_circ"></div>
-                      <div class="footer_text">info@flurbix.io</div>
+                      <div class="footer_text">info@flurbix.com</div>
                     </a>
                   </div>
                 </div>
