@@ -5315,6 +5315,7 @@ figcaption {
 }
 
 .demo_tag {
+    margin-bottom: 1rem !important;
   opacity: .7;
   text-transform: uppercase;
   font-family: IBM Plex Mono, Arial, sans-serif;
@@ -9292,3 +9293,131 @@ figcaption {
     justify-self: start;
   }
 }
+
+
+/* --- GLOBAL LOGO SIZING OVERRIDES --- */
+img.navbar1_logo {
+    height: 64px !important;
+    max-height: none !important;
+    width: auto !important;
+    object-fit: contain !important;
+}
+
+.footer_logo img {
+    height: 64px !important;
+    max-height: none !important;
+    width: auto !important;
+    object-fit: contain !important;
+}
+
+@media screen and (max-width: 991px) {
+    img.navbar1_logo, .footer_logo img {
+        height: 52px !important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    img.navbar1_logo, .footer_logo img {
+        height: 44px !important;
+    }
+}
+
+
+
+/* --- GLOBAL TYPOGRAPHY ALIGNMENT & SPACING OVERRIDES --- */
+body, html {
+    text-align: left;
+}
+
+h1, h2, h3, h4, h5, h6, .heading-style-h1, .heading-style-h2, .heading-style-h3, .heading-style-h4, .heading-style-h5, .heading-style-h6 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    line-height: 1.2;
+    text-align: left;
+}
+
+p, .text-size-medium, .text-size-regular, .text-size-small, .text-size-large {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    text-align: left;
+}
+
+/* Ensure bullet text perfectly aligns with the dot */
+.demo_bullet-data {
+    margin-top: -2px; /* Pull up to align with dot perfectly */
+}
+.demo_dot {
+    margin-top: 0.4rem !important; /* Adjust dot to vertically align with h3 */
+}
+.demo_h {
+    margin-bottom: 0.25rem !important;
+}
+
+/* Fix any weird flex wrap alignment issues */
+.demo_bullet {
+    align-items: flex-start !important;
+}
+
+/* Center things inside containers that are explicitly centered */
+.text-align-center, .text-align-center h1, .text-align-center h2, .text-align-center h3, .text-align-center p {
+    text-align: center !important;
+}
+
+
+
+/* --- BULLET HANGING INDENT FIX --- */
+.demo_bullet {
+    margin-left: -1rem !important; /* Pull the bullet container left so the text aligns with headers */
+}
+.demo_flurbix {
+    padding-left: 1rem; /* Push the whole block right so the negative margin doesn't go off screen if on mobile */
+}
+@media screen and (min-width: 992px) {
+    .demo_flurbix {
+        padding-left: 0;
+    }
+}
+
+
+
+/* --- PREVENT LABEL WRAPPING AND ADJUST FORM LAYOUT FOR ZOOM --- */
+.demo_content {
+    grid-template-columns: minmax(20rem, 23rem) 1fr !important; /* Make left column slightly smaller and flexible */
+    grid-column-gap: 3rem !important; /* Reduce massive 5rem gap */
+}
+.demo_form-wrap {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+}
+
+/* Let the 2 column grid allocate space flexibly, but prevent it from blowing out */
+.form_2-col {
+    grid-template-columns: minmax(0, 1fr) minmax(max-content, 1.2fr) !important;
+}
+
+/* Ensure the label doesn't wrap on zoom */
+.form_label {
+    white-space: nowrap !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 991px) {
+    .demo_content {
+        grid-template-columns: 1fr !important;
+    }
+    .form_2-col {
+        grid-template-columns: 1fr 1fr !important;
+    }
+    .form_label {
+        white-space: normal !important; /* Allow wrapping on tablet/mobile if needed */
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .form_2-col {
+        grid-template-columns: 1fr !important; /* Stack vertically on mobile */
+    }
+}
+

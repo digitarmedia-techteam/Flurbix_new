@@ -811,7 +811,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^[0-9\+\s]{10,15}$/;
 
-  const validateField = (field: HTMLInputElement | HTMLTextAreaElement, regex?: RegExp, required: boolean = true) => {
+  const validateField = (field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement, regex?: RegExp, required: boolean = true, showErrors: boolean = true) => {
     let isValid = true;
     let errorMsg = "";
     const val = field.value.trim();
@@ -828,7 +828,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else if (regex && !regex.test(val)) {
         isValid = false;
         if (field.type === "email") errorMsg = "Please enter a valid email.";
-        else if (field.type === "tel") errorMsg = "Please enter a valid phone number (10-15 digits).";
+        else if (field.type === "tel" || field.id === "Phone") errorMsg = "Please enter a valid phone number (10-15 digits).";
         else errorMsg = "Invalid format.";
       }
     } else if (!required && val.length === 0) {
@@ -847,10 +847,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } else {
       field.classList.remove("is-valid");
-      field.classList.add("is-invalid");
-      if (errorContainer) {
-        errorContainer.textContent = errorMsg;
-        errorContainer.classList.add("is-visible");
+      if (showErrors || field.classList.contains("is-invalid")) {
+        field.classList.add("is-invalid");
+        if (errorContainer) {
+          errorContainer.textContent = errorMsg;
+          errorContainer.classList.add("is-visible");
+        }
       }
     }
 
@@ -858,18 +860,31 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const checkFormValidity = () => {
-    const isFirstNameValid = validateField(document.getElementById("firstname") as HTMLInputElement, undefined, true);
-    const isLastNameValid = validateField(document.getElementById("lastname") as HTMLInputElement, undefined, true);
-    const isEmailValid = validateField(document.getElementById("Email") as HTMLInputElement, emailRegex, true);
-    const isCompanyValid = validateField(document.getElementById("company") as HTMLInputElement, undefined, true);
+    const isFirstNameValid = validateField(document.getElementById("firstname") as HTMLInputElement, undefined, true, false);
+    const isLastNameValid = validateField(document.getElementById("lastname") as HTMLInputElement, undefined, true, false);
+    const isEmailValid = validateField(document.getElementById("Email") as HTMLInputElement, emailRegex, true, false);
+    const isCompanyValid = validateField(document.getElementById("company") as HTMLInputElement, undefined, true, false);
 
     const phoneInput = document.getElementById("Phone") as HTMLInputElement;
-    const isPhoneValid = phoneInput.value.trim().length > 0 ? validateField(phoneInput, phoneRegex, false) : true;
+    const isPhoneValid = validateField(phoneInput, phoneRegex, true, false);
 
-    const addressTextarea = document.getElementById("address") as HTMLTextAreaElement;
-    const isAddressValid = validateField(addressTextarea, undefined, true);
+    const challengeSelect = document.getElementById("challenge") as HTMLSelectElement;
+    const isChallengeValid = validateField(challengeSelect, undefined, true, false);
 
-    if (isFirstNameValid && isLastNameValid && isEmailValid && isCompanyValid && isPhoneValid && isAddressValid) {
+    let isOtherChallengeValid = true;
+    const otherChallengeInput = document.getElementById("other_challenge") as HTMLInputElement;
+    if (challengeSelect.value === "Others") {
+      isOtherChallengeValid = validateField(otherChallengeInput, undefined, true, false);
+    } else {
+      otherChallengeInput.classList.remove("is-invalid");
+      const otherError = document.getElementById("other_challenge-error");
+      if (otherError) {
+        otherError.classList.remove("is-visible");
+        otherError.textContent = "";
+      }
+    }
+
+    if (isFirstNameValid && isLastNameValid && isEmailValid && isCompanyValid && isPhoneValid && isChallengeValid && isOtherChallengeValid) {
       submitBtn.disabled = false;
     } else {
       submitBtn.disabled = true;
@@ -907,19 +922,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  setupCounter("address", 200);
   setupCounter("Details", 300);
 
+  const challengeSelect = document.getElementById("challenge") as HTMLSelectElement;
+  const otherChallengeWrapper = document.getElementById("other-challenge-wrapper") as HTMLDivElement;
+  if (challengeSelect && otherChallengeWrapper) {
+    challengeSelect.addEventListener("change", () => {
+      if (challengeSelect.value === "Others") {
+        otherChallengeWrapper.style.display = "block";
+        (document.getElementById("other_challenge") as HTMLInputElement).required = true;
+      } else {
+        otherChallengeWrapper.style.display = "none";
+        (document.getElementById("other_challenge") as HTMLInputElement).required = false;
+        (document.getElementById("other_challenge") as HTMLInputElement).value = "";
+      }
+      checkFormValidity();
+    });
+  }
+
   // Attach Input & Blur Events
-  const inputs = form.querySelectorAll("input.form_input");
-  inputs.forEach((input) => {
-    input.addEventListener("input", checkFormValidity);
-    input.addEventListener("blur", () => {
+  const allFields = form.querySelectorAll(".form_input");
+  allFields.forEach((field) => {
+    field.addEventListener("input", () => {
+      checkFormValidity();
+    });
+    field.addEventListener("blur", () => {
       let regex;
-      let required = (input as HTMLInputElement).required;
-      if (input.id === "Email") regex = emailRegex;
-      if (input.id === "Phone") regex = phoneRegex;
-      validateField(input as HTMLInputElement, regex, required);
+      let required = (field as HTMLInputElement).required;
+      if (field.id === "Email") regex = emailRegex;
+      if (field.id === "Phone") regex = phoneRegex;
+      validateField(field as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement, regex, required, true);
       checkFormValidity();
     });
   });
@@ -928,7 +960,28 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    if (submitBtn.disabled) return;
+    // Enforce visual validation on all fields
+    const isFirstNameValid = validateField(document.getElementById("firstname") as HTMLInputElement, undefined, true, true);
+    const isLastNameValid = validateField(document.getElementById("lastname") as HTMLInputElement, undefined, true, true);
+    const isEmailValid = validateField(document.getElementById("Email") as HTMLInputElement, emailRegex, true, true);
+    const isCompanyValid = validateField(document.getElementById("company") as HTMLInputElement, undefined, true, true);
+    
+    const phoneInput = document.getElementById("Phone") as HTMLInputElement;
+    const isPhoneValid = validateField(phoneInput, phoneRegex, true, true);
+    
+    const challengeSelect = document.getElementById("challenge") as HTMLSelectElement;
+    const isChallengeValid = validateField(challengeSelect, undefined, true, true);
+
+    let isOtherChallengeValid = true;
+    const otherChallengeInput = document.getElementById("other_challenge") as HTMLInputElement;
+    if (challengeSelect.value === "Others") {
+      isOtherChallengeValid = validateField(otherChallengeInput, undefined, true, true);
+    }
+
+    if (!(isFirstNameValid && isLastNameValid && isEmailValid && isCompanyValid && isPhoneValid && isChallengeValid && isOtherChallengeValid)) {
+      submitBtn.disabled = true;
+      return;
+    }
 
     // Collect form data
     const data = {
@@ -937,7 +990,8 @@ document.addEventListener("DOMContentLoaded", () => {
       email: (document.getElementById("Email") as HTMLInputElement).value.trim(),
       company: (document.getElementById("company") as HTMLInputElement).value.trim(),
       phone: (document.getElementById("Phone") as HTMLInputElement).value.trim(),
-      address: (document.getElementById("address") as HTMLTextAreaElement).value.trim(),
+      challenge: (document.getElementById("challenge") as HTMLSelectElement).value.trim(),
+      otherChallenge: (document.getElementById("other_challenge") as HTMLInputElement).value.trim(),
       details: (document.getElementById("Details") as HTMLTextAreaElement).value.trim()
     };
 
@@ -969,8 +1023,8 @@ document.addEventListener("DOMContentLoaded", () => {
         <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; color: #111827;">${data.phone || "N/A"}</td>
       </tr>
       <tr>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; font-weight: 600; color: #374151;">Reason for Interest</td>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; color: #111827; line-height: 1.5;">${data.address}</td>
+        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; font-weight: 600; color: #374151;">Challenge</td>
+        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; color: #111827; line-height: 1.5;">${data.challenge === 'Others' ? 'Others: ' + data.otherChallenge : data.challenge}</td>
       </tr>
       <tr>
         <td style="padding: 14px 10px; font-weight: 600; color: #374151; vertical-align: top;">How Can We Help?</td>
@@ -1064,7 +1118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <tr>
           <td class="header-col-left" align="left" valign="middle" style="padding: 16px 24px;">
             <a href="https://flurbix.com" style="text-decoration: none; display: inline-block;">
-              <img src="https://flurbix.com/src/assets/logo.png" alt="Flurbix Logo" style="height: 32px; vertical-align: middle; border: 0;" />
+              <img src="https://flurbix.com/assets/logo-cdhRKh5F.png" alt="Flurbix Logo" style="height: 32px; vertical-align: middle; border: 0;" />
             </a>
           </td>
           <td class="header-col-right" align="right" valign="middle" style="padding: 16px 24px; font-family: 'Inter', Arial, sans-serif; font-size: 14px;">
@@ -1136,10 +1190,74 @@ document.addEventListener("DOMContentLoaded", () => {
 </body>
 </html>`;
 
+
     // Disable button to prevent multiple clicks
     const originalText = submitBtn.value;
     submitBtn.value = "Sending...";
     submitBtn.disabled = true;
+
+    // --- RATE LIMITING START ---
+    let ipLimitKey = "";
+    let deviceLimitKey = "";
+    try {
+      const MAX_EMAILS_PER_HOUR = 5;
+      const COOLDOWN_MS = 60 * 60 * 1000; // 1 hour
+
+      // Get or Generate Device ID
+      let deviceId = localStorage.getItem("flurbix_device_id");
+      if (!deviceId) {
+        deviceId = 'dev_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+        localStorage.setItem("flurbix_device_id", deviceId);
+      }
+
+      // Fetch IP Address
+      let clientIp = "unknown_ip";
+      try {
+        const ipResponse = await fetch("https://api.ipify.org?format=json");
+        const ipData = await ipResponse.json();
+        clientIp = ipData.ip;
+      } catch (e) {
+        console.warn("Could not fetch IP for rate limiting");
+      }
+
+      // Helper to check limits
+      const checkLimit = (storageKey: string) => {
+        const recordStr = localStorage.getItem(storageKey);
+        let record = recordStr ? JSON.parse(recordStr) : { count: 0, timestamp: Date.now() };
+        
+        if (Date.now() - record.timestamp > COOLDOWN_MS) {
+          record = { count: 0, timestamp: Date.now() };
+        }
+        
+        if (record.count >= MAX_EMAILS_PER_HOUR) {
+          return false;
+        }
+        return true;
+      };
+
+      ipLimitKey = `flurbix_limit_ip_${clientIp}`;
+      deviceLimitKey = `flurbix_limit_dev_${deviceId}`;
+
+      if (!checkLimit(ipLimitKey) || !checkLimit(deviceLimitKey)) {
+        alert("Rate limit exceeded. You have reached the maximum number of requests (5 per hour). To prevent spam, please try again later.");
+        const formWrap = document.querySelector(".demo_form-wrap");
+        if (formWrap) {
+           const failMsg = formWrap.querySelector(".w-form-fail") as HTMLElement;
+           if (failMsg) {
+             const failText = failMsg.querySelector("div");
+             if (failText) failText.textContent = "Rate limit exceeded. Please try again later.";
+             failMsg.style.display = "block";
+           }
+        }
+        submitBtn.value = originalText;
+        submitBtn.disabled = false;
+        return;
+      }
+    } catch(err) {
+       console.error("Error during rate limit check", err);
+    }
+    // --- RATE LIMITING END ---
+
 
     try {
       const apikey = (import.meta as any).env?.VITE_ELASTIC_EMAIL_API_KEY || (window as any).process?.env?.ELASTIC_EMAIL_API_KEY;
@@ -1203,6 +1321,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
+
       // Show Success Message natively
       const formWrap = document.querySelector(".demo_form-wrap");
       if (formWrap) {
@@ -1210,6 +1329,26 @@ document.addEventListener("DOMContentLoaded", () => {
         const successMsg = formWrap.querySelector(".w-form-done") as HTMLElement;
         if (successMsg) successMsg.style.display = "block";
       }
+
+      // --- RATE LIMITING INCREMENT ---
+      try {
+        const incrementLimit = (storageKey: string) => {
+          if (!storageKey) return;
+          const recordStr = localStorage.getItem(storageKey);
+          let record = recordStr ? JSON.parse(recordStr) : { count: 0, timestamp: Date.now() };
+          if (Date.now() - record.timestamp > 60 * 60 * 1000) {
+            record = { count: 0, timestamp: Date.now() };
+          }
+          record.count += 1;
+          localStorage.setItem(storageKey, JSON.stringify(record));
+        };
+        incrementLimit(ipLimitKey);
+        incrementLimit(deviceLimitKey);
+      } catch(e) {
+        console.error(e);
+      }
+      // --- RATE LIMITING INCREMENT END ---
+
 
     } catch (error: any) {
       console.error("Email Sending Failed:", error);
