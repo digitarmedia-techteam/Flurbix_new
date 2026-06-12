@@ -1,0 +1,9 @@
+flurbix-app/node_modules
+flurbix-app/dist
+node_modules
+dist
+.git
+.gitignore
+.dockerignore
+*.md
+docker-compose.yml
