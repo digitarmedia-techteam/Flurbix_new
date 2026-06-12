@@ -3124,7 +3124,7 @@ figcaption {
 }
 
 .form_input {
-    /* min-height: 3rem; */
+    
     color: var(--base-color-neutral--black);
     background-color: #0000;
     border: 0 solid #000;
@@ -5451,7 +5451,7 @@ img.navbar1_logo {
     line-height: 1.2;
 }
 
-.demo_auxia {
+.demo_Flurbix {
     grid-column-gap: 1.5rem;
     grid-row-gap: 1.5rem;
     flex-flow: column;
@@ -9152,7 +9152,7 @@ img.navbar1_logo {
         margin-bottom: 1rem;
     }
 
-    .demo_auxia {
+    .demo_Flurbix {
         grid-column-gap: 1rem;
         grid-row-gap: 1rem;
         margin-top: 1rem;
@@ -9445,14 +9445,9 @@ img.navbar1_logo {
     }
 }
 
-/* ================================================================
-   FLURBIX COMPREHENSIVE RESPONSIVE SYSTEM
-   Appended: Full-site responsive overrides for all breakpoints,
-   cards, grids, navigation, hero, footer, and support pages.
-   Covers: 479px / 767px / 991px / 1280px / zoom levels
-   ================================================================ */
 
-/* ── BASE RESET ─────────────────────────────────────────────────── */
+
+
 *,
 *::before,
 *::after {
@@ -9469,7 +9464,7 @@ img {
     max-width: 100%;
 }
 
-/* ── FLUID CONTAINER ─────────────────────────────────────────────── */
+
 .container-large {
     width: 100%;
     max-width: 80rem;
@@ -9479,7 +9474,7 @@ img {
     padding-right: 1.25rem;
 }
 
-/* ── NAVBAR RESPONSIVE ───────────────────────────────────────────── */
+
 .navbar1_component {
     width: 100%;
     max-width: 100vw;
@@ -9495,7 +9490,7 @@ img {
     justify-content: space-between;
 }
 
-/* ── SUPPORT PAGE CARDS ──────────────────────────────────────────── */
+
 .support_grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -9543,14 +9538,14 @@ img {
     overflow-wrap: break-word;
 }
 
-/* ── TRUSTED CARDS ───────────────────────────────────────────────── */
+
 .trusted_card {
     min-width: 0;
     box-sizing: border-box;
     word-break: break-word;
 }
 
-/* ── PROCESS CARDS ───────────────────────────────────────────────── */
+
 .process_card,
 .process_card2,
 .process_card3 {
@@ -9558,7 +9553,7 @@ img {
     box-sizing: border-box;
 }
 
-/* ── FOOTER ──────────────────────────────────────────────────────── */
+
 .footer_logo-text {
     white-space: nowrap;
 }
@@ -9590,7 +9585,7 @@ img {
     margin-top: 2px;
 }
 
-/* ── GLOBAL OVERFLOW GUARD ───────────────────────────────────────── */
+
 #smooth-wrapper,
 #smooth-content,
 .smooth-wrapper,
@@ -9599,7 +9594,7 @@ img {
     overflow-x: hidden;
 }
 
-/* ── PRICING GRID ────────────────────────────────────────────────── */
+
 .pricing_grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -9614,9 +9609,7 @@ img {
 }
 
 
-/* ================================================================
-   LARGE DESKTOP (1440px+) — 120-125% zoom
-   ================================================================ */
+
 @media screen and (min-width: 1440px) {
 
     .heading-style-h1,
@@ -9640,9 +9633,7 @@ img {
 }
 
 
-/* ================================================================
-   STANDARD DESKTOP (1280px)
-   ================================================================ */
+
 @media screen and (max-width: 1280px) {
 
     .heading-style-h1,
@@ -9661,12 +9652,10 @@ img {
 }
 
 
-/* ================================================================
-   TABLET — max-width: 991px
-   ================================================================ */
+
 @media screen and (max-width: 991px) {
 
-    /* Global */
+    
     html,
     body,
     #smooth-wrapper,
@@ -9682,7 +9671,7 @@ img {
         padding-right: 1.5rem;
     }
 
-    /* Typography scaling */
+    
     h1,
     .heading-style-h1 {
         font-size: clamp(2.5rem, 6vw, 4rem) !important;
@@ -9708,7 +9697,7 @@ img {
         font-size: clamp(0.9rem, 2.5vw, 1.125rem);
     }
 
-    /* Section padding */
+    
     .padding-section-large {
         padding-top: 4rem !important;
         padding-bottom: 4rem !important;
@@ -9719,7 +9708,7 @@ img {
         padding-bottom: 3rem !important;
     }
 
-    /* ── Support cards: 1 column ── */
+    
     .support_grid {
         grid-template-columns: 1fr !important;
         gap: 1.5rem !important;
@@ -9739,7 +9728,7 @@ img {
         padding-bottom: 6rem !important;
     }
 
-    /* ── Trusted grid: 2 column ── */
+    
     .trusted_grid {
         grid-template-columns: repeat(2, 1fr) !important;
     }
@@ -9749,7 +9738,7 @@ img {
         width: 100%;
     }
 
-    /* ── Pricing grid: single column ── */
+    
     .pricing_grid {
         grid-template-columns: 1fr !important;
         max-width: 480px !important;
@@ -9762,7 +9751,7 @@ img {
         transform: scale(1) !important;
     }
 
-    /* ── Hero responsive ── */
+    
     .hero_content {
         flex-direction: column !important;
         align-items: center !important;
@@ -9800,7 +9789,7 @@ img {
         font-size: clamp(8.5px, 2.2vw, 10.5px) !important;
     }
 
-    /* ── Automations ── */
+    
     .automations_content {
         flex-flow: column !important;
         position: static !important;
@@ -9818,7 +9807,7 @@ img {
         box-sizing: border-box !important;
     }
 
-    /* ── Process cards ── */
+    
     .process_message,
     .process_small-card,
     .process_small-card.is-alt {
@@ -9828,7 +9817,7 @@ img {
         box-sizing: border-box !important;
     }
 
-    /* ── Navbar ── */
+    
     .navbar1_component {
         width: 100% !important;
         max-width: 100vw !important;
@@ -9847,7 +9836,7 @@ img {
         margin-right: 0 !important;
     }
 
-    /* ── Footer ── */
+    
     .footer_bottom-custom {
         grid-template-columns: 1fr !important;
         gap: 3rem !important;
@@ -9879,30 +9868,30 @@ img {
         white-space: nowrap !important;
     }
 
-    /* ── Marketing canvas ── */
+    
     .marketing_mess .marketing_canvas-wrap {
         height: 320px !important;
     }
 
-    /* ── Modal ── */
+    
     .modal_container {
         max-width: 90% !important;
         padding: 2.5rem 1.5rem !important;
         margin: 1rem !important;
     }
 
-    /* ── Testimonial cards ── */
+    
     .testimonial_card {
         width: 100% !important;
         max-width: 100% !important;
     }
 
-    /* ── Values cards ── */
+    
     .values_cards {
         grid-template-columns: repeat(2, 1fr) !important;
     }
 
-    /* ── Hero steps (desktop only positioning) ── */
+    
     .hero_steps-wrap {
         position: relative !important;
         top: auto !important;
@@ -9920,9 +9909,7 @@ img {
 }
 
 
-/* ================================================================
-   MOBILE LANDSCAPE — max-width: 767px
-   ================================================================ */
+
 @media screen and (max-width: 767px) {
 
     .padding-global {
@@ -9940,7 +9927,7 @@ img {
         font-size: clamp(1.75rem, 6vw, 2.5rem) !important;
     }
 
-    /* Support cards */
+    
     .support_card {
         padding: 2.25rem 1.5rem !important;
     }
@@ -9949,12 +9936,12 @@ img {
         font-size: clamp(1.75rem, 6vw, 2.5rem) !important;
     }
 
-    /* Trusted grid: 1 column */
+    
     .trusted_grid {
         grid-template-columns: 1fr !important;
     }
 
-    /* Pricing */
+    
     .pricing_card {
         padding: 2rem 1.5rem !important;
     }
@@ -9963,7 +9950,7 @@ img {
         font-size: 3rem !important;
     }
 
-    /* Galaxy buttons stacked */
+    
     .galaxy-buttons {
         flex-direction: column !important;
         border-radius: 16px !important;
@@ -9976,23 +9963,23 @@ img {
         width: 100% !important;
     }
 
-    /* Values cards: 1 col */
+    
     .values_cards {
         grid-template-columns: 1fr !important;
     }
 
-    /* Content27 about cards */
+    
     .content27_card {
         width: 100% !important;
         padding: 1.5rem !important;
     }
 
-    /* About stats */
+    
     .about_stat {
         font-size: 3rem !important;
     }
 
-    /* Buttons */
+    
     .button,
     .btn {
         padding-left: 1.25rem !important;
@@ -10001,9 +9988,7 @@ img {
 }
 
 
-/* ================================================================
-   MOBILE PORTRAIT — max-width: 479px
-   ================================================================ */
+
 @media screen and (max-width: 479px) {
 
     .padding-global {
@@ -10026,7 +10011,7 @@ img {
         font-size: 1.375rem !important;
     }
 
-    /* Support */
+    
     .support_card {
         padding: 2rem 1.25rem !important;
         border-radius: 1.125rem !important;
@@ -10055,7 +10040,7 @@ img {
         padding: 0 1rem !important;
     }
 
-    /* Buttons: full width */
+    
     .button,
     .btn,
     .w-button {
@@ -10065,7 +10050,7 @@ img {
         text-align: center !important;
     }
 
-    /* Pricing */
+    
     .pricing_card-amount {
         font-size: 2.5rem !important;
     }
@@ -10074,17 +10059,17 @@ img {
         padding: 1.75rem 1.25rem !important;
     }
 
-    /* Hero tag */
+    
     .hero_tag {
         font-size: 0.7rem !important;
     }
 
-    /* Footer logo */
+    
     .footer_logo {
         font-size: clamp(3rem, 18vw, 5rem) !important;
     }
 
-    /* About stats */
+    
     .about_stat {
         font-size: 2.5rem !important;
     }
@@ -10093,7 +10078,7 @@ img {
         font-size: 1rem !important;
     }
 
-    /* Modal */
+    
     .modal_container {
         max-width: 95% !important;
         padding: 2rem 1.25rem !important;
@@ -10104,7 +10089,7 @@ img {
         font-size: 1.5rem !important;
     }
 
-    /* Process cards */
+    
     .process_card,
     .process_card2,
     .process_card3 {
@@ -10113,10 +10098,7 @@ img {
 }
 
 
-/* ================================================================
-   ZOOM / HIGH-DPI LEVELS (110%, 120%, 125%)
-   Using em units to respond to zoom
-   ================================================================ */
+
 @media screen and (max-width: 1200px) {
 
     .heading-style-h1,
@@ -10143,7 +10125,7 @@ img {
     }
 }
 
-/* Touch device improvements */
+
 @media (hover: none) and (pointer: coarse) {
 
     .support_card:hover,
@@ -10162,7 +10144,7 @@ img {
         transform: none !important;
     }
 
-    /* Increase touch targets */
+    
     .navbar1_link,
     .navbar1_menu-button,
     .footer_social-link,
@@ -10179,7 +10161,7 @@ img {
     }
 }
 
-/* --- GLOBAL LOGO SIZING OVERRIDES --- */
+
 img.navbar1_logo {
         height: 64px !important;
     width: auto !important;
@@ -10206,7 +10188,7 @@ img.navbar1_logo {
 
 
 
-/* --- GLOBAL TYPOGRAPHY ALIGNMENT & SPACING OVERRIDES --- */
+
 body, html {
     text-align: left;
 }
@@ -10225,35 +10207,35 @@ p, .text-size-medium, .text-size-regular, .text-size-small, .text-size-large {
     text-align: left;
 }
 
-/* Ensure bullet text perfectly aligns with the dot */
+
 .demo_bullet-data {
-    margin-top: -2px; /* Pull up to align with dot perfectly */
+    margin-top: -2px; 
 }
 .demo_dot {
-    margin-top: 0.4rem !important; /* Adjust dot to vertically align with h3 */
+    margin-top: 0.4rem !important; 
 }
 .demo_h {
     margin-bottom: 0.25rem !important;
 }
 
-/* Fix any weird flex wrap alignment issues */
+
 .demo_bullet {
     align-items: flex-start !important;
 }
 
-/* Center things inside containers that are explicitly centered */
+
 .text-align-center, .text-align-center h1, .text-align-center h2, .text-align-center h3, .text-align-center p {
     text-align: center !important;
 }
 
 
 
-/* --- BULLET HANGING INDENT FIX --- */
+
 .demo_bullet {
-    margin-left: -1rem !important; /* Pull the bullet container left so the text aligns with headers */
+    margin-left: -1rem !important; 
 }
 .demo_flurbix {
-    padding-left: 1rem; /* Push the whole block right so the negative margin doesn't go off screen if on mobile */
+    padding-left: 1rem; 
 }
 @media screen and (min-width: 992px) {
     .demo_flurbix {
@@ -10263,22 +10245,22 @@ p, .text-size-medium, .text-size-regular, .text-size-small, .text-size-large {
 
 
 
-/* --- PREVENT LABEL WRAPPING AND ADJUST FORM LAYOUT FOR ZOOM --- */
+
 .demo_content {
-    grid-template-columns: minmax(20rem, 23rem) 1fr !important; /* Make left column slightly smaller and flexible */
-    grid-column-gap: 3rem !important; /* Reduce massive 5rem gap */
+    grid-template-columns: minmax(20rem, 23rem) 1fr !important; 
+    grid-column-gap: 3rem !important; 
 }
 .demo_form-wrap {
     padding-left: 2rem !important;
     padding-right: 2rem !important;
 }
 
-/* Let the 2 column grid allocate space flexibly, but prevent it from blowing out */
+
 .form_2-col {
     grid-template-columns: minmax(0, 1fr) minmax(max-content, 1.2fr) !important;
 }
 
-/* Ensure the label doesn't wrap on zoom */
+
 .form_label {
     white-space: nowrap !important;
     overflow: hidden;
@@ -10293,13 +10275,13 @@ p, .text-size-medium, .text-size-regular, .text-size-small, .text-size-large {
         grid-template-columns: 1fr 1fr !important;
     }
     .form_label {
-        white-space: normal !important; /* Allow wrapping on tablet/mobile if needed */
+        white-space: normal !important; 
     }
 }
 
 @media screen and (max-width: 767px) {
     .form_2-col {
-        grid-template-columns: 1fr !important; /* Stack vertically on mobile */
+        grid-template-columns: 1fr !important; 
     }
 }
 
