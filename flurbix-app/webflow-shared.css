@@ -5323,7 +5323,7 @@ figcaption {
   line-height: 1.2;
 }
 
-.demo_auxia {
+.demo_Flurbix {
   grid-column-gap: 1.5rem;
   grid-row-gap: 1.5rem;
   flex-flow: column;
@@ -9002,7 +9002,7 @@ figcaption {
     margin-bottom: 1rem;
   }
 
-  .demo_auxia {
+  .demo_Flurbix {
     grid-column-gap: 1rem;
     grid-row-gap: 1rem;
     margin-top: 1rem;
@@ -9295,7 +9295,7 @@ figcaption {
 }
 
 
-/* --- GLOBAL LOGO SIZING OVERRIDES --- */
+
 img.navbar1_logo {
     height: 64px !important;
     max-height: none !important;
@@ -9324,7 +9324,7 @@ img.navbar1_logo {
 
 
 
-/* --- GLOBAL TYPOGRAPHY ALIGNMENT & SPACING OVERRIDES --- */
+
 body, html {
     text-align: left;
 }
@@ -9343,35 +9343,35 @@ p, .text-size-medium, .text-size-regular, .text-size-small, .text-size-large {
     text-align: left;
 }
 
-/* Ensure bullet text perfectly aligns with the dot */
+
 .demo_bullet-data {
-    margin-top: -2px; /* Pull up to align with dot perfectly */
+    margin-top: -2px; 
 }
 .demo_dot {
-    margin-top: 0.4rem !important; /* Adjust dot to vertically align with h3 */
+    margin-top: 0.4rem !important; 
 }
 .demo_h {
     margin-bottom: 0.25rem !important;
 }
 
-/* Fix any weird flex wrap alignment issues */
+
 .demo_bullet {
     align-items: flex-start !important;
 }
 
-/* Center things inside containers that are explicitly centered */
+
 .text-align-center, .text-align-center h1, .text-align-center h2, .text-align-center h3, .text-align-center p {
     text-align: center !important;
 }
 
 
 
-/* --- BULLET HANGING INDENT FIX --- */
+
 .demo_bullet {
-    margin-left: -1rem !important; /* Pull the bullet container left so the text aligns with headers */
+    margin-left: -1rem !important; 
 }
 .demo_flurbix {
-    padding-left: 1rem; /* Push the whole block right so the negative margin doesn't go off screen if on mobile */
+    padding-left: 1rem; 
 }
 @media screen and (min-width: 992px) {
     .demo_flurbix {
@@ -9381,22 +9381,22 @@ p, .text-size-medium, .text-size-regular, .text-size-small, .text-size-large {
 
 
 
-/* --- PREVENT LABEL WRAPPING AND ADJUST FORM LAYOUT FOR ZOOM --- */
+
 .demo_content {
-    grid-template-columns: minmax(20rem, 23rem) 1fr !important; /* Make left column slightly smaller and flexible */
-    grid-column-gap: 3rem !important; /* Reduce massive 5rem gap */
+    grid-template-columns: minmax(20rem, 23rem) 1fr !important; 
+    grid-column-gap: 3rem !important; 
 }
 .demo_form-wrap {
     padding-left: 2rem !important;
     padding-right: 2rem !important;
 }
 
-/* Let the 2 column grid allocate space flexibly, but prevent it from blowing out */
+
 .form_2-col {
     grid-template-columns: minmax(0, 1fr) minmax(max-content, 1.2fr) !important;
 }
 
-/* Ensure the label doesn't wrap on zoom */
+
 .form_label {
     white-space: nowrap !important;
     overflow: hidden;
@@ -9411,13 +9411,13 @@ p, .text-size-medium, .text-size-regular, .text-size-small, .text-size-large {
         grid-template-columns: 1fr 1fr !important;
     }
     .form_label {
-        white-space: normal !important; /* Allow wrapping on tablet/mobile if needed */
+        white-space: normal !important; 
     }
 }
 
 @media screen and (max-width: 767px) {
     .form_2-col {
-        grid-template-columns: 1fr !important; /* Stack vertically on mobile */
+        grid-template-columns: 1fr !important; 
     }
 }
 
