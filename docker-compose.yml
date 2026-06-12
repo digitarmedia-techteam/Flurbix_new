@@ -1,0 +1,17 @@
+services:
+  app:
+    build: .
+    container_name: flurbix-website
+    env_file:
+      - .env
+    expose:
+      - "5173"
+    restart: unless-stopped
+    networks:
+      - webnet
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+networks:
+  webnet:
+    external: true
