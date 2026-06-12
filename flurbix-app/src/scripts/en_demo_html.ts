@@ -1270,7 +1270,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const payload: any = {
           from: "noreply@flurbix.com",
           fromName: "Flurbix Demo Form",
-          to: "info@flurbix.com", // Replace with your actual sales email
+          to: "anuj@digitarmedia.com", // Replace with your actual sales email
           subject: `New Demo Request: ${data.company}`,
           bodyHtml: bodyHtml,
           isTransactional: "true",
