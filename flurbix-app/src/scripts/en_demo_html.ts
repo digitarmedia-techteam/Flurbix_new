@@ -965,10 +965,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const isLastNameValid = validateField(document.getElementById("lastname") as HTMLInputElement, undefined, true, true);
     const isEmailValid = validateField(document.getElementById("Email") as HTMLInputElement, emailRegex, true, true);
     const isCompanyValid = validateField(document.getElementById("company") as HTMLInputElement, undefined, true, true);
-    
+
     const phoneInput = document.getElementById("Phone") as HTMLInputElement;
     const isPhoneValid = validateField(phoneInput, phoneRegex, true, true);
-    
+
     const challengeSelect = document.getElementById("challenge") as HTMLSelectElement;
     const isChallengeValid = validateField(challengeSelect, undefined, true, true);
 
@@ -1224,11 +1224,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const checkLimit = (storageKey: string) => {
         const recordStr = localStorage.getItem(storageKey);
         let record = recordStr ? JSON.parse(recordStr) : { count: 0, timestamp: Date.now() };
-        
+
         if (Date.now() - record.timestamp > COOLDOWN_MS) {
           record = { count: 0, timestamp: Date.now() };
         }
-        
+
         if (record.count >= MAX_EMAILS_PER_HOUR) {
           return false;
         }
@@ -1242,19 +1242,19 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Rate limit exceeded. You have reached the maximum number of requests (5 per hour). To prevent spam, please try again later.");
         const formWrap = document.querySelector(".demo_form-wrap");
         if (formWrap) {
-           const failMsg = formWrap.querySelector(".w-form-fail") as HTMLElement;
-           if (failMsg) {
-             const failText = failMsg.querySelector("div");
-             if (failText) failText.textContent = "Rate limit exceeded. Please try again later.";
-             failMsg.style.display = "block";
-           }
+          const failMsg = formWrap.querySelector(".w-form-fail") as HTMLElement;
+          if (failMsg) {
+            const failText = failMsg.querySelector("div");
+            if (failText) failText.textContent = "Rate limit exceeded. Please try again later.";
+            failMsg.style.display = "block";
+          }
         }
         submitBtn.value = originalText;
         submitBtn.disabled = false;
         return;
       }
-    } catch(err) {
-       console.error("Error during rate limit check", err);
+    } catch (err) {
+      console.error("Error during rate limit check", err);
     }
     // --- RATE LIMITING END ---
 
@@ -1288,7 +1288,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         const result = await response.json();
-        console.log(result);
         if (result.success === false) {
           throw new Error(result.error);
         }
@@ -1344,7 +1343,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
         incrementLimit(ipLimitKey);
         incrementLimit(deviceLimitKey);
-      } catch(e) {
+      } catch (e) {
         console.error(e);
       }
       // --- RATE LIMITING INCREMENT END ---
