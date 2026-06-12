@@ -289,12 +289,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             });
             const h1 = new SplitText(".heading-style-h1", {
-              types: "lines",
+              type: "lines",
               mask: "lines",
               linesClass: "h1-lines",
             });
             const p1 = new SplitText(".hero_p", {
-              types: "lines",
+              type: "lines",
               mask: "lines",
             });
 
@@ -535,7 +535,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         gsap.set(".page-wrapper", { opacity: 1 });
         const heroH = new SplitText("[hero-heading]", {
-          types: "words",
+          type: "words",
           mask: "words",
           wordsClass: "hero",
         });

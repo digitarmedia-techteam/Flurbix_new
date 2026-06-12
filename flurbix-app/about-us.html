@@ -17,8 +17,6 @@
   <meta
     content="flurbix powers 5M+ intelligent decisions for brands like Atlassian, Comcast, and The Guardian. Built by ex-Google, Meta, and Lyft engineers."
     property="og:description" />
-  <meta content="https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/69a75fe67afadd35444ad2eb_auxia-og.jpg"
-    property="og:image" />
   <meta content="About flurbix | AI-Native Customer Interaction Platform" property="twitter:title" />
   <meta
     content="flurbix powers 5M+ intelligent decisions for brands like Atlassian, Comcast, and The Guardian. Built by ex-Google, Meta, and Lyft engineers."
@@ -26,9 +24,7 @@
   <meta property="og:type" content="website" />
   <meta content="summary_large_image" name="twitter:card" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <link href="https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/css/auxia.webflow.shared.a5289d5f4.css"
-    rel="stylesheet" type="text/css" integrity="sha384-pSidX0J6qIWUJOqDxmW5fn3jq3My9kIBdKlDh+o7VVDS4QDGMT3WEAh0hq97CwSk"
-    crossorigin="anonymous" />
+  <link href="./css/main-css.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
   <script type="text/javascript">
     !(function (o, c) {
       var n = c.documentElement,
@@ -443,7 +439,7 @@ a,
                   </div>
                 </div>
                 <div class="about_heading">
-                  <h1 class="heading-style-h1" style="font-size: 4.5rem;">Accelerating Business Growth
+                  <h1 class="heading-style-h1">Accelerating Business Growth
                     Through Intelligent Automation
                   </h1>
                 </div>
@@ -567,7 +563,7 @@ a,
 
             /* Typography */
             .market-heading-h2 {
-              font-size: 3.5rem;
+              font-size: clamp(2rem, 5vw, 3.5rem);
               line-height: 1.1;
               font-weight: 700;
               letter-spacing: -0.03em;
@@ -820,36 +816,39 @@ a,
               }
             }
 
-            /* Symmetrical Bento Grid (2-3-2) */
+            /* Symmetrical Bento Grid Base (Mobile First) */
             .values-bento-grid {
               display: grid;
-              grid-template-columns: repeat(6, 1fr);
-              grid-gap: 2.5rem;
-              margin-top: 4rem;
+              grid-template-columns: 1fr;
+              grid-gap: 1.5rem;
+              margin-top: 3rem;
               position: relative;
               z-index: 10;
+              width: 100%;
             }
 
             /* Premium Glassmorphic Cards */
             .value-bento-card {
               background: rgba(255, 255, 255, 0.7);
               border-radius: 32px;
-              padding: 3rem 2.5rem;
+              padding: 2rem 1.5rem;
               display: flex;
               flex-direction: column;
-              gap: 2rem;
+              gap: 1.5rem;
               backdrop-filter: blur(40px);
               -webkit-backdrop-filter: blur(40px);
               transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
               cursor: default;
               position: relative;
-              overflow: visible;
+              overflow: hidden;
               box-shadow:
                 0 4px 6px -1px rgba(0, 0, 0, 0.02),
                 0 10px 15px -3px rgba(0, 0, 0, 0.04),
                 0 25px 50px -12px rgba(0, 0, 0, 0.04);
               height: 100%;
               border: 1px solid rgba(255, 255, 255, 0.9);
+              align-items: center;
+              text-align: center;
             }
 
             /* Subtle 1px Gradient Border using Pseudo Element */
@@ -880,23 +879,6 @@ a,
               opacity: 1;
             }
 
-            /* Symmetrical grid logic */
-            .value-bento-card:nth-child(1),
-            .value-bento-card:nth-child(2) {
-              grid-column: span 3;
-            }
-
-            .value-bento-card:nth-child(3),
-            .value-bento-card:nth-child(4),
-            .value-bento-card:nth-child(5) {
-              grid-column: span 2;
-            }
-
-            .value-bento-card:nth-child(6),
-            .value-bento-card:nth-child(7) {
-              grid-column: span 3;
-            }
-
             /* Icon Container Redesign */
             .value-icon-wrapper {
               width: 56px;
@@ -911,6 +893,7 @@ a,
               z-index: 1;
               box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
               transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+              flex-shrink: 0;
             }
 
             /* Animated Gradient Glow Behind Icon */
@@ -959,20 +942,25 @@ a,
               gap: 1rem;
               z-index: 2;
               flex-grow: 1;
+              width: 100%;
             }
 
             .value-bento-h {
-              font-size: 1.65rem;
+              font-size: clamp(1.35rem, 4vw, 1.65rem);
               font-weight: 700;
               color: #0a0a0a;
-              line-height: 1.2;
+              line-height: 1.3;
               letter-spacing: -0.02em;
+              word-break: break-word;
+              text-wrap: balance;
             }
 
             .value-bento-p {
-              font-size: 1.1rem;
-              line-height: 1.65;
+              font-size: clamp(1rem, 3vw, 1.1rem);
+              line-height: 1.6;
               color: #555555;
+              max-width: 600px;
+              margin: 0 auto;
             }
 
             /* Animated Heading Underline */
@@ -1001,31 +989,52 @@ a,
               transform: scaleX(1);
             }
 
-            @media (max-width: 991px) {
+            /* Tablet Layout (768px - 1024px) */
+            @media (min-width: 768px) {
               .values-bento-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                grid-gap: 2rem;
               }
 
               .value-bento-card {
-                grid-column: span 1 !important;
+                padding: 2.5rem 2rem;
+                align-items: flex-start;
+                text-align: left;
               }
 
-              .value-bento-card:nth-child(7) {
-                grid-column: span 2 !important;
+              .value-bento-p {
+                margin: 0;
               }
             }
 
-            @media (max-width: 767px) {
+            /* Desktop Layout (>1024px) */
+            @media (min-width: 1025px) {
               .values-bento-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(6, 1fr);
+                grid-gap: 2.5rem;
+                margin-top: 4rem;
               }
 
               .value-bento-card {
-                grid-column: span 1 !important;
+                padding: 3rem 2.5rem;
+                gap: 2rem;
               }
 
-              .value-bento-card {
-                padding: 2rem 1.5rem;
+              /* Symmetrical grid logic */
+              .value-bento-card:nth-child(1),
+              .value-bento-card:nth-child(2) {
+                grid-column: span 3;
+              }
+
+              .value-bento-card:nth-child(3),
+              .value-bento-card:nth-child(4),
+              .value-bento-card:nth-child(5) {
+                grid-column: span 2;
+              }
+
+              .value-bento-card:nth-child(6),
+              .value-bento-card:nth-child(7) {
+                grid-column: span 3;
               }
             }
           </style>
@@ -1046,7 +1055,7 @@ a,
                   <div class="values_data"
                     style="position: relative !important; width: 100%; max-width: none; display: block !important; height: auto !important;">
                     <div class="values_heading" style="text-align: left; margin-bottom: 4rem;">
-                      <h2 class="heading-style-h2 gs-heading-reveal" style="font-size: 4rem; letter-spacing: -0.03em;">
+                      <h2 class="heading-style-h2 gs-heading-reveal" style="letter-spacing: -0.03em;">
                         <span class="heading-animated-highlight">What Drives Flurbix</span>
                       </h2>
                     </div>
@@ -1335,7 +1344,7 @@ a,
 
                 .footer_address-row {
                   display: flex;
-                  align-items: flex-start;
+                  align-items: center;
                   gap: 0.75rem;
                   color: rgba(255, 255, 255, 0.6);
                   font-size: 0.875rem;
@@ -1347,9 +1356,8 @@ a,
                   width: 18px;
                   height: 18px;
                   color: #0055FF;
-                  /* Flurbix blue accent */
                   flex-shrink: 0;
-                  margin-top: 2px;
+                  margin-top: 0;
                 }
 
                 .footer_links-new {
@@ -1399,39 +1407,122 @@ a,
                   transform: translateY(-2px);
                 }
 
+                /* ── Mobile Footer Redesign ── */
                 @media (max-width: 991px) {
-                  .footer_bottom-custom {
-                    grid-template-columns: 1fr;
-                    gap: 3rem;
+                  .footer_mobile-label {
+                    display: block !important;
+                    margin-bottom: 0.25rem;
                   }
 
+                  .footer_bottom-custom {
+                    grid-template-columns: 1fr;
+                    gap: 0;
+                    padding-top: 0;
+                    padding-bottom: 0;
+                  }
+
+                  /* Each column becomes a card-like section */
                   .footer_col {
-                    align-items: center !important;
-                    text-align: center !important;
+                    align-items: flex-start !important;
+                    text-align: left !important;
+                    gap: 1.25rem;
+                    padding: 1.75rem 0;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                  }
+
+                  .footer_col:last-child {
+                    border-bottom: none;
                   }
 
                   .footer_col.is-center,
                   .footer_col.is-right {
-                    align-items: center !important;
-                    text-align: center !important;
+                    align-items: flex-start !important;
+                    text-align: left !important;
+                  }
+
+                  /* Tagline */
+                  .footer_legal-text-new {
+                    font-size: 0.9rem;
+                    line-height: 1.65;
+                    max-width: 100% !important;
+                    color: rgba(255, 255, 255, 0.55);
+                  }
+
+                  /* Social icons — bigger touch targets */
+                  .footer_socials {
+                    gap: 0.75rem;
+                    margin-top: 0;
+                  }
+
+                  .footer_social-link {
+                    width: 44px;
+                    height: 44px;
+                    border-radius: 10px;
+                    background-color: rgba(255, 255, 255, 0.06);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                  }
+
+                  /* Contact info rows — icon left-aligned, text inline */
+                  .footer_address-box {
+                    gap: 1.1rem;
+                    width: 100%;
                   }
 
                   .footer_address-row {
-                    justify-content: flex-start !important;
-                    text-align: left !important;
+                    flex-direction: row !important;
                     align-items: flex-start !important;
+                    text-align: left !important;
+                    gap: 0.65rem;
+                    font-size: 0.875rem;
+                    color: rgba(255, 255, 255, 0.65);
+                    min-height: 36px;
                   }
 
                   .footer_address-icon {
-                    margin-top: 2px !important;
+                    width: 18px;
+                    height: 18px;
+                    flex-shrink: 0;
+                    margin-top: 2px;
+                  }
+
+                  /* Legal links — full-width pill style */
+                  .footer_links-new {
+                    gap: 0.75rem;
+                    width: 100%;
                   }
 
                   .footer_link-new {
-                    justify-content: center !important;
+                    justify-content: space-between !important;
+                    font-size: 0.9rem;
+                    color: rgba(255, 255, 255, 0.65);
+                    padding: 0.75rem 1rem;
+                    border-radius: 10px;
+                    background: rgba(255, 255, 255, 0.04);
+                    border: 1px solid rgba(255, 255, 255, 0.07);
+                    transition: background 0.2s ease, color 0.2s ease;
+                    min-height: 44px;
                   }
 
                   .footer_link-new:hover {
+                    background: rgba(0, 85, 255, 0.12);
+                    color: #fff;
                     transform: none !important;
+                  }
+                }
+
+                @media (max-width: 480px) {
+                  .footer_col {
+                    padding: 1.5rem 0;
+                  }
+
+                  .footer_social-link {
+                    width: 46px;
+                    height: 46px;
+                  }
+
+                  .footer_link-new {
+                    font-size: 0.875rem;
+                    padding: 0.8rem 1rem;
                   }
                 }
               </style>
@@ -1439,13 +1530,15 @@ a,
               <div class="footer_bottom-custom">
                 <!-- Left Side -->
                 <div class="footer_col is-left">
-                  <div class="footer_legal-text-new" style="display: none;">
-                  </div>
+                  <div class="footer_mobile-label"
+                    style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:none;">
+                    About</div>
                   <div class="footer_legal-text-new" style="max-width: 250px;">
                     Building digital experiences that empower businesses worldwide.
                   </div>
                   <div class="footer_socials">
-                    <a href="#" class="footer_social-link" aria-label="LinkedIn">
+                    <a href="https://www.linkedin.com/company/flurbix/" class="footer_social-link"
+                      aria-label="LinkedIn">
                       <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
                         <path
                           d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
@@ -1468,43 +1561,50 @@ a,
 
                 <!-- Center -->
                 <div class="footer_col is-center">
+                  <div class="footer_mobile-label"
+                    style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:none;">
+                    Contact</div>
                   <div class="footer_address-box">
                     <div class="footer_address-row">
                       <svg class="footer_address-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg" style="color: #a8cedb;">
+                        xmlns="http://www.w3.org/2000/svg" style="color: #ffffff;">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                           d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                           d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                       </svg>
-                      <span>G - 48, 2nd Floor<br>Sector - 03, Noida,<br>Pincode - 201301,<br>Uttar Pradesh, India</span>
+                      <span>30 N Gould St Ste R
+                        Sheridan,<br>Wyoming 82801, USA</span>
                     </div>
                     <div class="footer_address-row">
                       <svg class="footer_address-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg" style="color: #a8cedb;">
+                        xmlns="http://www.w3.org/2000/svg" style="color: #ffffff">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                           d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
                         </path>
                       </svg>
-                      <a href="mailto:info@flurbix.io"
+                      <a href="mailto:info@flurbix.com"
                         style="color: inherit; text-decoration: none; transition: color 0.2s;"
-                        onmouseover="this.style.color='#0055FF'"
-                        onmouseout="this.style.color='inherit'">info@flurbix.io</a>
+                        onmouseover="this.style.color='#60A5FA'"
+                        onmouseout="this.style.color='inherit'">info@flurbix.com</a>
                     </div>
                     <div class="footer_address-row">
                       <svg class="footer_address-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
+                        xmlns="http://www.w3.org/2000/svg" style="color: white;">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                           d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
                         </path>
                       </svg>
-                      <span>+1 (415) 123-4567</span>
+                      <span>+1 (917) 967 1694</span>
                     </div>
                   </div>
                 </div>
 
                 <!-- Right Side -->
                 <div class="footer_col is-right">
+                  <div class="footer_mobile-label"
+                    style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:none;">
+                    Legal</div>
                   <div class="footer_links-new">
                     <a href="terms.html" class="footer_link-new">
                       <span>Terms & Conditions</span>
@@ -1520,13 +1620,13 @@ a,
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                       </svg>
                     </a>
-                    <a href="support.html" class="footer_link-new">
+                    <!-- <a href="support.html" class="footer_link-new">
                       <span>Contact Support</span>
                       <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         style="opacity: 0.5;">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                       </svg>
-                    </a>
+                    </a> -->
                   </div>
                 </div>
               </div>

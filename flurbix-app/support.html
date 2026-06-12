@@ -1,17 +1,20 @@
 <!doctype html>
 <!-- Last Published: Wed Apr 29 2026 15:36:37 GMT+0000 (Coordinated Universal Time) -->
-<html data-wf-domain="www.flurbix.io" data-wf-page="69a89b86db7024ad67cc5904" data-wf-site="6998a7a4efcd66d9f2857e79" lang="en">
+<html data-wf-domain="www.flurbix.io" data-wf-page="69a89b86db7024ad67cc5904" data-wf-site="6998a7a4efcd66d9f2857e79"
+  lang="en">
 
 <head>
   <meta charset="utf-8" />
   <link href="https://cdn.prod.website-files.com" rel="preconnect" crossorigin="anonymous" />
   <title>Contact Support — Flurbix</title>
-  <meta content="Get in touch with Flurbix customer support. Call us, email us, or request a callback." name="description" />
+  <meta content="Get in touch with Flurbix customer support. Call us, email us, or request a callback."
+    name="description" />
   <meta content="Contact Support" property="og:title" />
-  <meta content="Get in touch with Flurbix customer support. Call us, email us, or request a callback." property="og:description" />
+  <meta content="Get in touch with Flurbix customer support. Call us, email us, or request a callback."
+    property="og:description" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <link href="https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/css/auxia.webflow.shared.a5289d5f4.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
-  
+  <link href="./css/main-css.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+
   <script type="text/javascript">
     !(function (o, c) {
       var n = c.documentElement,
@@ -44,7 +47,7 @@
       padding-bottom: 8rem;
       background-color: #fefdf5;
       background-size: 40px 40px;
-      background-image: 
+      background-image:
         linear-gradient(to right, rgba(11, 79, 255, 0.02) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(11, 79, 255, 0.02) 1px, transparent 1px);
       min-height: calc(100vh - 400px);
@@ -95,6 +98,8 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 2rem;
       margin-top: 2rem;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .support_card {
@@ -259,21 +264,116 @@
       line-height: 1.4;
     }
 
-    @media (max-width: 991px) {
+    /* Tablet landscape: 2 column cards */
+    @media (max-width: 1100px) and (min-width: 769px) {
+      .support_grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.75rem;
+      }
+
+      .support_card {
+        padding: 3rem 1.75rem;
+      }
+    }
+
+    /* Tablet portrait and below */
+    @media (max-width: 768px) {
       .support_grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
       }
+
       .support_title {
-        font-size: 2.25rem;
+        font-size: clamp(1.75rem, 6vw, 2.5rem);
       }
+
       .section_support {
         padding-top: 8rem;
-        padding-bottom: 6rem;
+        padding-bottom: 5rem;
+        align-items: flex-start;
       }
+
+      .support_card {
+        padding: 2.5rem 1.75rem;
+      }
+
+      .support_header {
+        margin-bottom: 2.5rem;
+      }
+
       .modal_container {
-        max-width: 90%;
+        max-width: 92%;
         padding: 2.5rem 1.5rem;
+      }
+    }
+
+    /* Mobile portrait */
+    @media (max-width: 479px) {
+      .support_container {
+        padding: 0 1rem;
+      }
+
+      .support_title {
+        font-size: clamp(1.5rem, 7.5vw, 2rem);
+      }
+
+      .support_subtitle {
+        font-size: 0.9rem;
+      }
+
+      .support_card {
+        padding: 2rem 1.25rem;
+        border-radius: 1.125rem;
+      }
+
+      .support_icon_wrap {
+        width: 3.5rem;
+        height: 3.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .support_icon {
+        width: 1.75rem;
+        height: 1.75rem;
+      }
+
+      .support_card_title {
+        font-size: 1.25rem;
+      }
+
+      .support_card_subtitle {
+        font-size: 0.875rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .support_card_btn,
+      .support_card_detail {
+        font-size: 1rem;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .section_support {
+        padding-top: 6rem;
+        padding-bottom: 3.5rem;
+      }
+
+      .modal_container {
+        max-width: 96%;
+        padding: 2rem 1.25rem;
+        border-radius: 1.125rem;
+      }
+
+      .modal_title {
+        font-size: 1.375rem;
+      }
+
+      .modal_subtitle {
+        font-size: 0.8rem;
       }
     }
   </style>
@@ -283,11 +383,15 @@
   <div id="smooth-wrapper" class="smooth-wrapper">
     <div id="smooth-content" class="page-wrapper">
       <div class="nav_fixed">
-        <div data-animation="default" class="navbar1_component w-nav" data-wf--navbar--variant="base" data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium" data-w-id="309bf2f7-5632-7b7b-3e3d-1c756b34abb6" role="banner" data-duration="400">
+        <div data-animation="default" class="navbar1_component w-nav" data-wf--navbar--variant="base"
+          data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium"
+          data-w-id="309bf2f7-5632-7b7b-3e3d-1c756b34abb6" role="banner" data-duration="400">
           <div class="navbar1_container">
             <a href="index.html" class="navbar1_logo-link w-nav-brand">
-              <img loading="lazy" src="/flurbix-logo.svg" style="max-height: 32px; width: auto; object-fit: contain;" alt="" class="navbar1_logo" />
-              <span class="navbar1_logo is-2" style="font-size: 26px; font-weight: 500; color: #111827; margin-left: 6px; letter-spacing: -0.02em">
+              <img loading="lazy" src="/src/assets/logo.png" style="max-height: 32px; width: auto; object-fit: contain;"
+                alt="" class="navbar1_logo" />
+              <span class="navbar1_logo is-2"
+                style="font-size: 26px; font-weight: 500; color: #111827; margin-left: 6px; letter-spacing: -0.02em">
                 flurbix
               </span>
             </a>
@@ -298,7 +402,7 @@
                   Platform
                 </a>
                 <a href="pricing.html" class="navbar1_link w-nav-link">Pricing</a>
-                
+
               </div>
               <div class="navbar1_menu-buttons">
                 <a href="en/demo.html" class="button is-small w-button">Request a demo</a>
@@ -316,7 +420,7 @@
           </div>
         </div>
       </div>
-      
+
       <main class="main-wrapper">
         <section class="section_support">
           <div class="support_container">
@@ -324,37 +428,45 @@
               <h1 class="support_title">How Can We <span>Help You?</span></h1>
               <p class="support_subtitle">Find answers to common questions or get in touch with our support team</p>
             </div>
-            
+
             <div class="support_grid">
               <!-- Card 1: Call Us -->
               <div class="support_card">
                 <div class="support_icon_wrap">
-                  <svg class="support_icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                  <svg class="support_icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+                    </path>
                   </svg>
                 </div>
                 <h2 class="support_card_title">Call Us</h2>
                 <p class="support_card_subtitle">Mon-Sat, 9 AM - 6 PM</p>
-                <a href="tel:+14151234567" class="support_card_detail">+1 (415) 123-4567</a>
+                <a href="tel:+14151234567" class="support_card_detail">+1 (917) 967 1694</a>
               </div>
-              
+
               <!-- Card 2: Email Us -->
               <div class="support_card">
                 <div class="support_icon_wrap">
-                  <svg class="support_icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                  <svg class="support_icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                    </path>
                   </svg>
                 </div>
                 <h2 class="support_card_title">Email Us</h2>
                 <p class="support_card_subtitle">Response in 24 hours</p>
                 <a href="mailto:support@flurbix.io" class="support_card_detail">support@flurbix.io</a>
               </div>
-              
+
               <!-- Card 3: Request a Callback -->
               <div class="support_card">
                 <div class="support_icon_wrap">
-                  <svg class="support_icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  <svg class="support_icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                   </svg>
                 </div>
                 <h2 class="support_card_title">Request a Callback</h2>
@@ -364,12 +476,13 @@
             </div>
           </div>
         </section>
-        
+
         <!-- Callback Modal -->
         <div id="callbackModal" class="modal_overlay" style="display: none;">
           <div class="modal_container">
             <button id="closeCallbackModal" class="modal_close_btn">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
@@ -377,7 +490,7 @@
             <div class="modal_content_wrap">
               <h2 class="modal_title">Request a Callback</h2>
               <p class="modal_subtitle">Fill out the details below and our team will call you back shortly.</p>
-              
+
               <form id="callbackForm" class="modal_form">
                 <div class="form_field-wrapper">
                   <label for="modalName" class="form_label">Your Name <span class="text-size-tiny">*</span></label>
@@ -388,7 +501,8 @@
                   <input class="form_input w-input" type="tel" id="modalPhone" required />
                 </div>
                 <div class="form_field-wrapper" style="margin-top: 1.25rem;">
-                  <label for="modalTime" class="form_label">Preferred Call Time <span class="text-size-tiny">*</span></label>
+                  <label for="modalTime" class="form_label">Preferred Call Time <span
+                      class="text-size-tiny">*</span></label>
                   <select class="form_input w-select" id="modalTime" required style="background-color: transparent;">
                     <option value="As soon as possible">As soon as possible</option>
                     <option value="Morning (9 AM - 12 PM)">Morning (9 AM - 12 PM)</option>
@@ -396,19 +510,26 @@
                     <option value="Evening (3 PM - 6 PM)">Evening (3 PM - 6 PM)</option>
                   </select>
                 </div>
-                <button type="submit" class="button w-button" style="margin-top: 2rem; width: 100%;">Submit Request</button>
+                <button type="submit" class="button w-button" style="margin-top: 2rem; width: 100%;">Submit
+                  Request</button>
               </form>
-              
+
               <!-- Success Screen -->
-              <div id="modalSuccess" class="modal_success_screen" style="display: none; text-align: center; padding: 1rem 0;">
-                <div class="modal_success_icon" style="width: 4rem; height: 4rem; margin: 0 auto 1.5rem; color: #0b4fff;">
+              <div id="modalSuccess" class="modal_success_screen"
+                style="display: none; text-align: center; padding: 1rem 0;">
+                <div class="modal_success_icon"
+                  style="width: 4rem; height: 4rem; margin: 0 auto 1.5rem; color: #0b4fff;">
                   <svg width="100%" height="100%" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="32" cy="32" r="31" stroke="currentColor" stroke-width="2"/>
-                    <path d="M20 32l8 8 16-16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="32" cy="32" r="31" stroke="currentColor" stroke-width="2" />
+                    <path d="M20 32l8 8 16-16" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round" />
                   </svg>
                 </div>
-                <h3 class="modal_success_title" style="font-size: 1.5rem; font-weight: 600; color: #111827; margin-bottom: 0.5rem;">Request Submitted!</h3>
-                <p class="modal_success_text" style="color: #4b5563;">Thank you. We will contact you at your preferred time.</p>
+                <h3 class="modal_success_title"
+                  style="font-size: 1.5rem; font-weight: 600; color: #111827; margin-bottom: 0.5rem;">Request Submitted!
+                </h3>
+                <p class="modal_success_text" style="color: #4b5563;">Thank you. We will contact you at your preferred
+                  time.</p>
               </div>
             </div>
           </div>
@@ -420,11 +541,13 @@
           <div class="container-large">
             <div class="footer_content" style="grid-row-gap : 0rem; padding-bottom: 0rem">
               <div class="footer_logo-wrap" style="text-align: center; padding: 2rem 0 4rem; overflow: hidden;">
-                <div class="footer_logo" style="font-size: clamp(4rem, 21vw, 320px); font-family: system-ui, -apple-system, sans-serif; font-weight: 500; letter-spacing: -0.04em; color: #FFFFFF; line-height: 1; display: inline-block;">
+                <div class="footer_logo"
+                  style="font-size: clamp(4rem, 21vw, 320px); font-family: system-ui, -apple-system, sans-serif; font-weight: 500; letter-spacing: -0.04em; color: #FFFFFF; line-height: 1; display: inline-block;">
                   <div class="footer_logo-text">Flurbi<span style="color: #000000;">x</span></div>
                 </div>
               </div>
-              <div class="footer_divider" style="width: 100%; height: 1px; background-color: rgba(240, 239, 227, 0.2); margin-bottom: 3rem;">
+              <div class="footer_divider"
+                style="width: 100%; height: 1px; background-color: rgba(240, 239, 227, 0.2); margin-bottom: 3rem;">
               </div>
               <style>
                 .footer_bottom-custom {
@@ -574,19 +697,23 @@
                     Building digital experiences that empower businesses worldwide.
                   </div>
                   <div class="footer_socials">
-                    <a href="https://www.linkedin.com/company/flurbix/" class="footer_social-link" aria-label="LinkedIn">
+                    <a href="https://www.linkedin.com/company/flurbix/" class="footer_social-link"
+                      aria-label="LinkedIn">
                       <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                        <path
+                          d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                       </svg>
                     </a>
                     <a href="tel:+1234567890" class="footer_social-link" aria-label="Phone">
                       <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M20 16.92v3a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 9.2 18.8 19.5 19.5 0 0 1 3.2 12.8 19.86 19.86 0 0 1 .08 4.18 2 2 0 0 1 2.06 2h3a2 2 0 0 1 2 1.72c.12.89.33 1.76.62 2.59a2 2 0 0 1-.45 2.11L6.1 9.55a16 16 0 0 0 8.35 8.35l1.13-1.13a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.59.62A2 2 0 0 1 20 16.92z" />
+                        <path
+                          d="M20 16.92v3a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 9.2 18.8 19.5 19.5 0 0 1 3.2 12.8 19.86 19.86 0 0 1 .08 4.18 2 2 0 0 1 2.06 2h3a2 2 0 0 1 2 1.72c.12.89.33 1.76.62 2.59a2 2 0 0 1-.45 2.11L6.1 9.55a16 16 0 0 0 8.35 8.35l1.13-1.13a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.59.62A2 2 0 0 1 20 16.92z" />
                       </svg>
                     </a>
                     <a href="#" class="footer_social-link" aria-label="Twitter">
                       <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                        <path
+                          d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
                       </svg>
                     </a>
                   </div>
@@ -596,23 +723,35 @@
                 <div class="footer_col is-center">
                   <div class="footer_address-box">
                     <div class="footer_address-row">
-                      <svg class="footer_address-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                      <svg class="footer_address-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                       </svg>
                       <span>G - 48, 2nd Floor<br>Sector - 44, Noida,<br>Uttar Pradesh, India</span>
                     </div>
                     <div class="footer_address-row">
-                      <svg class="footer_address-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                      <svg class="footer_address-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                        </path>
                       </svg>
-                      <a href="mailto:info@flurbix.io" style="color: inherit; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#0055FF'" onmouseout="this.style.color='inherit'">info@flurbix.io</a>
+                      <a href="mailto:info@flurbix.com"
+                        style="color: inherit; text-decoration: none; transition: color 0.2s;"
+                        onmouseover="this.style.color='#60A5FA'"
+                        onmouseout="this.style.color='inherit'">info@flurbix.com</a>
                     </div>
                     <div class="footer_address-row">
-                      <svg class="footer_address-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                      <svg class="footer_address-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+                        </path>
                       </svg>
-                      <span>+1 (415) 123-4567</span>
+                      <span>+1 (917) 967 1694</span>
                     </div>
                   </div>
                 </div>
@@ -622,27 +761,31 @@
                   <div class="footer_links-new">
                     <a href="terms.html" class="footer_link-new">
                       <span>Terms & Conditions</span>
-                      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="opacity: 0.5;">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        style="opacity: 0.5;">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                       </svg>
                     </a>
                     <a href="privacy-policy.html" class="footer_link-new">
                       <span>Privacy Policy</span>
-                      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="opacity: 0.5;">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        style="opacity: 0.5;">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                       </svg>
                     </a>
                     <a href="support.html" class="footer_link-new">
                       <span>Contact Support</span>
-                      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="opacity: 0.5;">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        style="opacity: 0.5;">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                       </svg>
                     </a>
                   </div>
                 </div>
               </div>
-              
-              <div class="footer_copyright" style="text-align: center; padding: 2rem 0; width: 100%; font-family: system-ui, -apple-system, sans-serif; font-size: 0.875rem; color: rgba(255, 255, 255, 0.6); border-top: 1px solid rgba(240, 239, 227, 0.2); margin-top: 2rem;">
+
+              <div class="footer_copyright"
+                style="text-align: center; padding: 2rem 0; width: 100%; font-family: system-ui, -apple-system, sans-serif; font-size: 0.875rem; color: rgba(255, 255, 255, 0.6); border-top: 1px solid rgba(240, 239, 227, 0.2); margin-top: 2rem;">
                 © 2026 Flurbix. All rights reserved.
               </div>
             </div>
@@ -652,20 +795,28 @@
     </div>
   </div>
 
-  <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=6998a7a4efcd66d9f2857e79" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-  <script src="https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/js/webflow.schunk.36b8fb49256177c8.js" type="text/javascript" integrity="sha384-4abIlA5/v7XaW1HMXKBgnUuhnjBYJ/Z9C1OSg4OhmVw9O3QeHJ/qJqFBERCDPv7G" crossorigin="anonymous"></script>
-  <script src="https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/js/webflow.schunk.272059baf7976b9f.js" type="text/javascript" integrity="sha384-Q8Kw0wgxCwgGXFVKGy4YNjC/vQQIKAtbv72QeLMirESLRRcpZmSAVYE52o4rObAm" crossorigin="anonymous"></script>
-  <script src="https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/js/webflow.bd61f32b.83f4cc4bd94f77de.js" type="text/javascript" integrity="sha384-+9k2rb8saWqFUy9JYr933XH8CIly04u7lOlUigr+SMYvlzA6ypiIVcBoebOnWXhA" crossorigin="anonymous"></script>
-  
+  <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=6998a7a4efcd66d9f2857e79"
+    type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/js/webflow.schunk.36b8fb49256177c8.js"
+    type="text/javascript" integrity="sha384-4abIlA5/v7XaW1HMXKBgnUuhnjBYJ/Z9C1OSg4OhmVw9O3QeHJ/qJqFBERCDPv7G"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/js/webflow.schunk.272059baf7976b9f.js"
+    type="text/javascript" integrity="sha384-Q8Kw0wgxCwgGXFVKGy4YNjC/vQQIKAtbv72QeLMirESLRRcpZmSAVYE52o4rObAm"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.prod.website-files.com/6998a7a4efcd66d9f2857e79/js/webflow.bd61f32b.83f4cc4bd94f77de.js"
+    type="text/javascript" integrity="sha384-+9k2rb8saWqFUy9JYr933XH8CIly04u7lOlUigr+SMYvlzA6ypiIVcBoebOnWXhA"
+    crossorigin="anonymous"></script>
+
   <script src="https://cdn.prod.website-files.com/gsap/3.15.0/gsap.min.js" type="text/javascript"></script>
   <script src="https://cdn.prod.website-files.com/gsap/3.15.0/ScrollTrigger.min.js" type="text/javascript"></script>
   <script src="https://cdn.prod.website-files.com/gsap/3.15.0/ScrollSmoother.min.js" type="text/javascript"></script>
-  
+
   <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", () => {
       // Register GSAP plugins
       gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-      
+
       // Initialize ScrollSmoother
       const smoother = ScrollSmoother.create({
         wrapper: "#smooth-wrapper",
@@ -676,14 +827,14 @@
 
       // Page entry animation
       gsap.set(".page-wrapper", { opacity: 1 });
-      
+
       gsap.from(".support_title", {
         y: 40,
         opacity: 0,
         duration: 1.2,
         ease: "power4.out"
       });
-      
+
       gsap.from(".support_subtitle", {
         y: 30,
         opacity: 0,
@@ -691,7 +842,7 @@
         delay: 0.15,
         ease: "power4.out"
       });
-      
+
       gsap.from(".support_card", {
         y: 60,
         opacity: 0,
@@ -763,8 +914,8 @@
               form.style.opacity = "1";
               form.style.transform = "none";
               successScreen.style.display = "block";
-              
-              gsap.fromTo(successScreen, 
+
+              gsap.fromTo(successScreen,
                 { opacity: 0, scale: 0.95 },
                 { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" }
               );

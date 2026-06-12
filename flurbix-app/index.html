@@ -266,6 +266,8 @@
       object-fit: cover;
       border-radius: inherit;
       margin: 0 !important;
+      position: relative;
+      z-index: 10;
     }
 
     .process_card {
@@ -1024,7 +1026,7 @@ a,
           data-w-id="309bf2f7-5632-7b7b-3e3d-1c756b34abb6" role="banner" data-duration="400">
           <div class="navbar1_container">
             <a href="index.html" aria-current="page" class="navbar1_logo-link w-nav-brand w--current">
-              <img loading="lazy" src="/flurbix-logo.svg" style="max-height: 32px; width: auto; object-fit: contain;"
+              <img loading="lazy" src="/src/assets/logo.png" style="max-height: 32px; width: auto; object-fit: contain;"
                 alt="" class="navbar1_logo" />
               <span class="navbar1_logo is-2"
                 style="font-size: 26px; font-weight: 500; color: #111827; margin-left: 6px; letter-spacing: -0.02em">
@@ -1500,6 +1502,7 @@ a,
             </div>
           </div>
         </section>
+        <!-- ==================== OLD section_galaxy_ecosystem (commented out for reference) ====================
         <section class="section_galaxy_ecosystem">
           <style>
             .section_galaxy_ecosystem {
@@ -1612,11 +1615,16 @@ a,
             }
 
             .galaxy-bottom-layout {
-              display: flex;
-              justify-content: center;
+              display: grid;
+              grid-template-columns: 1fr auto 1fr;
+              align-items: flex-end;
               width: 100%;
-              pointer-events: auto;
+              pointer-events: none;
               padding-bottom: 2rem;
+            }
+
+            .galaxy-bottom-layout>* {
+              pointer-events: auto;
             }
 
             /* Buttons */
@@ -1818,46 +1826,49 @@ a,
           <div id="galaxy-container">
             <div class="galaxy-stars"></div>
 
-            <!-- Static UI Layer (Overlay on top of 3D Canvas) -->
+            <!~~ Static UI Layer (Overlay on top of 3D Canvas) ~~>
             <div class="galaxy-ui-layer">
               <div class="galaxy-top-layout">
                 <div class="galaxy-heading-left">
                   <h2><span class="text-muted">Expand Beyond Borders.</span></h2>
                 </div>
                 <div class="galaxy-subheading-right">
-                  <!-- <p>Growth opportunities aren't limited by geography—they're limited by your ability to discover and
+                  <!~~ <p>Growth opportunities aren't limited by geography—they're limited by your ability to discover and
                     act on them.
 
                     Flurbix helps businesses identify emerging markets, uncover strategic opportunities, and build
                     meaningful connections across industries and regions. Whether you're entering new territories,
                     strengthening existing relationships, or scaling internationally, Flurbix provides the intelligence
-                    and infrastructure to support your growth journey.</p> -->
-                  <h1 style="font-size: 2rem; font-weight: 700; color: white;margin-top: 50px;">Growth has no
-                    boundaries.
-                    Neither should
-                    your business.
-                  </h1>
+                    and infrastructure to support your growth journey.</p> ~~>
                 </div>
               </div>
 
               <div class="galaxy-bottom-layout">
-                <div class="galaxy-buttons">
-                  <a href="#" class="galaxy-btn primary">Start Free Trial</a>
-                  <a href="en/demo.html" class="galaxy-btn secondary">Watch Demo</a>
+                <div class="galaxy-bottom-text" style="grid-column: 3; justify-self: end;">
+                  <h1 style="font-size: 2rem; font-weight: 700; color: white; margin: 0; line-height: 1.2;">Growth has
+                    no<br>
+                    boundaries.<br>
+                    Neither should<br>
+                    your business.
+                  </h1>
+                </div>
+                <div class="galaxy-buttons" style="grid-column: 2;">
+
+                  <a href="en/demo.html" class="galaxy-btn secondary">Book Demo</a>
                 </div>
               </div>
             </div>
 
-            <!-- CSS3D Templates for inside the globe -->
+            <!~~ CSS3D Templates for inside the globe ~~>
             <div class="galaxy-hidden-templates">
-              <!-- Center Logo Core -->
+              <!~~ Center Logo Core ~~>
               <div id="ecosystem-center-logo" class="galaxy-logo-core">
                 <img src="/src/assets/logo.png" alt="Flurbix Logo" />
               </div>
 
-              <!-- Client Logos Removed -->
+              <!~~ Client Logos Removed ~~>
 
-              <!-- Orbiting Icons -->
+              <!~~ Orbiting Icons ~~>
               <div id="icon-laptop" class="galaxy-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <rect x="2" y="3" width="20" height="14" rx="2"></rect>
@@ -1899,7 +1910,7 @@ a,
                 </svg>
               </div>
 
-              <!-- Live Metrics (Layer 3) -->
+              <!~~ Live Metrics (Layer 3) ~~>
               <div id="stat-android" class="galaxy-icon">
                 <svg viewBox="0 0 576 512" fill="currentColor" width="20" height="20">
                   <path
@@ -1938,7 +1949,693 @@ a,
             }, 100);
           });
         </script>
+        ==================== END OLD section_galaxy_ecosystem ==================== -->
 
+        <!-- ==================== NEW: Flurbix Data Intelligence Network ==================== -->
+        <section class="section_galaxy_ecosystem" style="position:relative;background:#050816;overflow:hidden;">
+          <style>
+            /* ── Grid background ── */
+            .fdin-gridbg {
+              position: absolute;
+              inset: 0;
+              pointer-events: none;
+              background-image:
+                linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px);
+              background-size: 40px 40px;
+              z-index: 0;
+            }
+
+            .fdin-radial {
+              position: absolute;
+              inset: 0;
+              pointer-events: none;
+              background: radial-gradient(circle at center, rgba(59, 130, 246, .22), transparent 55%);
+              z-index: 0;
+            }
+
+            .fdin-inner {
+              position: relative;
+              z-index: 1;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              /* justify-content: center; */
+              min-height: 100svh;
+              padding: clamp(16px, 4vw, 48px) clamp(12px, 4vw, 48px);
+            }
+
+            .fdin-h1 {
+              font-size: clamp(1.8rem, 5vw, 4.5rem);
+              font-weight: 900;
+              text-align: center;
+              background: linear-gradient(to right, #22d3ee, #8b5cf6);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+              line-height: 1.15;
+              margin: 0 0 14px;
+            }
+
+            .fdin-p {
+              max-width: 42rem;
+              text-align: center;
+              color: #94a3b8;
+              font-size: clamp(0.8rem, 1.8vw, 1rem);
+              margin: 0 0 0;
+            }
+
+            /* ── Diagram ── */
+            #fdin-diagram {
+              position: relative;
+              width: 100%;
+              aspect-ratio: 1200/700;
+              max-width: 1200px;
+              margin-top: clamp(8px, 2vw, 48px);
+            }
+
+            /* ── Glass util ── */
+            .fdin-glass {
+              background: rgba(255, 255, 255, .06);
+              backdrop-filter: blur(16px);
+              border: 1px solid rgba(255, 255, 255, .12);
+            }
+
+            /* ── Nodes ── */
+            .fdin-node {
+              position: absolute;
+              border-radius: 999px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              text-align: center;
+              cursor: default;
+              transition: transform .3s, box-shadow .3s, background .3s;
+              background: rgba(255, 255, 255, 0.10);
+              border: 1.5px solid rgba(255, 255, 255, 0.22);
+              box-shadow: 0 0 16px rgba(56, 189, 248, 0.18);
+              width: var(--fdin-ns, 76px);
+              height: var(--fdin-ns, 76px);
+            }
+
+            .fdin-node:hover {
+              transform: scale(1.12);
+              background: rgba(255, 255, 255, 0.18);
+              box-shadow: 0 0 28px rgba(56, 189, 248, 0.45);
+            }
+
+            .fdin-node .fdin-logo-wrap svg {
+              width: var(--fdin-ls, 26px);
+              height: var(--fdin-ls, 26px);
+            }
+
+            .fdin-node .fdin-node-label {
+              font-weight: 600;
+              letter-spacing: .03em;
+              color: rgba(255, 255, 255, .9);
+              margin-top: 2px;
+              font-size: var(--fdin-lfs, 9px);
+              white-space: nowrap;
+            }
+
+            /* ── Hub ── */
+            #fdin-hub {
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              transform: translateX(-50%) translateY(-50%);
+              border-radius: 999px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              z-index: 10;
+              width: var(--fdin-hs, 10rem);
+              height: var(--fdin-hs, 10rem);
+              /* animation: fdin-hubfloat 5s ease-in-out infinite; */
+            }
+
+            @keyframes fdin-hubfloat {
+
+              0%,
+              100% {
+                transform: translateX(-50%) translateY(-50%);
+              }
+
+              50% {
+                transform: translateX(-50%) translateY(calc(-50% - 12px));
+              }
+            }
+
+            @keyframes fdin-pulse {
+              50% {
+                box-shadow: 0 0 60px #38bdf8;
+              }
+            }
+
+            .fdin-hubring {
+              animation: fdin-pulse 3s infinite;
+            }
+
+            #fdin-hub .fdin-hub-title {
+              font-weight: 900;
+              line-height: 1;
+              font-size: var(--fdin-htfs, 1.25rem);
+              color: #fff;
+            }
+
+            #fdin-hub .fdin-hub-sub {
+              color: #94a3b8;
+              font-size: var(--fdin-hsfs, 0.875rem);
+              margin-top: 2px;
+            }
+
+            /* ── Stats ── */
+            .fdin-stats-grid {
+              display: grid;
+              grid-template-columns: repeat(2, 1fr);
+              gap: clamp(8px, 1.5vw, 24px);
+              width: 100%;
+              max-width: 64rem;
+              margin-top: clamp(16px, 2vw, 40px);
+            }
+
+            @media(min-width:640px) {
+              .fdin-stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+              }
+            }
+
+            .fdin-stat-card {
+              padding: clamp(12px, 2vw, 24px);
+              border-radius: 1rem;
+              text-align: center;
+              font-size: clamp(0.7rem, 1.5vw, 1rem);
+              color: #fff;
+            }
+
+            .fdin-counter {
+              font-size: clamp(1.2rem, 2.5vw, 2rem);
+              font-weight: 700;
+            }
+
+            .fdin-stat-big {
+              font-size: clamp(1.1rem, 2.5vw, 1.875rem);
+              font-weight: 700;
+              line-height: 1.2;
+            }
+          </style>
+
+          <div class="fdin-gridbg"></div>
+          <div class="fdin-radial"></div>
+
+          <div class="fdin-inner">
+            <h2 class="fdin-h1">
+              Discover Opportunities.<br>Drive Growth.
+            </h2>
+            <p class="fdin-p">
+              Flurbix automatically gathers data from your marketing, sales, social media, websites, databases, and
+              business tools and transforms it into a unified intelligence dashboard.
+            </p>
+
+            <!-- Diagram -->
+            <div id="fdin-diagram">
+              <svg id="fdin-mainsvg" style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 1200 700"
+                preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="fdin-g" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#22d3ee" />
+                    <stop offset="100%" stop-color="#8b5cf6" />
+                  </linearGradient>
+                  <filter id="fdin-glow" x="-60%" y="-60%" width="220%" height="220%">
+                    <feGaussianBlur stdDeviation="4" result="coloredBlur" />
+                    <feMerge>
+                      <feMergeNode in="coloredBlur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                  <filter id="fdin-shadow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="rgba(0,0,0,0.85)" />
+                  </filter>
+                </defs>
+                <g id="fdin-lines"></g>
+                <g id="fdin-packets"></g>
+              </svg>
+
+              <!-- Hub overlay -->
+              <div id="fdin-hub" class="fdin-glass fdin-hubring">
+                <div class="fdin-hub-title">Flurbi<span style="color:#06B6D4;">x</span></div>
+                <div class="fdin-hub-sub">Growth Engine</div>
+              </div>
+            </div>
+
+            <!-- Stats row -->
+            <div class="fdin-stats-grid">
+              <div class="fdin-glass fdin-stat-card">
+                <div class="fdin-counter" data-fdin-target="50">0</div>
+                <div>Data Sources</div>
+              </div>
+              <div class="fdin-glass fdin-stat-card">
+                <div class="fdin-counter" data-fdin-target="1000000">0</div>
+                <div>Records Processed</div>
+              </div>
+              <div class="fdin-glass fdin-stat-card">
+                <div class="fdin-stat-big">Real-Time</div>
+                <div>Sync</div>
+              </div>
+              <div class="fdin-glass fdin-stat-card">
+                <div class="fdin-stat-big">AI Powered</div>
+                <div>Insights</div>
+              </div>
+            </div>
+          </div>
+
+          <script>
+            (function () {
+              const labelLogos = {
+                "Google": `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>`,
+                "Facebook": `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/></svg>`,
+                "Instagram": `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="ig-fdin" cx="30%" cy="107%" r="150%"><stop offset="0%" stop-color="#fdf497"/><stop offset="5%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/></radialGradient></defs><rect width="24" height="24" rx="5" fill="url(#ig-fdin)"/><path d="M12 7.5A4.5 4.5 0 1 0 12 16.5 4.5 4.5 0 0 0 12 7.5zm0 7.4A2.9 2.9 0 1 1 12 9.1a2.9 2.9 0 0 1 0 5.8zm5.7-7.6a1.05 1.05 0 1 1-2.1 0 1.05 1.05 0 0 1 2.1 0z" fill="#fff"/></svg>`,
+                "LinkedIn": `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#0A66C2"/></svg>`,
+                "YouTube": `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="#FF0000"/></svg>`,
+                "X": `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#000"/><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.254 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#fff"/></svg>`,
+                "Website": `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="none" stroke="#38bdf8" stroke-width="1.5"/><ellipse cx="12" cy="12" rx="4" ry="10" fill="none" stroke="#38bdf8" stroke-width="1.5"/><line x1="2" y1="12" x2="22" y2="12" stroke="#38bdf8" stroke-width="1.5"/><line x1="4.5" y1="6.5" x2="19.5" y2="6.5" stroke="#38bdf8" stroke-width="1.5"/><line x1="4.5" y1="17.5" x2="19.5" y2="17.5" stroke="#38bdf8" stroke-width="1.5"/></svg>`,
+                "CRM": `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="#a78bfa" stroke-width="1.5"/><path d="M3 9h18M3 15h18M9 9v9" stroke="#a78bfa" stroke-width="1.5"/></svg>`,
+                "Database": `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="6" rx="9" ry="3" fill="none" stroke="#22d3ee" stroke-width="1.5"/><path d="M3 6v6c0 1.657 4.03 3 9 3s9-1.343 9-3V6" fill="none" stroke="#22d3ee" stroke-width="1.5"/><path d="M3 12v6c0 1.657 4.03 3 9 3s9-1.343 9-3v-6" fill="none" stroke="#22d3ee" stroke-width="1.5"/></svg>`,
+                "Email": `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="#34d399" stroke-width="1.5"/><polyline points="2,4 12,13 22,4" fill="none" stroke="#34d399" stroke-width="1.5"/></svg>`,
+                "WhatsApp": `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" fill="#25D366"/></svg>`,
+                "Analytics": `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12" fill="none" stroke="#f472b6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+                "Ads": `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 18v-6a9 9 0 0 1 18 0v6" fill="none" stroke="#fb923c" stroke-width="1.5" stroke-linecap="round"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="none" stroke="#fb923c" stroke-width="1.5"/></svg>`,
+                "Ecommerce": `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="3" y1="6" x2="21" y2="6" stroke="#fbbf24" stroke-width="1.5"/><path d="M16 10a4 4 0 0 1-8 0" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+              };
+              function svgToDataURI(s) { return "data:image/svg+xml," + encodeURIComponent(s.trim()); }
+              const labels = ["Google", "Facebook", "Instagram", "LinkedIn", "YouTube", "X", "Website", "CRM", "Database", "Email", "WhatsApp", "Analytics", "Ads", "Ecommerce"];
+              const wrap = document.getElementById("fdin-diagram");
+              const linesG = document.getElementById("fdin-lines");
+              const packetsG = document.getElementById("fdin-packets");
+              const NS = "http://www.w3.org/2000/svg";
+              const XLINK = "http://www.w3.org/1999/xlink";
+              const VW = 1200, VH = 700, cx = 600, cy = 350, r = 290;
+              function getSizes() {
+                const w = wrap.offsetWidth;
+                const s = Math.min(w / 1200, 1);
+                return {
+                  ns: Math.max(32, Math.round(76 * s)) + "px",
+                  ls: Math.max(12, Math.round(26 * s)) + "px",
+                  lfs: Math.max(6, Math.round(9 * s)) + "px",
+                  hs: Math.max(52, Math.round(160 * s)) + "px",
+                  htfs: Math.max(10, Math.round(20 * s)) + "px",
+                  hsfs: Math.max(7, Math.round(14 * s)) + "px",
+                  half: Math.max(16, Math.round(38 * s)),
+                  packetR: Math.max(8, Math.round(18 * s * (VW / w))),
+                  packetLogo: Math.max(12, Math.round(28 * s * (VW / w))),
+                  lineW: Math.max(0.5, 1.5 * s * (VW / w))
+                };
+              }
+              function buildDiagram() {
+                linesG.innerHTML = ""; packetsG.innerHTML = "";
+                wrap.querySelectorAll(".fdin-node").forEach(n => n.remove());
+                const sz = getSizes();
+                wrap.style.setProperty("--fdin-ns", sz.ns);
+                wrap.style.setProperty("--fdin-ls", sz.ls);
+                wrap.style.setProperty("--fdin-lfs", sz.lfs);
+                wrap.style.setProperty("--fdin-hs", sz.hs);
+                wrap.style.setProperty("--fdin-htfs", sz.htfs);
+                wrap.style.setProperty("--fdin-hsfs", sz.hsfs);
+                labels.forEach((n, i) => {
+                  const a = (Math.PI * 2 / labels.length) * i - Math.PI / 2;
+                  const x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
+                  const node = document.createElement("div");
+                  node.className = "fdin-node fdin-glass";
+                  node.style.left = `calc(${(x / VW) * 100}% - ${sz.half}px)`;
+                  node.style.top = `calc(${(y / VH) * 100}% - ${sz.half}px)`;
+                  node.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;"><div class="fdin-logo-wrap" style="display:flex;align-items:center;justify-content:center;">${labelLogos[n]}</div><div class="fdin-node-label">${n}</div></div>`;
+                  wrap.appendChild(node);
+                  // SVG path
+                  const qx = (x + cx) / 2, qy = (y + cy) / 2 - 50;
+                  const d = `M ${x} ${y} Q ${qx} ${qy} ${cx} ${cy}`;
+                  const pathEl = document.createElementNS(NS, "path");
+                  pathEl.setAttribute("d", d); pathEl.setAttribute("id", `fdin-path${i}`);
+                  pathEl.setAttribute("stroke", "url(#fdin-g)"); pathEl.setAttribute("stroke-width", sz.lineW);
+                  pathEl.setAttribute("fill", "none"); pathEl.setAttribute("opacity", "0.55");
+                  linesG.appendChild(pathEl);
+                  // Packet
+                  const pg = document.createElementNS(NS, "g");
+                  const bg = document.createElementNS(NS, "circle");
+                  bg.setAttribute("r", sz.packetR); bg.setAttribute("fill", "rgba(8,12,36,0.88)");
+                  bg.setAttribute("stroke", "rgba(255,255,255,0.28)");
+                  bg.setAttribute("stroke-width", Math.max(0.5, sz.lineW * 0.8));
+                  bg.setAttribute("filter", "url(#fdin-glow)"); pg.appendChild(bg);
+                  const h2 = sz.packetLogo / 2;
+                  const img = document.createElementNS(NS, "image");
+                  img.setAttribute("href", svgToDataURI(labelLogos[n]));
+                  img.setAttribute("x", -h2); img.setAttribute("y", -h2);
+                  img.setAttribute("width", sz.packetLogo); img.setAttribute("height", sz.packetLogo);
+                  img.setAttribute("filter", "url(#fdin-shadow)"); pg.appendChild(img);
+                  const anim = document.createElementNS(NS, "animateMotion");
+                  anim.setAttribute("dur", "3.5s"); anim.setAttribute("repeatCount", "indefinite");
+                  anim.setAttribute("begin", `${i * 0.25}s`); anim.setAttribute("rotate", "none");
+                  const mpath = document.createElementNS(NS, "mpath");
+                  mpath.setAttributeNS(XLINK, "xlink:href", `#fdin-path${i}`);
+                  anim.appendChild(mpath); pg.appendChild(anim); packetsG.appendChild(pg);
+                });
+              }
+              let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(buildDiagram, 120); });
+              buildDiagram();
+              // Counters
+              document.querySelectorAll(".fdin-counter").forEach(el => {
+                let target = +el.dataset.fdinTarget, c = 0;
+                const step = Math.max(1, Math.floor(target / 120));
+                const iv = setInterval(() => {
+                  c += step;
+                  if (c >= target) { c = target; clearInterval(iv); }
+                  el.textContent = target > 99999 ? (c / 1000000).toFixed(1) + "M+" : c + "+";
+                }, 20);
+              });
+            })();
+          </script>
+        </section>
+        <!-- ==================== END NEW: Flurbix Data Intelligence Network ==================== -->
+
+        <section class="section_process">
+          <div class="padding-global">
+            <div class="container-large">
+              <div class="process_content" style="padding-top: 5rem">
+                <div class="process_top">
+                  <div class="process_heading">
+                    <h2 class="heading-style-h2" style="font-size: 3.5rem; font-weight: 600;">
+                      Scale outreach. Simplify onboarding.
+                    </h2>
+                  </div>
+                  <p fd-paragraph="" class="process_p">
+                    Set your goals, and let Flurbix automate the rest. Discover opportunities, engage decision-makers,
+                    personalize outreach, and onboard new clients. <br /> All through one intelligent workflow.
+                  </p>
+                </div>
+                <div class="process_wrapper">
+                  <div class="process_wrap">
+                    <div class="process_step1">
+                      <div data-shadow="" class="process_start">
+                        <div>Start personalized outreach to your target clients</div>
+                      </div>
+                      <div class="process_progress-horizontal">
+                        <div class="process_progress"></div>
+                      </div>
+                      <div class="process_line-mbl is-small">
+                        <div class="process_progress-vertical">
+                          <div class="process_progress2"></div>
+                        </div>
+                      </div>
+                      <div class="process_cta">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 18 18" fill="none"
+                          class="process_icon">
+                          <path
+                            d="M10.3201 14.7432C10.5913 14.592 10.934 14.6889 11.0854 14.9601C11.2367 15.2313 11.1391 15.5741 10.8679 15.7254L10.0051 16.2074C9.38053 16.5558 8.61988 16.5558 7.99536 16.2074L7.13254 15.7254C6.8613 15.5741 6.7637 15.2313 6.91501 14.9601C7.06639 14.6889 7.40917 14.592 7.68036 14.7432L8.54316 15.2244C8.82711 15.3829 9.17331 15.3829 9.45726 15.2244L10.3201 14.7432Z"
+                            fill="currentColor"></path>
+                          <path
+                            d="M2.625 10.1719C2.9356 10.1719 3.18739 10.4238 3.1875 10.7344V11.6858C3.18762 12.0247 3.3709 12.3373 3.6665 12.5032L4.49414 12.9676C4.76495 13.1196 4.86146 13.4628 4.70948 13.7336C4.55741 14.0044 4.21421 14.1009 3.94336 13.9489L3.11573 13.4846C2.4653 13.1197 2.06262 12.4316 2.0625 11.6858V10.7344C2.0626 10.4238 2.3144 10.1719 2.625 10.1719Z"
+                            fill="currentColor"></path>
+                          <path
+                            d="M15.3752 10.1719C15.6858 10.1719 15.9376 10.4238 15.9377 10.7344V11.6858C15.9376 12.4316 15.5349 13.1197 14.8845 13.4846L14.0569 13.9489C13.786 14.1009 13.4428 14.0044 13.2907 13.7336C13.1388 13.4628 13.2352 13.1196 13.5061 12.9676L14.3337 12.5032C14.6293 12.3373 14.8126 12.0247 14.8127 11.6858V10.7344C14.8128 10.4238 15.0646 10.1719 15.3752 10.1719Z"
+                            fill="currentColor"></path>
+                          <path
+                            d="M9 5.625C9.20333 5.625 9.3855 5.75016 9.45848 5.93994L9.94193 7.19604C10.0943 7.59212 10.4071 7.9057 10.8032 8.0581L12.0601 8.54147C12.2497 8.61452 12.375 8.7967 12.375 9.00002C12.3749 9.20327 12.2497 9.38552 12.0601 9.4585L10.8032 9.94187C10.4072 10.0943 10.0943 10.4072 9.94193 10.8032L9.45848 12.06C9.38543 12.2497 9.20325 12.375 9 12.375C8.79675 12.375 8.61457 12.2497 8.54152 12.06L8.05807 10.8032C7.90575 10.4072 7.59278 10.0943 7.19678 9.94187L5.93994 9.4585C5.75024 9.38552 5.62506 9.20327 5.625 9.00002C5.625 8.7967 5.75025 8.61452 5.93994 8.54147L7.19678 8.0581C7.59285 7.9057 7.90575 7.59212 8.05807 7.19604L8.54152 5.93994C8.6145 5.75016 8.79667 5.625 9 5.625Z"
+                            fill="currentColor"></path>
+                          <path
+                            d="M3.94336 4.05248C4.21425 3.90049 4.55744 3.99697 4.70948 4.26781C4.86137 4.53869 4.76496 4.88191 4.49414 5.03392L3.6665 5.49828C3.3709 5.66416 3.18757 5.9767 3.1875 6.31567V7.26708C3.18731 7.57756 2.93554 7.82956 2.625 7.82956C2.31446 7.82956 2.06269 7.57756 2.0625 7.26708V6.31567C2.06257 5.56984 2.46529 4.88181 3.11573 4.51684L3.94336 4.05248Z"
+                            fill="currentColor"></path>
+                          <path
+                            d="M13.2907 4.26781C13.4427 3.99696 13.7859 3.90049 14.0568 4.05248L14.8845 4.51683C15.5349 4.88181 15.9376 5.56983 15.9377 6.31566V7.26708C15.9375 7.57756 15.6858 7.82956 15.3752 7.82956C15.0646 7.82956 14.8128 7.57756 14.8127 7.26708V6.31566C14.8126 5.9767 14.6293 5.66416 14.3337 5.49828L13.506 5.03392C13.2352 4.88191 13.1388 4.5387 13.2907 4.26781Z"
+                            fill="currentColor"></path>
+                          <path
+                            d="M7.99539 1.79258C8.61992 1.44414 9.38057 1.44414 10.0051 1.79258L10.8679 2.27451C11.1392 2.42592 11.2368 2.76863 11.0855 3.03989C10.934 3.31094 10.5912 3.40787 10.3201 3.25669L9.45729 2.77549C9.17334 2.61701 8.82714 2.61701 8.54319 2.77549L7.68039 3.25669C7.40924 3.40787 7.06645 3.31094 6.91504 3.03989C6.76366 2.76863 6.86134 2.42592 7.13257 2.27451L7.99539 1.79258Z"
+                            fill="currentColor"></path>
+                        </svg>
+                        <div>Let Flurbix Understand Your Business</div>
+                      </div>
+                    </div>
+                    <div class="process_lines-wrap">
+                      <div class="process_lines w-embed">
+                        <svg width="100%" height="100%" viewBox="0 0 940 369" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path id="process-white"
+                            d="M939 0V156.326C939 169.581 928.255 180.326 915 180.326H25C11.7452 180.326 1 191.071 1 204.326V369"
+                            stroke="#E2E1D3" stroke-width="2" />
+                          <path id="process-blue"
+                            d="M939 0V156.326C939 169.581 928.255 180.326 915 180.326H25C11.7452 180.326 1 191.071 1 204.326V369"
+                            stroke="#0B4FFF" stroke-width="2" />
+                        </svg>
+                      </div>
+                      <div class="process_lines-mbl w-embed">
+                        <svg width="100%" height="100%" viewBox="0 0 296 320" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path id="process-m-white"
+                            d="M148 0V56C148 69.2548 137.255 80 124 80H25C11.7452 80 1 90.7452 1 104V136C1 149.255 11.7452 160 25 160H271C284.255 160 295 170.745 295 184V216C295 229.255 284.255 240 271 240H172C158.745 240 148 250.745 148 264V320"
+                            stroke="#E2E1D3" stroke-width="2" />
+                          <path id="process-m-blue"
+                            d="M148 0V56C148 69.2548 137.255 80 124 80H25C11.7452 80 1 90.7452 1 104V136C1 149.255 11.7452 160 25 160H271C284.255 160 295 170.745 295 184V216C295 229.255 284.255 240 271 240H172C158.745 240 148 250.745 148 264V320"
+                            stroke="#0B4FFF" stroke-width="2" />
+                        </svg>
+                      </div>
+                      <div class="process_tag">
+                        <div class="process_tag-text">scanning target clients
+                        </div>
+                      </div>
+                    </div>
+                    <div class="process_wrap">
+                      <div class="process_steps">
+                        <div class="process_step-wrap">
+                          <div class="process_cta">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 18 18" fill="none"
+                              class="process_icon">
+                              <path
+                                d="M2.8125 3.75C2.50184 3.75 2.25 4.00184 2.25 4.3125C2.25 4.62316 2.50184 4.875 2.8125 4.875H15.1875C15.4981 4.875 15.75 4.62316 15.75 4.3125C15.75 4.00184 15.4981 3.75 15.1875 3.75H2.8125Z"
+                                fill="currentColor"></path>
+                              <path
+                                d="M13.2531 7.62345C13.1578 7.43288 12.9631 7.3125 12.75 7.3125C12.5369 7.3125 12.3422 7.43288 12.2469 7.62345L11.2057 9.70575L9.12345 10.7469C8.93288 10.8421 8.8125 11.0369 8.8125 11.25C8.8125 11.4631 8.93288 11.6579 9.12345 11.7531L11.2057 12.7943L12.2469 14.8765C12.3422 15.0671 12.5369 15.1875 12.75 15.1875C12.9631 15.1875 13.1578 15.0671 13.2531 14.8765L14.2943 12.7943L16.3765 11.7531C16.5671 11.6579 16.6875 11.4631 16.6875 11.25C16.6875 11.0369 16.5671 10.8421 16.3765 10.7469L14.2943 9.70575L13.2531 7.62345Z"
+                                fill="currentColor"></path>
+                              <path
+                                d="M2.8125 8.4375C2.50184 8.4375 2.25 8.68935 2.25 9C2.25 9.31065 2.50184 9.5625 2.8125 9.5625H6.9375C7.24816 9.5625 7.5 9.31065 7.5 9C7.5 8.68935 7.24816 8.4375 6.9375 8.4375H2.8125Z"
+                                fill="currentColor"></path>
+                              <path
+                                d="M2.8125 13.125C2.50184 13.125 2.25 13.3769 2.25 13.6875C2.25 13.9981 2.50184 14.25 2.8125 14.25H5.4375C5.74816 14.25 6 13.9981 6 13.6875C6 13.3769 5.74816 13.125 5.4375 13.125H2.8125Z"
+                                fill="currentColor"></path>
+                            </svg>
+                            <div>
+                              Configure Desire Details
+                            </div>
+                          </div>
+                          <div class="process_text">
+                            Flurbix's agents analyze your target brand and audience to create a brief and execution
+                            plan.
+                          </div>
+                          <div class="process_progress-vertical hide-tablet">
+                            <div class="process_progress2"></div>
+                          </div>
+                        </div>
+                        <div project-brief="" data-shadow="" data-card="" class="process_card">
+                          <div class="process_h">Let Flurbix Understand Your Business</div>
+                          <div class="text-style-muted text-size-small"
+                            style="display: flex; align-items: flex-start; gap: 2px; margin-bottom: 2px;">
+                            <div>
+                              Submit your website or app, and Flurbix analyzes your business, offering, audience, and
+                              growth objectives.
+                            </div>
+                          </div>
+                          <img src="src/assets/image copy 2.png" alt="">
+                        </div>
+                        <div class="process_line-mbl">
+                          <div class="process_progress-vertical">
+                            <div class="process_progress2"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="process_lines-wrap">
+                        <div class="process_lines is-alt w-embed">
+                          <svg width="100%" height="100%" viewBox="0 0 940 369" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path id="process-white"
+                              d="M1.00001 0V156.326C1.00001 169.581 11.7452 180.326 25 180.326H915C928.255 180.326 939 191.071 939 204.326V369"
+                              stroke="#E2E1D3" stroke-width="2" />
+                            <path id="process-blue"
+                              d="M1.00001 0V156.326C1.00001 169.581 11.7452 180.326 25 180.326H915C928.255 180.326 939 191.071 939 204.326V369"
+                              stroke="#0B4FFF" stroke-width="2" />
+                          </svg>
+                        </div>
+                        <div class="process_lines-mbl w-embed">
+                          <svg width="100%" height="100%" viewBox="0 0 296 320" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path id="process-m-white"
+                              d="M148 0V56C148 69.2548 137.255 80 124 80H25C11.7452 80 1 90.7452 1 104V136C1 149.255 11.7452 160 25 160H271C284.255 160 295 170.745 295 184V216C295 229.255 284.255 240 271 240H172C158.745 240 148 250.745 148 264V320"
+                              stroke="#E2E1D3" stroke-width="2" />
+                            <path id="process-m-blue"
+                              d="M148 0V56C148 69.2548 137.255 80 124 80H25C11.7452 80 1 90.7452 1 104V136C1 149.255 11.7452 160 25 160H271C284.255 160 295 170.745 295 184V216C295 229.255 284.255 240 271 240H172C158.745 240 148 250.745 148 264V320"
+                              stroke="#0B4FFF" stroke-width="2" />
+                          </svg>
+                        </div>
+                        <div class="process_tag">
+                          <div class="process_tag-text">Generate Personalized Outreach </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="process_wrap">
+                      <div class="process_steps">
+                        <div data-card="" data-shadow="" class="process_card3">
+                          <img src="src/assets/hero2.png" alt="">
+                        </div>
+                        <div class="process_line-mbl">
+                          <div class="process_progress-vertical">
+                            <div class="process_progress2"></div>
+                          </div>
+                        </div>
+                        <div class="process_step-wrap">
+                          <div class="process_cta">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 18 18" fill="none"
+                              class="process_icon">
+                              <path
+                                d="M2.8125 3.75C2.50184 3.75 2.25 4.00184 2.25 4.3125C2.25 4.62316 2.50184 4.875 2.8125 4.875H15.1875C15.4981 4.875 15.75 4.62316 15.75 4.3125C15.75 4.00184 15.4981 3.75 15.1875 3.75H2.8125Z"
+                                fill="currentColor"></path>
+                              <path
+                                d="M13.2531 7.62345C13.1578 7.43288 12.9631 7.3125 12.75 7.3125C12.5369 7.3125 12.3422 7.43288 12.2469 7.62345L11.2057 9.70575L9.12345 10.7469C8.93288 10.8421 8.8125 11.0369 8.8125 11.25C8.8125 11.4631 8.93288 11.6579 9.12345 11.7531L11.2057 12.7943L12.2469 14.8765C12.3422 15.0671 12.5369 15.1875 12.75 15.1875C12.9631 15.1875 13.1578 15.0671 13.2531 14.8765L14.2943 12.7943L16.3765 11.7531C16.5671 11.6579 16.6875 11.4631 16.6875 11.25C16.6875 11.0369 16.5671 10.8421 16.3765 10.7469L14.2943 9.70575L13.2531 7.62345Z"
+                                fill="currentColor"></path>
+                              <path
+                                d="M2.8125 8.4375C2.50184 8.4375 2.25 8.68935 2.25 9C2.25 9.31065 2.50184 9.5625 2.8125 9.5625H6.9375C7.24816 9.5625 7.5 9.31065 7.5 9C7.5 8.68935 7.24816 8.4375 6.9375 8.4375H2.8125Z"
+                                fill="currentColor"></path>
+                              <path
+                                d="M2.8125 13.125C2.50184 13.125 2.25 13.3769 2.25 13.6875C2.25 13.9981 2.50184 14.25 2.8125 14.25H5.4375C5.74816 14.25 6 13.9981 6 13.6875C6 13.3769 5.74816 13.125 5.4375 13.125H2.8125Z"
+                                fill="currentColor"></path>
+                            </svg>
+                            <div>Client Engagement</div>
+                          </div>
+                          <div class="process_text">
+                            Generate Flurbix-powered communication tailored to initiate relevant conversations and drive
+                            engagement.
+                          </div>
+                          <div class="process_progress-vertical is-alt hide-tablet">
+                            <div class="process_progress2"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="process_lines-wrap">
+                        <div class="process_lines w-embed">
+                          <svg width="100%" height="100%" viewBox="0 0 940 369" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path id="process-white"
+                              d="M939 0V156.326C939 169.581 928.255 180.326 915 180.326H25C11.7452 180.326 1 191.071 1 204.326V369"
+                              stroke="#E2E1D3" stroke-width="2" />
+                            <path id="process-blue"
+                              d="M939 0V156.326C939 169.581 928.255 180.326 915 180.326H25C11.7452 180.326 1 191.071 1 204.326V369"
+                              stroke="#0B4FFF" stroke-width="2" />
+                          </svg>
+                        </div>
+                        <div class="process_lines-mbl w-embed">
+                          <svg width="100%" height="100%" viewBox="0 0 296 320" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path id="process-m-white"
+                              d="M148 0V56C148 69.2548 137.255 80 124 80H25C11.7452 80 1 90.7452 1 104V136C1 149.255 11.7452 160 25 160H271C284.255 160 295 170.745 295 184V216C295 229.255 284.255 240 271 240H172C158.745 240 148 250.745 148 264V320"
+                              stroke="#E2E1D3" stroke-width="2" />
+                            <path id="process-m-blue"
+                              d="M148 0V56C148 69.2548 137.255 80 124 80H25C11.7452 80 1 90.7452 1 104V136C1 149.255 11.7452 160 25 160H271C284.255 160 295 170.745 295 184V216C295 229.255 284.255 240 271 240H172C158.745 240 148 250.745 148 264V320"
+                              stroke="#0B4FFF" stroke-width="2" />
+                          </svg>
+                        </div>
+                        <div class="process_tag">
+                          <div class="process_tag-text">Automating Sequences</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="process_wrap">
+                      <div class="process_steps">
+                        <div class="process_step-wrap">
+                          <div class="process_cta">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 18 18" fill="none"
+                              class="process_icon">
+                              <path
+                                d="M2.8125 3.75C2.50184 3.75 2.25 4.00184 2.25 4.3125C2.25 4.62316 2.50184 4.875 2.8125 4.875H15.1875C15.4981 4.875 15.75 4.62316 15.75 4.3125C15.75 4.00184 15.4981 3.75 15.1875 3.75H2.8125Z"
+                                fill="currentColor"></path>
+                              <path
+                                d="M13.2531 7.62345C13.1578 7.43288 12.9631 7.3125 12.75 7.3125C12.5369 7.3125 12.3422 7.43288 12.2469 7.62345L11.2057 9.70575L9.12345 10.7469C8.93288 10.8421 8.8125 11.0369 8.8125 11.25C8.8125 11.4631 8.93288 11.6579 9.12345 11.7531L11.2057 12.7943L12.2469 14.8765C12.3422 15.0671 12.5369 15.1875 12.75 15.1875C12.9631 15.1875 13.1578 15.0671 13.2531 14.8765L14.2943 12.7943L16.3765 11.7531C16.5671 11.6579 16.6875 11.4631 16.6875 11.25C16.6875 11.0369 16.5671 10.8421 16.3765 10.7469L14.2943 9.70575L13.2531 7.62345Z"
+                                fill="currentColor"></path>
+                              <path
+                                d="M2.8125 8.4375C2.50184 8.4375 2.25 8.68935 2.25 9C2.25 9.31065 2.50184 9.5625 2.8125 9.5625H6.9375C7.24816 9.5625 7.5 9.31065 7.5 9C7.5 8.68935 7.24816 8.4375 6.9375 8.4375H2.8125Z"
+                                fill="currentColor"></path>
+                              <path
+                                d="M2.8125 13.125C2.50184 13.125 2.25 13.3769 2.25 13.6875C2.25 13.9981 2.50184 14.25 2.8125 14.25H5.4375C5.74816 14.25 6 13.9981 6 13.6875C6 13.3769 5.74816 13.125 5.4375 13.125H2.8125Z"
+                                fill="currentColor"></path>
+                            </svg>
+                            <div>Personalized Decision</div>
+                          </div>
+                          <div class="process_text">
+                            Flurbix's agents rank, score, and predict the optimal content, action, channel, and
+                            outreach frequency for every individual prospect in real time.
+
+                          </div>
+                          <div class="process_progress-vertical hide-tablet">
+                            <div class="process_progress2"></div>
+                          </div>
+                        </div>
+                        <div data-card="" class="process_card2">
+                          <img src="src/assets/Manage.png" alt="">
+                          <div class="process_card2-line">
+                            <div class="process_progress2"></div>
+                          </div>
+                        </div>
+                        <div class="process_half-mobile-wrap">
+                          <div class="process_lines-mbl is-alt w-embed">
+                            <svg width="100%" height="100%" viewBox="0 0 149 80" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M1 80L0.999999 56C0.999999 47.1634 8.16344 40 17 40L132 40C140.837 40 148 32.8365 148 24L148 -5.22175e-06"
+                                stroke="#E2E1D3" stroke-width="2" />
+                              <path id="process-m-blue" data-inverse
+                                d="M1 80L0.999999 56C0.999999 47.1634 8.16344 40 17 40L132 40C140.837 40 148 32.8365 148 24L148 -5.22175e-06"
+                                stroke="#0B4FFF" stroke-width="2" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="process_lines-wrap is-last">
+                        <div class="process_lines is-last w-embed">
+                          <svg width="100%" height="100%" viewBox="0 0 940 369" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path id="process-white"
+                              d="M1.00001 0V156.326C1.00001 169.581 11.7452 180.326 25 180.326H915C928.255 180.326 939 191.071 939 204.326V369"
+                              stroke="#E2E1D3" stroke-width="4" />
+                            <path id="process-blue"
+                              d="M1.00001 0V156.326C1.00001 169.581 11.7452 180.326 25 180.326H915C928.255 180.326 939 191.071 939 204.326V369"
+                              stroke="#0B4FFF" stroke-width="4" />
+                          </svg>
+                        </div>
+                        <div class="process_half-mobile-wrap is-2">
+                          <div class="process_lines-mbl is-alt w-embed">
+                            <svg width="100%" height="100%" viewBox="0 0 149 320" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path d="M1 0V136C1 149.255 11.7452 160 25 160H124C137.255 160 148 170.745 148 184V320"
+                                stroke="#E2E1D3" stroke-width="3" />
+                              <path id="process-m-blue"
+                                d="M1 0V136C1 149.255 11.7452 160 25 160H124C137.255 160 148 170.745 148 184V320"
+                                stroke="#0B4FFF" stroke-width="3" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="process_last"
+                        style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; padding-bottom: 6rem; position: relative; z-index: 10;">
+                        <h2 class="heading-style-h2">Redefine your Marketing</h2>
+                        <p fd-paragraph="" class="text-size-medium text-style-muted">
+                          Replace manual campaign management with a system that continuously learns, adapts, and drives
+                          better results over time.
+
+                        </p>
+                        <a fd-fade="" href="en/demo.html" class="button w-button">Book Demo</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
         <style>
           .section_dashboard_showcase {
             position: relative;
@@ -2415,66 +3112,6 @@ a,
             }
           }
         </style>
-
-        <section class="section_dashboard_showcase">
-          <div class="dash-bg-grid"></div>
-          <div class="dash-bg-glow1"></div>
-          <div class="dash-bg-glow2"></div>
-
-          <div class="dashboard-showcase-content">
-            <div class="dash-text-group">
-              <div class="dash-tag gs-dash-reveal">ENTERPRISE-GRADE</div>
-              <h2 class="dash-heading gs-dash-reveal">
-                <span class="text-style-supermuted">The All-In-One</span><br />
-                <span class="text-color-orange">Flurbix Dashboard</span>
-              </h2>
-              <p class="dash-subheading gs-dash-reveal">
-                Gain complete visibility over your outreach, analytics, and team workflows in one unified, intelligent
-                interface. Designed for speed, built for scale.
-              </p>
-            </div>
-
-            <div class="dash-mockup-perspective gs-dash-mockup">
-              <div class="dash-mockup-frame" id="dashFrame3D">
-                <div class="dash-mockup-header">
-                  <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-                </div>
-                <div class="custom-video-wrapper" id="customVideoWrapper">
-                  <img src="./src/assets/Dashboard.png" class="dash-img" id="dashboardImage" alt="Flurbix Dashboard"
-                    style="object-fit: cover;" />
-                </div>
-              </div>
-
-              <!-- Floating UI overlays -->
-              <div class="dash-float-card dash-float-1 gs-dash-float" data-speed="1.2">
-                <div class="df-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                  </svg>
-                </div>
-                <div>
-                  <div class="df-text">Live Analytics</div>
-                  <div class="df-subtext">Updating in real-time</div>
-                </div>
-              </div>
-
-              <div class="dash-float-card dash-float-2 gs-dash-float" data-speed="0.8">
-                <div class="df-icon" style="background: rgba(39, 201, 63, 0.2); color: #27c93f;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 11.08V12a10 10 10 0 1 1-5.93-9.14"></path>
-                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                  </svg>
-                </div>
-                <div>
-                  <div class="df-text">Campaign Active</div>
-                  <div class="df-subtext">98% delivery rate</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         <script>
           document.addEventListener("DOMContentLoaded", () => {
@@ -3563,320 +4200,61 @@ a,
             </div>
           </div>
         </section>
-        <section class="section_process">
-          <div class="padding-global">
-            <div class="container-large">
-              <div class="process_content" style="padding-top: 5rem">
-                <div class="process_top">
-                  <div class="process_heading">
-                    <h2 class="heading-style-h2" style="font-size: 3.5rem; font-weight: 600;">
-                      Scale outreach. Simplify onboarding.
-                    </h2>
-                  </div>
-                  <p fd-paragraph="" class="process_p">
-                    Set your goals, and let Flurbix automate the rest. Discover opportunities, engage decision-makers,
-                    personalize outreach, and onboard new clients. <br /> All through one intelligent workflow.
-                  </p>
+
+        <section class="section_dashboard_showcase">
+          <div class="dash-bg-grid"></div>
+          <div class="dash-bg-glow1"></div>
+          <div class="dash-bg-glow2"></div>
+
+          <div class="dashboard-showcase-content">
+            <div class="dash-text-group">
+              <!-- <div class="dash-tag gs-dash-reveal">ENTERPRISE-GRADE</div> -->
+              <h2 class="dash-heading gs-dash-reveal">
+                <span class="text-style-supermuted">The All-In-One</span><br />
+                <span class="text-color-orange">Flurbix Dashboard</span>
+              </h2>
+              <p class="dash-subheading gs-dash-reveal">
+                Gain complete visibility over your outreach, analytics, and team workflows in one unified, intelligent
+                interface. Designed for speed, built for scale.
+              </p>
+            </div>
+
+            <div class="dash-mockup-perspective gs-dash-mockup">
+              <div class="dash-mockup-frame" id="dashFrame3D">
+                <div class="dash-mockup-header">
+                  <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
                 </div>
-                <div class="process_wrapper">
-                  <div class="process_wrap">
-                    <div class="process_step1">
-                      <div data-shadow="" class="process_start">
-                        <div>Start personalized outreach to your target clients</div>
-                      </div>
-                      <div class="process_progress-horizontal">
-                        <div class="process_progress"></div>
-                      </div>
-                      <div class="process_line-mbl is-small">
-                        <div class="process_progress-vertical">
-                          <div class="process_progress2"></div>
-                        </div>
-                      </div>
-                      <div class="process_cta">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 18 18" fill="none"
-                          class="process_icon">
-                          <path
-                            d="M10.3201 14.7432C10.5913 14.592 10.934 14.6889 11.0854 14.9601C11.2367 15.2313 11.1391 15.5741 10.8679 15.7254L10.0051 16.2074C9.38053 16.5558 8.61988 16.5558 7.99536 16.2074L7.13254 15.7254C6.8613 15.5741 6.7637 15.2313 6.91501 14.9601C7.06639 14.6889 7.40917 14.592 7.68036 14.7432L8.54316 15.2244C8.82711 15.3829 9.17331 15.3829 9.45726 15.2244L10.3201 14.7432Z"
-                            fill="currentColor"></path>
-                          <path
-                            d="M2.625 10.1719C2.9356 10.1719 3.18739 10.4238 3.1875 10.7344V11.6858C3.18762 12.0247 3.3709 12.3373 3.6665 12.5032L4.49414 12.9676C4.76495 13.1196 4.86146 13.4628 4.70948 13.7336C4.55741 14.0044 4.21421 14.1009 3.94336 13.9489L3.11573 13.4846C2.4653 13.1197 2.06262 12.4316 2.0625 11.6858V10.7344C2.0626 10.4238 2.3144 10.1719 2.625 10.1719Z"
-                            fill="currentColor"></path>
-                          <path
-                            d="M15.3752 10.1719C15.6858 10.1719 15.9376 10.4238 15.9377 10.7344V11.6858C15.9376 12.4316 15.5349 13.1197 14.8845 13.4846L14.0569 13.9489C13.786 14.1009 13.4428 14.0044 13.2907 13.7336C13.1388 13.4628 13.2352 13.1196 13.5061 12.9676L14.3337 12.5032C14.6293 12.3373 14.8126 12.0247 14.8127 11.6858V10.7344C14.8128 10.4238 15.0646 10.1719 15.3752 10.1719Z"
-                            fill="currentColor"></path>
-                          <path
-                            d="M9 5.625C9.20333 5.625 9.3855 5.75016 9.45848 5.93994L9.94193 7.19604C10.0943 7.59212 10.4071 7.9057 10.8032 8.0581L12.0601 8.54147C12.2497 8.61452 12.375 8.7967 12.375 9.00002C12.3749 9.20327 12.2497 9.38552 12.0601 9.4585L10.8032 9.94187C10.4072 10.0943 10.0943 10.4072 9.94193 10.8032L9.45848 12.06C9.38543 12.2497 9.20325 12.375 9 12.375C8.79675 12.375 8.61457 12.2497 8.54152 12.06L8.05807 10.8032C7.90575 10.4072 7.59278 10.0943 7.19678 9.94187L5.93994 9.4585C5.75024 9.38552 5.62506 9.20327 5.625 9.00002C5.625 8.7967 5.75025 8.61452 5.93994 8.54147L7.19678 8.0581C7.59285 7.9057 7.90575 7.59212 8.05807 7.19604L8.54152 5.93994C8.6145 5.75016 8.79667 5.625 9 5.625Z"
-                            fill="currentColor"></path>
-                          <path
-                            d="M3.94336 4.05248C4.21425 3.90049 4.55744 3.99697 4.70948 4.26781C4.86137 4.53869 4.76496 4.88191 4.49414 5.03392L3.6665 5.49828C3.3709 5.66416 3.18757 5.9767 3.1875 6.31567V7.26708C3.18731 7.57756 2.93554 7.82956 2.625 7.82956C2.31446 7.82956 2.06269 7.57756 2.0625 7.26708V6.31567C2.06257 5.56984 2.46529 4.88181 3.11573 4.51684L3.94336 4.05248Z"
-                            fill="currentColor"></path>
-                          <path
-                            d="M13.2907 4.26781C13.4427 3.99696 13.7859 3.90049 14.0568 4.05248L14.8845 4.51683C15.5349 4.88181 15.9376 5.56983 15.9377 6.31566V7.26708C15.9375 7.57756 15.6858 7.82956 15.3752 7.82956C15.0646 7.82956 14.8128 7.57756 14.8127 7.26708V6.31566C14.8126 5.9767 14.6293 5.66416 14.3337 5.49828L13.506 5.03392C13.2352 4.88191 13.1388 4.5387 13.2907 4.26781Z"
-                            fill="currentColor"></path>
-                          <path
-                            d="M7.99539 1.79258C8.61992 1.44414 9.38057 1.44414 10.0051 1.79258L10.8679 2.27451C11.1392 2.42592 11.2368 2.76863 11.0855 3.03989C10.934 3.31094 10.5912 3.40787 10.3201 3.25669L9.45729 2.77549C9.17334 2.61701 8.82714 2.61701 8.54319 2.77549L7.68039 3.25669C7.40924 3.40787 7.06645 3.31094 6.91504 3.03989C6.76366 2.76863 6.86134 2.42592 7.13257 2.27451L7.99539 1.79258Z"
-                            fill="currentColor"></path>
-                        </svg>
-                        <div>Let Flurbix Understand Your Business</div>
-                      </div>
-                    </div>
-                    <div class="process_lines-wrap">
-                      <div class="process_lines w-embed">
-                        <svg width="100%" height="100%" viewBox="0 0 940 369" fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path id="process-white"
-                            d="M939 0V156.326C939 169.581 928.255 180.326 915 180.326H25C11.7452 180.326 1 191.071 1 204.326V369"
-                            stroke="#E2E1D3" stroke-width="2" />
-                          <path id="process-blue"
-                            d="M939 0V156.326C939 169.581 928.255 180.326 915 180.326H25C11.7452 180.326 1 191.071 1 204.326V369"
-                            stroke="#0B4FFF" stroke-width="2" />
-                        </svg>
-                      </div>
-                      <div class="process_lines-mbl w-embed">
-                        <svg width="100%" height="100%" viewBox="0 0 296 320" fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path id="process-m-white"
-                            d="M148 0V56C148 69.2548 137.255 80 124 80H25C11.7452 80 1 90.7452 1 104V136C1 149.255 11.7452 160 25 160H271C284.255 160 295 170.745 295 184V216C295 229.255 284.255 240 271 240H172C158.745 240 148 250.745 148 264V320"
-                            stroke="#E2E1D3" stroke-width="2" />
-                          <path id="process-m-blue"
-                            d="M148 0V56C148 69.2548 137.255 80 124 80H25C11.7452 80 1 90.7452 1 104V136C1 149.255 11.7452 160 25 160H271C284.255 160 295 170.745 295 184V216C295 229.255 284.255 240 271 240H172C158.745 240 148 250.745 148 264V320"
-                            stroke="#0B4FFF" stroke-width="2" />
-                        </svg>
-                      </div>
-                      <div class="process_tag">
-                        <div class="process_tag-text">scanning target clients
-                        </div>
-                      </div>
-                    </div>
-                    <div class="process_wrap">
-                      <div class="process_steps">
-                        <div class="process_step-wrap">
-                          <div class="process_cta">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 18 18" fill="none"
-                              class="process_icon">
-                              <path
-                                d="M2.8125 3.75C2.50184 3.75 2.25 4.00184 2.25 4.3125C2.25 4.62316 2.50184 4.875 2.8125 4.875H15.1875C15.4981 4.875 15.75 4.62316 15.75 4.3125C15.75 4.00184 15.4981 3.75 15.1875 3.75H2.8125Z"
-                                fill="currentColor"></path>
-                              <path
-                                d="M13.2531 7.62345C13.1578 7.43288 12.9631 7.3125 12.75 7.3125C12.5369 7.3125 12.3422 7.43288 12.2469 7.62345L11.2057 9.70575L9.12345 10.7469C8.93288 10.8421 8.8125 11.0369 8.8125 11.25C8.8125 11.4631 8.93288 11.6579 9.12345 11.7531L11.2057 12.7943L12.2469 14.8765C12.3422 15.0671 12.5369 15.1875 12.75 15.1875C12.9631 15.1875 13.1578 15.0671 13.2531 14.8765L14.2943 12.7943L16.3765 11.7531C16.5671 11.6579 16.6875 11.4631 16.6875 11.25C16.6875 11.0369 16.5671 10.8421 16.3765 10.7469L14.2943 9.70575L13.2531 7.62345Z"
-                                fill="currentColor"></path>
-                              <path
-                                d="M2.8125 8.4375C2.50184 8.4375 2.25 8.68935 2.25 9C2.25 9.31065 2.50184 9.5625 2.8125 9.5625H6.9375C7.24816 9.5625 7.5 9.31065 7.5 9C7.5 8.68935 7.24816 8.4375 6.9375 8.4375H2.8125Z"
-                                fill="currentColor"></path>
-                              <path
-                                d="M2.8125 13.125C2.50184 13.125 2.25 13.3769 2.25 13.6875C2.25 13.9981 2.50184 14.25 2.8125 14.25H5.4375C5.74816 14.25 6 13.9981 6 13.6875C6 13.3769 5.74816 13.125 5.4375 13.125H2.8125Z"
-                                fill="currentColor"></path>
-                            </svg>
-                            <div>
-                              Configure your Desired Details
-                            </div>
-                          </div>
-                          <div class="process_text">
-                            Flurbix's agents analyze your target brand and audience to create a brief and execution
-                            plan.
-                          </div>
-                          <div class="process_progress-vertical hide-tablet">
-                            <div class="process_progress2"></div>
-                          </div>
-                        </div>
-                        <div project-brief="" data-shadow="" data-card="" class="process_card">
-                          <div class="process_h">Let Flurbix Understand Your Business</div>
-                          <div class="text-style-muted text-size-small"
-                            style="display: flex; align-items: flex-start; gap: 2px; margin-bottom: 2px;">
-                            <div>
-                              Submit your website or app, and Flurbix analyzes your business, offering, audience, and
-                              growth objectives.
-                            </div>
-                          </div>
-                          <img src="src/assets/image copy 2.png" alt="">
-                        </div>
-                        <div class="process_line-mbl">
-                          <div class="process_progress-vertical">
-                            <div class="process_progress2"></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="process_lines-wrap">
-                        <div class="process_lines is-alt w-embed">
-                          <svg width="100%" height="100%" viewBox="0 0 940 369" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path id="process-white"
-                              d="M1.00001 0V156.326C1.00001 169.581 11.7452 180.326 25 180.326H915C928.255 180.326 939 191.071 939 204.326V369"
-                              stroke="#E2E1D3" stroke-width="2" />
-                            <path id="process-blue"
-                              d="M1.00001 0V156.326C1.00001 169.581 11.7452 180.326 25 180.326H915C928.255 180.326 939 191.071 939 204.326V369"
-                              stroke="#0B4FFF" stroke-width="2" />
-                          </svg>
-                        </div>
-                        <div class="process_lines-mbl w-embed">
-                          <svg width="100%" height="100%" viewBox="0 0 296 320" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path id="process-m-white"
-                              d="M148 0V56C148 69.2548 137.255 80 124 80H25C11.7452 80 1 90.7452 1 104V136C1 149.255 11.7452 160 25 160H271C284.255 160 295 170.745 295 184V216C295 229.255 284.255 240 271 240H172C158.745 240 148 250.745 148 264V320"
-                              stroke="#E2E1D3" stroke-width="2" />
-                            <path id="process-m-blue"
-                              d="M148 0V56C148 69.2548 137.255 80 124 80H25C11.7452 80 1 90.7452 1 104V136C1 149.255 11.7452 160 25 160H271C284.255 160 295 170.745 295 184V216C295 229.255 284.255 240 271 240H172C158.745 240 148 250.745 148 264V320"
-                              stroke="#0B4FFF" stroke-width="2" />
-                          </svg>
-                        </div>
-                        <div class="process_tag">
-                          <div class="process_tag-text">Generate Personalized Outreach </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="process_wrap">
-                      <div class="process_steps">
-                        <div data-card="" data-shadow="" class="process_card3">
-                          <img src="src/assets/hero2.png" alt="">
-                        </div>
-                        <div class="process_line-mbl">
-                          <div class="process_progress-vertical">
-                            <div class="process_progress2"></div>
-                          </div>
-                        </div>
-                        <div class="process_step-wrap">
-                          <div class="process_cta">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 18 18" fill="none"
-                              class="process_icon">
-                              <path
-                                d="M2.8125 3.75C2.50184 3.75 2.25 4.00184 2.25 4.3125C2.25 4.62316 2.50184 4.875 2.8125 4.875H15.1875C15.4981 4.875 15.75 4.62316 15.75 4.3125C15.75 4.00184 15.4981 3.75 15.1875 3.75H2.8125Z"
-                                fill="currentColor"></path>
-                              <path
-                                d="M13.2531 7.62345C13.1578 7.43288 12.9631 7.3125 12.75 7.3125C12.5369 7.3125 12.3422 7.43288 12.2469 7.62345L11.2057 9.70575L9.12345 10.7469C8.93288 10.8421 8.8125 11.0369 8.8125 11.25C8.8125 11.4631 8.93288 11.6579 9.12345 11.7531L11.2057 12.7943L12.2469 14.8765C12.3422 15.0671 12.5369 15.1875 12.75 15.1875C12.9631 15.1875 13.1578 15.0671 13.2531 14.8765L14.2943 12.7943L16.3765 11.7531C16.5671 11.6579 16.6875 11.4631 16.6875 11.25C16.6875 11.0369 16.5671 10.8421 16.3765 10.7469L14.2943 9.70575L13.2531 7.62345Z"
-                                fill="currentColor"></path>
-                              <path
-                                d="M2.8125 8.4375C2.50184 8.4375 2.25 8.68935 2.25 9C2.25 9.31065 2.50184 9.5625 2.8125 9.5625H6.9375C7.24816 9.5625 7.5 9.31065 7.5 9C7.5 8.68935 7.24816 8.4375 6.9375 8.4375H2.8125Z"
-                                fill="currentColor"></path>
-                              <path
-                                d="M2.8125 13.125C2.50184 13.125 2.25 13.3769 2.25 13.6875C2.25 13.9981 2.50184 14.25 2.8125 14.25H5.4375C5.74816 14.25 6 13.9981 6 13.6875C6 13.3769 5.74816 13.125 5.4375 13.125H2.8125Z"
-                                fill="currentColor"></path>
-                            </svg>
-                            <div>Client Engagement</div>
-                          </div>
-                          <div class="process_text">
-                            Generate Flurbix-powered communication tailored to initiate relevant conversations and drive
-                            engagement.
-                          </div>
-                          <div class="process_progress-vertical is-alt hide-tablet">
-                            <div class="process_progress2"></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="process_lines-wrap">
-                        <div class="process_lines w-embed">
-                          <svg width="100%" height="100%" viewBox="0 0 940 369" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path id="process-white"
-                              d="M939 0V156.326C939 169.581 928.255 180.326 915 180.326H25C11.7452 180.326 1 191.071 1 204.326V369"
-                              stroke="#E2E1D3" stroke-width="2" />
-                            <path id="process-blue"
-                              d="M939 0V156.326C939 169.581 928.255 180.326 915 180.326H25C11.7452 180.326 1 191.071 1 204.326V369"
-                              stroke="#0B4FFF" stroke-width="2" />
-                          </svg>
-                        </div>
-                        <div class="process_lines-mbl w-embed">
-                          <svg width="100%" height="100%" viewBox="0 0 296 320" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path id="process-m-white"
-                              d="M148 0V56C148 69.2548 137.255 80 124 80H25C11.7452 80 1 90.7452 1 104V136C1 149.255 11.7452 160 25 160H271C284.255 160 295 170.745 295 184V216C295 229.255 284.255 240 271 240H172C158.745 240 148 250.745 148 264V320"
-                              stroke="#E2E1D3" stroke-width="2" />
-                            <path id="process-m-blue"
-                              d="M148 0V56C148 69.2548 137.255 80 124 80H25C11.7452 80 1 90.7452 1 104V136C1 149.255 11.7452 160 25 160H271C284.255 160 295 170.745 295 184V216C295 229.255 284.255 240 271 240H172C158.745 240 148 250.745 148 264V320"
-                              stroke="#0B4FFF" stroke-width="2" />
-                          </svg>
-                        </div>
-                        <div class="process_tag">
-                          <div class="process_tag-text">Automating Sequences</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="process_wrap">
-                      <div class="process_steps">
-                        <div class="process_step-wrap">
-                          <div class="process_cta">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 18 18" fill="none"
-                              class="process_icon">
-                              <path
-                                d="M2.8125 3.75C2.50184 3.75 2.25 4.00184 2.25 4.3125C2.25 4.62316 2.50184 4.875 2.8125 4.875H15.1875C15.4981 4.875 15.75 4.62316 15.75 4.3125C15.75 4.00184 15.4981 3.75 15.1875 3.75H2.8125Z"
-                                fill="currentColor"></path>
-                              <path
-                                d="M13.2531 7.62345C13.1578 7.43288 12.9631 7.3125 12.75 7.3125C12.5369 7.3125 12.3422 7.43288 12.2469 7.62345L11.2057 9.70575L9.12345 10.7469C8.93288 10.8421 8.8125 11.0369 8.8125 11.25C8.8125 11.4631 8.93288 11.6579 9.12345 11.7531L11.2057 12.7943L12.2469 14.8765C12.3422 15.0671 12.5369 15.1875 12.75 15.1875C12.9631 15.1875 13.1578 15.0671 13.2531 14.8765L14.2943 12.7943L16.3765 11.7531C16.5671 11.6579 16.6875 11.4631 16.6875 11.25C16.6875 11.0369 16.5671 10.8421 16.3765 10.7469L14.2943 9.70575L13.2531 7.62345Z"
-                                fill="currentColor"></path>
-                              <path
-                                d="M2.8125 8.4375C2.50184 8.4375 2.25 8.68935 2.25 9C2.25 9.31065 2.50184 9.5625 2.8125 9.5625H6.9375C7.24816 9.5625 7.5 9.31065 7.5 9C7.5 8.68935 7.24816 8.4375 6.9375 8.4375H2.8125Z"
-                                fill="currentColor"></path>
-                              <path
-                                d="M2.8125 13.125C2.50184 13.125 2.25 13.3769 2.25 13.6875C2.25 13.9981 2.50184 14.25 2.8125 14.25H5.4375C5.74816 14.25 6 13.9981 6 13.6875C6 13.3769 5.74816 13.125 5.4375 13.125H2.8125Z"
-                                fill="currentColor"></path>
-                            </svg>
-                            <div>Personalized Decision</div>
-                          </div>
-                          <div class="process_text">
-                            Flurbix's agents rank, score, and predict the optimal content, action, channel, and
-                            outreach frequency for every individual prospect in real time.
+                <div class="custom-video-wrapper" id="customVideoWrapper">
+                  <img src="./src/assets/Dashboard.png" class="dash-img" id="dashboardImage" alt="Flurbix Dashboard"
+                    style="object-fit: cover;" />
+                </div>
+              </div>
 
-                          </div>
-                          <div class="process_progress-vertical hide-tablet">
-                            <div class="process_progress2"></div>
-                          </div>
-                        </div>
-                        <div data-card="" class="process_card2">
-                          <img src="src/assets/Manage.png" alt="">
-                          <div class="process_carne">
-                            <div class="process_progress2"></div>
-                          </div>
-                        </div>
-                        <div class="process_half-mobile-wrap">
-                          <div class="process_lines-mbl is-alt w-embed">
-                            <svg width="100%" height="100%" viewBox="0 0 149 80" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M1 80L0.999999 56C0.999999 47.1634 8.16344 40 17 40L132 40C140.837 40 148 32.8365 148 24L148 -5.22175e-06"
-                                stroke="#E2E1D3" stroke-width="2" />
-                              <path id="process-m-blue" data-inverse
-                                d="M1 80L0.999999 56C0.999999 47.1634 8.16344 40 17 40L132 40C140.837 40 148 32.8365 148 24L148 -5.22175e-06"
-                                stroke="#0B4FFF" stroke-width="2" />
-                            </svg>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="process_lines-wrap is-last">
-                        <div class="process_lines is-last w-embed">
-                          <svg width="100%" height="100%" viewBox="0 0 940 369" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path id="process-white"
-                              d="M1.00001 0V156.326C1.00001 169.581 11.7452 180.326 25 180.326H915C928.255 180.326 939 191.071 939 204.326V369"
-                              stroke="#E2E1D3" stroke-width="4" />
-                            <path id="process-blue"
-                              d="M1.00001 0V156.326C1.00001 169.581 11.7452 180.326 25 180.326H915C928.255 180.326 939 191.071 939 204.326V369"
-                              stroke="#0B4FFF" stroke-width="4" />
-                          </svg>
-                        </div>
-                        <div class="process_half-mobile-wrap is-2">
-                          <div class="process_lines-mbl is-alt w-embed">
-                            <svg width="100%" height="100%" viewBox="0 0 149 320" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path d="M1 0V136C1 149.255 11.7452 160 25 160H124C137.255 160 148 170.745 148 184V320"
-                                stroke="#E2E1D3" stroke-width="3" />
-                              <path id="process-m-blue"
-                                d="M1 0V136C1 149.255 11.7452 160 25 160H124C137.255 160 148 170.745 148 184V320"
-                                stroke="#0B4FFF" stroke-width="3" />
-                            </svg>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="process_last"
-                        style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; padding-bottom: 6rem; position: relative; z-index: 10;">
-                        <h2 class="heading-style-h2">Redefine your Marketing</h2>
-                        <p fd-paragraph="" class="text-size-medium text-style-muted">
-                          Replace manual campaign management with a system that continuously learns, adapts, and drives
-                          better results over time.
+              <!-- Floating UI overlays -->
+              <div class="dash-float-card dash-float-1 gs-dash-float" data-speed="1.2">
+                <div class="df-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                  </svg>
+                </div>
+                <div>
+                  <div class="df-text">Live Analytics</div>
+                  <div class="df-subtext">Updating in real-time</div>
+                </div>
+              </div>
 
-                        </p>
-                        <a fd-fade="" href="en/demo.html" class="button w-button">Book Demo</a>
-                      </div>
-                    </div>
-                  </div>
+              <div class="dash-float-card dash-float-2 gs-dash-float" data-speed="0.8">
+                <div class="df-icon" style="background: rgba(39, 201, 63, 0.2); color: #27c93f;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                </div>
+                <div>
+                  <div class="df-text">Campaign Active</div>
+                  <div class="df-subtext">98% delivery rate</div>
                 </div>
               </div>
             </div>
@@ -4302,7 +4680,7 @@ a,
               <div class="footer_logo-wrap" style="text-align: center; padding: 2rem 0 4rem; overflow: hidden;">
                 <div class="footer_logo"
                   style="font-size: clamp(4rem, 21vw, 320px); font-family: system-ui, -apple-system, sans-serif; font-weight: 500; letter-spacing: -0.04em; color: #FFFFFF; line-height: 1; display: inline-block;">
-                  <div class="footer_logo-text">Flurbi<span style="color: #00b4d8;">x</span></div>
+                  <div class="footer_logo-text">Flurbi<span style="color: #000000;">x</span></div>
                 </div>
               </div>
               <div class="footer_divider"
@@ -4354,14 +4732,13 @@ a,
                   color: rgba(255, 255, 255, 0.6);
                   font-size: 0.875rem;
                   line-height: 1.5;
-                  text-align: center;
+                  text-align: left;
                 }
 
                 .footer_address-icon {
                   width: 18px;
                   height: 18px;
                   color: #0055FF;
-                  /* Flurbix blue accent */
                   flex-shrink: 0;
                   margin-top: 0;
                 }
@@ -4413,40 +4790,122 @@ a,
                   transform: translateY(-2px);
                 }
 
+                /* ── Mobile Footer Redesign ── */
                 @media (max-width: 991px) {
-                  .footer_bottom-custom {
-                    grid-template-columns: 1fr;
-                    gap: 3rem;
+                  .footer_mobile-label {
+                    display: block !important;
+                    margin-bottom: 0.25rem;
                   }
 
+                  .footer_bottom-custom {
+                    grid-template-columns: 1fr;
+                    gap: 0;
+                    padding-top: 0;
+                    padding-bottom: 0;
+                  }
+
+                  /* Each column becomes a card-like section */
                   .footer_col {
-                    align-items: center !important;
-                    text-align: center !important;
+                    align-items: flex-start !important;
+                    text-align: left !important;
+                    gap: 1.25rem;
+                    padding: 1.75rem 0;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                  }
+
+                  .footer_col:last-child {
+                    border-bottom: none;
                   }
 
                   .footer_col.is-center,
                   .footer_col.is-right {
-                    align-items: center !important;
-                    text-align: center !important;
+                    align-items: flex-start !important;
+                    text-align: left !important;
+                  }
+
+                  /* Tagline */
+                  .footer_legal-text-new {
+                    font-size: 0.9rem;
+                    line-height: 1.65;
+                    max-width: 100% !important;
+                    color: rgba(255, 255, 255, 0.55);
+                  }
+
+                  /* Social icons — bigger touch targets */
+                  .footer_socials {
+                    gap: 0.75rem;
+                    margin-top: 0;
+                  }
+
+                  .footer_social-link {
+                    width: 44px;
+                    height: 44px;
+                    border-radius: 10px;
+                    background-color: rgba(255, 255, 255, 0.06);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                  }
+
+                  /* Contact info rows — icon left-aligned, text inline */
+                  .footer_address-box {
+                    gap: 1.1rem;
+                    width: 100%;
                   }
 
                   .footer_address-row {
-                    justify-content: flex-start !important;
-                    text-align: center !important;
+                    flex-direction: row !important;
                     align-items: flex-start !important;
-                    flex-direction: column;
+                    text-align: left !important;
+                    gap: 0.65rem;
+                    font-size: 0.875rem;
+                    color: rgba(255, 255, 255, 0.65);
+                    min-height: 36px;
                   }
 
                   .footer_address-icon {
-                    margin-top: 2px !important;
+                    width: 18px;
+                    height: 18px;
+                    flex-shrink: 0;
+                    margin-top: 2px;
+                  }
+
+                  /* Legal links — full-width pill style */
+                  .footer_links-new {
+                    gap: 0.75rem;
+                    width: 100%;
                   }
 
                   .footer_link-new {
-                    justify-content: center !important;
+                    justify-content: space-between !important;
+                    font-size: 0.9rem;
+                    color: rgba(255, 255, 255, 0.65);
+                    padding: 0.75rem 1rem;
+                    border-radius: 10px;
+                    background: rgba(255, 255, 255, 0.04);
+                    border: 1px solid rgba(255, 255, 255, 0.07);
+                    transition: background 0.2s ease, color 0.2s ease;
+                    min-height: 44px;
                   }
 
                   .footer_link-new:hover {
+                    background: rgba(0, 85, 255, 0.12);
+                    color: #fff;
                     transform: none !important;
+                  }
+                }
+
+                @media (max-width: 480px) {
+                  .footer_col {
+                    padding: 1.5rem 0;
+                  }
+
+                  .footer_social-link {
+                    width: 46px;
+                    height: 46px;
+                  }
+
+                  .footer_link-new {
+                    font-size: 0.875rem;
+                    padding: 0.8rem 1rem;
                   }
                 }
               </style>
@@ -4454,8 +4913,9 @@ a,
               <div class="footer_bottom-custom">
                 <!-- Left Side -->
                 <div class="footer_col is-left">
-                  <div class="footer_legal-text-new" style="display: none;">
-                  </div>
+                  <div class="footer_mobile-label"
+                    style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:none;">
+                    About</div>
                   <div class="footer_legal-text-new" style="max-width: 250px;">
                     Building digital experiences that empower businesses worldwide.
                   </div>
@@ -4484,43 +4944,50 @@ a,
 
                 <!-- Center -->
                 <div class="footer_col is-center">
+                  <div class="footer_mobile-label"
+                    style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:none;">
+                    Contact</div>
                   <div class="footer_address-box">
                     <div class="footer_address-row">
                       <svg class="footer_address-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg" style="color: #a8cedb;">
+                        xmlns="http://www.w3.org/2000/svg" style="color: #ffffff;">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                           d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                           d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                       </svg>
-                      <span>G - 48, 2nd Floor<br>Sector - 03, Noida,<br>Uttar Pradesh, India</span>
+                      <span>30 N Gould St Ste R
+                        Sheridan,<br>Wyoming 82801, USA</span>
                     </div>
                     <div class="footer_address-row">
                       <svg class="footer_address-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg" style="color: #a8cedb">
+                        xmlns="http://www.w3.org/2000/svg" style="color: #ffffff">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                           d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
                         </path>
                       </svg>
-                      <a href="mailto:info@flurbix.io"
+                      <a href="mailto:info@flurbix.com"
                         style="color: inherit; text-decoration: none; transition: color 0.2s;"
-                        onmouseover="this.style.color='#0055FF'"
-                        onmouseout="this.style.color='inherit'">info@flurbix.io</a>
+                        onmouseover="this.style.color='#60A5FA'"
+                        onmouseout="this.style.color='inherit'">info@flurbix.com</a>
                     </div>
                     <div class="footer_address-row">
                       <svg class="footer_address-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
+                        xmlns="http://www.w3.org/2000/svg" style="color: white;">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                           d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
                         </path>
                       </svg>
-                      <span>+1 (415) 123-4567</span>
+                      <span>+1 (917) 967 1694</span>
                     </div>
                   </div>
                 </div>
 
                 <!-- Right Side -->
                 <div class="footer_col is-right">
+                  <div class="footer_mobile-label"
+                    style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:none;">
+                    Legal</div>
                   <div class="footer_links-new">
                     <a href="terms.html" class="footer_link-new">
                       <span>Terms & Conditions</span>
@@ -4536,13 +5003,13 @@ a,
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                       </svg>
                     </a>
-                    <a href="support.html" class="footer_link-new">
+                    <!-- <a href="support.html" class="footer_link-new">
                       <span>Contact Support</span>
                       <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         style="opacity: 0.5;">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                       </svg>
-                    </a>
+                    </a> -->
                   </div>
                 </div>
               </div>

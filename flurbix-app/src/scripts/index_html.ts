@@ -292,12 +292,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
             });
             const h1 = new SplitText(".heading-style-h1", {
-                types: "lines",
+                type: "lines",
                 mask: "lines",
                 linesClass: "h1-lines",
             });
             const p1 = new SplitText(".hero_p", {
-                types: "lines",
+                type: "lines",
                 mask: "lines",
             });
 
@@ -561,13 +561,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
             el.parentNode.insertBefore(clone, el.nextSibling);
         });
         const h1 = new SplitText(".heading-style-h1", {
-            types: "lines",
+            type: "lines",
             mask: "lines",
             linesClass: "h1-lines",
             autoSplit: true,
         });
         const p1 = new SplitText(".hero_p", {
-            types: "lines",
+            type: "lines",
             mask: "lines",
             autoSplit: true,
         });
@@ -704,7 +704,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 const icons = scope.querySelectorAll(".hero_step2-icon, .hero_step2-top");
 
                 const split1 = new SplitText(offerText, {
-                    types: "lines",
+                    type: "lines",
                     mask: "lines",
                     autoSplit: true,
                 });
@@ -749,7 +749,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 const icons = scope.querySelectorAll(".hero_step2-icon, .hero_step2-top");
 
                 const split2 = new SplitText(offerText, {
-                    types: "lines",
+                    type: "lines",
                     mask: "lines",
                     autoSplit: true,
                 });
@@ -795,7 +795,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 const icons = scope.querySelectorAll(".hero_step2-icon, .hero_step2-top");
 
                 const split3 = new SplitText(offerText, {
-                    types: "lines",
+                    type: "lines",
                     mask: "lines",
                     autoSplit: true,
                 });
@@ -1122,7 +1122,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         gsap.set("[data-step4]", { autoAlpha: 0 });
         new SplitText("[data-step4] [hero-offer-text]", {
-            types: "lines",
+            type: "lines",
             mask: "lines",
             autoSplit: true,
         });
@@ -2567,7 +2567,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }); */
     let counterObj = { val: 0 };
     const automationsText = new SplitText(".automations_text", {
-        types: "chars",
+        type: "chars",
         autoSplit: true,
     });
     gsap
@@ -2655,7 +2655,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     gsap.utils.toArray(".heading-style-h2, [fd-h2]").forEach((el) => {
         if (el.hasAttribute("prevent")) return;
         const split = new SplitText(el, {
-            types: "words",
+            type: "words",
             mask: "words",
             wordsClass: "h2",
             autoSplit: true,
@@ -2683,7 +2683,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         if (el.closest(".legal_rich")) return;
 
         const split = new SplitText(el, {
-            types: "lines",
+            type: "lines",
             mask: "lines",
             autoSplit: true,
         });
@@ -2769,7 +2769,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const processP = document.querySelectorAll(".process_text");
     const processVLine = document.querySelectorAll(".process_progress-vertical");
     const tagText = new SplitText(".process_tag-text", {
-        types: "chars, words",
+        type: "chars, words",
         charsClass: "tag-char",
         autoSplit: true,
     });
@@ -2987,7 +2987,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const projectTop = gsap.utils.toArray(projectBrief.querySelectorAll(".process_step2-top"));
 
     const projectBriefP = new SplitText(projectBrief.querySelector("p"), {
-        types: "lines",
+        type: "lines",
         mask: "lines",
         autoSplit: true,
     });
@@ -3288,7 +3288,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const projectPlanTop = gsap.utils.toArray(projectPlan.querySelectorAll(".process_step2-top"));
 
     const projectPlanP = new SplitText(projectPlan.querySelector("p"), {
-        types: "lines",
+        type: "lines",
         mask: "lines",
         autoSplit: true,
     });
@@ -3362,11 +3362,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const text = card.querySelector(".text-style-supermuted");
 
         const splitHeading = new SplitText(heading, {
-            types: "words",
+            type: "words",
             autoSplit: true,
         });
         const splitText = new SplitText(text, {
-            types: "lines",
+            type: "lines",
             mask: "lines",
             autoSplit: true,
         });

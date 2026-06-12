@@ -229,13 +229,13 @@ document.addEventListener("DOMContentLoaded", () => {
   gsap.set(".page-wrapper", { opacity: 1 });
 
   const h1 = new SplitText("[hero-heading]", {
-    types: "words",
+    type: "words",
     mask: "words",
     wordsClass: "h1",
     autoSplit: true,
   });
   const p1 = new SplitText(".legal_tag", {
-    types: "lines",
+    type: "lines",
     mask: "lines",
     autoSplit: true,
   });

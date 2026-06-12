@@ -16,6 +16,19 @@ export function initGalaxySphere(containerId: string) {
     const camera = new THREE.PerspectiveCamera(45, width / height, 1, 2000);
     camera.position.set(0, 0, 950);
 
+    function updateCameraZoom(w: number) {
+        if (w < 480) {
+            camera.position.z = 1450;
+        } else if (w < 768) {
+            camera.position.z = 1200;
+        } else if (w < 991) {
+            camera.position.z = 1050;
+        } else {
+            camera.position.z = 950;
+        }
+    }
+    updateCameraZoom(width);
+
     const webglRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
     webglRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     webglRenderer.setSize(width, height);
@@ -356,6 +369,7 @@ export function initGalaxySphere(containerId: string) {
         const w = container.clientWidth;
         const h = container.clientHeight;
         camera.aspect = w / h;
+        updateCameraZoom(w);
         camera.updateProjectionMatrix();
         webglRenderer.setSize(w, h);
         cssRenderer.setSize(w, h);
