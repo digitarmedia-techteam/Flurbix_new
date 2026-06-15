@@ -810,6 +810,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const nameRegex = /^[a-zA-Z\s\-]{2,}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^[0-9\+\s]{10,15}$/;
+  const urlRegex = /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/;
 
   const validateField = (field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement, regex?: RegExp, required: boolean = true, showErrors: boolean = true) => {
     let isValid = true;
@@ -825,10 +826,29 @@ document.addEventListener("DOMContentLoaded", () => {
           isValid = false;
           errorMsg = "Minimum 2 characters required.";
         }
+      } else if (field.id === "Email") {
+        if (!emailRegex.test(val)) {
+          isValid = false;
+          errorMsg = "Please enter a valid email.";
+        } else {
+          const domain = val.split("@")[1]?.toLowerCase();
+          const freeDomains = [
+            "gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "live.com",
+            "aol.com", "icloud.com", "mail.com", "zoho.com", "protonmail.com",
+            "proton.me", "yandex.com", "gmx.com", "mail.ru", "msn.com",
+            "comcast.net", "sbcglobal.net", "bellsouth.net", "verizon.net"
+          ];
+          if (freeDomains.includes(domain)) {
+            isValid = false;
+            errorMsg = "Please enter a work email (e.g. name@company.com).";
+          }
+        }
       } else if (regex && !regex.test(val)) {
         isValid = false;
         if (field.type === "email") errorMsg = "Please enter a valid email.";
         else if (field.type === "tel" || field.id === "Phone") errorMsg = "Please enter a valid phone number (10-15 digits).";
+        else if (field.id === "website") errorMsg = "Please enter a valid website URL.";
+        else if (field.id === "linkedin") errorMsg = "Please enter a valid LinkedIn URL.";
         else errorMsg = "Invalid format.";
       }
     } else if (!required && val.length === 0) {
@@ -868,6 +888,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const phoneInput = document.getElementById("Phone") as HTMLInputElement;
     const isPhoneValid = validateField(phoneInput, phoneRegex, true, false);
 
+    const websiteInput = document.getElementById("website") as HTMLInputElement;
+    const isWebsiteValid = validateField(websiteInput, urlRegex, true, false);
+
+    const linkedinInput = document.getElementById("linkedin") as HTMLInputElement;
+    const isLinkedinValid = validateField(linkedinInput, urlRegex, false, false);
+
     const challengeSelect = document.getElementById("challenge") as HTMLSelectElement;
     const isChallengeValid = validateField(challengeSelect, undefined, true, false);
 
@@ -884,7 +910,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    if (isFirstNameValid && isLastNameValid && isEmailValid && isCompanyValid && isPhoneValid && isChallengeValid && isOtherChallengeValid) {
+    if (isFirstNameValid && isLastNameValid && isEmailValid && isCompanyValid && isPhoneValid && isWebsiteValid && isLinkedinValid && isChallengeValid && isOtherChallengeValid) {
       submitBtn.disabled = false;
     } else {
       submitBtn.disabled = true;
@@ -951,6 +977,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let required = (field as HTMLInputElement).required;
       if (field.id === "Email") regex = emailRegex;
       if (field.id === "Phone") regex = phoneRegex;
+      if (field.id === "website" || field.id === "linkedin") regex = urlRegex;
       validateField(field as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement, regex, required, true);
       checkFormValidity();
     });
@@ -969,6 +996,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const phoneInput = document.getElementById("Phone") as HTMLInputElement;
     const isPhoneValid = validateField(phoneInput, phoneRegex, true, true);
 
+    const websiteInput = document.getElementById("website") as HTMLInputElement;
+    const isWebsiteValid = validateField(websiteInput, urlRegex, true, true);
+
+    const linkedinInput = document.getElementById("linkedin") as HTMLInputElement;
+    const isLinkedinValid = validateField(linkedinInput, urlRegex, false, true);
+
     const challengeSelect = document.getElementById("challenge") as HTMLSelectElement;
     const isChallengeValid = validateField(challengeSelect, undefined, true, true);
 
@@ -978,7 +1011,7 @@ document.addEventListener("DOMContentLoaded", () => {
       isOtherChallengeValid = validateField(otherChallengeInput, undefined, true, true);
     }
 
-    if (!(isFirstNameValid && isLastNameValid && isEmailValid && isCompanyValid && isPhoneValid && isChallengeValid && isOtherChallengeValid)) {
+    if (!(isFirstNameValid && isLastNameValid && isEmailValid && isCompanyValid && isPhoneValid && isWebsiteValid && isLinkedinValid && isChallengeValid && isOtherChallengeValid)) {
       submitBtn.disabled = true;
       return;
     }
@@ -989,6 +1022,8 @@ document.addEventListener("DOMContentLoaded", () => {
       lastName: (document.getElementById("lastname") as HTMLInputElement).value.trim(),
       email: (document.getElementById("Email") as HTMLInputElement).value.trim(),
       company: (document.getElementById("company") as HTMLInputElement).value.trim(),
+      website: (document.getElementById("website") as HTMLInputElement).value.trim(),
+      linkedin: (document.getElementById("linkedin") as HTMLInputElement).value.trim(),
       phone: (document.getElementById("Phone") as HTMLInputElement).value.trim(),
       challenge: (document.getElementById("challenge") as HTMLSelectElement).value.trim(),
       otherChallenge: (document.getElementById("other_challenge") as HTMLInputElement).value.trim(),
@@ -1016,7 +1051,19 @@ document.addEventListener("DOMContentLoaded", () => {
       </tr>
       <tr>
         <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; font-weight: 600; color: #374151;">Company</td>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; color: #111827;">${data.company}</td>
+        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; color: #111827;">${data.company || "N/A"}</td>
+      </tr>
+      <tr>
+        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; font-weight: 600; color: #374151;">Company Website</td>
+        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6;">
+          ${data.website ? `<a href="${data.website.startsWith('http') ? data.website : 'https://' + data.website}" target="_blank" style="color: #0b4fff; text-decoration: none;">${data.website}</a>` : 'N/A'}
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; font-weight: 600; color: #374151;">LinkedIn Profile</td>
+        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6;">
+          ${data.linkedin ? `<a href="${data.linkedin.startsWith('http') ? data.linkedin : 'https://' + data.linkedin}" target="_blank" style="color: #0b4fff; text-decoration: none;">${data.linkedin}</a>` : 'N/A'}
+        </td>
       </tr>
       <tr>
         <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; font-weight: 600; color: #374151;">Phone Number</td>
