@@ -1435,7 +1435,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const bodyHtml = `
 <div style="font-family: 'Inter', Arial, sans-serif; color: #111827; max-width: 600px; margin: 0 auto; border: 1px solid #E5E7EB; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
   <div style="background-color: #0b4fff; padding: 24px; text-align: center;">
-    <img src="https://flurbix.com/src/assets/logo.png" alt="Flurbix Logo" style="max-height: 48px; filter: brightness(0) invert(1);" />
+    <img src="${window.location.origin}/logo.png" alt="Flurbix Logo" style="max-height: 48px; filter: brightness(0) invert(1);" />
   </div>
   <div style="padding: 32px; background-color: #ffffff;">
     <h2 style="color: #0b4fff; margin-top: 0; font-size: 24px; font-weight: 700;">New Demo Booking & Session Scheduled</h2>
@@ -1575,7 +1575,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <tr>
           <td class="header-col-left" align="left" valign="middle" style="padding: 16px 24px;">
             <a href="https://flurbix.com" style="text-decoration: none; display: inline-block;">
-              <img src="https://flurbix.com/assets/logo-cdhRKh5F.png" alt="Flurbix Logo" style="height: 32px; vertical-align: middle; border: 0;" />
+              <img src="${window.location.origin}/logo.png" alt="Flurbix Logo" style="height: 32px; vertical-align: middle; border: 0;" />
             </a>
           </td>
           <td class="header-col-right" align="right" valign="middle" style="padding: 16px 24px; font-family: 'Inter', Arial, sans-serif; font-size: 14px;">
