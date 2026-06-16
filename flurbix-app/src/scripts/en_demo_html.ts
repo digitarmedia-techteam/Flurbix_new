@@ -1308,9 +1308,34 @@ document.addEventListener("DOMContentLoaded", () => {
   confirmBookingBtn.addEventListener("click", async () => {
     if (!selectedDateObj || !selectedTimeSlot) return;
 
+    if (!tokenClient) {
+      initGoogleClient();
+    }
+    if (!tokenClient) {
+      alert("Google Identity Services SDK is not loaded. Please try again.");
+      return;
+    }
+
+    // 1. Request access token FIRST synchronously/directly in the user click interaction
+    let googleAccessToken = "";
+    try {
+      googleAccessToken = await requestGoogleAccessToken();
+    } catch (authError: any) {
+      console.warn("Google Calendar save failed or cancelled.", authError);
+      
+      // Check if user dismissed the popup
+      if (authError && authError.error === "dismissed") {
+        alert("Booking cancelled: Google sign-in was closed before completion.");
+      } else {
+        alert("Booking cancelled: Google Calendar authorization was denied or failed. Please try again.");
+      }
+      return; // Stop execution early
+    }
+
+    // 2. Only disable button and update text AFTER successful authorization
     confirmBookingBtn.disabled = true;
     const originalConfirmText = confirmBookingBtn.textContent;
-    confirmBookingBtn.textContent = "Authorizing...";
+    confirmBookingBtn.textContent = "Scheduling...";
 
     // Collect form data
     const data = {
@@ -1351,29 +1376,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let googleCalendarSaved = false;
     let hangoutMeetUrl = "";
-    let googleAccessToken = "";
 
-    // Prompt Google Calendar login
+    // 3. Create Google Calendar Event
     try {
-      googleAccessToken = await requestGoogleAccessToken();
-      confirmBookingBtn.textContent = "Scheduling...";
-      
       const calendarResult = await createGoogleCalendarEvent(googleAccessToken, data, startDateTime, endDateTime);
       googleCalendarSaved = true;
       if (calendarResult && calendarResult.hangoutLink) {
         hangoutMeetUrl = calendarResult.hangoutLink;
       }
-    } catch (authError: any) {
-      console.warn("Google Calendar save failed or cancelled.", authError);
+    } catch (calendarError: any) {
+      console.warn("Google Calendar event creation failed.", calendarError);
       confirmBookingBtn.textContent = originalConfirmText;
       confirmBookingBtn.disabled = false;
-      
-      // Check if user dismissed the popup
-      if (authError && authError.error === "dismissed") {
-        alert("Booking cancelled: Google sign-in was closed before completion.");
-      } else {
-        alert("Booking cancelled: Google Calendar authorization was denied or failed. Please try again.");
-      }
+      alert("Booking failed: Failed to schedule calendar event. Please try again.");
       return; // Stop execution: do not send email or show success screen
     }
 
