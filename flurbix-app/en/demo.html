@@ -5,6 +5,7 @@
 
 <head>
   <meta charset="utf-8" />
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link href="https://cdn.prod.website-files.com" rel="preconnect" crossorigin="anonymous" />
   <title>Demo Request</title>
   <link rel="alternate" hreflang="x-default" href="https://flurbix.io/demo" />
@@ -481,6 +482,282 @@
             cursor: not-allowed;
             filter: grayscale(1);
           }
+
+          /* Calendar Modal Styles */
+          .calendar-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(17, 24, 39, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+          }
+          .calendar-modal-overlay.is-open {
+            opacity: 1;
+            pointer-events: auto;
+          }
+          .calendar-modal-container {
+            background: #ffffff;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+            border: 1px solid #E5E7EB;
+            font-family: system-ui, -apple-system, sans-serif;
+          }
+          .calendar-modal-overlay.is-open .calendar-modal-container {
+            transform: scale(1);
+          }
+          .calendar-modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #F3F4F6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+          }
+          .calendar-modal-title h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111827;
+          }
+          .calendar-modal-title p {
+            margin: 0.25rem 0 0 0;
+            font-size: 0.875rem;
+            color: #6B7280;
+          }
+          .calendar-modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #9CA3AF;
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 0.5rem;
+            line-height: 1;
+          }
+          .calendar-modal-close:hover {
+            color: #111827;
+          }
+          .calendar-modal-body {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            min-height: 380px;
+            text-align: left;
+          }
+          @media (max-width: 767px) {
+            .calendar-modal-body {
+              grid-template-columns: 1fr;
+            }
+            .calendar-right {
+              border-top: 1px solid #F3F4F6;
+            }
+          }
+          .calendar-left {
+            padding: 1.5rem;
+          }
+          .calendar-right {
+            padding: 1.5rem;
+            background-color: #F9FAFB;
+            border-left: 1px solid #F3F4F6;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+          }
+          @media (max-width: 767px) {
+            .calendar-right {
+              border-left: none;
+            }
+          }
+          .calendar-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+          }
+          .calendar-nav-title {
+            font-weight: 600;
+            color: #111827;
+          }
+          .calendar-nav-btn {
+            background: none;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1.25rem;
+            color: #374151;
+            box-sizing: border-box;
+          }
+          .calendar-nav-btn:hover:not(:disabled) {
+            background-color: #F3F4F6;
+            border-color: #D1D5DB;
+          }
+          .calendar-nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+          }
+          .calendar-grid-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.75rem;
+            color: #9CA3AF;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+          }
+          .calendar-grid-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+          }
+          .calendar-day-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #374151;
+            border: none;
+            background: none;
+            font-weight: 500;
+            box-sizing: border-box;
+          }
+          .calendar-day-cell:hover:not(:disabled):not(.is-selected) {
+            background-color: #EFF6FF;
+            color: #0B4FFF;
+          }
+          .calendar-day-cell:disabled {
+            color: #D1D5DB;
+            cursor: not-allowed;
+            font-weight: 400;
+          }
+          .calendar-day-cell.is-today {
+            border: 1px solid #0B4FFF;
+            color: #0B4FFF;
+          }
+          .calendar-day-cell.is-selected {
+            background-color: #0B4FFF !important;
+            color: #ffffff !important;
+            font-weight: 600;
+          }
+          .calendar-right-title {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+          }
+          .calendar-selected-date-label {
+            font-size: 0.85rem;
+            color: #6B7280;
+            margin-bottom: 1rem;
+          }
+          .slots-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow-y: auto;
+            max-height: 250px;
+            flex-grow: 1;
+            padding-right: 4px;
+          }
+          .slot-button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #ffffff;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #374151;
+            font-weight: 500;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            box-sizing: border-box;
+          }
+          .slot-button:hover:not(:disabled):not(.is-selected) {
+            border-color: #0B4FFF;
+            background-color: #EFF6FF;
+            color: #0B4FFF;
+          }
+          .slot-button.is-selected {
+            background-color: #0B4FFF;
+            border-color: #0B4FFF;
+            color: #ffffff;
+            font-weight: 600;
+          }
+          .slot-button:disabled {
+            background-color: #F3F4F6;
+            border-color: #E5E7EB;
+            color: #9CA3AF;
+            cursor: not-allowed;
+            position: relative;
+          }
+          .slot-button.is-booked {
+            background-color: #FEE2E2;
+            border-color: #FCA5A5;
+            color: #EF4444;
+            cursor: not-allowed;
+          }
+          .slot-button.is-booked::after {
+            content: "Already Booked";
+            font-size: 0.7rem;
+            background-color: #EF4444;
+            color: #FFFFFF;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: auto;
+            font-weight: 600;
+          }
+          .calendar-modal-footer {
+            padding: 1.25rem 1.5rem;
+            border-top: 1px solid #F3F4F6;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+          }
+          .calendar-cancel-btn {
+            background: none;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            color: #374151;
+            transition: all 0.2s;
+          }
+          .calendar-cancel-btn:hover {
+            background-color: #F9FAFB;
+          }
         </style>
       </div>
       <div class="nav_fixed">
@@ -702,7 +979,7 @@
                         placeholder="" id="Details"></textarea>
                       <div class="form_error-msg" id="Details-error"></div>
                     </div>
-                    <input type="submit" data-wait="Please wait..." class="button w-button" value="Submit"
+                    <input type="submit" data-wait="Please wait..." class="button w-button" value="Book a Slot"
                       id="submit-btn" disabled />
                   </form>
                   <div class="success_message w-form-done">
@@ -718,8 +995,24 @@
                             fill="#0B4FFF" />
                         </svg>
                       </div>
-                      <div class="demo_success-h">Thank you for submitting your information.</div>
-                      <div>A member of the flurbix team will reach out to you shortly.</div>
+                      <div class="demo_success-h">Demo Request & Booking Confirmed!</div>
+                      <div id="booking-details-box" style="margin: 1.5rem auto; max-width: 500px; padding: 1.25rem; background-color: #EFF6FF; border: 1px dashed #0B4FFF; border-radius: 12px; display: none; text-align: center;">
+                        <span style="display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: #0B4FFF; font-weight: 700; margin-bottom: 0.25rem; font-family: system-ui, -apple-system, sans-serif;">📅 Scheduled Session</span>
+                        <strong id="booking-details-time" style="font-size: 1.15rem; color: #111827; display: block; font-family: system-ui, -apple-system, sans-serif;">June 17, 2026 at 10:00 AM</strong>
+                        <span style="font-size: 0.85rem; color: #4B5563; display: block; margin-top: 0.5rem; font-family: system-ui, -apple-system, sans-serif;">An invitation file (.ics) has been downloaded. You can also add it to your calendar below:</span>
+                        <div style="display: flex; gap: 10px; justify-content: center; margin-top: 1rem; flex-wrap: wrap;">
+                          <a id="google-cal-link" href="#" target="_blank" class="button is-small w-button" style="background-color: #ffffff; border: 1px solid #D1D5DB; color: #374151; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; padding: 6px 12px; border-radius: 6px;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Google_Calendar_icon_%282020%29.svg" style="width: 16px; height: 16px;" alt=""/> Google
+                          </a>
+                          <a id="outlook-cal-link" href="#" target="_blank" class="button is-small w-button" style="background-color: #ffffff; border: 1px solid #D1D5DB; color: #374151; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; padding: 6px 12px; border-radius: 6px;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg" style="width: 16px; height: 16px;" alt=""/> Outlook
+                          </a>
+                          <a id="redownload-ics-btn" href="#" class="button is-small w-button" style="background-color: #ffffff; border: 1px solid #D1D5DB; color: #374151; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; padding: 6px 12px; border-radius: 6px; cursor: pointer;">
+                            <span>📥 Download .ics</span>
+                          </a>
+                        </div>
+                      </div>
+                      <div>A confirmation email with the calendar details has been sent to you.</div>
                       <div class="margin-top margin-large">
                         <a href="../index.html@r=0.html" class="button w-button">Go back to home</a>
                       </div>
@@ -727,6 +1020,43 @@
                   </div>
                   <div class="w-form-fail">
                     <div>Oops! Something went wrong while submitting the form.</div>
+                  </div>
+
+                  <!-- Calendar Modal HTML -->
+                  <div id="calendar-modal" class="calendar-modal-overlay">
+                    <div class="calendar-modal-container">
+                      <div class="calendar-modal-header">
+                        <div class="calendar-modal-title">
+                          <h3 style="font-family: system-ui, -apple-system, sans-serif;">Select a Date & Time Slot</h3>
+                          <p style="font-family: system-ui, -apple-system, sans-serif;">Choose an available slot for your personalized demo session.</p>
+                        </div>
+                        <button type="button" id="calendar-modal-close" class="calendar-modal-close">&times;</button>
+                      </div>
+                      <div class="calendar-modal-body">
+                        <div class="calendar-left">
+                          <div class="calendar-nav">
+                            <button type="button" id="prev-month" class="calendar-nav-btn">&lsaquo;</button>
+                            <span id="calendar-month-year" class="calendar-nav-title">June 2026</span>
+                            <button type="button" id="next-month" class="calendar-nav-btn">&rsaquo;</button>
+                          </div>
+                          <div class="calendar-grid-weekdays">
+                            <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                          </div>
+                          <div id="calendar-days" class="calendar-grid-days"></div>
+                        </div>
+                        <div class="calendar-right">
+                          <div class="calendar-right-title" style="font-family: system-ui, -apple-system, sans-serif;">Available Slots</div>
+                          <div id="calendar-slots-date" class="calendar-selected-date-label" style="font-family: system-ui, -apple-system, sans-serif;">Select a date to view available times</div>
+                          <div id="calendar-slots" class="slots-container">
+                            <!-- Slots dynamic list -->
+                          </div>
+                        </div>
+                      </div>
+                      <div class="calendar-modal-footer">
+                        <button type="button" id="calendar-cancel" class="calendar-cancel-btn">Cancel</button>
+                        <button type="button" id="confirm-booking-btn" class="button w-button" style="background-color: #0B4FFF; color: #ffffff;" disabled>Confirm Booking</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
