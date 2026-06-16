@@ -1023,7 +1023,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- Calendar Booking Implementation ---
   // --- Google Calendar API Configuration ---
-  const GOOGLE_CLIENT_ID = "317932010265-j54r2uhl121kjgrvm744foua38l4o3kv.apps.googleusercontent.com";
+  const GOOGLE_CLIENT_ID = (import.meta as any).env?.VITE_GOOGLE_CLIENT_ID || "317932010265-j54r2uhl121kjgrvm744foua38l4o3kv.apps.googleusercontent.com";
   const CALENDAR_SCOPE = "https://www.googleapis.com/auth/calendar.events";
   let tokenClient: any = null;
 
@@ -1167,7 +1167,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const isSlotBooked = (dateStr: string, slot: string, dateObj: Date): boolean => {
     const preseeded = getPreseededBookedSlots(dateObj);
     if (preseeded.includes(slot)) return true;
-    
+
     const userBooked = getUserBookedSlots();
     return userBooked.some(b => b.dateStr === dateStr && b.slot === slot);
   };
@@ -1193,12 +1193,12 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let day = 1; day <= totalDays; day++) {
       const cellDate = new Date(year, month, day);
       const cellDateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-      
+
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "calendar-day-cell";
       btn.textContent = String(day);
-      
+
       const dayOfWeek = cellDate.getDay();
       const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
 
@@ -1206,10 +1206,10 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.classList.add("is-today");
       }
 
-      if (selectedDateObj && 
-          selectedDateObj.getFullYear() === year && 
-          selectedDateObj.getMonth() === month && 
-          selectedDateObj.getDate() === day) {
+      if (selectedDateObj &&
+        selectedDateObj.getFullYear() === year &&
+        selectedDateObj.getMonth() === month &&
+        selectedDateObj.getDate() === day) {
         btn.classList.add("is-selected");
       }
 
@@ -1220,7 +1220,7 @@ document.addEventListener("DOMContentLoaded", () => {
           selectedDateObj = cellDate;
           selectedTimeSlot = null; // reset slot selection
           confirmBookingBtn.disabled = true;
-          
+
           renderCalendar();
           renderSlotsForDate(cellDate, cellDateString);
         });
@@ -1284,7 +1284,7 @@ document.addEventListener("DOMContentLoaded", () => {
     calendarModal.classList.add("is-open");
     currentDateObj = selectedDateObj || new Date();
     renderCalendar();
-    
+
     if (selectedDateObj) {
       const year = selectedDateObj.getFullYear();
       const month = selectedDateObj.getMonth();
@@ -1322,7 +1322,7 @@ document.addEventListener("DOMContentLoaded", () => {
       googleAccessToken = await requestGoogleAccessToken();
     } catch (authError: any) {
       console.warn("Google Calendar save failed or cancelled.", authError);
-      
+
       // Check if user dismissed the popup
       if (authError && authError.error === "dismissed") {
         alert("Booking cancelled: Google sign-in was closed before completion.");
@@ -1784,7 +1784,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const formWrap = document.querySelector(".demo_form-wrap");
       if (formWrap) {
         form.style.display = "none";
-        
+
         const detailsBox = document.getElementById("booking-details-box") as HTMLDivElement;
         const detailsTime = document.getElementById("booking-details-time") as HTMLElement;
         const googleCalLink = document.getElementById("google-cal-link") as HTMLAnchorElement;
@@ -1801,7 +1801,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (googleCalLink) googleCalLink.href = googleCalUrl;
         if (outlookCalLink) outlookCalLink.href = outlookCalUrl;
-        
+
         if (redownloadBtn) {
           redownloadBtn.replaceWith(redownloadBtn.cloneNode(true));
           const newRedownloadBtn = document.getElementById("redownload-ics-btn") as HTMLAnchorElement;
