@@ -1,9 +1,11 @@
 services:
   app:
     build: .
-    container_name: flurbix-website
+    container_name: flurbix-app
     env_file:
-      - .env
+      - flurbix-app/.env
+    environment:
+      - NODE_ENV=production
     expose:
       - "5173"
     restart: unless-stopped

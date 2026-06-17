@@ -1022,101 +1022,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // --- Calendar Booking Implementation ---
-  // --- Google Calendar API Configuration ---
-  const GOOGLE_CLIENT_ID = (import.meta as any).env?.VITE_GOOGLE_CLIENT_ID || "317932010265-j54r2uhl121kjgrvm744foua38l4o3kv.apps.googleusercontent.com";
-  const CALENDAR_SCOPE = "https://www.googleapis.com/auth/calendar.events";
-  let tokenClient: any = null;
-
-  // Initialize GIS client
-  const initGoogleClient = () => {
-    if (typeof google !== "undefined" && google.accounts && google.accounts.oauth2) {
-      tokenClient = google.accounts.oauth2.initTokenClient({
-        client_id: GOOGLE_CLIENT_ID,
-        scope: CALENDAR_SCOPE,
-        callback: "", // callback will be defined dynamically at request time
-      });
-    }
-  };
-
-  // Try to initialize immediately or check back later
-  if (typeof google !== "undefined") {
-    initGoogleClient();
-  } else {
-    window.addEventListener("load", initGoogleClient);
-  }
-
-  const requestGoogleAccessToken = (): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      if (!tokenClient) {
-        initGoogleClient();
-      }
-      if (!tokenClient) {
-        reject(new Error("Google Identity Services SDK is not loaded."));
-        return;
-      }
-
-      tokenClient.callback = (response: any) => {
-        if (response.error !== undefined) {
-          reject(response);
-        } else {
-          resolve(response.access_token);
-        }
-      };
-
-      tokenClient.requestAccessToken({ prompt: "consent" });
-    });
-  };
-
-  const createGoogleCalendarEvent = async (
-    accessToken: string,
-    data: any,
-    startDateTime: Date,
-    endDateTime: Date
-  ): Promise<any> => {
-    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
-    const event = {
-      summary: "Flurbix Demo Meeting",
-      description: `Demo session with Flurbix.\n\nContact Details:\n- Name: ${data.firstName} ${data.lastName}\n- Company: ${data.company}\n- Email: ${data.email}\n- Phone: ${data.phone}\n- Challenge: ${data.challenge}\n- Details: ${data.details}`,
-      start: {
-        dateTime: startDateTime.toISOString(),
-        timeZone: timeZone,
-      },
-      end: {
-        dateTime: endDateTime.toISOString(),
-        timeZone: timeZone,
-      },
-      attendees: [
-        { email: data.email, responseStatus: "accepted" },
-        { email: "sales@flurbix.com" }
-      ],
-      conferenceData: {
-        createRequest: {
-          requestId: "flurbix-demo-" + Date.now(),
-          conferenceSolutionKey: {
-            type: "hangoutsMeet"
-          }
-        }
-      }
-    };
-
-    const response = await fetch(
-      "https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1&sendUpdates=all",
-      {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${accessToken}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(event)
-      }
-    );
-
-    const result = await response.json();
-    if (result.error) {
-      throw new Error(result.error.message || "Failed to create Google Calendar event");
-    }
-    return result;
-  };
+  // All calendar & email logic is handled by the backend.
+  // Customers NEVER authenticate with Google — the server uses a stored refresh token.
+  const API_BASE = "/api";
 
   const calendarModal = document.getElementById("calendar-modal") as HTMLDivElement;
   const calendarModalClose = document.getElementById("calendar-modal-close") as HTMLButtonElement;
@@ -1138,7 +1046,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "July", "August", "September", "October", "November", "December"
   ];
 
-  const timeSlots = ["09:00 AM", "10:00 AM", "11:00 AM", "01:30 PM", "02:30 PM", "03:30 PM", "04:30 PM"];
+  const timeSlots = ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM", "03:00 PM", "03:30 PM", "04:00 PM", "04:30 PM", "05:00 PM", "05:30 PM", "06:00 PM"];
 
   // Return pre-seeded booked slots for a given date deterministically
   const getPreseededBookedSlots = (date: Date): string[] => {
@@ -1236,9 +1144,28 @@ document.addEventListener("DOMContentLoaded", () => {
     prevMonthBtn.disabled = (viewingYearMonth <= currentYearMonth);
   };
 
-  const renderSlotsForDate = (dateObj: Date, dateStr: string) => {
+  const renderSlotsForDate = async (dateObj: Date, dateStr: string) => {
     const options: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     calendarSlotsDateLabel.textContent = dateObj.toLocaleDateString('en-US', options);
+
+    // Show loading state while fetching live availability from backend
+    calendarSlotsContainer.innerHTML = '<div style="text-align:center;padding:1.5rem 1rem;color:#6B7280;font-size:0.875rem;">Loading available slots...</div>';
+
+    // Fetch real-time availability from backend (Google Calendar)
+    let apiOccupiedSlots: string[] = [];
+    try {
+      const res = await fetch(`${API_BASE}/calendar/available-slots?date=${dateStr}`);
+      if (res.ok) {
+        const apiData = await res.json();
+        const available: string[] = apiData.available || [];
+        // Occupied = all theoretical slots not in the available list
+        apiOccupiedSlots = timeSlots.filter(s => !available.includes(s));
+      }
+    } catch (e) {
+      // API unreachable — fall back to localStorage cache only
+      console.warn("Could not fetch live slot availability. Using local cache.", e);
+    }
+
     calendarSlotsContainer.innerHTML = "";
 
     timeSlots.forEach(slot => {
@@ -1247,7 +1174,8 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.className = "slot-button";
       btn.textContent = slot;
 
-      const booked = isSlotBooked(dateStr, slot, dateObj);
+      // API data takes precedence; localStorage cache is the fallback
+      const booked = apiOccupiedSlots.includes(slot) || isSlotBooked(dateStr, slot, dateObj);
       if (booked) {
         btn.classList.add("is-booked");
         btn.disabled = true;
@@ -1282,20 +1210,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const openCalendarModal = () => {
     calendarModal.classList.add("is-open");
-    currentDateObj = selectedDateObj || new Date();
+    
+    // If no date has been selected yet, default to today
+    if (!selectedDateObj) {
+      const today = new Date();
+      const dayOfWeek = today.getDay();
+      if (dayOfWeek === 0) { // Sunday -> select Monday
+        today.setDate(today.getDate() + 1);
+      } else if (dayOfWeek === 6) { // Saturday -> select Monday
+        today.setDate(today.getDate() + 2);
+      }
+      selectedDateObj = today;
+    }
+    
+    currentDateObj = new Date(selectedDateObj);
     renderCalendar();
 
-    if (selectedDateObj) {
-      const year = selectedDateObj.getFullYear();
-      const month = selectedDateObj.getMonth();
-      const day = selectedDateObj.getDate();
-      const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-      renderSlotsForDate(selectedDateObj, dateStr);
-    } else {
-      calendarSlotsDateLabel.textContent = "Select a date to view available times";
-      calendarSlotsContainer.innerHTML = "";
-      confirmBookingBtn.disabled = true;
-    }
+    const year = selectedDateObj.getFullYear();
+    const month = selectedDateObj.getMonth();
+    const day = selectedDateObj.getDate();
+    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    renderSlotsForDate(selectedDateObj, dateStr);
   };
 
   const closeCalendarModal = () => {
@@ -1308,31 +1243,7 @@ document.addEventListener("DOMContentLoaded", () => {
   confirmBookingBtn.addEventListener("click", async () => {
     if (!selectedDateObj || !selectedTimeSlot) return;
 
-    if (!tokenClient) {
-      initGoogleClient();
-    }
-    if (!tokenClient) {
-      alert("Google Identity Services SDK is not loaded. Please try again.");
-      return;
-    }
-
-    // 1. Request access token FIRST synchronously/directly in the user click interaction
-    let googleAccessToken = "";
-    try {
-      googleAccessToken = await requestGoogleAccessToken();
-    } catch (authError: any) {
-      console.warn("Google Calendar save failed or cancelled.", authError);
-
-      // Check if user dismissed the popup
-      if (authError && authError.error === "dismissed") {
-        alert("Booking cancelled: Google sign-in was closed before completion.");
-      } else {
-        alert("Booking cancelled: Google Calendar authorization was denied or failed. Please try again.");
-      }
-      return; // Stop execution early
-    }
-
-    // 2. Only disable button and update text AFTER successful authorization
+    // Disable immediately to prevent double-clicks
     confirmBookingBtn.disabled = true;
     const originalConfirmText = confirmBookingBtn.textContent;
     confirmBookingBtn.textContent = "Scheduling...";
@@ -1374,51 +1285,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const readableDate = selectedDateObj.toLocaleDateString('en-US', dateOptions);
     const fullMeetingDetails = `${readableDate} at ${meetingTimeStr} (30 mins)`;
 
-    let googleCalendarSaved = false;
+    // Will be populated from API response
     let hangoutMeetUrl = "";
 
-    // 3. Create Google Calendar Event
-    try {
-      const calendarResult = await createGoogleCalendarEvent(googleAccessToken, data, startDateTime, endDateTime);
-      googleCalendarSaved = true;
-      if (calendarResult && calendarResult.hangoutLink) {
-        hangoutMeetUrl = calendarResult.hangoutLink;
-      }
-    } catch (calendarError: any) {
-      console.warn("Google Calendar event creation failed.", calendarError);
-      confirmBookingBtn.textContent = originalConfirmText;
-      confirmBookingBtn.disabled = false;
-      alert("Booking failed: Failed to schedule calendar event. Please try again.");
-      return; // Stop execution: do not send email or show success screen
-    }
+    const buildGoogleCalUrl = (meetUrl: string) =>
+      `https://calendar.google.com/render?action=TEMPLATE&text=Flurbix+Demo+Meeting&dates=${formatDateICS(startDateTime)}/${formatDateICS(endDateTime)}&details=Demo+session+with+Flurbix.+Thank+you+for+booking!&location=${meetUrl ? encodeURIComponent(meetUrl) : 'Online+Meeting'}&sf=true&output=xml`;
 
-    // Google Calendar Link
-    const googleCalUrl = `https://calendar.google.com/render?action=TEMPLATE&text=Flurbix+Demo+Meeting&dates=${formatDateICS(startDateTime)}/${formatDateICS(endDateTime)}&details=Demo+session+with+Flurbix.+Thank+you+for+booking!&location=${hangoutMeetUrl ? encodeURIComponent(hangoutMeetUrl) : 'Online+Meeting'}&sf=true&output=xml`;
+    const buildOutlookCalUrl = (meetUrl: string) =>
+      `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=Flurbix+Demo+Meeting&startdt=${startDateTime.toISOString()}&enddt=${endDateTime.toISOString()}&body=Demo+session+with+Flurbix.+Thank+you+for+booking!${meetUrl ? '+Join+Meet:+' + encodeURIComponent(meetUrl) : ''}&location=${meetUrl ? encodeURIComponent(meetUrl) : 'Online+Meeting'}`;
 
-    // Outlook Calendar Link
-    const outlookCalUrl = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=Flurbix+Demo+Meeting&startdt=${startDateTime.toISOString()}&enddt=${endDateTime.toISOString()}&body=Demo+session+with+Flurbix.+Thank+you+for+booking!${hangoutMeetUrl ? '+Join+Meet:+' + encodeURIComponent(hangoutMeetUrl) : ''}&location=${hangoutMeetUrl ? encodeURIComponent(hangoutMeetUrl) : 'Online+Meeting'}`;
-
-    const getICSContent = () => {
-      return [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "PRODID:-//Flurbix//Demo Booking//EN",
-        "CALSCALE:GREGORIAN",
-        "METHOD:REQUEST",
-        "BEGIN:VEVENT",
-        `UID:${Date.now()}@flurbix.com`,
-        `DTSTAMP:${formatDateICS(new Date())}`,
-        `DTSTART:${formatDateICS(startDateTime)}`,
-        `DTEND:${formatDateICS(endDateTime)}`,
-        "SUMMARY:Flurbix Demo Meeting",
-        `DESCRIPTION:Demo session with Flurbix. Contact: ${data.email}. Thank you for booking!${hangoutMeetUrl ? '\\nJoin Google Meet: ' + hangoutMeetUrl : ''}`,
-        `LOCATION:${hangoutMeetUrl ? hangoutMeetUrl : 'Google Meet / Online'}`,
-        "STATUS:CONFIRMED",
-        "SEQUENCE:0",
-        "END:VEVENT",
-        "END:VCALENDAR"
-      ].join("\r\n");
-    };
+    const getICSContent = () => [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//Flurbix//Demo Booking//EN",
+      "CALSCALE:GREGORIAN",
+      "METHOD:REQUEST",
+      "BEGIN:VEVENT",
+      `UID:${Date.now()}@flurbix.com`,
+      `DTSTAMP:${formatDateICS(new Date())}`,
+      `DTSTART:${formatDateICS(startDateTime)}`,
+      `DTEND:${formatDateICS(endDateTime)}`,
+      "SUMMARY:Flurbix Demo Meeting",
+      `DESCRIPTION:Demo session with Flurbix. Contact: ${data.email}. Thank you for booking!${hangoutMeetUrl ? '\\nJoin Google Meet: ' + hangoutMeetUrl : ''}`,
+      `LOCATION:${hangoutMeetUrl ? hangoutMeetUrl : 'Google Meet / Online'}`,
+      "STATUS:CONFIRMED",
+      "SEQUENCE:0",
+      "END:VEVENT",
+      "END:VCALENDAR",
+    ].join("\r\n");
 
     const triggerICSDownload = () => {
       const ics = getICSContent();
@@ -1430,235 +1324,6 @@ document.addEventListener("DOMContentLoaded", () => {
       link.click();
       document.body.removeChild(link);
     };
-
-    // Prepare Email HTML Template
-    const bodyHtml = `
-<div style="font-family: 'Inter', Arial, sans-serif; color: #111827; max-width: 600px; margin: 0 auto; border: 1px solid #E5E7EB; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
-  <div style="background-color: #0b4fff; padding: 24px; text-align: center;">
-    <img src="${window.location.origin}/logo.png" alt="Flurbix Logo" style="max-height: 48px; filter: brightness(0) invert(1);" />
-  </div>
-  <div style="padding: 32px; background-color: #ffffff;">
-    <h2 style="color: #0b4fff; margin-top: 0; font-size: 24px; font-weight: 700;">New Demo Booking & Session Scheduled</h2>
-    <p style="font-size: 16px; line-height: 1.5; color: #4B5563;">A new demo has been booked and scheduled in the calendar. Here are the session details:</p>
-    
-    <div style="margin: 20px 0; padding: 16px; background-color: #EFF6FF; border-left: 4px solid #0b4fff; border-radius: 4px;">
-      <strong style="font-size: 16px; color: #1e3a8a;">📅 Scheduled Time:</strong>
-      <span style="font-size: 16px; color: #111827; display: block; margin-top: 4px;">${fullMeetingDetails}</span>
-      ${hangoutMeetUrl ? `
-      <strong style="font-size: 16px; color: #1e3a8a; display: block; margin-top: 12px;">🎥 Google Meet:</strong>
-      <a href="${hangoutMeetUrl}" target="_blank" style="font-size: 16px; color: #0b4fff; display: block; margin-top: 4px; text-decoration: underline;">${hangoutMeetUrl}</a>
-      ` : ''}
-    </div>
-
-    <table style="width: 100%; border-collapse: collapse; margin-top: 24px; font-size: 15px;">
-      <tr>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; font-weight: 600; width: 160px; color: #374151;">Name</td>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; color: #111827;">${data.firstName} ${data.lastName}</td>
-      </tr>
-      <tr>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; font-weight: 600; color: #374151;">Work Email</td>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6;"><a href="mailto:${data.email}" style="color: #0b4fff; text-decoration: none;">${data.email}</a></td>
-      </tr>
-      <tr>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; font-weight: 600; color: #374151;">Company</td>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; color: #111827;">${data.company || "N/A"}</td>
-      </tr>
-      <tr>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; font-weight: 600; color: #374151;">Company Website</td>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6;">
-          ${data.website ? `<a href="${data.website.startsWith('http') ? data.website : 'https://' + data.website}" target="_blank" style="color: #0b4fff; text-decoration: none;">${data.website}</a>` : 'N/A'}
-        </td>
-      </tr>
-      <tr>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; font-weight: 600; color: #374151;">LinkedIn Profile</td>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6;">
-          ${data.linkedin ? `<a href="${data.linkedin.startsWith('http') ? data.linkedin : 'https://' + data.linkedin}" target="_blank" style="color: #0b4fff; text-decoration: none;">${data.linkedin}</a>` : 'N/A'}
-        </td>
-      </tr>
-      <tr>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; font-weight: 600; color: #374151;">Phone Number</td>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; color: #111827;">${data.phone || "N/A"}</td>
-      </tr>
-      <tr>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; font-weight: 600; color: #374151;">Challenge</td>
-        <td style="padding: 14px 10px; border-bottom: 1px solid #F3F4F6; color: #111827; line-height: 1.5;">${data.challenge === 'Others' ? 'Others: ' + data.otherChallenge : data.challenge}</td>
-      </tr>
-      <tr>
-        <td style="padding: 14px 10px; font-weight: 600; color: #374151; vertical-align: top;">How Can We Help?</td>
-        <td style="padding: 14px 10px; color: #111827; line-height: 1.5;">${data.details || "N/A"}</td>
-      </tr>
-    </table>
-    
-    <div style="margin-top: 32px; text-align: center;">
-      <a href="${googleCalUrl}" target="_blank" style="display: inline-block; background-color: #0b4fff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 15px;">Add to Google Calendar</a>
-    </div>
-  </div>
-  <div style="background-color: #F9FAFB; padding: 20px; text-align: center; font-size: 13px; color: #6B7280; border-top: 1px solid #E5E7EB;">
-    This is an automated message from the Flurbix Demo Booking System.
-  </div>
-</div>`;
-
-    const userBodyHtml = `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Demo Booking Confirmed - Flurbix</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-    
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #f9fafb;
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-    }
-    
-    @media screen and (max-width: 600px) {
-      .email-container {
-        width: 100% !important;
-        max-width: 100% !important;
-        border-radius: 0 !important;
-        border-left: none !important;
-        border-right: none !important;
-        box-shadow: none !important;
-      }
-      .header-col-left {
-        display: block !important;
-        width: 100% !important;
-        text-align: center !important;
-        padding: 20px 20px 10px 20px !important;
-      }
-      .header-col-right {
-        display: block !important;
-        width: 100% !important;
-        text-align: center !important;
-        padding: 10px 20px 20px 20px !important;
-      }
-      .header-col-right a {
-        margin: 0 16px !important;
-        display: inline-block !important;
-      }
-      .body-container {
-        padding: 32px 20px !important;
-      }
-      .footer-container {
-        padding: 32px 20px 24px !important;
-      }
-      .footer-col {
-        display: block !important;
-        width: 100% !important;
-        padding: 0 !important;
-        margin-top: 0 !important;
-        margin-bottom: 32px !important;
-        text-align: center !important;
-      }
-      .footer-col-right {
-        text-align: center !important;
-        margin-bottom: 0 !important;
-      }
-      .footer-text-left {
-        max-width: 100% !important;
-        text-align: center !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-      }
-    }
-  </style>
-</head>
-<body style="margin: 0; padding: 24px 0; background-color: #f9fafb; font-family: 'Inter', Arial, sans-serif;">
-  <div class="email-container" style="font-family: 'Inter', Arial, sans-serif; color: #111827; max-width: 600px; margin: 0 auto; border: 1px solid #E5E7EB; border-radius: 12px; overflow: hidden; background-color: #ffffff; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
-    <!-- Header -->
-    <div style="background-color: #ffffff; border-bottom: 1px solid #E5E7EB;">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td class="header-col-left" align="left" valign="middle" style="padding: 16px 24px;">
-            <a href="https://flurbix.com" style="text-decoration: none; display: inline-block;">
-              <img src="${window.location.origin}/logo.png" alt="Flurbix Logo" style="height: 32px; vertical-align: middle; border: 0;" />
-            </a>
-          </td>
-          <td class="header-col-right" align="right" valign="middle" style="padding: 16px 24px; font-family: 'Inter', Arial, sans-serif; font-size: 14px;">
-            <a href="https://flurbix.com/about-us.html" style="color: #111827; text-decoration: none; margin-right: 24px; font-weight: 500;">About</a>
-            <a href="https://flurbix.com/pricing.html" style="color: #111827; text-decoration: none; font-weight: 500;">Pricing</a>
-          </td>
-        </tr>
-      </table>
-    </div>
-    
-    <div class="body-container" style="padding: 40px 32px; background-color: #ffffff;">
-      <h2 style="color: #111827; margin-top: 0; font-size: 24px; font-weight: 700;">Your Demo is Confirmed!</h2>
-      <p style="font-size: 16px; line-height: 1.6; color: #4B5563; margin-bottom: 24px;">Hi ${data.firstName},</p>
-      <p style="font-size: 16px; line-height: 1.6; color: #4B5563; margin-bottom: 24px;">We are excited to schedule our personalized demo session with you. Here are your meeting details:</p>
-      
-      <div style="margin: 24px 0; padding: 16px; background-color: #EFF6FF; border-left: 4px solid #0b4fff; border-radius: 4px; font-family: 'Inter', Arial, sans-serif;">
-        <strong style="font-size: 15px; color: #1e3a8a; display: block; margin-bottom: 4px;">📅 Date & Time:</strong>
-        <span style="font-size: 16px; color: #111827; font-weight: 600;">${fullMeetingDetails}</span>
-        ${hangoutMeetUrl ? `
-        <strong style="font-size: 15px; color: #1e3a8a; display: block; margin-top: 12px; margin-bottom: 4px;">🎥 Google Meet:</strong>
-        <a href="${hangoutMeetUrl}" target="_blank" style="font-size: 16px; color: #0b4fff; font-weight: 600; text-decoration: underline;">Join Google Meet</a>
-        ` : `<span style="font-size: 14px; color: #4B5563; display: block; margin-top: 6px;">Location: Online (Google Meet link will be in your calendar invite)</span>`}
-      </div>
-
-      <p style="font-size: 16px; line-height: 1.6; color: #4B5563; margin-bottom: 24px;">${googleCalendarSaved ? 'This session has been saved automatically in your Google Calendar.' : 'An iCalendar invite file (.ics) has been downloaded automatically. You can also manually add it to your calendar by clicking one of the options below:'}</p>
-      
-      <div style="margin: 24px 0; text-align: center;">
-        <a href="${googleCalUrl}" target="_blank" style="display: inline-block; background-color: #0b4fff; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 14px; margin-right: 12px; margin-bottom: 12px;">Add to Google Calendar</a>
-        <a href="${outlookCalUrl}" target="_blank" style="display: inline-block; background-color: #ffffff; border: 1px solid #D1D5DB; color: #374151; padding: 11px 20px; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 14px; margin-bottom: 12px;">Add to Outlook</a>
-      </div>
-
-      <p style="font-size: 16px; line-height: 1.6; color: #4B5563; margin-bottom: 32px;">If you need to make any changes to this schedule, please reply to this email.</p>
-      <p style="font-size: 16px; line-height: 1.6; color: #4B5563; margin: 0;">Best regards,<br><strong style="color: #111827;">The Flurbix Team</strong></p>
-    </div>
-    
-    <!-- Footer -->
-    <div class="footer-container" style="background-color: #0b4fff; padding: 48px 32px 32px; text-align: center; font-family: 'Inter', Arial, sans-serif;">
-      <div style="margin-bottom: 48px;">
-        <span style="font-size: 48px; font-weight: 500; letter-spacing: -0.04em; color: #FFFFFF; line-height: 1;">Flurbi<span style="color: #000000;">x</span></span>
-      </div>
-      
-      <div style="height: 1px; background-color: rgba(240, 239, 227, 0.2); margin-bottom: 32px;"></div>
-      
-      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="color: rgba(255, 255, 255, 0.6); font-size: 14px; line-height: 1.6; text-align: left;">
-        <tr>
-          <td class="footer-col" valign="top" width="33%">
-            <div class="footer-text-left" style="max-width: 200px; margin-bottom: 24px;">
-              Building digital experiences that empower businesses worldwide.
-            </div>
-          </td>
-          
-          <td class="footer-col" valign="top" width="34%" style="padding: 0 16px;">
-            <div style="margin-bottom: 16px;">
-              30 N Gould St Ste R<br>Sheridan, Wyoming 82801<br>USA
-            </div>
-            <div style="margin-bottom: 16px;">
-              <a href="mailto:info@flurbix.com" style="color: rgba(255, 255, 255, 0.6); text-decoration: none;">info@flurbix.com</a>
-            </div>
-            <div>
-              +1 (917) 967 1694
-            </div>
-          </td>
-          
-          <td class="footer-col footer-col-right" valign="top" width="33%" align="right">
-            <div style="margin-bottom: 16px;">
-              <a href="https://flurbix.com/terms.html" style="color: rgba(255, 255, 255, 0.6); text-decoration: none;">Terms & Conditions</a>
-            </div>
-            <div>
-              <a href="https://flurbix.com/privacy-policy.html" style="color: rgba(255, 255, 255, 0.6); text-decoration: none;">Privacy Policy</a>
-            </div>
-          </td>
-        </tr>
-      </table>
-      
-      <div style="height: 1px; background-color: rgba(240, 239, 227, 0.2); margin-top: 32px; margin-bottom: 32px;"></div>
-      
-      <div style="color: rgba(255, 255, 255, 0.6); font-size: 14px;">
-        © 2026 Flurbix. All rights reserved.
-      </div>
-    </div>
-  </div>
-</body>
-</html>`;
 
     // --- RATE LIMITING CHECK START ---
     let ipLimitKey = "";
@@ -1710,63 +1375,47 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- RATE LIMITING CHECK END ---
 
     try {
-      const apikey = (import.meta as any).env?.VITE_ELASTIC_EMAIL_API_KEY || (window as any).process?.env?.ELASTIC_EMAIL_API_KEY;
+      const payload = {
+        date: dateStr,
+        time: meetingTimeStr,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC",
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        company: data.company,
+        phone: data.phone,
+        website: data.website,
+        linkedin: data.linkedin,
+        challenge: data.challenge === "Other" && data.otherChallenge ? data.otherChallenge : data.challenge,
+        details: data.details,
+        origin: window.location.origin
+      };
 
-      if (!apikey) {
-        console.error("Elastic Email API Key is missing. Simulating booking success.");
-      } else {
-        // Send email to Sales
-        const payload: any = {
-          from: "noreply@flurbix.com",
-          fromName: "Flurbix Demo Booking",
-          to: "sales@flurbix.com",
-          subject: `Demo Scheduled: ${data.company} on ${readableDate} at ${meetingTimeStr}`,
-          bodyHtml: bodyHtml,
-          isTransactional: "true",
-          charset: "utf-8",
-          encodingType: "4",
-          apikey: apikey,
-        };
+      const response = await fetch(`${API_BASE}/calendar/book`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
 
-        const response = await fetch("https://api.elasticemail.com/v2/email/send", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: new URLSearchParams(payload).toString(),
-        });
-
-        const result = await response.json();
-        if (result.success === false) {
-          throw new Error(result.error);
+      if (!response.ok) {
+        if (response.status === 409) {
+          alert("This slot has just been booked. Please choose another time.");
+          if (selectedDateObj) {
+            renderSlotsForDate(selectedDateObj, dateStr);
+          }
+          return;
         }
-
-        // Send email to User
-        const userPayload: any = {
-          from: "noreply@flurbix.com",
-          fromName: "Flurbix",
-          to: data.email,
-          subject: `Confirmed: Flurbix Demo on ${readableDate} at ${meetingTimeStr}`,
-          bodyHtml: userBodyHtml,
-          isTransactional: "true",
-          charset: "utf-8",
-          encodingType: "4",
-          apikey: apikey,
-        };
-
-        const userResponse = await fetch("https://api.elasticemail.com/v2/email/send", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: new URLSearchParams(userPayload).toString(),
-        });
-
-        const userResult = await userResponse.json();
-        if (userResult.success === false) {
-          console.error("Failed to send user confirmation email:", userResult.error);
-        }
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || "Failed to confirm booking.");
       }
+
+      const resData = await response.json();
+      hangoutMeetUrl = resData.hangoutLink || "";
+      const googleCalUrl = resData.googleCalUrl;
+      const outlookCalUrl = resData.outlookCalUrl;
+      const confirmedDetails = resData.fullMeetingDetails || fullMeetingDetails;
 
       // --- Success Execution ---
       // 1. Close Modal
@@ -1775,10 +1424,8 @@ document.addEventListener("DOMContentLoaded", () => {
       // 2. Save booking in localStorage so it appears "Already Booked"
       saveUserBookedSlot(dateStr, meetingTimeStr);
 
-      // 3. Trigger automatic download of .ics calendar file (only if NOT saved directly in Google Calendar)
-      if (!googleCalendarSaved) {
-        triggerICSDownload();
-      }
+      // 3. Trigger automatic download of .ics calendar file
+      triggerICSDownload();
 
       // 4. Update and display success state
       const formWrap = document.querySelector(".demo_form-wrap");
@@ -1791,12 +1438,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const outlookCalLink = document.getElementById("outlook-cal-link") as HTMLAnchorElement;
         const redownloadBtn = document.getElementById("redownload-ics-btn") as HTMLAnchorElement;
 
-        let confirmedDetails = fullMeetingDetails;
+        let formattedConfirmedDetails = confirmedDetails;
         if (hangoutMeetUrl) {
-          confirmedDetails += `\n🎥 Google Meet Link: ${hangoutMeetUrl}`;
+          formattedConfirmedDetails += `\n🎥 Google Meet Link: ${hangoutMeetUrl}`;
         }
         if (detailsTime) {
-          detailsTime.innerHTML = confirmedDetails.replace(/\n/g, "<br>");
+          detailsTime.innerHTML = formattedConfirmedDetails.replace(/\n/g, "<br>");
         }
 
         if (googleCalLink) googleCalLink.href = googleCalUrl;
@@ -1809,9 +1456,6 @@ document.addEventListener("DOMContentLoaded", () => {
             evt.preventDefault();
             triggerICSDownload();
           });
-          if (googleCalendarSaved) {
-            newRedownloadBtn.querySelector("span")!.textContent = "📥 Export to .ics";
-          }
         }
 
         if (detailsBox) detailsBox.style.display = "block";
@@ -1840,7 +1484,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     } catch (error: any) {
       console.error("Booking Failed:", error);
-      alert("Failed to confirm booking. Please try again later.");
+      alert(error.message || "Failed to confirm booking. Please try again later.");
     } finally {
       confirmBookingBtn.textContent = originalConfirmText;
       confirmBookingBtn.disabled = false;

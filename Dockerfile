@@ -1,29 +1,21 @@
-# Stage 1: Build the static site
-FROM node:20-alpine AS builder
+# Single container: Vite frontend + Express backend
+FROM node:20-alpine
 
 WORKDIR /app
 
 # Copy package files from flurbix-app
 COPY flurbix-app/package*.json ./
 
-# Install dependencies
+# Install all dependencies (including tsx and backend deps)
 RUN npm ci
 
-# Copy the rest of the application files
+# Copy all application files
 COPY flurbix-app/ ./
 
-# Build the project (Vite bakes in VITE_* env variables at build time)
-RUN npm run build
-
-# Stage 2: Serve the static site using Nginx
-FROM nginx:alpine
-
-# Copy custom Nginx configuration to listen on port 5173
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Copy static assets from the builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Build Vite frontend into dist/
+RUN npx vite build
 
 EXPOSE 5173
 
-CMD ["nginx", "-g", "daemon off;"]
+# Start Express — serves /api routes + dist/ static files
+CMD ["npx", "tsx", "server/server.ts"]

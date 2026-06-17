@@ -7,7 +7,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Folders that should be excluded from HTML entry scanning
-const EXCLUDED_DIRS = new Set(['node_modules', 'dist', 'src', '.git', '9i1h7htkfq16Njk5OGE3YTRlZmNkNjZkOWYyODU3ZTc5']);
+const EXCLUDED_DIRS = new Set(['node_modules', 'dist', 'src', '.git', 'server', 'scripts', '9i1h7htkfq16Njk5OGE3YTRlZmNkNjZkOWYyODU3ZTc5']);
+
 
 function getHtmlEntries(dir: string, fileList: string[] = []) {
   const files = fs.readdirSync(dir);
@@ -43,11 +44,45 @@ const skipGtmDataFile: Plugin = {
   },
 };
 
+// Plugin: rewrite clean URLs (e.g. /demo -> /demo.html) in dev server
+const cleanUrlsPlugin: Plugin = {
+  name: 'clean-urls',
+  configureServer(server) {
+    server.middlewares.use((req, res, next) => {
+      if (req.url) {
+        try {
+          const url = new URL(req.url, 'http://localhost');
+          const pathname = url.pathname;
+
+          // Skip API, assets, or files with extensions
+          if (!pathname.startsWith('/api') && !pathname.includes('.') && pathname !== '/') {
+            // Check if the corresponding HTML file exists in the directory
+            const htmlPath = resolve(__dirname, pathname.substring(1) + '.html');
+            if (fs.existsSync(htmlPath)) {
+              req.url = pathname + '.html' + url.search;
+            }
+          }
+        } catch (e) {
+          console.error('[Clean URLs Plugin Error]', e);
+        }
+      }
+      next();
+    });
+  },
+};
+
 export default defineConfig({
   server: {
-    allowedHosts: ["schilling-smoked-twitch.ngrok-free.dev"]
+    port: 5174,
+    allowedHosts: ["schilling-smoked-twitch.ngrok-free.dev"],
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5173',
+        changeOrigin: true,
+      },
+    },
   },
-  plugins: [skipGtmDataFile],
+  plugins: [skipGtmDataFile, cleanUrlsPlugin],
   build: {
     rollupOptions: {
       input
