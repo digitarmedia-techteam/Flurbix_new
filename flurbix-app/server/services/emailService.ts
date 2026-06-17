@@ -25,6 +25,17 @@ async function sendEmail(params: {
   subject: string;
   bodyHtml: string;
 }): Promise<void> {
+  const isMockMode =
+    !env.ELASTIC_EMAIL_API_KEY ||
+    env.ELASTIC_EMAIL_API_KEY.includes('<') ||
+    env.ELASTIC_EMAIL_API_KEY === 'mock';
+
+  if (isMockMode) {
+    console.warn(`[Elastic Email Service] Running in MOCK mode. Simulated sending to: ${params.to}`);
+    console.log(`[Elastic Email Service] Subject: ${params.subject}`);
+    return;
+  }
+
   const payload = new URLSearchParams({
     from:            'noreply@flurbix.com',
     fromName:        params.fromName,
@@ -45,6 +56,11 @@ async function sendEmail(params: {
 
   const result = await response.json() as { success: boolean; error?: string };
   if (!result.success) {
+    if (result.error === 'APIKey Expired' && env.NODE_ENV === 'development') {
+      console.warn(`[Elastic Email Service] API Key is expired. Falling back to MOCK mode in development. Simulated sending to: ${params.to}`);
+      console.log(`[Elastic Email Service] Subject: ${params.subject}`);
+      return;
+    }
     throw new Error(result.error || 'Elastic Email send failed');
   }
 }
@@ -112,7 +128,7 @@ export async function sendSalesNotificationEmail(d: BookingEmailData): Promise<v
 </div>`;
 
   await sendEmail({
-    to:       'sales@flurbix.com;anuj@digitarmedia.com',
+    to:       'sales@flurbix.com,anuj@digitarmedia.com',
     fromName: 'Flurbix Demo Booking',
     subject:  `Demo Scheduled: ${d.company} on ${d.readableDate} at ${d.meetingTimeStr}`,
     bodyHtml,

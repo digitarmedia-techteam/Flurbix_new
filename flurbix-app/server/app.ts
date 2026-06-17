@@ -48,9 +48,13 @@ if (env.NODE_ENV === 'production') {
   // dist/ is one level up from server/ at runtime
   const staticPath = path.join(__dirname, '..', 'dist');
 
-  // Redirect /xyz.html to /xyz for clean URLs (excluding index.html)
+  // Redirect /index.html to / and clean other .html URLs
   app.use((req, res, next) => {
-    if (req.path.endsWith('.html') && req.path !== '/index.html') {
+    if (req.path === '/index.html') {
+      const query = req.url.substring(req.path.length);
+      return res.redirect(301, '/' + query);
+    }
+    if (req.path.endsWith('.html')) {
       const cleanPath = req.path.slice(0, -5);
       const query = req.url.substring(req.path.length);
       return res.redirect(301, cleanPath + query);

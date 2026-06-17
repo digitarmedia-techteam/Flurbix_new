@@ -48,8 +48,8 @@ export interface BookingParams {
  * Used to compute which slots are occupied.
  */
 export async function getEventsForDay(dateStr: string): Promise<CalendarEvent[]> {
-  const timeMin = new Date(`${dateStr}T00:00:00Z`).toISOString();
-  const timeMax = new Date(`${dateStr}T23:59:59Z`).toISOString();
+  const timeMin = new Date(`${dateStr}T00:00:00+05:30`).toISOString();
+  const timeMax = new Date(`${dateStr}T23:59:59+05:30`).toISOString();
 
   if (isMockMode) {
     console.warn('[Google Calendar Service] Running in MOCK mode. Returning simulated events.');

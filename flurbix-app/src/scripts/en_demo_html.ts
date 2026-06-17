@@ -523,6 +523,7 @@ document.addEventListener("DOMContentLoaded", function () {
     smooth: 1.2,
     effects: true,
   });
+  (window as any).flurbixSmoother = smoother;
 
   document.querySelector(".navbar1_menu-button").addEventListener("click", (e) => {
     document.body.style.overflow = e.currentTarget.classList.contains("w--open") ? "auto" : "hidden";
@@ -807,6 +808,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const submitBtn = document.getElementById("submit-btn") as HTMLInputElement;
 
+  // Has-value Class Toggle Helper for Floating Labels
+  const updateHasValue = (field: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) => {
+    if (field.value && field.value.trim() !== "") {
+      field.classList.add("has-value");
+    } else {
+      field.classList.remove("has-value");
+    }
+  };
+
   // Validation Patterns
   const nameRegex = /^[a-zA-Z\s\-]{2,}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -857,8 +867,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const errorContainer = document.getElementById(`${field.id}-error`);
+    const shouldShowError = showErrors || field.classList.contains("is-touched") || field.classList.contains("is-invalid");
     if (isValid) {
       field.classList.remove("is-invalid");
+      field.removeAttribute("aria-invalid");
       if (val.length > 0) field.classList.add("is-valid");
       else field.classList.remove("is-valid");
 
@@ -868,11 +880,21 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } else {
       field.classList.remove("is-valid");
-      if (showErrors || field.classList.contains("is-invalid")) {
+      field.setAttribute("aria-invalid", "true");
+      if (errorContainer) {
+        field.setAttribute("aria-describedby", errorContainer.id);
+      }
+      if (shouldShowError) {
         field.classList.add("is-invalid");
         if (errorContainer) {
           errorContainer.textContent = errorMsg;
           errorContainer.classList.add("is-visible");
+        }
+      } else {
+        field.classList.remove("is-invalid");
+        if (errorContainer) {
+          errorContainer.classList.remove("is-visible");
+          errorContainer.textContent = "";
         }
       }
     }
@@ -955,31 +977,45 @@ document.addEventListener("DOMContentLoaded", () => {
   const otherChallengeWrapper = document.getElementById("other-challenge-wrapper") as HTMLDivElement;
   if (challengeSelect && otherChallengeWrapper) {
     challengeSelect.addEventListener("change", () => {
+      const otherChallengeInput = document.getElementById("other_challenge") as HTMLInputElement;
       if (challengeSelect.value === "Others") {
         otherChallengeWrapper.style.display = "block";
-        (document.getElementById("other_challenge") as HTMLInputElement).required = true;
+        otherChallengeInput.required = true;
       } else {
         otherChallengeWrapper.style.display = "none";
-        (document.getElementById("other_challenge") as HTMLInputElement).required = false;
-        (document.getElementById("other_challenge") as HTMLInputElement).value = "";
+        otherChallengeInput.required = false;
+        otherChallengeInput.value = "";
+        updateHasValue(otherChallengeInput);
       }
       checkFormValidity();
     });
   }
 
-  // Attach Input & Blur Events
+  // Attach Input & Blur Events and Initialize has-value
   const allFields = form.querySelectorAll(".form_input");
   allFields.forEach((field) => {
-    field.addEventListener("input", () => {
+    const el = field as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+    // Initial state
+    updateHasValue(el);
+
+    el.addEventListener("input", () => {
+      updateHasValue(el);
       checkFormValidity();
     });
-    field.addEventListener("blur", () => {
+    el.addEventListener("change", () => {
+      updateHasValue(el);
+      checkFormValidity();
+    });
+    el.addEventListener("blur", () => {
+      el.classList.add("is-touched");
+      updateHasValue(el);
       let regex;
-      let required = (field as HTMLInputElement).required;
-      if (field.id === "Email") regex = emailRegex;
-      if (field.id === "Phone") regex = phoneRegex;
-      if (field.id === "website" || field.id === "linkedin") regex = urlRegex;
-      validateField(field as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement, regex, required, true);
+      let required = el.required;
+      if (el.id === "Email") regex = emailRegex;
+      if (el.id === "Phone") regex = phoneRegex;
+      if (el.id === "website" || el.id === "linkedin") regex = urlRegex;
+      validateField(el, regex, required, true);
       checkFormValidity();
     });
   });
@@ -987,6 +1023,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Submit Handler: opens calendar modal instead of submitting directly
   form.addEventListener("submit", (e) => {
     e.preventDefault();
+    allFields.forEach((field) => {
+      (field as HTMLElement).classList.add("is-touched");
+    });
 
     // Enforce visual validation on all fields
     const isFirstNameValid = validateField(document.getElementById("firstname") as HTMLInputElement, undefined, true, true);
@@ -1025,6 +1064,23 @@ document.addEventListener("DOMContentLoaded", () => {
   // All calendar & email logic is handled by the backend.
   // Customers NEVER authenticate with Google — the server uses a stored refresh token.
   const API_BASE = "/api";
+  const API_UNAVAILABLE_MESSAGE = "Booking service is not available. Please start the backend with `npm run dev:server` or use `npm run dev:all`.";
+
+  const getApiErrorMessage = async (response: Response, fallback: string) => {
+    const contentType = response.headers.get("content-type") || "";
+    if (contentType.includes("application/json")) {
+      const errorData = await response.json().catch(() => ({}));
+      if (errorData && typeof errorData.message === "string" && errorData.message.trim()) {
+        return errorData.message;
+      }
+    }
+
+    if (response.status >= 500) {
+      return API_UNAVAILABLE_MESSAGE;
+    }
+
+    return fallback;
+  };
 
   const calendarModal = document.getElementById("calendar-modal") as HTMLDivElement;
   const calendarModalClose = document.getElementById("calendar-modal-close") as HTMLButtonElement;
@@ -1172,14 +1228,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "slot-button";
-      btn.textContent = slot;
 
       // API data takes precedence; localStorage cache is the fallback
       const booked = apiOccupiedSlots.includes(slot) || isSlotBooked(dateStr, slot, dateObj);
       if (booked) {
         btn.classList.add("is-booked");
         btn.disabled = true;
+        btn.innerHTML = `<span>${slot}</span><span class="booked-badge">Booked</span>`;
       } else {
+        btn.innerHTML = `<span>${slot}</span>`;
         if (selectedTimeSlot === slot) {
           btn.classList.add("is-selected");
         }
@@ -1210,7 +1267,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const openCalendarModal = () => {
     calendarModal.classList.add("is-open");
-    
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    if ((window as any).flurbixSmoother) {
+      (window as any).flurbixSmoother.paused(true);
+    }
+
     // If no date has been selected yet, default to today
     if (!selectedDateObj) {
       const today = new Date();
@@ -1222,7 +1284,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       selectedDateObj = today;
     }
-    
+
     currentDateObj = new Date(selectedDateObj);
     renderCalendar();
 
@@ -1235,6 +1297,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const closeCalendarModal = () => {
     calendarModal.classList.remove("is-open");
+    document.body.style.overflow = "";
+    document.documentElement.style.overflow = "";
+    if ((window as any).flurbixSmoother) {
+      (window as any).flurbixSmoother.paused(false);
+    }
   };
 
   calendarModalClose.addEventListener("click", closeCalendarModal);
@@ -1294,36 +1361,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const buildOutlookCalUrl = (meetUrl: string) =>
       `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=Flurbix+Demo+Meeting&startdt=${startDateTime.toISOString()}&enddt=${endDateTime.toISOString()}&body=Demo+session+with+Flurbix.+Thank+you+for+booking!${meetUrl ? '+Join+Meet:+' + encodeURIComponent(meetUrl) : ''}&location=${meetUrl ? encodeURIComponent(meetUrl) : 'Online+Meeting'}`;
 
-    const getICSContent = () => [
-      "BEGIN:VCALENDAR",
-      "VERSION:2.0",
-      "PRODID:-//Flurbix//Demo Booking//EN",
-      "CALSCALE:GREGORIAN",
-      "METHOD:REQUEST",
-      "BEGIN:VEVENT",
-      `UID:${Date.now()}@flurbix.com`,
-      `DTSTAMP:${formatDateICS(new Date())}`,
-      `DTSTART:${formatDateICS(startDateTime)}`,
-      `DTEND:${formatDateICS(endDateTime)}`,
-      "SUMMARY:Flurbix Demo Meeting",
-      `DESCRIPTION:Demo session with Flurbix. Contact: ${data.email}. Thank you for booking!${hangoutMeetUrl ? '\\nJoin Google Meet: ' + hangoutMeetUrl : ''}`,
-      `LOCATION:${hangoutMeetUrl ? hangoutMeetUrl : 'Google Meet / Online'}`,
-      "STATUS:CONFIRMED",
-      "SEQUENCE:0",
-      "END:VEVENT",
-      "END:VCALENDAR",
-    ].join("\r\n");
 
-    const triggerICSDownload = () => {
-      const ics = getICSContent();
-      const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "flurbix_demo_meeting.ics";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    };
 
     // --- RATE LIMITING CHECK START ---
     let ipLimitKey = "";
@@ -1407,8 +1445,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
           return;
         }
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || "Failed to confirm booking.");
+        throw new Error(await getApiErrorMessage(response, "Failed to confirm booking."));
       }
 
       const resData = await response.json();
@@ -1424,19 +1461,33 @@ document.addEventListener("DOMContentLoaded", () => {
       // 2. Save booking in localStorage so it appears "Already Booked"
       saveUserBookedSlot(dateStr, meetingTimeStr);
 
-      // 3. Trigger automatic download of .ics calendar file
-      triggerICSDownload();
-
-      // 4. Update and display success state
+      // 3. Update and display success state
       const formWrap = document.querySelector(".demo_form-wrap");
       if (formWrap) {
         form.style.display = "none";
+
+        // Hide left-hand info panel to center the thank you card
+        const demoInfo = document.querySelector(".demo_info") as HTMLElement;
+        if (demoInfo) {
+          demoInfo.style.display = "none";
+        }
+
+        // Change layout to centered single column
+        const demoContent = document.querySelector(".demo_content") as HTMLElement;
+        if (demoContent) {
+          demoContent.style.gridTemplateColumns = "1fr";
+          demoContent.style.justifyItems = "center";
+          demoContent.style.alignItems = "center";
+        }
+
+        // Set auto margin on formWrap to center it
+        (formWrap as HTMLElement).style.margin = "0 auto";
+        (formWrap as HTMLElement).style.maxWidth = "600px";
 
         const detailsBox = document.getElementById("booking-details-box") as HTMLDivElement;
         const detailsTime = document.getElementById("booking-details-time") as HTMLElement;
         const googleCalLink = document.getElementById("google-cal-link") as HTMLAnchorElement;
         const outlookCalLink = document.getElementById("outlook-cal-link") as HTMLAnchorElement;
-        const redownloadBtn = document.getElementById("redownload-ics-btn") as HTMLAnchorElement;
 
         let formattedConfirmedDetails = confirmedDetails;
         if (hangoutMeetUrl) {
@@ -1449,19 +1500,15 @@ document.addEventListener("DOMContentLoaded", () => {
         if (googleCalLink) googleCalLink.href = googleCalUrl;
         if (outlookCalLink) outlookCalLink.href = outlookCalUrl;
 
-        if (redownloadBtn) {
-          redownloadBtn.replaceWith(redownloadBtn.cloneNode(true));
-          const newRedownloadBtn = document.getElementById("redownload-ics-btn") as HTMLAnchorElement;
-          newRedownloadBtn.addEventListener("click", (evt) => {
-            evt.preventDefault();
-            triggerICSDownload();
-          });
-        }
-
         if (detailsBox) detailsBox.style.display = "block";
 
         const successMsg = formWrap.querySelector(".w-form-done") as HTMLElement;
-        if (successMsg) successMsg.style.display = "block";
+        if (successMsg) {
+          successMsg.style.display = "block";
+          successMsg.setAttribute("tabindex", "-1");
+          successMsg.focus();
+          successMsg.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
       }
 
       // --- RATE LIMITING INCREMENT ---
@@ -1484,7 +1531,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     } catch (error: any) {
       console.error("Booking Failed:", error);
-      alert(error.message || "Failed to confirm booking. Please try again later.");
+      const isNetworkError = error instanceof TypeError;
+      alert(isNetworkError ? API_UNAVAILABLE_MESSAGE : (error.message || "Failed to confirm booking. Please try again later."));
     } finally {
       confirmBookingBtn.textContent = originalConfirmText;
       confirmBookingBtn.disabled = false;

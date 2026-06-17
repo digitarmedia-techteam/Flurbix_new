@@ -49,7 +49,9 @@ export async function bookMeetingHandler(req: Request, res: Response): Promise<v
   if (period === 'AM' && hour === 12) hour = 0;
 
   const [year, month, day] = date.split('-').map(Number);
-  const startDateTime = new Date(year, month - 1, day, hour, m);
+  const pad = (n: number) => String(n).padStart(2, '0');
+  const isoStr = `${pad(year)}-${pad(month)}-${pad(day)}T${pad(hour)}:${pad(m)}:00+05:30`;
+  const startDateTime = new Date(isoStr);
   const endDateTime   = new Date(startDateTime.getTime() + 30 * 60 * 1000);
 
   // --- Create Google Calendar event ---
@@ -64,7 +66,7 @@ export async function bookMeetingHandler(req: Request, res: Response): Promise<v
       linkedin: linkedin || '',
       challenge,
       details:  details  || '',
-      timezone: timezone || 'UTC',
+      timezone: timezone || 'Asia/Kolkata',
     });
     hangoutLink = event.hangoutLink || '';
   } catch (error: any) {
@@ -75,7 +77,13 @@ export async function bookMeetingHandler(req: Request, res: Response): Promise<v
 
   // --- Build calendar links and readable strings ---
   const formatICS = (d: Date) => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-  const readableDate       = startDateTime.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const readableDate       = startDateTime.toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'Asia/Kolkata'
+  });
   const fullMeetingDetails = `${readableDate} at ${time} (30 mins)`;
   const loc                = hangoutLink ? encodeURIComponent(hangoutLink) : 'Online+Meeting';
 

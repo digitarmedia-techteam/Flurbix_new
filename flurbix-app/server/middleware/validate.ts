@@ -14,7 +14,7 @@ const availableSlotsSchema = z.object({
 const bookingSchema = z.object({
   date:      z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format. Use YYYY-MM-DD.'),
   time:      z.string().min(1, 'Time slot is required.'),
-  timezone:  z.string().optional().default('UTC'),
+  timezone:  z.string().optional().default('Asia/Kolkata'),
   firstName: z.string().min(2, 'First name must be at least 2 characters.').max(100),
   lastName:  z.string().min(2, 'Last name must be at least 2 characters.').max(100),
   email: z.string()
