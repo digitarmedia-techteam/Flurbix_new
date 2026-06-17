@@ -5604,7 +5604,7 @@ figcaption {
   width: 100%;
   max-width: 29rem;
   height: 100%;
-  min-height: 40rem;
+  min-height: 20rem;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -5619,8 +5619,9 @@ figcaption {
 .demo_success-h {
   letter-spacing: -.03em;
   margin-bottom: 1.5rem;
-  font-size: 3rem;
-  line-height: 1;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  text-align: center;
 }
 
 .process_discount {

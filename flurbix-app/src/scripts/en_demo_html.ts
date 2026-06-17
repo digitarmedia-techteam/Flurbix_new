@@ -1484,17 +1484,18 @@ document.addEventListener("DOMContentLoaded", () => {
         (formWrap as HTMLElement).style.margin = "0 auto";
         (formWrap as HTMLElement).style.maxWidth = "600px";
 
+
         const detailsBox = document.getElementById("booking-details-box") as HTMLDivElement;
         const detailsTime = document.getElementById("booking-details-time") as HTMLElement;
         const googleCalLink = document.getElementById("google-cal-link") as HTMLAnchorElement;
         const outlookCalLink = document.getElementById("outlook-cal-link") as HTMLAnchorElement;
 
-        let formattedConfirmedDetails = confirmedDetails;
+        let formattedConfirmedDetails = confirmedDetails.replace(/\\n/g, "<br>");
         if (hangoutMeetUrl) {
-          formattedConfirmedDetails += `\n🎥 Google Meet Link: ${hangoutMeetUrl}`;
+          formattedConfirmedDetails += `<br><span style="display:inline-block; margin-top:0.5rem; word-break: break-word; font-weight: normal; font-size: 0.95rem;">🎥 Google Meet Link: <a href="${hangoutMeetUrl}" target="_blank" style="color:#0B4FFF; text-decoration:underline;">${hangoutMeetUrl}</a></span>`;
         }
         if (detailsTime) {
-          detailsTime.innerHTML = formattedConfirmedDetails.replace(/\n/g, "<br>");
+          detailsTime.innerHTML = formattedConfirmedDetails;
         }
 
         if (googleCalLink) googleCalLink.href = googleCalUrl;
