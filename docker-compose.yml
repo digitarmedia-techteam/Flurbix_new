@@ -1,7 +1,7 @@
 services:
   app:
     build: .
-    container_name: flurbix-app
+    container_name: flurbix-website
     env_file:
       - flurbix-app/.env
     environment:

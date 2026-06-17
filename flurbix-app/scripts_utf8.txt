@@ -71,12 +71,12 @@
                           {
                             "items": [
                               {
-                                "url": "https://www.youtube.com/watch?time_continue=3&v=4Xej6786FhY&embeds_referring_euri=https%3A%2F%2Fwww.flurbix.io%2F&source_ve_path=Mjg2NjY",
-                                "originalUrl": "https://www.youtube.com/watch?time_continue=3&v=4Xej6786FhY&embeds_referring_euri=https%3A%2F%2Fwww.flurbix.io%2F&source_ve_path=Mjg2NjY",
+                                "url": "https://www.youtube.com/watch?time_continue=3&v=4Xej6786FhY&embeds_referring_euri=https%3A%2F%2Fwww.flurbix.com%2F&source_ve_path=Mjg2NjY",
+                                "originalUrl": "https://www.youtube.com/watch?time_continue=3&v=4Xej6786FhY&embeds_referring_euri=https%3A%2F%2Fwww.flurbix.com%2F&source_ve_path=Mjg2NjY",
                                 "width": 940,
                                 "height": 528,
                                 "thumbnailUrl": "https://i.ytimg.com/vi/4Xej6786FhY/hqdefault.jpg",
-                                "html": "<iframe class=\"embedly-embed\" src="https://www.flurbix.io/\&quot;//cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2F4Xej6786FhY%3Fstart%3D3%26feature%3Doembed&amp;display_name=YouTube&amp;url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D4Xej6786FhY&amp;image=https%3A%2F%2Fi.ytimg.com%2Fvi%2F4Xej6786FhY%2Fhqdefault.jpg&amp;type=text%2Fhtml&amp;schema=youtube\&quot;" width=\"940\" height=\"528\" scrolling=\"no\" title=\"YouTube embed\" frameborder=\"0\" allow=\"autoplay; fullscreen; encrypted-media; picture-in-picture;\" allowfullscreen=\"true\"></iframe>",
+                                "html": "<iframe class=\"embedly-embed\" src="https://www.flurbix.com/\&quot;//cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2F4Xej6786FhY%3Fstart%3D3%26feature%3Doembed&amp;display_name=YouTube&amp;url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D4Xej6786FhY&amp;image=https%3A%2F%2Fi.ytimg.com%2Fvi%2F4Xej6786FhY%2Fhqdefault.jpg&amp;type=text%2Fhtml&amp;schema=youtube\&quot;" width=\"940\" height=\"528\" scrolling=\"no\" title=\"YouTube embed\" frameborder=\"0\" allow=\"autoplay; fullscreen; encrypted-media; picture-in-picture;\" allowfullscreen=\"true\"></iframe>",
                                 "type": "video"
                               }
                             ],
@@ -87,12 +87,12 @@
                           {
                             "items": [
                               {
-                                "url": "https://www.youtube.com/watch?time_continue=3&v=4Xej6786FhY&embeds_referring_euri=https%3A%2F%2Fwww.flurbix.io%2F&source_ve_path=Mjg2NjY",
-                                "originalUrl": "https://www.youtube.com/watch?time_continue=3&v=4Xej6786FhY&embeds_referring_euri=https%3A%2F%2Fwww.flurbix.io%2F&source_ve_path=Mjg2NjY",
+                                "url": "https://www.youtube.com/watch?time_continue=3&v=4Xej6786FhY&embeds_referring_euri=https%3A%2F%2Fwww.flurbix.com%2F&source_ve_path=Mjg2NjY",
+                                "originalUrl": "https://www.youtube.com/watch?time_continue=3&v=4Xej6786FhY&embeds_referring_euri=https%3A%2F%2Fwww.flurbix.com%2F&source_ve_path=Mjg2NjY",
                                 "width": 940,
                                 "height": 528,
                                 "thumbnailUrl": "https://i.ytimg.com/vi/4Xej6786FhY/hqdefault.jpg",
-                                "html": "<iframe class=\"embedly-embed\" src="https://www.flurbix.io/\&quot;//cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2F4Xej6786FhY%3Fstart%3D3%26feature%3Doembed&amp;display_name=YouTube&amp;url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D4Xej6786FhY&amp;image=https%3A%2F%2Fi.ytimg.com%2Fvi%2F4Xej6786FhY%2Fhqdefault.jpg&amp;type=text%2Fhtml&amp;schema=youtube\&quot;" width=\"940\" height=\"528\" scrolling=\"no\" title=\"YouTube embed\" frameborder=\"0\" allow=\"autoplay; fullscreen; encrypted-media; picture-in-picture;\" allowfullscreen=\"true\"></iframe>",
+                                "html": "<iframe class=\"embedly-embed\" src="https://www.flurbix.com/\&quot;//cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2F4Xej6786FhY%3Fstart%3D3%26feature%3Doembed&amp;display_name=YouTube&amp;url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D4Xej6786FhY&amp;image=https%3A%2F%2Fi.ytimg.com%2Fvi%2F4Xej6786FhY%2Fhqdefault.jpg&amp;type=text%2Fhtml&amp;schema=youtube\&quot;" width=\"940\" height=\"528\" scrolling=\"no\" title=\"YouTube embed\" frameborder=\"0\" allow=\"autoplay; fullscreen; encrypted-media; picture-in-picture;\" allowfullscreen=\"true\"></iframe>",
                                 "type": "video"
                               }
                             ],

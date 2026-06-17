@@ -28,7 +28,7 @@ const bookingSchema = z.object({
   linkedin: z.string().optional().default(''),
   challenge: z.string().min(1, 'Challenge selection is required.'),
   details:  z.string().max(500).optional().default(''),
-  origin:   z.string().optional().default('https://flurbix.io'),
+  origin:   z.string().optional().default('https://flurbix.com'),
 });
 
 function validate(schema: z.ZodSchema, source: 'body' | 'query') {

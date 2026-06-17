@@ -84,7 +84,7 @@ export async function bookMeetingHandler(req: Request, res: Response): Promise<v
 
   const siteOrigin = (typeof origin === 'string' && origin.startsWith('http'))
     ? origin
-    : 'https://flurbix.io';
+    : 'https://flurbix.com';
 
   const emailData: BookingEmailData = {
     firstName, lastName, email,
