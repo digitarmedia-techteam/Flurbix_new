@@ -396,7 +396,7 @@ pre.w-code-block code>span {
     z-index: 2147483647 !important;
     color: #aaadb0 !important;
     width: auto !important;
-        overflow: unset !important;
+    overflow: unset !important;
     background-color: #fff !important;
     border-radius: 3px !important;
     margin: 0 !important;
@@ -3124,7 +3124,7 @@ figcaption {
 }
 
 .form_input {
-    
+
     color: var(--base-color-neutral--black);
     background-color: #0000;
     border: 0 solid #000;
@@ -5564,19 +5564,19 @@ img.navbar1_logo {
 }
 
 .demo_form {
-    grid-column-gap: 2.5rem;
-    grid-row-gap: 2.5rem;
+    /* grid-column-gap: 2.5rem;
+    grid-row-gap: 2.5rem; */
     flex-flow: column;
     display: flex;
 }
 
 .form_2-col {
-    grid-column-gap: 16px;
+    /* grid-column-gap: 16px;
     grid-row-gap: 16px;
     grid-template-rows: auto;
     grid-template-columns: 1fr 1fr;
     grid-auto-columns: 1fr;
-    display: grid;
+    display: grid; */
 }
 
 .form_radio-wrap {
@@ -7578,6 +7578,7 @@ img.navbar1_logo {
 
     .process_step1 {
         flex-flow: column;
+        align-items: center;
     }
 
     .process_progress-horizontal {
@@ -7617,6 +7618,8 @@ img.navbar1_logo {
 
     .process_step-wrap {
         order: -9999;
+        align-items: center;
+        text-align: center;
     }
 
     .process_progress-vertical {
@@ -7698,7 +7701,7 @@ img.navbar1_logo {
     }
 
     .process_line-mbl.is-small {
-        height: 5rem;
+        /* height: 5rem; */
     }
 
     .section_demo {
@@ -9182,8 +9185,8 @@ img.navbar1_logo {
     }
 
     .demo_form {
-        grid-column-gap: 1.5rem;
-        grid-row-gap: 1.5rem;
+        /* grid-column-gap: 1.5rem;
+        grid-row-gap: 1.5rem; */
     }
 
     .form_2-col {
@@ -9251,7 +9254,7 @@ img.navbar1_logo {
 
     .process_lines-mbl {
         width: 118.5%;
-        margin-left: -9.25%;
+        margin-left: 10;
     }
 
     .process_card2-line {
@@ -9656,7 +9659,7 @@ img {
 
 @media screen and (max-width: 991px) {
 
-    
+
     html,
     body,
     #smooth-wrapper,
@@ -9672,7 +9675,7 @@ img {
         padding-right: 1.5rem;
     }
 
-    
+
     h1,
     .heading-style-h1 {
         font-size: clamp(2.5rem, 6vw, 4rem) !important;
@@ -9698,7 +9701,7 @@ img {
         font-size: clamp(0.9rem, 2.5vw, 1.125rem);
     }
 
-    
+
     .padding-section-large {
         padding-top: 4rem !important;
         padding-bottom: 4rem !important;
@@ -9709,7 +9712,7 @@ img {
         padding-bottom: 3rem !important;
     }
 
-    
+
     .support_grid {
         grid-template-columns: 1fr !important;
         gap: 1.5rem !important;
@@ -9729,7 +9732,7 @@ img {
         padding-bottom: 6rem !important;
     }
 
-    
+
     .trusted_grid {
         grid-template-columns: repeat(2, 1fr) !important;
     }
@@ -9739,7 +9742,7 @@ img {
         width: 100%;
     }
 
-    
+
     .pricing_grid {
         grid-template-columns: 1fr !important;
         max-width: 480px !important;
@@ -9752,7 +9755,7 @@ img {
         transform: scale(1) !important;
     }
 
-    
+
     .hero_content {
         flex-direction: column !important;
         align-items: center !important;
@@ -9790,7 +9793,7 @@ img {
         font-size: clamp(8.5px, 2.2vw, 10.5px) !important;
     }
 
-    
+
     .automations_content {
         flex-flow: column !important;
         position: static !important;
@@ -9808,7 +9811,7 @@ img {
         box-sizing: border-box !important;
     }
 
-    
+
     .process_message,
     .process_small-card,
     .process_small-card.is-alt {
@@ -9818,7 +9821,7 @@ img {
         box-sizing: border-box !important;
     }
 
-    
+
     .navbar1_component {
         width: 100% !important;
         max-width: 100vw !important;
@@ -9837,7 +9840,7 @@ img {
         margin-right: 0 !important;
     }
 
-    
+
     .footer_bottom-custom {
         grid-template-columns: 1fr !important;
         gap: 3rem !important;
@@ -9869,30 +9872,30 @@ img {
         white-space: nowrap !important;
     }
 
-    
+
     .marketing_mess .marketing_canvas-wrap {
         height: 320px !important;
     }
 
-    
+
     .modal_container {
         max-width: 90% !important;
         padding: 2.5rem 1.5rem !important;
         margin: 1rem !important;
     }
 
-    
+
     .testimonial_card {
         width: 100% !important;
         max-width: 100% !important;
     }
 
-    
+
     .values_cards {
         grid-template-columns: repeat(2, 1fr) !important;
     }
 
-    
+
     .hero_steps-wrap {
         position: relative !important;
         top: auto !important;
@@ -9905,7 +9908,7 @@ img {
     }
 
     .hero_step1-list {
-                min-height: 70px;
+        min-height: 70px;
     }
 }
 
@@ -9928,7 +9931,7 @@ img {
         font-size: clamp(1.75rem, 6vw, 2.5rem) !important;
     }
 
-    
+
     .support_card {
         padding: 2.25rem 1.5rem !important;
     }
@@ -9937,12 +9940,12 @@ img {
         font-size: clamp(1.75rem, 6vw, 2.5rem) !important;
     }
 
-    
+
     .trusted_grid {
         grid-template-columns: 1fr !important;
     }
 
-    
+
     .pricing_card {
         padding: 2rem 1.5rem !important;
     }
@@ -9951,7 +9954,7 @@ img {
         font-size: 3rem !important;
     }
 
-    
+
     .galaxy-buttons {
         flex-direction: column !important;
         border-radius: 16px !important;
@@ -9964,23 +9967,23 @@ img {
         width: 100% !important;
     }
 
-    
+
     .values_cards {
         grid-template-columns: 1fr !important;
     }
 
-    
+
     .content27_card {
         width: 100% !important;
         padding: 1.5rem !important;
     }
 
-    
+
     .about_stat {
         font-size: 3rem !important;
     }
 
-    
+
     .button,
     .btn {
         padding-left: 1.25rem !important;
@@ -10012,7 +10015,7 @@ img {
         font-size: 1.375rem !important;
     }
 
-    
+
     .support_card {
         padding: 2rem 1.25rem !important;
         border-radius: 1.125rem !important;
@@ -10041,7 +10044,7 @@ img {
         padding: 0 1rem !important;
     }
 
-    
+
     .button,
     .btn,
     .w-button {
@@ -10051,7 +10054,7 @@ img {
         text-align: center !important;
     }
 
-    
+
     .pricing_card-amount {
         font-size: 2.5rem !important;
     }
@@ -10060,17 +10063,17 @@ img {
         padding: 1.75rem 1.25rem !important;
     }
 
-    
+
     .hero_tag {
         font-size: 0.7rem !important;
     }
 
-    
+
     .footer_logo {
         font-size: clamp(3rem, 18vw, 5rem) !important;
     }
 
-    
+
     .about_stat {
         font-size: 2.5rem !important;
     }
@@ -10079,7 +10082,7 @@ img {
         font-size: 1rem !important;
     }
 
-    
+
     .modal_container {
         max-width: 95% !important;
         padding: 2rem 1.25rem !important;
@@ -10090,7 +10093,7 @@ img {
         font-size: 1.5rem !important;
     }
 
-    
+
     .process_card,
     .process_card2,
     .process_card3 {
@@ -10145,7 +10148,7 @@ img {
         transform: none !important;
     }
 
-    
+
     .navbar1_link,
     .navbar1_menu-button,
     .footer_social-link,
@@ -10164,25 +10167,29 @@ img {
 
 
 img.navbar1_logo {
-        height: 64px !important;
+    height: 64px !important;
     width: auto !important;
     object-fit: contain !important;
 }
 
 .footer_logo img {
-        height: 64px !important;
+    height: 64px !important;
     width: auto !important;
     object-fit: contain !important;
 }
 
 @media screen and (max-width: 991px) {
-    img.navbar1_logo, .footer_logo img {
+
+    img.navbar1_logo,
+    .footer_logo img {
         height: 52px !important;
     }
 }
 
 @media screen and (max-width: 767px) {
-    img.navbar1_logo, .footer_logo img {
+
+    img.navbar1_logo,
+    .footer_logo img {
         height: 44px !important;
     }
 }
@@ -10190,18 +10197,34 @@ img.navbar1_logo {
 
 
 
-body, html {
+body,
+html {
     text-align: left;
 }
 
-h1, h2, h3, h4, h5, h6, .heading-style-h1, .heading-style-h2, .heading-style-h3, .heading-style-h4, .heading-style-h5, .heading-style-h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.heading-style-h1,
+.heading-style-h2,
+.heading-style-h3,
+.heading-style-h4,
+.heading-style-h5,
+.heading-style-h6 {
     margin-top: 0;
     margin-bottom: 0.5em;
     line-height: 1.2;
     text-align: left;
 }
 
-p, .text-size-medium, .text-size-regular, .text-size-small, .text-size-large {
+p,
+.text-size-medium,
+.text-size-regular,
+.text-size-small,
+.text-size-large {
     margin-top: 0;
     margin-bottom: 1rem;
     line-height: 1.5;
@@ -10210,11 +10233,13 @@ p, .text-size-medium, .text-size-regular, .text-size-small, .text-size-large {
 
 
 .demo_bullet-data {
-    margin-top: -2px; 
+    margin-top: -2px;
 }
+
 .demo_dot {
-    margin-top: 0.4rem !important; 
+    margin-top: 0.4rem !important;
 }
+
 .demo_h {
     margin-bottom: 0.25rem !important;
 }
@@ -10225,7 +10250,11 @@ p, .text-size-medium, .text-size-regular, .text-size-small, .text-size-large {
 }
 
 
-.text-align-center, .text-align-center h1, .text-align-center h2, .text-align-center h3, .text-align-center p {
+.text-align-center,
+.text-align-center h1,
+.text-align-center h2,
+.text-align-center h3,
+.text-align-center p {
     text-align: center !important;
 }
 
@@ -10233,11 +10262,13 @@ p, .text-size-medium, .text-size-regular, .text-size-small, .text-size-large {
 
 
 .demo_bullet {
-    margin-left: -1rem !important; 
+    margin-left: -1rem !important;
 }
+
 .demo_flurbix {
-    padding-left: 1rem; 
+    padding-left: 1rem;
 }
+
 @media screen and (min-width: 992px) {
     .demo_flurbix {
         padding-left: 0;
@@ -10248,9 +10279,10 @@ p, .text-size-medium, .text-size-regular, .text-size-small, .text-size-large {
 
 
 .demo_content {
-    grid-template-columns: minmax(20rem, 23rem) 1fr !important; 
-    grid-column-gap: 3rem !important; 
+    grid-template-columns: minmax(20rem, 23rem) 1fr !important;
+    grid-column-gap: 3rem !important;
 }
+
 .demo_form-wrap {
     padding-left: 2rem !important;
     padding-right: 2rem !important;
@@ -10272,17 +10304,18 @@ p, .text-size-medium, .text-size-regular, .text-size-small, .text-size-large {
     .demo_content {
         grid-template-columns: 1fr !important;
     }
+
     .form_2-col {
         grid-template-columns: 1fr 1fr !important;
     }
+
     .form_label {
-        white-space: normal !important; 
+        white-space: normal !important;
     }
 }
 
 @media screen and (max-width: 767px) {
     .form_2-col {
-        grid-template-columns: 1fr !important; 
+        grid-template-columns: 1fr !important;
     }
 }
-

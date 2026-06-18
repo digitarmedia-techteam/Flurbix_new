@@ -1466,25 +1466,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (formWrap) {
         form.style.display = "none";
 
-        // Hide left-hand info panel to center the thank you card
-        const demoInfo = document.querySelector(".demo_info") as HTMLElement;
-        if (demoInfo) {
-          demoInfo.style.display = "none";
-        }
-
-        // Change layout to centered single column
-        const demoContent = document.querySelector(".demo_content") as HTMLElement;
-        if (demoContent) {
-          demoContent.style.gridTemplateColumns = "1fr";
-          demoContent.style.justifyItems = "center";
-          demoContent.style.alignItems = "center";
-        }
-
-        // Set auto margin on formWrap to center it
-        (formWrap as HTMLElement).style.margin = "0 auto";
-        (formWrap as HTMLElement).style.maxWidth = "600px";
-
-
         const detailsBox = document.getElementById("booking-details-box") as HTMLDivElement;
         const detailsTime = document.getElementById("booking-details-time") as HTMLElement;
         const googleCalLink = document.getElementById("google-cal-link") as HTMLAnchorElement;
@@ -1492,7 +1473,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let formattedConfirmedDetails = confirmedDetails.replace(/\\n/g, "<br>");
         if (hangoutMeetUrl) {
-          formattedConfirmedDetails += `<br><span style="display:inline-block; margin-top:0.5rem; word-break: break-word; font-weight: normal; font-size: 0.95rem;">🎥 Google Meet Link: <a href="${hangoutMeetUrl}" target="_blank" style="color:#0B4FFF; text-decoration:underline;">${hangoutMeetUrl}</a></span>`;
+          formattedConfirmedDetails += `<br><span style="display:inline-block; margin-top:0.5rem; word-break: break-all; font-weight: normal; font-size: 0.95rem;">🎥 Google Meet Link: <a href="${hangoutMeetUrl}" target="_blank" style="color:#0B4FFF; text-decoration:underline;">${hangoutMeetUrl}</a></span>`;
         }
         if (detailsTime) {
           detailsTime.innerHTML = formattedConfirmedDetails;
@@ -1503,12 +1484,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (detailsBox) detailsBox.style.display = "block";
 
+        const isMobile = window.innerWidth <= 991;
         const successMsg = formWrap.querySelector(".w-form-done") as HTMLElement;
-        if (successMsg) {
-          successMsg.style.display = "block";
-          successMsg.setAttribute("tabindex", "-1");
-          successMsg.focus();
-          successMsg.scrollIntoView({ behavior: "smooth", block: "center" });
+
+        if (isMobile) {
+          // Hide left-hand info panel to center the thank you card
+          const demoInfo = document.querySelector(".demo_info") as HTMLElement;
+          if (demoInfo) {
+            demoInfo.style.display = "none";
+          }        
+          // Change layout to centered single column
+          const demoContent = document.querySelector(".demo_content") as HTMLElement;
+          if (demoContent) {
+            demoContent.style.display = "flex";
+            demoContent.style.justifyContent = "center";
+            demoContent.style.alignItems = "center";
+          }
+
+          // Set auto margin on formWrap to center it
+          (formWrap as HTMLElement).style.margin = "0 auto";
+          (formWrap as HTMLElement).style.maxWidth = "600px";
+          (formWrap as HTMLElement).style.width = "100%";
+
+          if (successMsg) {
+            successMsg.style.display = "block";
+            successMsg.setAttribute("tabindex", "-1");
+            successMsg.focus();
+            successMsg.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        } else {
+          const demoContent = document.querySelector(".demo_content") as HTMLElement;
+          const demoInfo = document.querySelector(".demo_info") as HTMLElement;
+
+          demoContent?.classList.add("is-confirmed-desktop");
+          demoInfo?.classList.add("is-confirmed-desktop");
+          formWrap.classList.add("is-confirmed-desktop");
+
+          if (successMsg) {
+            successMsg.style.display = "block";
+            successMsg.setAttribute("tabindex", "-1");
+            successMsg.focus();
+            successMsg.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
         }
       }
 
