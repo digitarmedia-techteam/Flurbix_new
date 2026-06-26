@@ -27,3 +27,5 @@ Allow: /
 
 User-agent: Applebot-Extended
 Allow: /
+
+Sitemap: https://flurbix.com/sitemap.xml
