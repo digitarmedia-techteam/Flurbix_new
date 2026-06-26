@@ -424,22 +424,22 @@
                       style="background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.2); padding: 20px; border-radius: 8px; margin: 20px 0;">
                       <h3
                         style="color: #0d6f81; font-size: 1.1rem; margin-top: 0; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-family: inherit; font-weight: 600;">
-                        <span>🔒</span> YOUR DATA IS ENCRYPTED - WE DO NOT HAVE ACCESS TO YOUR DATA
+                        <span>🔒</span> YOUR DATA IS ENCRYPTED WITH STRICT ACCESS CONTROLS
                       </h3>
                       <p style="color: #0c91a893; font-size: 0.9rem; line-height: 1.6; margin: 0 0 15px 0;">
-                        All data is protected with end-to-end AES-256 encryption at rest and TLS 1.3 in transit. We have
-                        zero-knowledge access to your personal information - meaning we are technically and structurally
-                        unable to read, view, or use your private data. Your data belongs solely to you.
+                        All data is protected with end-to-end AES-256 encryption at rest and TLS 1.3 in transit. We enforce 
+                        strict access controls and least-privilege principles, ensuring that your private data is structurally 
+                        isolated and protected from unauthorized access, viewing, or internal use.
                       </p>
                       <div
                         style="display: flex; flex-wrap: wrap; gap: 10px 15px; font-size: 0.75rem; color: #0c8094; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
                         <span>AES-256 at rest</span>
-                        <span>•</span>s
+                        <span>•</span>
                         <span>TLS 1.3 in transit</span>
                         <span>•</span>
-                        <span>Zero-knowledge architecture</span>
+                        <span>Strict Access Controls</span>
                         <span>•</span>
-                        <span>No internal data access</span>
+                        <span>Least-Privilege Principles</span>
                       </div>
                     </div>
 
@@ -475,19 +475,20 @@
                     <h2>3. Data Security & Encryption</h2>
                     <div
                       style="background: rgb(196, 230, 235); border: 1px solid rgba(191, 236, 244, 0.894); padding: 20px; border-radius: 8px; margin: 20px 0; color: #0e6872; font-size: 0.95rem; line-height: 1.5;">
-                      <strong>CORE GUARANTEE:</strong> Your data is encrypted at all times, and we do not have access to
-                      your data. This is not a legal formality - it is a core architectural guarantee. We have
-                      implemented a zero-knowledge encryption model ensuring your private data cannot be read, accessed,
-                      or used by our team or any third party under any circumstance.
+                      <strong>CORE GUARANTEE:</strong> Your data is encrypted at all times with strict access control. 
+                      This is not a legal formality - it is a core operational guarantee. We utilize industry-standard 
+                      encryption (AES-256 at rest, TLS 1.3 in transit) and strict access controls under least-privilege 
+                      principles to ensure your private data is protected against unauthorized access, use, or disclosure.
                     </div>
                     <p>Our technical security measures include:</p>
                     <ul>
-                      <li><strong>AES-256 Encryption:</strong> AES-256 encryption for all data stored at rest</li>
-                      <li><strong>TLS 1.3 In Transit:</strong> TLS 1.3 for all data transmitted in transit</li>
+                      <li><strong>AES-256 Encryption:</strong> AES-256 encryption for all data stored at rest, including Google OAuth access and refresh tokens</li>
+                      <li><strong>TLS 1.3 In Transit:</strong> TLS 1.3 for all data transmitted in transit, including Google API communications</li>
                       <li><strong>SOC 2 Type II:</strong> Annual independent SOC 2 Type II audits by third-party
                         assessors</li>
                       <li><strong>RBAC:</strong> Role-based access controls (RBAC) limiting internal data access to the
                         minimum necessary</li>
+                      <li><strong>Least-Privilege Access:</strong> Strict access controls limiting internal developer and system access to OAuth credentials</li>
                       <li><strong>24/7 Monitoring:</strong> Intrusion detection systems and 24/7 security monitoring
                       </li>
                       <li><strong>Pen Testing:</strong> Regular penetration testing and vulnerability assessments</li>
@@ -727,15 +728,73 @@
                       flows. You may request a copy of the relevant SCCs or transfer mechanisms applicable to your
                       jurisdiction by contacting our DPO.</p>
 
-                    <h2>9. Third-Party Integrations</h2>
-                    <p>When you connect third-party services via OAuth or API, we request only the minimum permissions
-                      necessary to deliver the functionality you have requested. You may revoke any third-party
+                    <h2>9. Google OAuth & Gmail API Access</h2>
+                    <p>Users voluntarily connect their Google accounts to Flurbix using the Google OAuth 2.0 authorization flow. 
+                      Flurbix requests only the minimum permissions required. Specifically, we request the 
+                      <code>https://www.googleapis.com/auth/gmail.send</code> scope. This scope is requested solely to send 
+                      emails composed by you within the Flurbix application. Emails are sent only after you explicitly initiate 
+                      the send action. Flurbix never automatically sends emails without direct user initiation.</p>
+
+                    <h2>10. Gmail Data Usage</h2>
+                    <p>Flurbix's access to your Google account is strictly limited. Specifically, Flurbix:</p>
+                    <ul>
+                      <li>Does NOT read Gmail messages or inbox contents.</li>
+                      <li>Does NOT scan mailbox data or monitor mailbox activity.</li>
+                      <li>Does NOT modify, archive, or delete any emails.</li>
+                      <li>Does NOT download or store mailbox history.</li>
+                      <li>Does NOT access Gmail attachments from your mailbox, unless you explicitly upload files within our interface to be sent with an email.</li>
+                    </ul>
+                    <p>The Gmail API permission is used exclusively for the purpose of sending emails that you compose and choose to send via our application.</p>
+
+                    <h2>11. Google User Data Collection</h2>
+                    <p>When you authenticate with Google, Flurbix collects and processes only the following Google user data:</p>
+                    <ul>
+                      <li><strong>Google Account Email Address:</strong> To identify your connected account and configure the sender profile.</li>
+                      <li><strong>Basic Profile Information:</strong> To customize your experience within the workspace dashboard.</li>
+                      <li><strong>OAuth Access and Refresh Tokens:</strong> To maintain a secure connection to the Google API and send emails on behalf of the authenticated user.</li>
+                    </ul>
+                    <p>No additional Google account information is accessed or stored.</p>
+
+                    <h2>12. OAuth Token Storage and Deletion</h2>
+                    <p>We treat your Google OAuth credentials with the highest level of security. OAuth access and refresh tokens are:</p>
+                    <ul>
+                      <li>Encrypted at rest using AES-256 encryption.</li>
+                      <li>Encrypted in transit using Transport Layer Security (TLS 1.3).</li>
+                      <li>Securely stored in restricted database environments.</li>
+                      <li>Never shared with third parties, except as required to provide the requested Gmail sending service.</li>
+                    </ul>
+                    <p>All access and refresh tokens are deleted immediately and permanently when you disconnect the Google integration from your account settings or delete your Flurbix account.</p>
+
+                    <h2>13. Google API Services User Data Policy Compliance</h2>
+                    <p>Flurbix's use and transfer of information received from Google APIs adheres to the Google API Services User Data Policy, including the Limited Use requirements.</p>
+                    <p>In accordance with these Limited Use standards, Google user data is NEVER:</p>
+                    <ul>
+                      <li>Sold, rented, or traded to any third party.</li>
+                      <li>Used or shared for advertising, remarketing, or personalized marketing.</li>
+                      <li>Used for user profiling.</li>
+                      <li>Used to train, tune, or improve artificial intelligence (AI) or machine learning (ML) models.</li>
+                      <li>Used for analytics unrelated to providing the user-requested email functionality.</li>
+                    </ul>
+                    <p>Your Google user data is used exclusively to provide the core email-sending functionality requested by you.</p>
+
+                    <h2>14. User Control over Google Access</h2>
+                    <p>You retain full control over your Google connection at all times. You may:</p>
+                    <ul>
+                      <li>Disconnect the Google integration directly within the Flurbix account settings.</li>
+                      <li>Revoke Flurbix's access at any time through your Google Account Security settings page.</li>
+                      <li>Request the permanent deletion of stored OAuth tokens and Google-related data from our systems by contacting us at <a href="mailto:info@flurbix.com">info@flurbix.com</a>.</li>
+                      <li>Delete your Flurbix account, which triggers the immediate and automatic deletion of all OAuth tokens, revocation of refresh tokens, and removal of all Google-related data from active systems.</li>
+                    </ul>
+
+                    <h2>15. Third-Party Integrations</h2>
+                    <p>When you connect third-party services via OAuth or API—such as Google OAuth and the Google Gmail API—we request only the minimum permissions
+                      necessary to deliver the functionality you have requested. These third-party services are only used after explicit user authorization. You may revoke any third-party
                       integration at any time from your account settings.</p>
                     <p>All third-party processors are subject to Data Processing Agreements (DPAs) requiring them to
                       process your data only under our documented instructions, maintain appropriate security measures,
                       and delete your data upon termination.</p>
 
-                    <h2>10. Cookie Policy</h2>
+                    <h2>16. Cookie Policy</h2>
                     <p>We use cookies and similar technologies to operate our services. Cookies are categorized as
                       follows:</p>
                     <ul>
@@ -748,26 +807,26 @@
                     <p>We do not use advertising or third-party tracking cookies. Where required by law (e.g., EU
                       ePrivacy Directive), we obtain your prior consent before placing non-essential cookies.</p>
 
-                    <h2>11. Automated Decision-Making</h2>
+                    <h2>17. Automated Decision-Making</h2>
                     <p>We do not use your personal data for fully automated decisions that produce legal or similarly
                       significant effects on you. Where automated tools are used within our platform, they operate on
                       logic defined by you and always remain subject to human review.</p>
                     <p>EU and UK users have the explicit right under GDPR Article 22 to request human review of any
                       automated decision. To exercise this right, please contact our DPO.</p>
 
-                    <h2>12. Children's Privacy</h2>
+                    <h2>18. Children's Privacy</h2>
                     <p>Our services are intended for users aged 18 and above. We do not knowingly collect personal data
                       from anyone under the age of 18 (or the applicable age of digital consent in your jurisdiction, up
                       to 16 in some EU member states). If we become aware that a minor's data has been collected, we
                       will immediately delete it and deactivate the associated account.</p>
 
-                    <h2>13. Do Not Track Signals</h2>
+                    <h2>19. Do Not Track Signals</h2>
                     <p>Some browsers transmit Do Not Track (DNT) signals. Because no universal standard for DNT has been
                       established, our platform does not currently alter its data practices in response to DNT signals.
                       You can achieve equivalent control through our Cookie Preferences panel and the privacy rights
                       request form.</p>
 
-                    <h2>14. Changes to This Policy</h2>
+                    <h2>20. Changes to This Policy</h2>
                     <p>We may update this Privacy Policy periodically to reflect changes in our practices, technology,
                       legal requirements, or for other operational reasons. When we make material changes, we will
                       notify you via email and in-app notification at least 30 days before the changes take effect.</p>
@@ -775,7 +834,7 @@
                       the revised policy. If you do not agree to a material change, you may close your account and
                       request data deletion before the effective date.</p>
 
-                    <h2>15. Contact & Data Protection Officer</h2>
+                    <h2>21. Contact & Data Protection Officer</h2>
                     <p>For any questions, requests, or concerns about this Privacy Policy or your personal data, please
                       contact us:</p>
                     <div
