@@ -6,6 +6,22 @@ import fs from 'fs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// Sync logo to public assets folder before build/dev starts
+try {
+  const srcLogo = resolve(__dirname, 'src/assets/logo.png');
+  if (fs.existsSync(srcLogo)) {
+    const destDir = resolve(__dirname, 'public/src/assets');
+    const destLogo = resolve(destDir, 'logo.png');
+    if (!fs.existsSync(destDir)) {
+      fs.mkdirSync(destDir, { recursive: true });
+    }
+    fs.copyFileSync(srcLogo, destLogo);
+    console.log('[Vite Config] Logo sync to public folder completed successfully.');
+  }
+} catch (err) {
+  console.error('[Vite Config] Failed to sync logo assets:', err);
+}
+
 // Folders that should be excluded from HTML entry scanning
 const EXCLUDED_DIRS = new Set(['node_modules', 'dist', 'src', '.git', 'server', 'scripts', '9i1h7htkfq16Njk5OGE3YTRlZmNkNjZkOWYyODU3ZTc5']);
 
