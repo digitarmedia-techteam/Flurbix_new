@@ -180,7 +180,7 @@ export async function sendCustomerConfirmationEmail(
         <tr>
           <td class="header-col-left" align="left" valign="middle" style="padding:16px 24px;">
             <a href="${d.origin}" style="text-decoration:none;display:inline-block;">
-              <img src="${d.origin}/src/assets/logo.png" alt="Flurbix Logo" style="height:32px;vertical-align:middle;border:0;" />
+              <img src="${d.origin}https://flurbix.com/logo.png" alt="Flurbix Logo" style="height:32px;vertical-align:middle;border:0;" />
             </a>
           </td>
           <td class="header-col-right" align="right" valign="middle" style="padding:16px 24px;font-family:'Inter',Arial,sans-serif;font-size:14px;">
@@ -198,10 +198,11 @@ export async function sendCustomerConfirmationEmail(
       <div style="margin:24px 0;padding:18px;background-color:#EFF6FF;border-left:4px solid #0055FF;border-radius:4px;font-family:'Inter',Arial,sans-serif;">
         <strong style="font-size:14px;color:#1e3a8a;display:block;margin-bottom:4px;">📅 Date &amp; Time:</strong>
         <span style="font-size:16px;color:#111827;font-weight:600;">${d.fullMeetingDetails}</span>
-        ${d.hangoutMeetUrl
-      ? `<strong style="font-size:14px;color:#1e3a8a;display:block;margin-top:12px;margin-bottom:4px;">🎥 Google Meet:</strong><a href="${d.hangoutMeetUrl}" target="_blank" style="font-size:15px;color:#0055FF;font-weight:600;text-decoration:underline;">Join Google Meet</a>`
-      : `<span style="font-size:14px;color:#4B5563;display:block;margin-top:6px;">Location: Online (Google Meet link will be in your calendar invite)</span>`
-    }
+        ${
+          d.hangoutMeetUrl
+            ? `<strong style="font-size:14px;color:#1e3a8a;display:block;margin-top:12px;margin-bottom:4px;">🎥 Google Meet:</strong><a href="${d.hangoutMeetUrl}" target="_blank" style="font-size:15px;color:#0055FF;font-weight:600;text-decoration:underline;">Join Google Meet</a>`
+            : `<span style="font-size:14px;color:#4B5563;display:block;margin-top:6px;">Location: Online (Google Meet link will be in your calendar invite)</span>`
+        }
       </div>
 
       <p style="font-size:15px;line-height:1.6;color:#4B5563;margin-bottom:24px;">A calendar invitation has been sent to your email. You can also manually add the session to your calendar using the buttons below.</p>
@@ -276,7 +277,9 @@ export interface ContactEmailData {
 }
 
 /** Contact inquiry notification to support@flurbix.com (BCC: tech@digitarmedia.com) */
-export async function sendContactInquiryEmail(d: ContactEmailData): Promise<void> {
+export async function sendContactInquiryEmail(
+  d: ContactEmailData,
+): Promise<void> {
   const bodyHtml = `<div style="font-family:'Inter',Arial,sans-serif;color:#111827;max-width:600px;margin:0 auto;border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,0.05);background-color:#ffffff;">
   <div style="background-color:#0b4fff;padding:24px;text-align:center;">
     <span style="font-size:28px;font-weight:700;color:#FFFFFF;letter-spacing:-0.04em;">Flurbi<span style="color:#000000;">x</span></span>
@@ -287,10 +290,10 @@ export async function sendContactInquiryEmail(d: ContactEmailData): Promise<void
     <table style="width:100%;border-collapse:collapse;font-size:14px;line-height:1.6;margin-top:20px;">
       <tr><td style="padding:10px 0;font-weight:600;width:140px;color:#4B5563;border-bottom:1px solid #F3F4F6;">Name</td><td style="padding:10px 0;color:#111827;border-bottom:1px solid #F3F4F6;font-weight:500;">${d.fullName}</td></tr>
       <tr><td style="padding:10px 0;font-weight:600;color:#4B5563;border-bottom:1px solid #F3F4F6;">Email</td><td style="padding:10px 0;border-bottom:1px solid #F3F4F6;"><a href="mailto:${d.email}" style="color:#0b4fff;text-decoration:none;">${d.email}</a></td></tr>
-      ${d.company ? `<tr><td style="padding:10px 0;font-weight:600;color:#4B5563;border-bottom:1px solid #F3F4F6;">Company</td><td style="padding:10px 0;color:#111827;border-bottom:1px solid #F3F4F6;">${d.company}</td></tr>` : ''}
-      ${d.category ? `<tr><td style="padding:10px 0;font-weight:600;color:#4B5563;border-bottom:1px solid #F3F4F6;">Category</td><td style="padding:10px 0;color:#111827;border-bottom:1px solid #F3F4F6;">${d.category}</td></tr>` : ''}
-      ${d.subject ? `<tr><td style="padding:10px 0;font-weight:600;color:#4B5563;border-bottom:1px solid #F3F4F6;">Subject</td><td style="padding:10px 0;color:#111827;border-bottom:1px solid #F3F4F6;">${d.subject}</td></tr>` : ''}
-      <tr><td style="padding:10px 0;font-weight:600;color:#4B5563;vertical-align:top;">Message</td><td style="padding:10px 0;color:#111827;line-height:1.6;">${d.message.replace(/\n/g, '<br>')}</td></tr>
+      ${d.company ? `<tr><td style="padding:10px 0;font-weight:600;color:#4B5563;border-bottom:1px solid #F3F4F6;">Company</td><td style="padding:10px 0;color:#111827;border-bottom:1px solid #F3F4F6;">${d.company}</td></tr>` : ""}
+      ${d.category ? `<tr><td style="padding:10px 0;font-weight:600;color:#4B5563;border-bottom:1px solid #F3F4F6;">Category</td><td style="padding:10px 0;color:#111827;border-bottom:1px solid #F3F4F6;">${d.category}</td></tr>` : ""}
+      ${d.subject ? `<tr><td style="padding:10px 0;font-weight:600;color:#4B5563;border-bottom:1px solid #F3F4F6;">Subject</td><td style="padding:10px 0;color:#111827;border-bottom:1px solid #F3F4F6;">${d.subject}</td></tr>` : ""}
+      <tr><td style="padding:10px 0;font-weight:600;color:#4B5563;vertical-align:top;">Message</td><td style="padding:10px 0;color:#111827;line-height:1.6;">${d.message.replace(/\n/g, "<br>")}</td></tr>
     </table>
   </div>
   <div style="background-color:#0b4fff;padding:20px 24px;text-align:center;font-size:12px;color:rgba(255,255,255,0.6);">
@@ -299,16 +302,18 @@ export async function sendContactInquiryEmail(d: ContactEmailData): Promise<void
 </div>`;
 
   await sendEmail({
-    to: 'support@flurbix.com',
-    bcc: 'tech@digitarmedia.com',
-    fromName: 'Flurbix Contact Form',
-    subject: `New Contact Inquiry${d.subject ? ': ' + d.subject : ''} from ${d.fullName}`,
+    to: "support@flurbix.com",
+    bcc: "tech@digitarmedia.com",
+    fromName: "Flurbix Contact Form",
+    subject: `New Contact Inquiry${d.subject ? ": " + d.subject : ""} from ${d.fullName}`,
     bodyHtml,
   });
 }
 
 /** Confirmation receipt email sent back to the visitor */
-export async function sendContactConfirmationEmail(d: ContactEmailData): Promise<void> {
+export async function sendContactConfirmationEmail(
+  d: ContactEmailData,
+): Promise<void> {
   const bodyHtml = `<div style="font-family:'Inter',Arial,sans-serif;color:#111827;max-width:600px;margin:0 auto;border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,0.05);background-color:#ffffff;">
   <div style="background-color:#ffffff;border-bottom:1px solid #E5E7EB;padding:16px 24px;">
     <a href="${d.origin}" style="text-decoration:none;">
@@ -321,9 +326,9 @@ export async function sendContactConfirmationEmail(d: ContactEmailData): Promise
     <p style="font-size:15px;line-height:1.6;color:#4B5563;margin-bottom:24px;">Thank you for reaching out to Flurbix. Your inquiry has been received and our team will get back to you within <strong>1 business day</strong>.</p>
     <div style="margin:24px 0;padding:18px;background-color:#EFF6FF;border-left:4px solid #0b4fff;border-radius:4px;">
       <strong style="font-size:14px;color:#1e3a8a;display:block;margin-bottom:8px;">Your Message Summary</strong>
-      ${d.category ? `<div style="font-size:13px;color:#4B5563;margin-bottom:4px;"><strong>Category:</strong> ${d.category}</div>` : ''}
-      ${d.subject ? `<div style="font-size:13px;color:#4B5563;margin-bottom:8px;"><strong>Subject:</strong> ${d.subject}</div>` : ''}
-      <div style="font-size:14px;color:#111827;line-height:1.6;margin-top:8px;">${d.message.replace(/\n/g, '<br>')}</div>
+      ${d.category ? `<div style="font-size:13px;color:#4B5563;margin-bottom:4px;"><strong>Category:</strong> ${d.category}</div>` : ""}
+      ${d.subject ? `<div style="font-size:13px;color:#4B5563;margin-bottom:8px;"><strong>Subject:</strong> ${d.subject}</div>` : ""}
+      <div style="font-size:14px;color:#111827;line-height:1.6;margin-top:8px;">${d.message.replace(/\n/g, "<br>")}</div>
     </div>
     <p style="font-size:15px;line-height:1.6;color:#4B5563;">In the meantime, you can explore our <a href="${d.origin}/pricing" style="color:#0b4fff;text-decoration:none;font-weight:600;">pricing plans</a> or <a href="${d.origin}/security" style="color:#0b4fff;text-decoration:none;font-weight:600;">security documentation</a>.</p>
     <p style="font-size:15px;line-height:1.6;color:#4B5563;margin-top:32px;margin-bottom:0;">Best regards,<br><strong style="color:#111827;">The Flurbix Support Team</strong></p>
@@ -338,8 +343,8 @@ export async function sendContactConfirmationEmail(d: ContactEmailData): Promise
 
   await sendEmail({
     to: d.email,
-    fromName: 'Flurbix Support',
-    subject: 'We received your message — Flurbix Support',
+    fromName: "Flurbix Support",
+    subject: "We received your message — Flurbix Support",
     bodyHtml,
   });
 }
