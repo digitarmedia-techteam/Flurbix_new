@@ -180,7 +180,7 @@ export async function sendCustomerConfirmationEmail(
         <tr>
           <td class="header-col-left" align="left" valign="middle" style="padding:16px 24px;">
             <a href="${d.origin}" style="text-decoration:none;display:inline-block;">
-              <img src="${d.origin}/logo.png" alt="Flurbix Logo" style="height:32px;vertical-align:middle;border:0;" />
+              <img src="${d.origin}/src/assets/logo.png" alt="Flurbix Logo" style="height:32px;vertical-align:middle;border:0;" />
             </a>
           </td>
           <td class="header-col-right" align="right" valign="middle" style="padding:16px 24px;font-family:'Inter',Arial,sans-serif;font-size:14px;">
@@ -198,11 +198,10 @@ export async function sendCustomerConfirmationEmail(
       <div style="margin:24px 0;padding:18px;background-color:#EFF6FF;border-left:4px solid #0055FF;border-radius:4px;font-family:'Inter',Arial,sans-serif;">
         <strong style="font-size:14px;color:#1e3a8a;display:block;margin-bottom:4px;">📅 Date &amp; Time:</strong>
         <span style="font-size:16px;color:#111827;font-weight:600;">${d.fullMeetingDetails}</span>
-        ${
-          d.hangoutMeetUrl
-            ? `<strong style="font-size:14px;color:#1e3a8a;display:block;margin-top:12px;margin-bottom:4px;">🎥 Google Meet:</strong><a href="${d.hangoutMeetUrl}" target="_blank" style="font-size:15px;color:#0055FF;font-weight:600;text-decoration:underline;">Join Google Meet</a>`
-            : `<span style="font-size:14px;color:#4B5563;display:block;margin-top:6px;">Location: Online (Google Meet link will be in your calendar invite)</span>`
-        }
+        ${d.hangoutMeetUrl
+      ? `<strong style="font-size:14px;color:#1e3a8a;display:block;margin-top:12px;margin-bottom:4px;">🎥 Google Meet:</strong><a href="${d.hangoutMeetUrl}" target="_blank" style="font-size:15px;color:#0055FF;font-weight:600;text-decoration:underline;">Join Google Meet</a>`
+      : `<span style="font-size:14px;color:#4B5563;display:block;margin-top:6px;">Location: Online (Google Meet link will be in your calendar invite)</span>`
+    }
       </div>
 
       <p style="font-size:15px;line-height:1.6;color:#4B5563;margin-bottom:24px;">A calendar invitation has been sent to your email. You can also manually add the session to your calendar using the buttons below.</p>
