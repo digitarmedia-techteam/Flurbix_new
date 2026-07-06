@@ -2984,72 +2984,74 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
 
     const projectBrief = document.querySelector("[project-brief]");
-    const projectTop = gsap.utils.toArray(projectBrief.querySelectorAll(".process_step2-top"));
+    if (projectBrief) {
+        const projectTop = gsap.utils.toArray(projectBrief.querySelectorAll(".process_step2-top"));
 
-    const projectBriefP = new SplitText(projectBrief.querySelector("p"), {
-        type: "lines",
-        mask: "lines",
-        autoSplit: true,
-    });
+        const projectBriefP = new SplitText(projectBrief.querySelector("p"), {
+            type: "lines",
+            mask: "lines",
+            autoSplit: true,
+        });
 
-    const tl = gsap.timeline({
-        scrollTrigger: {
-            trigger: projectBrief,
-            start: "top center",
-            toggleActions: "play none none reverse",
-        },
-    });
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: projectBrief,
+                start: "top center",
+                toggleActions: "play none none reverse",
+            },
+        });
 
-    tl.from(projectBrief.querySelector(".process_h"), {
-        yPercent: 100,
-        opacity: 0,
-        duration: 1,
-        ease: "power4.out",
-    })
-        .from(
-            projectBriefP.lines,
-            {
-                yPercent: 100,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.05,
-                ease: "power4.out",
-            },
-            "<0.2",
-        )
-        .from(
-            projectBrief.querySelectorAll(".process_step2-border"),
-            {
-                width: "0%",
-                duration: 1.2,
-                ease: "power1.inOut",
-            },
-            "<0.1",
-        )
+        tl.from(projectBrief.querySelector(".process_h"), {
+            yPercent: 100,
+            opacity: 0,
+            duration: 1,
+            ease: "power4.out",
+        })
+            .from(
+                projectBriefP.lines,
+                {
+                    yPercent: 100,
+                    opacity: 0,
+                    duration: 1,
+                    stagger: 0.05,
+                    ease: "power4.out",
+                },
+                "<0.2",
+            )
+            .from(
+                projectBrief.querySelectorAll(".process_step2-border"),
+                {
+                    width: "0%",
+                    duration: 1.2,
+                    ease: "power1.inOut",
+                },
+                "<0.1",
+            )
 
-        .from(
-            projectBrief.querySelectorAll(".process_step2-progress"),
-            {
-                width: "0%",
-                duration: 1.2,
-                stagger: 0.1,
-                ease: "power1.inOut",
-            },
-            "<0.2",
-        );
-    projectTop.forEach((top) => {
-        tl.from(
-            top.querySelectorAll("*"),
-            {
-                y: 32,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.05,
-                ease: "power4.out",
-            },
-            "<0.05",
-        );
-    });
+            .from(
+                projectBrief.querySelectorAll(".process_step2-progress"),
+                {
+                    width: "0%",
+                    duration: 1.2,
+                    stagger: 0.1,
+                    ease: "power1.inOut",
+                },
+                "<0.2",
+            );
+        projectTop.forEach((top) => {
+            tl.from(
+                (top as HTMLElement).querySelectorAll("*"),
+                {
+                    y: 32,
+                    opacity: 0,
+                    duration: 1,
+                    stagger: 0.05,
+                    ease: "power4.out",
+                },
+                "<0.05",
+            );
+        });
+    }
 
     if (!isMobile) {
         gsap
@@ -3231,135 +3233,144 @@ document.addEventListener("DOMContentLoaded", (event) => {
             });
     });
 
-    gsap
-        .timeline({
-            scrollTrigger: {
-                trigger: card4Wrap[0],
-                start: "top 70%",
-                toggleActions: "play none none reverse",
-            },
-        })
-        .from(card4Wrap[0].querySelectorAll(".process_card4-topper > *"), {
-            y: 20,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.1,
-            ease: "power3.out",
-        })
-        .from(
-            "#msg1-line",
-            {
-                drawSVG: 0,
-                duration: 1.2,
-                ease: "power3.out",
-            },
-            "-=0.5",
-        )
-        .from(
-            "#msg1-grad, #msg1-text",
-            {
+    if (card4Wrap[0]) {
+        gsap
+            .timeline({
+                scrollTrigger: {
+                    trigger: card4Wrap[0],
+                    start: "top 70%",
+                    toggleActions: "play none none reverse",
+                },
+            })
+            .from(card4Wrap[0].querySelectorAll(".process_card4-topper > *"), {
+                y: 20,
                 opacity: 0,
                 duration: 1,
                 stagger: 0.1,
                 ease: "power3.out",
-            },
-            "<0.3",
-        );
+            })
+            .from(
+                "#msg1-line",
+                {
+                    drawSVG: 0,
+                    duration: 1.2,
+                    ease: "power3.out",
+                },
+                "-=0.5",
+            )
+            .from(
+                "#msg1-grad, #msg1-text",
+                {
+                    opacity: 0,
+                    duration: 1,
+                    stagger: 0.1,
+                    ease: "power3.out",
+                },
+                "<0.3",
+            );
+    }
 
-    const card4Wrap2 = card4Wrap[1].querySelector(".process_card4-topper");
-    gsap
-        .timeline({
+    if (card4Wrap[1]) {
+        const card4Wrap2 = card4Wrap[1].querySelector(".process_card4-topper");
+        if (card4Wrap2) {
+            gsap
+                .timeline({
+                    scrollTrigger: {
+                        trigger: card4Wrap[1],
+                        start: "top 70%",
+                        toggleActions: "play none none reverse",
+                    },
+                })
+                .from(card4Wrap2.children, {
+                    y: 20,
+                    opacity: 0,
+                    duration: 1.5,
+                    stagger: 0.2,
+                    ease: "power3.out",
+                });
+        }
+    }
+
+    const projectPlan = document.querySelector("[project-plan]");
+    if (projectPlan) {
+        const projectPlanTop = gsap.utils.toArray(projectPlan.querySelectorAll(".process_step2-top"));
+
+        const projectPlanP = new SplitText(projectPlan.querySelector("p"), {
+            type: "lines",
+            mask: "lines",
+            autoSplit: true,
+        });
+
+        const projectPlantl = gsap.timeline({
             scrollTrigger: {
-                trigger: card4Wrap[1],
+                trigger: projectPlan,
                 start: "top 70%",
                 toggleActions: "play none none reverse",
             },
-        })
-        .from(card4Wrap2.children, {
-            y: 20,
-            opacity: 0,
-            duration: 1.5,
-            stagger: 0.2,
-            ease: "power3.out",
         });
 
-    const projectPlan = document.querySelector("[project-plan]");
-
-    const projectPlanTop = gsap.utils.toArray(projectPlan.querySelectorAll(".process_step2-top"));
-
-    const projectPlanP = new SplitText(projectPlan.querySelector("p"), {
-        type: "lines",
-        mask: "lines",
-        autoSplit: true,
-    });
-
-    const projectPlantl = gsap.timeline({
-        scrollTrigger: {
-            trigger: projectPlan,
-            start: "top 70%",
-            toggleActions: "play none none reverse",
-        },
-    });
-
-    projectPlantl
-        .from(projectPlan.querySelector(".process_h"), {
-            yPercent: 100,
-            opacity: 0,
-            duration: 1,
-            ease: "power4.out",
-        })
-        .from(
-            projectPlanP.lines,
-            {
+        projectPlantl
+            .from(projectPlan.querySelector(".process_h"), {
                 yPercent: 100,
                 opacity: 0,
                 duration: 1,
-                stagger: 0.05,
                 ease: "power4.out",
-            },
-            "<0.2",
-        )
-        .from(
-            projectPlan.querySelectorAll(".process_step2-border"),
-            {
-                width: "0%",
-                duration: 1.2,
-                ease: "power1.inOut",
-            },
-            "<0.1",
-        )
-        .from(
-            projectPlan.querySelectorAll(".process_step2-progress"),
-            {
-                width: "0%",
-                duration: 1.2,
-                stagger: 0.1,
-                ease: "power1.inOut",
-            },
-            "<0.2",
-        );
+            })
+            .from(
+                projectPlanP.lines,
+                {
+                    yPercent: 100,
+                    opacity: 0,
+                    duration: 1,
+                    stagger: 0.05,
+                    ease: "power4.out",
+                },
+                "<0.2",
+            )
+            .from(
+                projectPlan.querySelectorAll(".process_step2-border"),
+                {
+                    width: "0%",
+                    duration: 1.2,
+                    ease: "power1.inOut",
+                },
+                "<0.1",
+            )
+            .from(
+                projectPlan.querySelectorAll(".process_step2-progress"),
+                {
+                    width: "0%",
+                    duration: 1.2,
+                    stagger: 0.1,
+                    ease: "power1.inOut",
+                },
+                "<0.2",
+            );
 
-    projectPlanTop.forEach((top) => {
-        projectPlantl.from(
-            top.querySelectorAll("*"),
-            {
-                y: 32,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.05,
-                ease: "power4.out",
-            },
-            "<0.05",
-        );
-    });
+        projectPlanTop.forEach((top) => {
+            projectPlantl.from(
+                (top as HTMLElement).querySelectorAll("*"),
+                {
+                    y: 32,
+                    opacity: 0,
+                    duration: 1,
+                    stagger: 0.05,
+                    ease: "power4.out",
+                },
+                "<0.05",
+            );
+        });
+    }
 
     const trustedCards = gsap.utils.toArray(".trusted_card");
 
     trustedCards.forEach((card, index) => {
-        const line = card.querySelector(".trusted_line");
-        const icon = card.querySelector(".trusted_icon");
-        const heading = card.querySelector(".heading-style-h3");
-        const text = card.querySelector(".text-style-supermuted");
+        const line = (card as HTMLElement).querySelector(".trusted_line");
+        const icon = (card as HTMLElement).querySelector(".trusted_icon");
+        const heading = (card as HTMLElement).querySelector(".heading-style-h3");
+        const text = (card as HTMLElement).querySelector(".text-style-supermuted");
+
+        if (!heading || !text) return;
 
         const splitHeading = new SplitText(heading, {
             type: "words",
@@ -3371,25 +3382,28 @@ document.addEventListener("DOMContentLoaded", (event) => {
             autoSplit: true,
         });
 
-        gsap.set(line, { height: "0%" });
-        gsap.set(icon, { opacity: 0, y: 32 });
+        if (line) gsap.set(line, { height: "0%" });
+        if (icon) gsap.set(icon, { opacity: 0, y: 32 });
         gsap.set(splitHeading.words, { yPercent: 100, opacity: 0 });
         gsap.set(splitText.lines, { yPercent: 100, opacity: 0 });
 
         const tl = gsap.timeline({
             scrollTrigger: {
-                trigger: card,
+                trigger: card as HTMLElement,
                 start: "top 70%",
             },
             delay: index * 0.2,
         });
 
-        tl.to(line, {
-            height: "100%",
-            duration: 1,
-            ease: "power3.out",
-        })
-            .to(
+        if (line) {
+            tl.to(line, {
+                height: "100%",
+                duration: 1,
+                ease: "power3.out",
+            });
+        }
+        if (icon) {
+            tl.to(
                 icon,
                 {
                     opacity: 1,
@@ -3397,19 +3411,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     duration: 0.8,
                     ease: "power3.out",
                 },
-                "<0.2",
-            )
-            .to(
-                splitHeading.words,
-                {
-                    yPercent: 0,
-                    opacity: 1,
-                    duration: 0.8,
-                    stagger: 0.05,
-                    ease: "power4.out",
-                },
-                "<0.1",
-            )
+                line ? "<0.2" : 0,
+            );
+        }
+        tl.to(
+            splitHeading.words,
+            {
+                yPercent: 0,
+                opacity: 1,
+                duration: 0.8,
+                stagger: 0.05,
+                ease: "power4.out",
+            },
+            "<0.1",
+        )
             .to(
                 splitText.lines,
                 {
@@ -3426,19 +3441,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 document.addEventListener("DOMContentLoaded", function () {
     const isMobile = window.innerWidth <= 991;
-    new Splide(".splide.is-logos", {
-        type: "loop",
-        gap: isMobile ? "2rem" : "5rem",
-        arrows: false,
-        pagination: false,
-        drag: false,
-        autoWidth: true,
-        clones: 12,
-        autoScroll: {
-            speed: isMobile ? 1 : 0.7,
-            pauseOnHover: false,
-            pauseOnFocus: false,
-        },
-    }).mount({ AutoScroll: window.splide.Extensions.AutoScroll });
+    if (document.querySelector(".splide.is-logos") && (window as any).splide?.Extensions?.AutoScroll) {
+        new Splide(".splide.is-logos", {
+            type: "loop",
+            gap: isMobile ? "2rem" : "5rem",
+            arrows: false,
+            pagination: false,
+            drag: false,
+            autoWidth: true,
+            clones: 12,
+            autoScroll: {
+                speed: isMobile ? 1 : 0.7,
+                pauseOnHover: false,
+                pauseOnFocus: false,
+            },
+        }).mount({ AutoScroll: (window as any).splide.Extensions.AutoScroll });
+    }
 });
 

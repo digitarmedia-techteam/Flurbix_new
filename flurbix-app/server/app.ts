@@ -76,6 +76,12 @@ app.get('/src/assets/logo.png', (_req, res) => {
   res.status(404).send('Logo not found.');
 });
 
+// --- Serve dummy JS for GTM file to avoid browser console errors ---
+app.get('*/9i1h7htkfq16Njk5OGE3YTRlZmNkNjZkOWYyODU3ZTc5/*', (_req, res) => {
+  res.setHeader('Content-Type', 'application/javascript');
+  res.send('/* gtm data - skipped */');
+});
+
 // --- Health check ---
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });

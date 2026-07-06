@@ -66,6 +66,13 @@ const cleanUrlsPlugin: Plugin = {
   configureServer(server) {
     server.middlewares.use((req, res, next) => {
       if (req.url) {
+        // Intercept GTM data requests and return dummy JavaScript to avoid console errors
+        if (req.url.includes('9i1h7htkfq16Njk5OGE3YTRlZmNkNjZkOWYyODU3ZTc5')) {
+          res.setHeader('Content-Type', 'application/javascript');
+          res.end('/* gtm data - skipped by vite */');
+          return;
+        }
+
         try {
           const url = new URL(req.url, 'http://localhost');
           const pathname = url.pathname;
