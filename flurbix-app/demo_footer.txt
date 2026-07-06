@@ -36,7 +36,7 @@
                   </div>
                   <div class="footer_column">
                     <div class="footer_h">product</div>
-                    <a href="https://console.flurbix.app/" target="_blank" class="footer_link hide w-inline-block">
+                    <a href="https://app.flurbix.com/" target="_blank" class="footer_link hide w-inline-block">
                       <div class="footer_circ"></div>
                       <div class="footer_text">Platform</div>
                     </a>
