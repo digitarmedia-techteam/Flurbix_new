@@ -180,7 +180,7 @@ export async function sendCustomerConfirmationEmail(
         <tr>
           <td class="header-col-left" align="left" valign="middle" style="padding:16px 24px;">
             <a href="${d.origin}" style="text-decoration:none;display:inline-block;">
-              <img src="${d.origin}https://flurbix.com/logo.png" alt="Flurbix Logo" style="height:32px;vertical-align:middle;border:0;" />
+              <img src="${d.origin}/src/assets/logo.png" alt="Flurbix Logo" style="height:32px;vertical-align:middle;border:0;" />
             </a>
           </td>
           <td class="header-col-right" align="right" valign="middle" style="padding:16px 24px;font-family:'Inter',Arial,sans-serif;font-size:14px;">
