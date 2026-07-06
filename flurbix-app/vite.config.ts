@@ -71,6 +71,22 @@ const cleanUrlsPlugin: Plugin = {
   },
 };
 
+// Plugin: resolve include tags (e.g. <include src="/footer.html"></include>) in HTML files
+const htmlIncludePlugin: Plugin = {
+  name: 'html-include',
+  transformIndexHtml(html) {
+    const includeRegex = /<include\s+src="([^"]+)"\s*><\/include>/g;
+    return html.replace(includeRegex, (match, src) => {
+      const filePath = resolve(__dirname, src.startsWith('/') ? src.substring(1) : src);
+      if (fs.existsSync(filePath)) {
+        return fs.readFileSync(filePath, 'utf-8');
+      }
+      console.warn(`[html-include] File not found: ${filePath}`);
+      return match;
+    });
+  },
+};
+
 export default defineConfig({
   server: {
     port: 5174,
@@ -82,7 +98,7 @@ export default defineConfig({
       },
     },
   },
-  plugins: [skipGtmDataFile, cleanUrlsPlugin],
+  plugins: [skipGtmDataFile, cleanUrlsPlugin, htmlIncludePlugin],
   build: {
     rollupOptions: {
       input

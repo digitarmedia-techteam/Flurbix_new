@@ -159,7 +159,7 @@
                   <div class="footer_legal-text-new" style="display: none;">
                   </div>
                   <div class="footer_legal-text-new" style="max-width: 250px;">
-                    Building digital experiences that empower businesses worldwide.
+                     AI-powered sales outreach that helps businesses discover prospects, automate follow-ups, and close more deals
                   </div>
                   <div class="footer_socials">
                     <a href="#" class="footer_social-link" aria-label="LinkedIn">

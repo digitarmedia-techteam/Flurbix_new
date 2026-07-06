@@ -53,3 +53,16 @@ function validate(schema: z.ZodSchema, source: 'body' | 'query') {
 
 export const validateAvailableSlots = validate(availableSlotsSchema, 'query');
 export const validateBooking        = validate(bookingSchema, 'body');
+
+const contactSchema = z.object({
+  fullName: z.string().min(2, 'Full name must be at least 2 characters.').max(150),
+  email: z.string().email('Invalid email address.'),
+  company: z.string().max(200).optional().default(''),
+  category: z.enum(['Sales', 'Technical Support', 'Billing', 'Bug Report', 'Feature Request', 'Partnership', 'General Inquiry'], {
+    errorMap: () => ({ message: 'Invalid category selection.' })
+  }),
+  subject: z.string().min(2, 'Subject must be at least 2 characters.').max(200),
+  message: z.string().min(10, 'Message must be at least 10 characters.').max(2000),
+});
+
+export const validateContact        = validate(contactSchema, 'body');

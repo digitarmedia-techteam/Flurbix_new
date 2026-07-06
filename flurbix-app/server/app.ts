@@ -5,6 +5,9 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { env } from './config/env';
 import calendarRoutes from './routes/calendarRoutes';
+import { contactSubmitHandler } from './controllers/contactController';
+import { validateContact } from './middleware/validate';
+import { bookingRateLimiter } from './middleware/rateLimiter';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = path.dirname(__filename);
@@ -41,6 +44,9 @@ app.get('/api/health', (_req, res) => {
 
 // --- Calendar API routes ---
 app.use('/api/calendar', calendarRoutes);
+
+// --- Contact API route ---
+app.post('/api/contact', bookingRateLimiter, validateContact, contactSubmitHandler);
 
 // --- Serve Vite static build in production ---
 // In development Vite handles its own static serving on :5173.
