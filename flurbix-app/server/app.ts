@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
-import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { env } from './config/env';
 import calendarRoutes from './routes/calendarRoutes';
@@ -11,31 +10,6 @@ import { bookingRateLimiter } from './middleware/rateLimiter';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = path.dirname(__filename);
-
-// --- Sync logo to public assets folder at startup ---
-try {
-  const srcLogo = path.join(__dirname, '..', 'src', 'assets', 'logo.png');
-  if (fs.existsSync(srcLogo)) {
-    // 1. Ensure public/src/assets/logo.png exists
-    const publicDestDir = path.join(__dirname, '..', 'public', 'src', 'assets');
-    const publicDestLogo = path.join(publicDestDir, 'logo.png');
-    if (!fs.existsSync(publicDestDir)) {
-      fs.mkdirSync(publicDestDir, { recursive: true });
-    }
-    fs.copyFileSync(srcLogo, publicDestLogo);
-
-    // 2. Ensure dist/src/assets/logo.png exists (if build folder exists)
-    const distDestDir = path.join(__dirname, '..', 'dist', 'src', 'assets');
-    const distDestLogo = path.join(distDestDir, 'logo.png');
-    if (!fs.existsSync(distDestDir)) {
-      fs.mkdirSync(distDestDir, { recursive: true });
-    }
-    fs.copyFileSync(srcLogo, distDestLogo);
-    console.log('[Startup] Logo sync completed successfully.');
-  }
-} catch (err) {
-  console.error('[Startup] Failed to sync logo assets:', err);
-}
 
 const app = express();
 
@@ -62,19 +36,7 @@ app.use(cors({
 
 app.use(express.json({ limit: '50kb' }));
 
-// --- Serve logo.png publicly at /src/assets/logo.png ---
-app.get('/src/assets/logo.png', (_req, res) => {
-  const filePath = path.join(__dirname, '..', 'src', 'assets', 'logo.png');
-  if (fs.existsSync(filePath)) {
-    return res.sendFile(filePath);
-  }
-  // fallback to public logo if not found in src/assets
-  const fallbackPath = path.join(__dirname, '..', 'public', 'logo.png');
-  if (fs.existsSync(fallbackPath)) {
-    return res.sendFile(fallbackPath);
-  }
-  res.status(404).send('Logo not found.');
-});
+
 
 // --- Serve dummy JS for GTM file to avoid browser console errors ---
 app.get('*/9i1h7htkfq16Njk5OGE3YTRlZmNkNjZkOWYyODU3ZTc5/*', (_req, res) => {
