@@ -7,6 +7,7 @@ export const slotsRateLimiter = rateLimit({
   message:        { message: 'Too many requests. Please try again later.' },
   standardHeaders: true,
   legacyHeaders:  false,
+  validate:       { xForwardedForHeader: false },
 });
 
 /** 5 booking attempts / hour per IP */
@@ -16,4 +17,5 @@ export const bookingRateLimiter = rateLimit({
   message:        { message: 'Too many booking attempts. Please try again in an hour.' },
   standardHeaders: true,
   legacyHeaders:  false,
+  validate:       { xForwardedForHeader: false },
 });

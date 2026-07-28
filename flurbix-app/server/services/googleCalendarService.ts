@@ -72,27 +72,31 @@ export async function getEventsForDay(dateStr: string): Promise<CalendarEvent[]>
     ];
   }
 
-  const response = await calendar.events.list({
-    calendarId: env.GOOGLE_CALENDAR_ID,
-    timeMin,
-    timeMax,
-    singleEvents: true,
-    orderBy: 'startTime',
-  });
+  try {
+    const response = await calendar.events.list({
+      calendarId: env.GOOGLE_CALENDAR_ID,
+      timeMin,
+      timeMax,
+      singleEvents: true,
+      orderBy: 'startTime',
+    });
 
-  const items = response.data.items || [];
+    const items = response.data.items || [];
 
-  // Exclude cancelled events — cancelled slots become available again
-  return items
-    .filter(e => e.status !== 'cancelled')
-    .map(e => ({
-      id: e.id || '',
-      summary: e.summary || '',
-      start: { dateTime: e.start?.dateTime || e.start?.date || '' },
-      end:   { dateTime: e.end?.dateTime   || e.end?.date   || '' },
-      status: e.status || 'confirmed',
-      hangoutLink: e.hangoutLink || undefined,
-    }));
+    // Exclude cancelled events — cancelled slots become available again
+    return items
+      .filter(e => e.status !== 'cancelled')
+      .map(e => ({
+        id: e.id || '',
+        summary: e.summary || '',
+        start: { dateTime: e.start?.dateTime || e.start?.date || '' },
+        end:   { dateTime: e.end?.dateTime   || e.end?.date   || '' },
+        status: e.status || 'confirmed',
+        hangoutLink: e.hangoutLink || undefined,
+      }));
+  } catch (error: any) {
+    handleGoogleApiError(error, 'getEventsForDay');
+  }
 }
 
 /**
@@ -134,42 +138,64 @@ export async function createBooking(params: BookingParams): Promise<CalendarEven
     `- Details: ${details || 'N/A'}`,
   ].join('\n');
 
-  const response = await calendar.events.insert({
-    calendarId: env.GOOGLE_CALENDAR_ID,
-    conferenceDataVersion: 1,
-    sendUpdates: 'all', // Google auto-sends invitation email to attendees
-    requestBody: {
-      summary: `Flurbix Demo — ${company}`,
-      description,
-      start: { dateTime: startDateTime.toISOString(), timeZone: timezone },
-      end:   { dateTime: endDateTime.toISOString(),   timeZone: timezone },
-      attendees: [
-        { email: env.GOOGLE_CALENDAR_ID, responseStatus: 'accepted'    },
-        { email: customerEmail,          responseStatus: 'needsAction' },
-      ],
-      conferenceData: {
-        createRequest: {
-          requestId: `flurbix-demo-${Date.now()}`,
-          conferenceSolutionKey: { type: 'hangoutsMeet' },
+  try {
+    const response = await calendar.events.insert({
+      calendarId: env.GOOGLE_CALENDAR_ID,
+      conferenceDataVersion: 1,
+      sendUpdates: 'all', // Google auto-sends invitation email to attendees
+      requestBody: {
+        summary: `Flurbix Demo — ${company}`,
+        description,
+        start: { dateTime: startDateTime.toISOString(), timeZone: timezone },
+        end:   { dateTime: endDateTime.toISOString(),   timeZone: timezone },
+        attendees: [
+          { email: env.GOOGLE_CALENDAR_ID, responseStatus: 'accepted'    },
+          { email: customerEmail,          responseStatus: 'needsAction' },
+        ],
+        conferenceData: {
+          createRequest: {
+            requestId: `flurbix-demo-${Date.now()}`,
+            conferenceSolutionKey: { type: 'hangoutsMeet' },
+          },
+        },
+        reminders: {
+          useDefault: false,
+          overrides: [
+            { method: 'email', minutes: 24 * 60 },
+            { method: 'popup', minutes: 15 },
+          ],
         },
       },
-      reminders: {
-        useDefault: false,
-        overrides: [
-          { method: 'email', minutes: 24 * 60 },
-          { method: 'popup', minutes: 15 },
-        ],
-      },
-    },
-  });
+    });
 
-  const created = response.data;
-  return {
-    id: created.id || '',
-    summary: created.summary || '',
-    start: { dateTime: created.start?.dateTime || '' },
-    end:   { dateTime: created.end?.dateTime   || '' },
-    status: created.status || 'confirmed',
-    hangoutLink: created.hangoutLink || undefined,
-  };
+    const created = response.data;
+    return {
+      id: created.id || '',
+      summary: created.summary || '',
+      start: { dateTime: created.start?.dateTime || '' },
+      end:   { dateTime: created.end?.dateTime   || '' },
+      status: created.status || 'confirmed',
+      hangoutLink: created.hangoutLink || undefined,
+    };
+  } catch (error: any) {
+    handleGoogleApiError(error, 'createBooking');
+  }
+}
+
+function handleGoogleApiError(error: any, actionName: string): never {
+  const isInvalidGrant =
+    error.message?.includes('invalid_grant') ||
+    error.response?.data?.error === 'invalid_grant';
+
+  if (isInvalidGrant) {
+    console.error(
+      `❌ [Google Calendar Service] OAuth error during ${actionName}: invalid_grant.\n` +
+      `   Your GOOGLE_REFRESH_TOKEN in .env is invalid, revoked, or expired.\n` +
+      `   👉 FIX: Run 'npm run get-token' locally to re-authenticate sales@flurbix.com and obtain a new refresh token.\n` +
+      `   👉 NOTE: If your GCP OAuth Consent Screen Publishing Status is 'Testing', refresh tokens automatically expire after 7 days! Set status to 'In Production' in GCP Console.`
+    );
+  } else {
+    console.error(`[Google Calendar Service] Error during ${actionName}:`, error.message || error);
+  }
+  throw error;
 }
