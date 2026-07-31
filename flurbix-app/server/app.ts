@@ -23,8 +23,9 @@ app.set("trust proxy", true);
 // We still configure CORS as a safety net for direct API access or future sub-domain setups.
 const allowedOrigins = [
   env.ALLOWED_ORIGIN,
-  "http://localhost:5174",
   "http://localhost:5173",
+  "http://localhost:5174",
+  "http://localhost:5175",
   "https://schilling-smoked-twitch.ngrok-free.dev",
 ];
 

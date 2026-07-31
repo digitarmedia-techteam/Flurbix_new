@@ -110,13 +110,29 @@ export async function bookMeetingHandler(req: Request, res: Response): Promise<v
     origin: siteOrigin,
   };
 
-  // --- Send emails (non-blocking: a failed email must not fail the booking) ---
-  Promise.all([
-    sendSalesNotificationEmail(emailData)
-      .catch(e => console.error('[bookMeeting] Sales email error:', e.message)),
-    sendCustomerConfirmationEmail(emailData)
-      .catch(e => console.error('[bookMeeting] Customer email error:', e.message)),
-  ]);
+  // --- Send emails and track status ---
+  let elasticEmailStatus = 'success';
+  let elasticEmailError = null;
+
+  try {
+    const results = await Promise.allSettled([
+      sendSalesNotificationEmail(emailData),
+      sendCustomerConfirmationEmail(emailData)
+    ]);
+
+    const failed = results.filter(r => r.status === 'rejected');
+    if (failed.length > 0) {
+      elasticEmailStatus = 'failed';
+      elasticEmailError = (failed[0] as PromiseRejectedResult).reason.message;
+      console.error('[bookMeeting] Elastic Email failed:', failed.map(f => (f as PromiseRejectedResult).reason.message).join(', '));
+    } else {
+      console.log('[bookMeeting] Elastic Emails sent successfully.');
+    }
+  } catch (err: any) {
+    elasticEmailStatus = 'failed';
+    elasticEmailError = err.message;
+    console.error('[bookMeeting] Unexpected error sending Elastic Emails:', err.message);
+  }
 
   res.status(201).json({
     message:            'Meeting booked successfully.',
@@ -126,5 +142,10 @@ export async function bookMeetingHandler(req: Request, res: Response): Promise<v
     fullMeetingDetails,
     readableDate,
     meetingTimeStr:     time,
+    deliveryStatus: {
+      google: 'success', // If createBooking succeeds, Google sends the invite automatically
+      elastic: elasticEmailStatus,
+      elasticError: elasticEmailError
+    }
   });
 }

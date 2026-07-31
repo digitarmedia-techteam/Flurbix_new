@@ -1102,7 +1102,16 @@ document.addEventListener("DOMContentLoaded", () => {
     "July", "August", "September", "October", "November", "December"
   ];
 
-  const timeSlots = ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM", "03:00 PM", "03:30 PM", "04:00 PM", "04:30 PM", "05:00 PM", "05:30 PM", "06:00 PM"];
+  const timeSlots = ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM", "03:00 PM", "03:30 PM", "04:00 PM", "04:30 PM", "05:00 PM", "05:30 PM", "06:00 PM", "06:30 PM"];
+
+  const slotToMinutes = (slot: string): number => {
+    const [timePart, period] = slot.split(' ');
+    const [h, m] = timePart.split(':').map(Number);
+    let hour = h;
+    if (period === 'PM' && hour < 12) hour += 12;
+    if (period === 'AM' && hour === 12) hour = 0;
+    return hour * 60 + m;
+  };
 
   // Return pre-seeded booked slots for a given date deterministically
   const getPreseededBookedSlots = (date: Date): string[] => {
@@ -1182,8 +1191,8 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         btn.addEventListener("click", () => {
           selectedDateObj = cellDate;
-          selectedTimeSlot = null; // reset slot selection
-          confirmBookingBtn.disabled = true;
+          selectedTimeSlot = "10:00 AM"; // Default to 10:00 AM
+          confirmBookingBtn.disabled = false;
 
           renderCalendar();
           renderSlotsForDate(cellDate, cellDateString);
@@ -1224,7 +1233,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     calendarSlotsContainer.innerHTML = "";
 
+    const today = new Date();
+    const isToday = dateObj.getFullYear() === today.getFullYear() &&
+                    dateObj.getMonth() === today.getMonth() &&
+                    dateObj.getDate() === today.getDate();
+    const currentMinutes = today.getHours() * 60 + today.getMinutes();
+
+    if (isToday && currentMinutes > 18 * 60) {
+      calendarSlotsContainer.innerHTML = '<div style="text-align:center;padding:1.5rem 1rem;color:#6B7280;font-size:0.875rem;">No slots available for the rest of today.</div>';
+      selectedTimeSlot = null;
+      confirmBookingBtn.disabled = true;
+      return;
+    }
+
+    let firstAvailableSlot: string | null = null;
+    let isSelectedSlotAvailable = false;
+
     timeSlots.forEach(slot => {
+      // Hide slots strictly after 6:00 PM
+      if (slotToMinutes(slot) > 18 * 60) {
+        return;
+      }
+
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "slot-button";
@@ -1236,10 +1266,13 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.disabled = true;
         btn.innerHTML = `<span>${slot}</span><span class="booked-badge">Booked</span>`;
       } else {
-        btn.innerHTML = `<span>${slot}</span>`;
-        if (selectedTimeSlot === slot) {
-          btn.classList.add("is-selected");
+        if (!firstAvailableSlot) {
+          firstAvailableSlot = slot;
         }
+        if (selectedTimeSlot === slot) {
+          isSelectedSlotAvailable = true;
+        }
+        btn.innerHTML = `<span>${slot}</span>`;
 
         btn.addEventListener("click", () => {
           const prevSelected = calendarSlotsContainer.querySelector(".slot-button.is-selected");
@@ -1253,6 +1286,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
       calendarSlotsContainer.appendChild(btn);
     });
+
+    if (!isSelectedSlotAvailable && firstAvailableSlot) {
+      selectedTimeSlot = firstAvailableSlot;
+    }
+
+    if (!firstAvailableSlot) {
+      selectedTimeSlot = null;
+      confirmBookingBtn.disabled = true;
+    } else {
+      confirmBookingBtn.disabled = false;
+      const selectedBtn = Array.from(calendarSlotsContainer.querySelectorAll(".slot-button")).find(btn => btn.textContent?.includes(selectedTimeSlot!));
+      if (selectedBtn) {
+        selectedBtn.classList.add("is-selected");
+      }
+    }
   };
 
   prevMonthBtn.addEventListener("click", () => {
@@ -1475,6 +1523,17 @@ document.addEventListener("DOMContentLoaded", () => {
         if (hangoutMeetUrl) {
           formattedConfirmedDetails += `<br><span style="display:inline-block; margin-top:0.5rem; word-break: break-all; font-weight: normal; font-size: 0.95rem;">🎥 Google Meet Link: <a href="${hangoutMeetUrl}" target="_blank" style="color:#0B4FFF; text-decoration:underline;">${hangoutMeetUrl}</a></span>`;
         }
+
+        const ds = resData.deliveryStatus;
+        if (ds) {
+          formattedConfirmedDetails += `<div style="margin-top:1rem; padding: 0.75rem; background-color: #f3f4f6; border-radius: 6px; font-size: 0.85rem; color: #374151;">
+            <div style="font-weight: 600; margin-bottom: 0.25rem;">Email Delivery Status:</div>
+            <div><span style="color:${ds.google === 'success' ? '#059669' : '#dc2626'}">●</span> Google Calendar Invite: ${ds.google === 'success' ? 'Sent' : 'Failed'}</div>
+            <div><span style="color:${ds.elastic === 'success' ? '#059669' : '#dc2626'}">●</span> Flurbix Confirmation Email: ${ds.elastic === 'success' ? 'Sent' : 'Failed'}</div>
+            ${ds.elastic === 'failed' ? `<div style="color:#dc2626; font-size: 0.8rem; margin-top:0.25rem;">Error: ${ds.elasticError}</div>` : ''}
+          </div>`;
+        }
+
         if (detailsTime) {
           detailsTime.innerHTML = formattedConfirmedDetails;
         }
@@ -1492,7 +1551,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const demoInfo = document.querySelector(".demo_info") as HTMLElement;
           if (demoInfo) {
             demoInfo.style.display = "none";
-          }        
+          }
           // Change layout to centered single column
           const demoContent = document.querySelector(".demo_content") as HTMLElement;
           if (demoContent) {

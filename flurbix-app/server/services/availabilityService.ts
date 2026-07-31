@@ -11,13 +11,13 @@ export function generateAllSlots(): string[] {
   const { CALENDAR_BUSINESS_START, CALENDAR_BUSINESS_END, CALENDAR_SLOT_DURATION_MINUTES } = env;
 
   let currentMinutes = CALENDAR_BUSINESS_START * 60;
-  const endMinutes   = CALENDAR_BUSINESS_END * 60;
+  const endMinutes = CALENDAR_BUSINESS_END * 60;
 
-  while (currentMinutes < endMinutes) {
-    const h24    = Math.floor(currentMinutes / 60);
-    const min    = currentMinutes % 60;
+  while (currentMinutes <= endMinutes) {
+    const h24 = Math.floor(currentMinutes / 60);
+    const min = currentMinutes % 60;
     const period = h24 >= 12 ? 'PM' : 'AM';
-    const h12    = h24 === 0 ? 12 : h24 > 12 ? h24 - 12 : h24;
+    const h12 = h24 === 0 ? 12 : h24 > 12 ? h24 - 12 : h24;
     slots.push(`${String(h12).padStart(2, '0')}:${String(min).padStart(2, '0')} ${period}`);
     currentMinutes += CALENDAR_SLOT_DURATION_MINUTES;
   }
@@ -52,7 +52,7 @@ function isPastDate(dateStr: string): boolean {
  * A slot is occupied when any calendar event overlaps its time window.
  */
 async function getOccupiedSlots(dateStr: string): Promise<string[]> {
-  const events   = await getEventsForDay(dateStr);
+  const events = await getEventsForDay(dateStr);
   const allSlots = generateAllSlots();
   const { CALENDAR_SLOT_DURATION_MINUTES } = env;
   const occupied: string[] = [];
@@ -68,13 +68,13 @@ async function getOccupiedSlots(dateStr: string): Promise<string[]> {
 
     const pad = (n: number | string) => String(n).padStart(2, '0');
     const slotStartDate = new Date(`${yearStr}-${pad(monthStr)}-${pad(dayStr)}T${pad(hour)}:${pad(m)}:00+05:30`);
-    const slotEndDate   = new Date(slotStartDate.getTime() + CALENDAR_SLOT_DURATION_MINUTES * 60 * 1000);
+    const slotEndDate = new Date(slotStartDate.getTime() + CALENDAR_SLOT_DURATION_MINUTES * 60 * 1000);
 
     for (const event of events) {
       if (!event.start.dateTime) continue;
 
       const evStartDate = new Date(event.start.dateTime);
-      const evEndDate   = new Date(event.end.dateTime);
+      const evEndDate = new Date(event.end.dateTime);
 
       // Overlap: [slotStartDate, slotEndDate) ∩ [evStartDate, evEndDate) ≠ ∅
       if (slotStartDate < evEndDate && slotEndDate > evStartDate) {
@@ -98,11 +98,11 @@ export async function getAvailableSlots(dateStr: string): Promise<string[]> {
   const occupied = await getOccupiedSlots(dateStr);
 
   // On today, also filter out slots that have already passed (+ 30-min buffer)
-  const now      = new Date();
-  const istNow   = new Date(now.getTime() + 330 * 60 * 1000);
+  const now = new Date();
+  const istNow = new Date(now.getTime() + 330 * 60 * 1000);
   const todayStr = `${istNow.getUTCFullYear()}-${String(istNow.getUTCMonth() + 1).padStart(2, '0')}-${String(istNow.getUTCDate()).padStart(2, '0')}`;
-  const isToday  = dateStr === todayStr;
-  const nowMins  = istNow.getUTCHours() * 60 + istNow.getUTCMinutes() + 30; // 30-min buffer in IST
+  const isToday = dateStr === todayStr;
+  const nowMins = istNow.getUTCHours() * 60 + istNow.getUTCMinutes() + 30; // 30-min buffer in IST
 
   return allSlots.filter(slot => {
     if (occupied.includes(slot)) return false;

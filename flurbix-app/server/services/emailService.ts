@@ -63,10 +63,17 @@ async function sendEmail(params: {
     body: payload.toString(),
   });
 
-  const result = (await response.json()) as {
-    success: boolean;
-    error?: string;
-  };
+  const text = await response.text();
+  console.log(`[Elastic Email Service] HTTP Status: ${response.status}`);
+  console.log(`[Elastic Email Service] Raw Response:`, text);
+
+  let result;
+  try {
+    result = JSON.parse(text);
+  } catch (err) {
+    throw new Error(`Elastic Email returned non-JSON response: ${text}`);
+  }
+
   if (!result.success) {
     if (result.error === "APIKey Expired" && env.NODE_ENV === "development") {
       console.warn(
@@ -76,6 +83,8 @@ async function sendEmail(params: {
       return;
     }
     throw new Error(result.error || "Elastic Email send failed");
+  } else {
+    console.log(`[Elastic Email Service] Email accepted for delivery. Transaction ID: ${result.data?.transactionid}`);
   }
 }
 
