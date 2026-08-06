@@ -311,6 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
             gsap.set("#hero-m-blue", { drawSVG: 0 });
 
             const heroMobile = document.querySelector(".hero_mobile");
+            if (!heroMobile) return; // hero_mobile element not present, skip mobile animations
             const heroSteps = document.querySelectorAll(".hero_m-card-wrap");
             const prompt = document.querySelectorAll(".hero_m-prompt");
             const step1 = heroMobile.querySelector("[step1-wrap]");
