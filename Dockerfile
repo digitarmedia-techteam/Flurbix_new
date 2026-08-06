@@ -13,9 +13,9 @@ RUN npm ci
 COPY flurbix-app/ ./
 
 # Build Vite frontend into dist/
-RUN npx vite build
+RUN npm run build
 
 EXPOSE 5173
 
 # Start Express — serves /api routes + dist/ static files
-CMD ["npx", "tsx", "server/server.ts"]
+CMD ["npm", "start"]
